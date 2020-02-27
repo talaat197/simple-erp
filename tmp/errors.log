@@ -1,0 +1,49 @@
+[27-Feb-2020 11:59:32 Europe/Berlin] 0:shan:xpMenu.class.php:28: Methods with the same name as their class will not be constructors in a future version of PHP; xpMenu has a deprecated constructor
+[27-Feb-2020 11:59:32 Europe/Berlin] 0:shan:xpMenu.class.php:211: The each() function is deprecated. This message will be suppressed on further calls
+[27-Feb-2020 11:59:32 Europe/Berlin] 0:shan:xpMenu.class.php:218: Variable passed to each() is not an array or object
+[27-Feb-2020 11:59:35 Europe/Berlin] 0:shan:xpMenu.class.php:28: Methods with the same name as their class will not be constructors in a future version of PHP; xpMenu has a deprecated constructor
+[27-Feb-2020 11:59:35 Europe/Berlin] 0:shan:xpMenu.class.php:211: The each() function is deprecated. This message will be suppressed on further calls
+[27-Feb-2020 11:59:35 Europe/Berlin] 0:shan:xpMenu.class.php:218: Variable passed to each() is not an array or object
+[27-Feb-2020 11:59:36 Europe/Berlin] 0:shan:xpMenu.class.php:28: Methods with the same name as their class will not be constructors in a future version of PHP; xpMenu has a deprecated constructor
+[27-Feb-2020 11:59:36 Europe/Berlin] 0:shan:xpMenu.class.php:211: The each() function is deprecated. This message will be suppressed on further calls
+[27-Feb-2020 11:59:36 Europe/Berlin] 0:shan:xpMenu.class.php:218: Variable passed to each() is not an array or object
+[27-Feb-2020 11:59:41 Europe/Berlin] 0:shan:xpMenu.class.php:28: Methods with the same name as their class will not be constructors in a future version of PHP; xpMenu has a deprecated constructor
+[27-Feb-2020 11:59:41 Europe/Berlin] 0:shan:xpMenu.class.php:211: The each() function is deprecated. This message will be suppressed on further calls
+[27-Feb-2020 11:59:41 Europe/Berlin] 0:shan:xpMenu.class.php:218: Variable passed to each() is not an array or object
+[27-Feb-2020 11:59:42 Europe/Berlin] 0:shan:xpMenu.class.php:28: Methods with the same name as their class will not be constructors in a future version of PHP; xpMenu has a deprecated constructor
+[27-Feb-2020 11:59:42 Europe/Berlin] 0:shan:xpMenu.class.php:211: The each() function is deprecated. This message will be suppressed on further calls
+[27-Feb-2020 11:59:42 Europe/Berlin] 0:shan:xpMenu.class.php:218: Variable passed to each() is not an array or object
+[27-Feb-2020 11:59:42 Europe/Berlin] 0:shan:xpMenu.class.php:28: Methods with the same name as their class will not be constructors in a future version of PHP; xpMenu has a deprecated constructor
+[27-Feb-2020 11:59:42 Europe/Berlin] 0:shan:xpMenu.class.php:211: The each() function is deprecated. This message will be suppressed on further calls
+[27-Feb-2020 11:59:42 Europe/Berlin] 0:shan:xpMenu.class.php:218: Variable passed to each() is not an array or object
+[27-Feb-2020 11:59:43 Europe/Berlin] 0:shan:xpMenu.class.php:28: Methods with the same name as their class will not be constructors in a future version of PHP; xpMenu has a deprecated constructor
+[27-Feb-2020 11:59:43 Europe/Berlin] 0:shan:xpMenu.class.php:211: The each() function is deprecated. This message will be suppressed on further calls
+[27-Feb-2020 11:59:43 Europe/Berlin] 0:shan:xpMenu.class.php:218: Variable passed to each() is not an array or object
+[27-Feb-2020 11:59:43 Europe/Berlin] 0:shan:xpMenu.class.php:28: Methods with the same name as their class will not be constructors in a future version of PHP; xpMenu has a deprecated constructor
+[27-Feb-2020 11:59:43 Europe/Berlin] 0:shan:xpMenu.class.php:211: The each() function is deprecated. This message will be suppressed on further calls
+[27-Feb-2020 11:59:43 Europe/Berlin] 0:shan:xpMenu.class.php:218: Variable passed to each() is not an array or object
+[27-Feb-2020 11:59:44 Europe/Berlin] 0:shan:xpMenu.class.php:28: Methods with the same name as their class will not be constructors in a future version of PHP; xpMenu has a deprecated constructor
+[27-Feb-2020 11:59:44 Europe/Berlin] 0:shan:xpMenu.class.php:211: The each() function is deprecated. This message will be suppressed on further calls
+[27-Feb-2020 11:59:44 Europe/Berlin] 0:shan:xpMenu.class.php:218: Variable passed to each() is not an array or object
+[27-Feb-2020 11:59:47 Europe/Berlin] 0:shan:xpMenu.class.php:28: Methods with the same name as their class will not be constructors in a future version of PHP; xpMenu has a deprecated constructor
+[27-Feb-2020 11:59:47 Europe/Berlin] 0:shan:xpMenu.class.php:211: The each() function is deprecated. This message will be suppressed on further calls
+[27-Feb-2020 11:59:47 Europe/Berlin] 0:shan:xpMenu.class.php:218: Variable passed to each() is not an array or object
+[27-Feb-2020 12:17:25 Europe/Berlin] 0:shan:gl_db_rates.inc:145: file_get_contents(https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml): failed to open stream: Connection timed out
+[27-Feb-2020 12:22:00 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
+[27-Feb-2020 12:22:03 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
+[27-Feb-2020 12:22:03 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
+[27-Feb-2020 12:22:04 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
+[27-Feb-2020 12:22:05 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
+[27-Feb-2020 12:22:13 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
+[27-Feb-2020 12:22:25 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
+[27-Feb-2020 12:22:25 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
+[27-Feb-2020 12:22:25 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
+[27-Feb-2020 12:22:28 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
+[27-Feb-2020 12:22:28 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
+[27-Feb-2020 12:22:29 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
+[27-Feb-2020 12:22:29 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
+[27-Feb-2020 12:22:29 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
+[27-Feb-2020 12:22:31 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
+[27-Feb-2020 12:22:31 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
+[27-Feb-2020 12:22:32 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
+[27-Feb-2020 12:22:32 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
