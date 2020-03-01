@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: FrontAccounting Install Wizard\n"
+"Project-Id-Version: AgroPhos Install Wizard\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-11 13:17+0100\n"
 "PO-Revision-Date: 2013-09-08 10:56+0100\n"
-"Last-Translator: Mário Batista <mariorbatista@gmail.com>\n"
+"Last-Translator: Mï¿½rio Batista <mariorbatista@gmail.com>\n"
 "Language-Team: Mario Batista <mariorbatista@gmail.com>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: /install/index.php:20 /install/index.php:41
 msgid "FrontAccouting ERP Installation Wizard"
-msgstr "Assistente de Instalação do FrontAccouting ERP"
+msgstr "Assistente de Instalaï¿½ï¿½o do FrontAccouting ERP"
 
 #: /install/index.php:42
 #, php-format
@@ -34,11 +34,11 @@ msgstr "Plano de contas"
 
 #: /install/index.php:49 /install/index.php:76
 msgid "Encoding"
-msgstr "Codificação"
+msgstr "Codificaï¿½ï¿½o"
 
 #: /install/index.php:49 /install/index.php:76
 msgid "Description"
-msgstr "Descrição"
+msgstr "Descriï¿½ï¿½o"
 
 #: /install/index.php:49 /install/index.php:76 /install/index.php:395
 msgid "Install"
@@ -54,27 +54,27 @@ msgstr "Idioma"
 
 #: /install/index.php:124
 msgid "Cannot connect to database. User or password is invalid or you have no permittions to create database."
-msgstr "Não é possível conectar à base de dados. Utilizador ou chave inválidos ou não possui permissões para criar a base de dados."
+msgstr "Nï¿½o ï¿½ possï¿½vel conectar ï¿½ base de dados. Utilizador ou chave invï¿½lidos ou nï¿½o possui permissï¿½es para criar a base de dados."
 
 #: /install/index.php:164
 msgid "Cannot save system configuration file 'config.php'."
-msgstr "Não é possível gravar o ficheiro de configuração do sistema 'config.php'."
+msgstr "Nï¿½o ï¿½ possï¿½vel gravar o ficheiro de configuraï¿½ï¿½o do sistema 'config.php'."
 
 #: /install/index.php:171
 msgid "Cannot open 'config_db.php' configuration file."
-msgstr "Não é possível abrir o ficheiro de configuração 'config_db.php'."
+msgstr "Nï¿½o ï¿½ possï¿½vel abrir o ficheiro de configuraï¿½ï¿½o 'config_db.php'."
 
 #: /install/index.php:174
 msgid "Cannot write to the 'config_db.php' configuration file."
-msgstr "Não é possível escrever no ficheiro de configuração 'config_db.php'."
+msgstr "Nï¿½o ï¿½ possï¿½vel escrever no ficheiro de configuraï¿½ï¿½o 'config_db.php'."
 
 #: /install/index.php:177
 msgid "Configuration file 'config_db.php' is not writable. Change its permissions so it is, then re-run installation step."
-msgstr "Ficheiro de configuração 'config_db.php' não é gravável. Deve alterar as permissões da pasta do FA para gravável, então reinstale passo a passo."
+msgstr "Ficheiro de configuraï¿½ï¿½o 'config_db.php' nï¿½o ï¿½ gravï¿½vel. Deve alterar as permissï¿½es da pasta do FA para gravï¿½vel, entï¿½o reinstale passo a passo."
 
 #: /install/index.php:216
 msgid "Host name cannot be empty."
-msgstr "O nome da máquina deve ser preenchido."
+msgstr "O nome da mï¿½quina deve ser preenchido."
 
 #: /install/index.php:220
 msgid "Database user name cannot be empty."
@@ -102,15 +102,15 @@ msgstr "As passwords do administrador da empresa diferem."
 
 #: /install/index.php:320
 msgid "System Diagnostics"
-msgstr "Diagnóstico do Sistema"
+msgstr "Diagnï¿½stico do Sistema"
 
 #: /install/index.php:322
 msgid "Select install wizard language:"
-msgstr "Selecione o idioma do assistente de instalação:"
+msgstr "Selecione o idioma do assistente de instalaï¿½ï¿½o:"
 
 #: /install/index.php:328
 msgid "All application preliminary requirements seems to be correct. Please press Continue button below."
-msgstr "Todos os pré-requisitos da aplicação parecem estar corretos. Por favor clique em Continuar."
+msgstr "Todos os prï¿½-requisitos da aplicaï¿½ï¿½o parecem estar corretos. Por favor clique em Continuar."
 
 #: /install/index.php:329 /install/index.php:357 /install/index.php:364
 #: /install/index.php:371
@@ -119,7 +119,7 @@ msgstr "Continuar >>"
 
 #: /install/index.php:331
 msgid "Application cannot be installed. Please fix problems listed below in red, and press Refresh button."
-msgstr "O aplicativo não pode ser instalado. Por favor corrija os problemas listados abaixo a vermelho, e clique em Atualizar."
+msgstr "O aplicativo nï¿½o pode ser instalado. Por favor corrija os problemas listados abaixo a vermelho, e clique em Atualizar."
 
 #: /install/index.php:332
 msgid "Refresh"
@@ -127,7 +127,7 @@ msgstr "Atualizar"
 
 #: /install/index.php:342
 msgid "Database Server Settings"
-msgstr "Configuração da Base de Dados"
+msgstr "Configuraï¿½ï¿½o da Base de Dados"
 
 #: /install/index.php:344
 msgid "Server Host:"
@@ -161,15 +161,15 @@ msgstr "Sim"
 #: /install/index.php:349 /includes/system_tests.inc:38
 #: /includes/system_tests.inc:113 /includes/system_tests.inc:126
 msgid "No"
-msgstr "Não"
+msgstr "Nï¿½o"
 
 #: /install/index.php:350
 msgid "Install Additional Language Packs from FA Repository:"
-msgstr "Instalar Suporte de Idiomas Adicionais do Repositório do FA:"
+msgstr "Instalar Suporte de Idiomas Adicionais do Repositï¿½rio do FA:"
 
 #: /install/index.php:351
 msgid "Install Additional COAs from FA Repository:"
-msgstr "Instalar Plano de Contas do Repositório do FA:"
+msgstr "Instalar Plano de Contas do Repositï¿½rio do FA:"
 
 #: /install/index.php:353
 msgid "Select collation you want to use. If you are unsure or you will use various languages, select unicode collation."
@@ -181,7 +181,7 @@ msgstr ""
 
 #: /install/index.php:355
 msgid "Do not select additional langs nor COAs if you have no working internet connection right now. You can install them later."
-msgstr "Não selecione Idiomas Adicionais nem Plano de Contas se não possui uma conexão à internet. Poderá instalar mais tarde."
+msgstr "Nï¿½o selecione Idiomas Adicionais nem Plano de Contas se nï¿½o possui uma conexï¿½o ï¿½ internet. Poderï¿½ instalar mais tarde."
 
 #: /install/index.php:356 /install/index.php:363 /install/index.php:370
 #: /install/index.php:394
@@ -190,15 +190,15 @@ msgstr "<< Voltar"
 
 #: /install/index.php:361
 msgid "User Interface Languages Selection"
-msgstr "Seleção da Idioma da Interface"
+msgstr "Seleï¿½ï¿½o da Idioma da Interface"
 
 #: /install/index.php:368
 msgid "Charts of Accounts Selection"
-msgstr "Seleção do Plano de Contas"
+msgstr "Seleï¿½ï¿½o do Plano de Contas"
 
 #: /install/index.php:385
 msgid "Company Settings"
-msgstr "Configuração da Empresa"
+msgstr "Configuraï¿½ï¿½o da Empresa"
 
 #: /install/index.php:387
 msgid "Company Name:"
@@ -222,19 +222,19 @@ msgstr "Selecionar Plano de Contas:"
 
 #: /install/index.php:392
 msgid "Select Default Language:"
-msgstr "Selecionar Idioma Padrão:"
+msgstr "Selecionar Idioma Padrï¿½o:"
 
 #: /install/index.php:395
 msgid "Start installation process"
 msgstr ""
 
 #: /install/index.php:399
-msgid "FrontAccounting ERP has been installed successsfully."
-msgstr "O FrontAccounting ERP foi instalado com sucesso."
+msgid "AgroPhos ERP has been installed successsfully."
+msgstr "O AgroPhos ERP foi instalado com sucesso."
 
 #: /install/index.php:400
 msgid "Please do not forget to remove install wizard folder."
-msgstr "Por favor não se esqueça de remover a pasta de instalação do assistente."
+msgstr "Por favor nï¿½o se esqueï¿½a de remover a pasta de instalaï¿½ï¿½o do assistente."
 
 #: /install/index.php:403
 msgid "Click here to start."
@@ -258,27 +258,27 @@ msgstr "Requerido "
 
 #: /includes/system_tests.inc:24
 msgid "MySQL version"
-msgstr "Versão do MySQL"
+msgstr "Versï¿½o do MySQL"
 
 #: /includes/system_tests.inc:28
 msgid "Upgrade MySQL server to version at least 4.1"
-msgstr "Atualize o servidor MySQL para versão 4.1 ou superior"
+msgstr "Atualize o servidor MySQL para versï¿½o 4.1 ou superior"
 
 #: /includes/system_tests.inc:35
 msgid "PHP MySQL extension"
-msgstr "Extensão PHP MySQL"
+msgstr "Extensï¿½o PHP MySQL"
 
 #: /includes/system_tests.inc:40
 msgid "Your PHP has to have MySQL extension enabled."
-msgstr "Seu PHP deve ter extensão de MySQL habilitada."
+msgstr "Seu PHP deve ter extensï¿½o de MySQL habilitada."
 
 #: /includes/system_tests.inc:46
 msgid "PHP version"
-msgstr "Versão do PHP"
+msgstr "Versï¿½o do PHP"
 
 #: /includes/system_tests.inc:50
 msgid "Upgrade PHP to version at least 5.0.0"
-msgstr "Atualize o PHP para versão 5.0.0 ou superior"
+msgstr "Atualize o PHP para versï¿½o 5.0.0 ou superior"
 
 #: /includes/system_tests.inc:57
 msgid "Server system"
@@ -286,19 +286,19 @@ msgstr "Sistema do Servidor"
 
 #: /includes/system_tests.inc:67
 msgid "Session save path"
-msgstr "Endereço de gravação da seção"
+msgstr "Endereï¿½o de gravaï¿½ï¿½o da seï¿½ï¿½o"
 
 #: /includes/system_tests.inc:79
 msgid "Removed install wizard folder"
-msgstr "Removida a pasta do assistente de instalação"
+msgstr "Removida a pasta do assistente de instalaï¿½ï¿½o"
 
 #: /includes/system_tests.inc:82
 msgid "Not removed"
-msgstr "Não removido"
+msgstr "Nï¿½o removido"
 
 #: /includes/system_tests.inc:83
 msgid "Remove or rename install wizard folder for security reasons."
-msgstr "Remova ou renomeie a pasta do assistente de instalação por motivos de segurança."
+msgstr "Remova ou renomeie a pasta do assistente de instalaï¿½ï¿½o por motivos de seguranï¿½a."
 
 #: /includes/system_tests.inc:90
 msgid "Browser type"
@@ -306,7 +306,7 @@ msgstr "Tipo de browser"
 
 #: /includes/system_tests.inc:94
 msgid "Any browser is supported"
-msgstr "Qualquer browser é compatível"
+msgstr "Qualquer browser ï¿½ compatï¿½vel"
 
 #: /includes/system_tests.inc:101
 msgid "Http server type"
@@ -314,7 +314,7 @@ msgstr "Tipo de servidor Http"
 
 #: /includes/system_tests.inc:105
 msgid "Any server is supported"
-msgstr "Qualquer servidor é compatível"
+msgstr "Qualquer servidor ï¿½ compatï¿½vel"
 
 #: /includes/system_tests.inc:112
 msgid "Native gettext"
@@ -322,15 +322,15 @@ msgstr "gettext nativo"
 
 #: /includes/system_tests.inc:116
 msgid "In case of no gettext support, php emulation is used"
-msgstr "Na falta de suporte getext, a emulação do php será utilizada"
+msgstr "Na falta de suporte getext, a emulaï¿½ï¿½o do php serï¿½ utilizada"
 
 #: /includes/system_tests.inc:124
 msgid "Debugging mode"
-msgstr "Modo de depuração (debug)"
+msgstr "Modo de depuraï¿½ï¿½o (debug)"
 
 #: /includes/system_tests.inc:128
 msgid "To switch debugging on set $go_debug>0 in config.php file"
-msgstr "Para ativar depuração (debug) inclua $go_debug>0 no ficheiro config.php"
+msgstr "Para ativar depuraï¿½ï¿½o (debug) inclua $go_debug>0 no ficheiro config.php"
 
 #: /includes/system_tests.inc:138
 msgid "Error logging"
@@ -346,19 +346,19 @@ msgstr "Para alternar erros de login inclua $error_logging no ficheiro config.ph
 
 #: /includes/system_tests.inc:152
 msgid "Log file is not writeable"
-msgstr "Ficheiro de log não é gravável"
+msgstr "Ficheiro de log nï¿½o ï¿½ gravï¿½vel"
 
 #: /includes/system_tests.inc:162
 msgid "Current database version"
-msgstr "Versão da base de dados atual"
+msgstr "Versï¿½o da base de dados atual"
 
 #: /includes/system_tests.inc:166
 msgid "Database structure seems to be not upgraded to current version"
-msgstr "A estrutura da base de dados não foi atualizada para a versão atual"
+msgstr "A estrutura da base de dados nï¿½o foi atualizada para a versï¿½o atual"
 
 #: /includes/system_tests.inc:181
 msgid "Company subdirectories consistency"
-msgstr "Consistência de sub-pastas da empresa"
+msgstr "Consistï¿½ncia de sub-pastas da empresa"
 
 #: /includes/system_tests.inc:194 /includes/system_tests.inc:201
 #: /includes/system_tests.inc:209 /includes/system_tests.inc:226
@@ -366,28 +366,28 @@ msgstr "Consistência de sub-pastas da empresa"
 #: /includes/system_tests.inc:359 /includes/system_tests.inc:367
 #, php-format
 msgid "'%s' is not writeable"
-msgstr "'%s' não é gravável"
+msgstr "'%s' nï¿½o ï¿½ gravï¿½vel"
 
 #: /includes/system_tests.inc:222
 msgid "Temporary directory"
-msgstr "Pasta temporária"
+msgstr "Pasta temporï¿½ria"
 
 #: /includes/system_tests.inc:234
 msgid "Language configuration consistency"
-msgstr "Consistência de configuração de idioma"
+msgstr "Consistï¿½ncia de configuraï¿½ï¿½o de idioma"
 
 #: /includes/system_tests.inc:243
 msgid "Languages folder should be writeable."
-msgstr "Pasta de idiomas deve ser gravável."
+msgstr "Pasta de idiomas deve ser gravï¿½vel."
 
 #: /includes/system_tests.inc:252
 msgid "Languages configuration file should be writeable."
-msgstr "O ficheiro de configuração de idiomas deve ser gravável."
+msgstr "O ficheiro de configuraï¿½ï¿½o de idiomas deve ser gravï¿½vel."
 
 #: /includes/system_tests.inc:271
 #, php-format
 msgid "Missing %s translation file."
-msgstr "Falta o ficheiro de tradução %s."
+msgstr "Falta o ficheiro de traduï¿½ï¿½o %s."
 
 #: /includes/system_tests.inc:276
 #, php-format
@@ -396,17 +396,17 @@ msgstr "Falta localidade (locale) do sistema: %s"
 
 #: /includes/system_tests.inc:289
 msgid "Main config file"
-msgstr "Ficheiro de configuração principal"
+msgstr "Ficheiro de configuraï¿½ï¿½o principal"
 
 #: /includes/system_tests.inc:296 /includes/system_tests.inc:318
 #, php-format
 msgid "Can't write '%s' file. Check FA directory write permissions."
-msgstr "Não é possível escrever no ficheiro '%s'. Verifique a permissõe de escrita do diretório FA"
+msgstr "Nï¿½o ï¿½ possï¿½vel escrever no ficheiro '%s'. Verifique a permissï¿½e de escrita do diretï¿½rio FA"
 
 #: /includes/system_tests.inc:297 /includes/system_tests.inc:319
 #, php-format
 msgid "'%s' file exists."
-msgstr "O ficheiro '%s' já existe."
+msgstr "O ficheiro '%s' jï¿½ existe."
 
 #: /includes/system_tests.inc:301
 #, php-format
@@ -415,33 +415,33 @@ msgstr "O ficheiro '%s' deve ser somente de leitura"
 
 #: /includes/system_tests.inc:310
 msgid "Database auth file"
-msgstr "Ficheiro de autorização da base de dados"
+msgstr "Ficheiro de autorizaï¿½ï¿½o da base de dados"
 
 #: /includes/system_tests.inc:323
 #, php-format
 msgid "'%s' file should be read-only if you do not plan to add or change companies"
-msgstr "O ficheiro '%s' deve ser somente leitura se não pretende adicionar ou alterar empresas"
+msgstr "O ficheiro '%s' deve ser somente leitura se nï¿½o pretende adicionar ou alterar empresas"
 
 #: /includes/system_tests.inc:334
 msgid "Extensions system"
-msgstr "Sistema de extensões"
+msgstr "Sistema de extensï¿½es"
 
 #: /includes/system_tests.inc:372
 msgid "Extensions configuration files and directories should be writeable"
-msgstr "Extensões de ficheiros de configuração e pastas devem ser graváveis"
+msgstr "Extensï¿½es de ficheiros de configuraï¿½ï¿½o e pastas devem ser gravï¿½veis"
 
 #: /includes/system_tests.inc:385
 #, php-format
 msgid "Non-standard theme directory '%s' is not writable"
-msgstr "Descrição da pasta não-padrão '%s' não é editável"
+msgstr "Descriï¿½ï¿½o da pasta nï¿½o-padrï¿½o '%s' nï¿½o ï¿½ editï¿½vel"
 
 #: /includes/system_tests.inc:395
 msgid "OpenSSL PHP extension have to be enabled to use extension repository system."
-msgstr "A extensão OpenSSL PHP tem que estar habilitada para usar o repositório de extensão."
+msgstr "A extensï¿½o OpenSSL PHP tem que estar habilitada para usar o repositï¿½rio de extensï¿½o."
 
 #: /includes/system_tests.inc:398
 msgid "OpenSSL have to be available on your server to use extension repository system."
-msgstr "OpenSSL deve estar disponível no seu servidor para utilizar o repositório de extensão."
+msgstr "OpenSSL deve estar disponï¿½vel no seu servidor para utilizar o repositï¿½rio de extensï¿½o."
 
 #: /includes/system_tests.inc:421
 msgid "Test"
@@ -457,7 +457,7 @@ msgstr "Valor"
 
 #: /includes/system_tests.inc:421
 msgid "Comments"
-msgstr "Comentários"
+msgstr "Comentï¿½rios"
 
 #: /includes/system_tests.inc:445
 msgid "Ok"
@@ -466,7 +466,7 @@ msgstr "Ok"
 #: /includes/packages.inc:189
 #, php-format
 msgid "No key field '%s' in file '%s'"
-msgstr "Campo chave '%s' no ficheiro '%s' não existe"
+msgstr "Campo chave '%s' no ficheiro '%s' nï¿½o existe"
 
 #: /includes/packages.inc:294
 msgid "Cannot download repo index file."
@@ -479,11 +479,11 @@ msgstr ""
 
 #: /includes/packages.inc:310
 msgid "Release file in repository is invalid, or public key is outdated."
-msgstr "Ficheiro de lançamento no repositório é inválido, ou a chave pública está desatualizada."
+msgstr "Ficheiro de lanï¿½amento no repositï¿½rio ï¿½ invï¿½lido, ou a chave pï¿½blica estï¿½ desatualizada."
 
 #: /includes/packages.inc:327
 msgid "Repository version does not match application version."
-msgstr "Versão do repositório não corresponde à versão da aplicação."
+msgstr "Versï¿½o do repositï¿½rio nï¿½o corresponde ï¿½ versï¿½o da aplicaï¿½ï¿½o."
 
 #: /includes/packages.inc:335 /includes/packages.inc:377
 #, php-format
@@ -493,17 +493,17 @@ msgstr ""
 #: /includes/packages.inc:347
 #, php-format
 msgid "Security alert: broken index file in repository '%s'. Please inform repository administrator about this issue."
-msgstr "ALERTA DE SEGURANÇA: ficheiro de índice danificado no repositório '%s'. Por favor, informe o administrador do repositório sobre este assunto."
+msgstr "ALERTA DE SEGURANï¿½A: ficheiro de ï¿½ndice danificado no repositï¿½rio '%s'. Por favor, informe o administrador do repositï¿½rio sobre este assunto."
 
 #: /includes/packages.inc:383
 #, php-format
 msgid "Security alert: broken package '%s' in repository. Please inform repository administrator about this issue."
-msgstr "ALERTA DE SEGURANÇA: pacote '%s' danificado no repositório. Por favor, informe o administrador do repositório sobre este assunto."
+msgstr "ALERTA DE SEGURANï¿½A: pacote '%s' danificado no repositï¿½rio. Por favor, informe o administrador do repositï¿½rio sobre este assunto."
 
 #: /includes/packages.inc:641 /includes/packages.inc:696
 #, php-format
 msgid "Package '%s' not found."
-msgstr "Pacote '%s' não encontrado."
+msgstr "Pacote '%s' nï¿½o encontrado."
 
 #: install/index.php:361
 msgid ""

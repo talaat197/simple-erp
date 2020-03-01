@@ -1,13 +1,13 @@
-# Frontaccounting ERP Installer
-# Copyright (C) FrontAccounting LLC
-# This file is distributed under the same license as the FrontAccounting package.
+# AgroPhos ERP Installer
+# Copyright (C) AgroPhos LLC
+# This file is distributed under the same license as the AgroPhos package.
 msgid ""
 msgstr ""
-"Project-Id-Version: FrontAccounting Install Wizard\n"
+"Project-Id-Version: AgroPhos Install Wizard\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-11 13:17+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Translation Team <info@frontaccounting.net>\n"
+"Last-Translator: Translation Team <info@AgroPhos.net>\n"
 "Language-Team: Translation Team\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: /install/index.php:20 /install/index.php:41
 msgid "FrontAccouting ERP Installation Wizard"
-msgstr "Asistente de Instalación"
+msgstr "Asistente de Instalaciï¿½n"
 
 #: /install/index.php:42
 #, php-format
@@ -36,7 +36,7 @@ msgstr "Encoding"
 
 #: /install/index.php:49 /install/index.php:76
 msgid "Description"
-msgstr "Descripción"
+msgstr "Descripciï¿½n"
 
 #: /install/index.php:49 /install/index.php:76 /install/index.php:395
 msgid "Install"
@@ -68,7 +68,7 @@ msgstr "No se puede escribir en el archivo 'config_db.php'"
 
 #: /install/index.php:177
 msgid "Configuration file 'config_db.php' is not writable. Change its permissions so it is, then re-run installation step."
-msgstr "El archivo 'config_db.php' no tiene permisos de escritura. Corrige los permisos y reinicia este paso de la instalación."
+msgstr "El archivo 'config_db.php' no tiene permisos de escritura. Corrige los permisos y reinicia este paso de la instalaciï¿½n."
 
 #: /install/index.php:216
 msgid "Host name cannot be empty."
@@ -96,19 +96,19 @@ msgstr "El password de la empresa es requerido."
 
 #: /install/index.php:290
 msgid "Company admin passwords differ."
-msgstr "La confirmación del password del administrador es diferente."
+msgstr "La confirmaciï¿½n del password del administrador es diferente."
 
 #: /install/index.php:320
 msgid "System Diagnostics"
-msgstr "Diagnóstico del sistema"
+msgstr "Diagnï¿½stico del sistema"
 
 #: /install/index.php:322
 msgid "Select install wizard language:"
-msgstr "Selecciona el idioma del asistente de instalación:"
+msgstr "Selecciona el idioma del asistente de instalaciï¿½n:"
 
 #: /install/index.php:328
 msgid "All application preliminary requirements seems to be correct. Please press Continue button below."
-msgstr "Todos los requisitos preliminares estan correctos. Pulsa el botón Continuar"
+msgstr "Todos los requisitos preliminares estan correctos. Pulsa el botï¿½n Continuar"
 
 #: /install/index.php:329 /install/index.php:357 /install/index.php:364
 #: /install/index.php:371
@@ -117,7 +117,7 @@ msgstr "Continuar >>"
 
 #: /install/index.php:331
 msgid "Application cannot be installed. Please fix problems listed below in red, and press Refresh button."
-msgstr "No se puede instalar el sistema. Por favor, corrige los problemas marcados en rojo y presiona el botón recargar. "
+msgstr "No se puede instalar el sistema. Por favor, corrige los problemas marcados en rojo y presiona el botï¿½n recargar. "
 
 #: /install/index.php:332
 msgid "Refresh"
@@ -125,7 +125,7 @@ msgstr "Recargar"
 
 #: /install/index.php:342
 msgid "Database Server Settings"
-msgstr "Configuración del servidor de base de datos"
+msgstr "Configuraciï¿½n del servidor de base de datos"
 
 #: /install/index.php:344
 msgid "Server Host:"
@@ -179,7 +179,7 @@ msgstr ""
 
 #: /install/index.php:355
 msgid "Do not select additional langs nor COAs if you have no working internet connection right now. You can install them later."
-msgstr "No selecciones instalar lenguajes ni COA’s adicionales si en este momento no tienes Internet. Estos los puedes instalar más tarde."
+msgstr "No selecciones instalar lenguajes ni COAï¿½s adicionales si en este momento no tienes Internet. Estos los puedes instalar mï¿½s tarde."
 
 #: /install/index.php:356 /install/index.php:363 /install/index.php:370
 #: /install/index.php:394
@@ -188,11 +188,11 @@ msgstr "<< Regresar"
 
 #: /install/index.php:361
 msgid "User Interface Languages Selection"
-msgstr "Selección el lenguaje del usuario en el sistema"
+msgstr "Selecciï¿½n el lenguaje del usuario en el sistema"
 
 #: /install/index.php:368
 msgid "Charts of Accounts Selection"
-msgstr "Seleción el plan contable"
+msgstr "Seleciï¿½n el plan contable"
 
 #: /install/index.php:385
 msgid "Company Settings"
@@ -227,12 +227,12 @@ msgid "Start installation process"
 msgstr ""
 
 #: /install/index.php:399
-msgid "FrontAccounting ERP has been installed successsfully."
+msgid "AgroPhos ERP has been installed successsfully."
 msgstr "El sistema ha sido instalado."
 
 #: /install/index.php:400
 msgid "Please do not forget to remove install wizard folder."
-msgstr "Por favor, no olvides borrar la carpeta del asistente de instalación."
+msgstr "Por favor, no olvides borrar la carpeta del asistente de instalaciï¿½n."
 
 #: /install/index.php:403
 msgid "Click here to start."
@@ -256,19 +256,19 @@ msgstr "Requerido"
 
 #: /includes/system_tests.inc:24
 msgid "MySQL version"
-msgstr "Versión de MySQL"
+msgstr "Versiï¿½n de MySQL"
 
 #: /includes/system_tests.inc:28
 msgid "Upgrade MySQL server to version at least 4.1"
-msgstr "Debes actualizar el servidor MySQL, cuando menos a la versión 4.1"
+msgstr "Debes actualizar el servidor MySQL, cuando menos a la versiï¿½n 4.1"
 
 #: /includes/system_tests.inc:35
 msgid "PHP MySQL extension"
-msgstr "Extensión PHP MySQL"
+msgstr "Extensiï¿½n PHP MySQL"
 
 #: /includes/system_tests.inc:40
 msgid "Your PHP has to have MySQL extension enabled."
-msgstr "Tu PHP debe tener habilitada la extensión MySQL."
+msgstr "Tu PHP debe tener habilitada la extensiï¿½n MySQL."
 
 #: /includes/system_tests.inc:46
 msgid "PHP version"
@@ -276,7 +276,7 @@ msgstr "Version de PHP"
 
 #: /includes/system_tests.inc:50
 msgid "Upgrade PHP to version at least 5.0.0"
-msgstr "Debes actualizar PHP, cuando menos a la versión 5.0.0"
+msgstr "Debes actualizar PHP, cuando menos a la versiï¿½n 5.0.0"
 
 #: /includes/system_tests.inc:57
 msgid "Server system"
@@ -288,7 +288,7 @@ msgstr "Ruta para guardar Session"
 
 #: /includes/system_tests.inc:79
 msgid "Removed install wizard folder"
-msgstr "El asistente de instalación ha sido eliminado"
+msgstr "El asistente de instalaciï¿½n ha sido eliminado"
 
 #: /includes/system_tests.inc:82
 msgid "Not removed"
@@ -296,7 +296,7 @@ msgstr "No se elimino"
 
 #: /includes/system_tests.inc:83
 msgid "Remove or rename install wizard folder for security reasons."
-msgstr "Eliminar o renombrar el asistente de instalación"
+msgstr "Eliminar o renombrar el asistente de instalaciï¿½n"
 
 #: /includes/system_tests.inc:90
 msgid "Browser type"
@@ -320,7 +320,7 @@ msgstr "Gettext nativo"
 
 #: /includes/system_tests.inc:116
 msgid "In case of no gettext support, php emulation is used"
-msgstr "En caso de no soportar gettext, se usara la emulación PHP"
+msgstr "En caso de no soportar gettext, se usara la emulaciï¿½n PHP"
 
 #: /includes/system_tests.inc:124
 msgid "Debugging mode"
@@ -348,11 +348,11 @@ msgstr "El archivo de log's no tiene permisos de escritura"
 
 #: /includes/system_tests.inc:162
 msgid "Current database version"
-msgstr "Versión de la base de datos actual"
+msgstr "Versiï¿½n de la base de datos actual"
 
 #: /includes/system_tests.inc:166
 msgid "Database structure seems to be not upgraded to current version"
-msgstr "La estructura de base de datos parece no estar actualizada a la versión actual"
+msgstr "La estructura de base de datos parece no estar actualizada a la versiï¿½n actual"
 
 #: /includes/system_tests.inc:181
 msgid "Company subdirectories consistency"
@@ -372,7 +372,7 @@ msgstr "Directorio temporal"
 
 #: /includes/system_tests.inc:234
 msgid "Language configuration consistency"
-msgstr "Consistencia del lenguaje de configuración"
+msgstr "Consistencia del lenguaje de configuraciï¿½n"
 
 #: /includes/system_tests.inc:243
 msgid "Languages folder should be writeable."
@@ -380,21 +380,21 @@ msgstr "La carpeta de idiomas debe tener permisos de escritura."
 
 #: /includes/system_tests.inc:252
 msgid "Languages configuration file should be writeable."
-msgstr "El archivo de configuración d idiomas debe tener permisos de escritura."
+msgstr "El archivo de configuraciï¿½n d idiomas debe tener permisos de escritura."
 
 #: /includes/system_tests.inc:271
 #, php-format
 msgid "Missing %s translation file."
-msgstr "Falta archivo de traducción %s"
+msgstr "Falta archivo de traducciï¿½n %s"
 
 #: /includes/system_tests.inc:276
 #, php-format
 msgid "Missing system locale: %s"
-msgstr "Falta configuración regional del sistema: %s"
+msgstr "Falta configuraciï¿½n regional del sistema: %s"
 
 #: /includes/system_tests.inc:289
 msgid "Main config file"
-msgstr "Archivo de configuración principal"
+msgstr "Archivo de configuraciï¿½n principal"
 
 #: /includes/system_tests.inc:296 /includes/system_tests.inc:318
 #, php-format
@@ -409,16 +409,16 @@ msgstr "Ya existe el archivo '%s'"
 #: /includes/system_tests.inc:301
 #, php-format
 msgid "'%s' file should be read-only"
-msgstr "El archivo '%s' debe ser de sólo lectura"
+msgstr "El archivo '%s' debe ser de sï¿½lo lectura"
 
 #: /includes/system_tests.inc:310
 msgid "Database auth file"
-msgstr "Archivo de autenticación de base de datos"
+msgstr "Archivo de autenticaciï¿½n de base de datos"
 
 #: /includes/system_tests.inc:323
 #, php-format
 msgid "'%s' file should be read-only if you do not plan to add or change companies"
-msgstr "El archivo '%s' debe ser de sólo lectura si no vas a agregar o cambiar empresa"
+msgstr "El archivo '%s' debe ser de sï¿½lo lectura si no vas a agregar o cambiar empresa"
 
 #: /includes/system_tests.inc:334
 msgid "Extensions system"
@@ -426,7 +426,7 @@ msgstr "Sistema de Extensiones"
 
 #: /includes/system_tests.inc:372
 msgid "Extensions configuration files and directories should be writeable"
-msgstr "Los archivos y directorios de configuración de extensiones deben tener permisos de escritura"
+msgstr "Los archivos y directorios de configuraciï¿½n de extensiones deben tener permisos de escritura"
 
 #: /includes/system_tests.inc:385
 #, php-format

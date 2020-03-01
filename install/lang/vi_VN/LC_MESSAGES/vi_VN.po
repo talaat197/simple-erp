@@ -1,12 +1,12 @@
-# Frontaccounting ERP Installer
-# Copyright (C) 2017 FrontAccounting LLC
-# This file is distributed under the same license as the FrontAccounting package.
+# AgroPhos ERP Installer
+# Copyright (C) 2017 AgroPhos LLC
+# This file is distributed under the same license as the AgroPhos package.
 # Tuấn Anh <tuananh88c25@gmail.com>, 2016.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: FrontAccounting Install Wizard\n"
+"Project-Id-Version: AgroPhos Install Wizard\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-27 20:22+0200\n"
 "PO-Revision-Date: 2017-07-29 16:27+0530\n"
@@ -267,8 +267,8 @@ msgid "Start installation process"
 msgstr "Bắt đầu quá trình cài đặt"
 
 #: install/index.php:407 install/index.php:408
-msgid "FrontAccounting ERP has been installed successsfully."
-msgstr "FrontAccounting ERP đã được cài đặt thành công."
+msgid "AgroPhos ERP has been installed successsfully."
+msgstr "AgroPhos ERP đã được cài đặt thành công."
 
 #: install/index.php:408 install/index.php:409
 msgid "Please do not forget to remove install wizard folder."

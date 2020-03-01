@@ -1,12 +1,12 @@
-# Frontaccounting ERP 2.4 Installer
-# Copyright (C) 2010-2018 FrontAccounting LLC
-# This file is distributed under the same license as the FrontAccounting package.
+# AgroPhos ERP 2.4 Installer
+# Copyright (C) 2010-2018 AgroPhos LLC
+# This file is distributed under the same license as the AgroPhos package.
 # iscongroup <info@iscongroup.net>, 2010.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: FrontAccounting 2.4 Install Wizard\n"
+"Project-Id-Version: AgroPhos 2.4 Install Wizard\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-27 20:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -57,7 +57,7 @@ msgid ""
 "Cannot connect to database. User or password is invalid or you have no "
 "permittions to create database."
 msgstr ""
-"Verbindung zur Datenbank nicht möglich Benutzer oder Passwort ist ungültig "
+"Verbindung zur Datenbank nicht mï¿½glich Benutzer oder Passwort ist ungï¿½ltig "
 "oder Sie haben keine Erlaubnis, eine Datenbank zu erstellen."
 
 #: install/index.php:165
@@ -66,7 +66,7 @@ msgstr "Kann die Konfigurationsdatei 'config.php' nicht speichern."
 
 #: install/index.php:172
 msgid "Cannot open 'config_db.php' configuration file."
-msgstr "Kann die Konfigurationsdatei 'config_db.php' nicht öffnen "
+msgstr "Kann die Konfigurationsdatei 'config_db.php' nicht ï¿½ffnen "
 
 #: install/index.php:175
 msgid "Cannot write to the 'config_db.php' configuration file."
@@ -77,7 +77,7 @@ msgid ""
 "Configuration file 'config_db.php' is not writable. Change its permissions "
 "so it is, then re-run installation step."
 msgstr ""
-"Konfigurationsdatei 'config_db.php' ist nicht beschreibbar. Ändern Sie die "
+"Konfigurationsdatei 'config_db.php' ist nicht beschreibbar. ï¿½ndern Sie die "
 "Berechtigungen wenn notwendig und wiederholen Sie den Installationsschritt."
 
 #: install/index.php:218
@@ -110,7 +110,7 @@ msgstr "Passwort des Admins der Firma kann nicht leer sein."
 
 #: install/index.php:297
 msgid "Company admin passwords differ."
-msgstr "Admin Passwörter unterscheiden sich"
+msgstr "Admin Passwï¿½rter unterscheiden sich"
 
 #: install/index.php:327
 msgid "System Diagnostics"
@@ -118,15 +118,15 @@ msgstr "System Diagnose"
 
 #: install/index.php:329
 msgid "Select install wizard language:"
-msgstr "Sprache für Installation wählen:"
+msgstr "Sprache fï¿½r Installation wï¿½hlen:"
 
 #: install/index.php:335
 msgid ""
 "All application preliminary requirements seems to be correct. Please press "
 "Continue button below."
 msgstr ""
-"Alle Voraussetzungen für die Installation scheinen erfüllt zu sein. Bitte "
-"drücken Sie unten auf Weiter."
+"Alle Voraussetzungen fï¿½r die Installation scheinen erfï¿½llt zu sein. Bitte "
+"drï¿½cken Sie unten auf Weiter."
 
 #: install/index.php:336 install/index.php:365 install/index.php:372
 #: install/index.php:379 install/index.php:366 install/index.php:373
@@ -140,7 +140,7 @@ msgid ""
 "and press Refresh button."
 msgstr ""
 "Die Anwendung kann nicht installiert werden. Bitte beheben Sie die Probleme "
-"die unten in rot gelistet sind und drücken anschließend auf Aktualisieren"
+"die unten in rot gelistet sind und drï¿½cken anschlieï¿½end auf Aktualisieren"
 
 #: install/index.php:339
 msgid "Refresh"
@@ -190,19 +190,19 @@ msgstr "Nein"
 
 #: install/index.php:358
 msgid "Install Additional Language Packs from FA Repository:"
-msgstr "Zusätzliche Sprachpakete aus dem FA Vorrat installieren:"
+msgstr "Zusï¿½tzliche Sprachpakete aus dem FA Vorrat installieren:"
 
 #: install/index.php:359
 msgid "Install Additional COAs from FA Repository:"
-msgstr "Zusätzliche Kontenpläne aus dem FA Vorrat installieren:"
+msgstr "Zusï¿½tzliche Kontenplï¿½ne aus dem FA Vorrat installieren:"
 
 #: install/index.php:361
 msgid ""
 "Select collation you want to use. If you are unsure or you will use various "
 "languages, select unicode collation."
 msgstr ""
-"Wählen Sie die Sortierung aus, die Sie verwenden möchten. Wenn Sie sich "
-"nicht sicher sind oder verschiedene Sprachen verwenden möchten, wählen Sie "
+"Wï¿½hlen Sie die Sortierung aus, die Sie verwenden mï¿½chten. Wenn Sie sich "
+"nicht sicher sind oder verschiedene Sprachen verwenden mï¿½chten, wï¿½hlen Sie "
 "die Unicode-Sortierung."
 
 #: install/index.php:362
@@ -210,7 +210,7 @@ msgid ""
 "Use table prefix if you share selected database for more than one FA company"
 " using the same collation."
 msgstr ""
-"Verwenden Sie das Tabellenpräfix, wenn Sie die ausgewählte Datenbank für "
+"Verwenden Sie das Tabellenprï¿½fix, wenn Sie die ausgewï¿½hlte Datenbank fï¿½r "
 "mehrere FA-Unternehmen freigeben, die dieselbe Kollatierung verwenden."
 
 #: install/index.php:363
@@ -218,18 +218,18 @@ msgid ""
 "Do not select additional langs nor COAs if you have no working internet "
 "connection right now. You can install them later."
 msgstr ""
-"Installieren Sie keine zusätzlichen Sprachen oder Kontenpläne wenn Sie über "
-"keine Internet Verbindung verfügen. Sie können diese später installieren."
+"Installieren Sie keine zusï¿½tzlichen Sprachen oder Kontenplï¿½ne wenn Sie ï¿½ber "
+"keine Internet Verbindung verfï¿½gen. Sie kï¿½nnen diese spï¿½ter installieren."
 
 #: install/index.php:364 install/index.php:371 install/index.php:378
 #: install/index.php:402 install/index.php:365 install/index.php:372
 #: install/index.php:379 install/index.php:403
 msgid "<< Back"
-msgstr "<< Zurück"
+msgstr "<< Zurï¿½ck"
 
 #: install/index.php:369 install/index.php:370
 msgid "User Interface Languages Selection"
-msgstr "Sprachenauswahl für Benutzeroberfläche"
+msgstr "Sprachenauswahl fï¿½r Benutzeroberflï¿½che"
 
 #: install/index.php:376 install/index.php:377
 msgid "Charts of Accounts Selection"
@@ -257,19 +257,19 @@ msgstr "Passwort nochmals eingeben:"
 
 #: install/index.php:399 install/index.php:400
 msgid "Select Chart of Accounts:"
-msgstr "Kontenplan auswählen:"
+msgstr "Kontenplan auswï¿½hlen:"
 
 #: install/index.php:400 install/index.php:401
 msgid "Select Default Language:"
-msgstr "Standardsprache auswählen:"
+msgstr "Standardsprache auswï¿½hlen:"
 
 #: install/index.php:403 install/index.php:404
 msgid "Start installation process"
 msgstr "Starten Sie den Installationsprozess"
 
 #: install/index.php:407 install/index.php:408
-msgid "FrontAccounting ERP has been installed successsfully."
-msgstr "FrontAccounting ERP wurde erfolgreich installiert."
+msgid "AgroPhos ERP has been installed successsfully."
+msgstr "AgroPhos ERP wurde erfolgreich installiert."
 
 #: install/index.php:408 install/index.php:409
 msgid "Please do not forget to remove install wizard folder."
@@ -327,7 +327,7 @@ msgstr "Server System"
 
 #: includes/system_tests.inc:67
 msgid "Session save path"
-msgstr "Pfad für Session Daten"
+msgstr "Pfad fï¿½r Session Daten"
 
 #: includes/system_tests.inc:79
 msgid "Removed install wizard folder"
@@ -340,7 +340,7 @@ msgstr "Nicht entfernt"
 #: includes/system_tests.inc:83
 msgid "Remove or rename install wizard folder for security reasons."
 msgstr ""
-"Aus Sicherheitsgründen entfernen Sie das Verzeichnis des "
+"Aus Sicherheitsgrï¿½nden entfernen Sie das Verzeichnis des "
 "Installationsassistenten (install wizard) bzw. benennen Sie es um"
 
 #: includes/system_tests.inc:90
@@ -349,7 +349,7 @@ msgstr "Browsertyp"
 
 #: includes/system_tests.inc:94
 msgid "Any browser is supported"
-msgstr "Jeder Browser wird unterstützt"
+msgstr "Jeder Browser wird unterstï¿½tzt"
 
 #: includes/system_tests.inc:101
 msgid "Http server type"
@@ -357,7 +357,7 @@ msgstr "Http Server Typ"
 
 #: includes/system_tests.inc:105
 msgid "Any server is supported"
-msgstr "Jeder Server wird unterstützt"
+msgstr "Jeder Server wird unterstï¿½tzt"
 
 #: includes/system_tests.inc:112
 msgid "Native gettext"
@@ -366,7 +366,7 @@ msgstr "Nativer gettext"
 #: includes/system_tests.inc:116
 msgid "In case of no gettext support, php emulation is used"
 msgstr ""
-"Im Fall dass gettext nicht unterstützt wird, wird PHP Emulation verwendet"
+"Im Fall dass gettext nicht unterstï¿½tzt wird, wird PHP Emulation verwendet"
 
 #: includes/system_tests.inc:124
 msgid "Debugging mode"
@@ -419,7 +419,7 @@ msgstr "'%s' ist nicht beschreibbar"
 
 #: includes/system_tests.inc:222
 msgid "Temporary directory"
-msgstr "Temporäres Verzeichnis"
+msgstr "Temporï¿½res Verzeichnis"
 
 #: includes/system_tests.inc:234
 msgid "Language configuration consistency"
@@ -436,7 +436,7 @@ msgstr "Sprachen Konfigurationsdatei sollte beschreibbar sein."
 #: includes/system_tests.inc:271
 #, php-format
 msgid "Missing %s translation file."
-msgstr "Fehlende %s Übersetzungsdatei."
+msgstr "Fehlende %s ï¿½bersetzungsdatei."
 
 #: includes/system_tests.inc:276
 #, php-format
@@ -451,7 +451,7 @@ msgstr "Haupt-Konfigurationsdatei"
 #, php-format
 msgid "Can't write '%s' file. Check FA directory write permissions."
 msgstr ""
-"Kann '%s'-Datei nicht schreiben. Überprüfen Sie die Schreibrechte im FA-"
+"Kann '%s'-Datei nicht schreiben. ï¿½berprï¿½fen Sie die Schreibrechte im FA-"
 "Verzeichnis ."
 
 #: includes/system_tests.inc:297 includes/system_tests.inc:319
@@ -474,7 +474,7 @@ msgid ""
 "'%s' file should be read-only if you do not plan to add or change companies"
 msgstr ""
 "'%s' Datei sollte auf 'nur lesen' gesetzt sein wenn Sie nicht vorhaben, "
-"Mandanten hinzuzufügen oder zu ändern"
+"Mandanten hinzuzufï¿½gen oder zu ï¿½ndern"
 
 #: includes/system_tests.inc:334
 msgid "Extensions system"
@@ -483,7 +483,7 @@ msgstr "Erweiterungen System"
 #: includes/system_tests.inc:372
 msgid "Extensions configuration files and directories should be writeable"
 msgstr ""
-"Konfigurations Dateien und Verzeichnisse für Erweiterungen sollten "
+"Konfigurations Dateien und Verzeichnisse fï¿½r Erweiterungen sollten "
 "beschreibbar sein"
 
 #: includes/system_tests.inc:385
@@ -496,7 +496,7 @@ msgid ""
 "OpenSSL PHP extension have to be enabled to use extension repository system."
 msgstr ""
 "OpenSSL PHP muss aktiviert sein um das FA Erweiterungssystem nutzen zu "
-"können ."
+"kï¿½nnen ."
 
 #: includes/system_tests.inc:398
 msgid ""
@@ -504,7 +504,7 @@ msgid ""
 "system."
 msgstr ""
 "OpenSSL muss auf Ihrem Server vorhanden sein um das FA Erweiterungssystem "
-"nutzen zu können ."
+"nutzen zu kï¿½nnen ."
 
 #: includes/system_tests.inc:421
 msgid "Test"
@@ -529,7 +529,7 @@ msgstr "Ok"
 #: includes/packages.inc:189
 #, php-format
 msgid "No key field '%s' in file '%s'"
-msgstr "Kein Schlüsselfeld '%s' in Datei '%s'"
+msgstr "Kein Schlï¿½sselfeld '%s' in Datei '%s'"
 
 #: includes/packages.inc:294
 msgid "Cannot download repo index file."
@@ -538,23 +538,23 @@ msgstr "Repo-Indexdatei kann nicht heruntergeladen werden."
 #: includes/packages.inc:306 includes/packages.inc:343
 #, php-format
 msgid "Cannot delete outdated '%s' file."
-msgstr "Die veraltete '%s'-Datei kann nicht gelöscht werden."
+msgstr "Die veraltete '%s'-Datei kann nicht gelï¿½scht werden."
 
 #: includes/packages.inc:310
 msgid "Release file in repository is invalid, or public key is outdated."
 msgstr ""
-"Die Release-Datei im Repository ist ungültig oder der öffentliche Schlüssel "
+"Die Release-Datei im Repository ist ungï¿½ltig oder der ï¿½ffentliche Schlï¿½ssel "
 "ist veraltet."
 
 #: includes/packages.inc:327
 msgid "Repository version does not match application version."
 msgstr ""
-"Die Repository-Version stimmt nicht mit der Anwendungsversion überein."
+"Die Repository-Version stimmt nicht mit der Anwendungsversion ï¿½berein."
 
 #: includes/packages.inc:335 includes/packages.inc:377
 #, php-format
 msgid "Cannot download '%s' file."
-msgstr "Die veraltete '%s'-Datei kann nicht gelöscht werden."
+msgstr "Die veraltete '%s'-Datei kann nicht gelï¿½scht werden."
 
 #: includes/packages.inc:347
 #, php-format
@@ -563,7 +563,7 @@ msgid ""
 "repository administrator about this issue."
 msgstr ""
 "Sicherheitswarnung: defekte Indexdatei im Repository '%s'. Bitte informieren"
-" Sie den Repository-Administrator über dieses Problem."
+" Sie den Repository-Administrator ï¿½ber dieses Problem."
 
 #: includes/packages.inc:383
 #, php-format
@@ -572,7 +572,7 @@ msgid ""
 "administrator about this issue."
 msgstr ""
 "Sicherheitswarnung: Paket '%s' im Repository wurde unterbrochen. Bitte "
-"informieren Sie den Repository-Administrator über dieses Problem."
+"informieren Sie den Repository-Administrator ï¿½ber dieses Problem."
 
 #: includes/packages.inc:641 includes/packages.inc:696
 #, php-format
@@ -583,7 +583,7 @@ msgstr "Das Paket '%s' wurde nicht gefunden."
 msgid "Set Only Port value if you cannot use the default port 3306."
 msgstr ""
 "Setzen Sie Only Port value, wenn Sie den Standardport 3306 nicht verwenden "
-"können."
+"kï¿½nnen."
 
 #: install/index.php:361
 msgid ""

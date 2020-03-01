@@ -1,7 +1,7 @@
 -- MySQL dump of database 'en_US-demo' on host 'localhost'
 -- Backup Date and Time: 2020-01-21 11:16
--- Built by FrontAccounting 2.4.7
--- http://frontaccounting.com
+-- Built by AgroPhos 2.4.7
+-- http://AgroPhos.com
 -- Company: Training Co.
 -- User: Administrator
 

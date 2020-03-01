@@ -258,7 +258,7 @@ msgid "Start installation process"
 msgstr ""
 
 #: install/index.php:407 install/index.php:408 install/index.php:409
-msgid "FrontAccounting ERP has been installed successsfully."
+msgid "AgroPhos ERP has been installed successsfully."
 msgstr ""
 
 #: install/index.php:408 install/index.php:409 install/index.php:410

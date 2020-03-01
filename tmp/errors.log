@@ -47,3 +47,4 @@
 [27-Feb-2020 12:22:31 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
 [27-Feb-2020 12:22:32 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
 [27-Feb-2020 12:22:32 Europe/Berlin] 0:shan:renderer.php:107: Unhandled exception [0]: Cannot use object of type customers_app as array.
+[01-Mar-2020 17:20:14 Europe/Berlin] 0:admin:session.inc:581: Unhandled exception [0]: Class 'front_accounting' not found.

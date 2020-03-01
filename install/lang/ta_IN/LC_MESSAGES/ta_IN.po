@@ -1,12 +1,12 @@
-# Frontaccounting ERP Installer Tamil (India) translation file
-# Copyright (C) 2017 FrontAccounting LLC
-# This file is distributed under the same license as the FrontAccounting package.
+# AgroPhos ERP Installer Tamil (India) translation file
+# Copyright (C) 2017 AgroPhos LLC
+# This file is distributed under the same license as the AgroPhos package.
 # Ap.Muthu <apmuthu@usa.net>, 2017.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: FrontAccounting 2.4 Install Wizard\n"
+"Project-Id-Version: AgroPhos 2.4 Install Wizard\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-27 20:22+0200\n"
 "PO-Revision-Date: 2017-11-06 16:59+0530\n"
@@ -269,8 +269,8 @@ msgid "Start installation process"
 msgstr "நிறுவத் தொடங்க"
 
 #: install/index.php:407 install/index.php:408
-msgid "FrontAccounting ERP has been installed successsfully."
-msgstr "FrontAccounting ERP வெற்றிகரமாக நிறுவப்பட்டது."
+msgid "AgroPhos ERP has been installed successsfully."
+msgstr "AgroPhos ERP வெற்றிகரமாக நிறுவப்பட்டது."
 
 #: install/index.php:408 install/index.php:409
 msgid "Please do not forget to remove install wizard folder."

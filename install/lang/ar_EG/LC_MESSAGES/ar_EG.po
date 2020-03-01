@@ -1,12 +1,12 @@
-# Frontaccounting ERP Installer Arabic (Egypt) translation file
-# Copyright (C) 2017 FrontAccounting LLC
-# This file is distributed under the same license as the FrontAccounting package.
+# AgroPhos ERP Installer Arabic (Egypt) translation file
+# Copyright (C) 2017 AgroPhos LLC
+# This file is distributed under the same license as the AgroPhos package.
 # infotechaccountants.com <hameed@infotechaccountants.com>, 2017.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: FrontAccounting 2.4 Install Wizard\n"
+"Project-Id-Version: AgroPhos 2.4 Install Wizard\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-27 20:22+0200\n"
 "PO-Revision-Date: 2017-11-10 20:08+0530\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: install/index.php:20 install/index.php:41
 msgid "FrontAccouting ERP Installation Wizard"
 msgstr ""
-"معالج التثبيت الخاص بالحل المالي لإدارة موارد المؤسسات \"FrontAccounting\""
+"معالج التثبيت الخاص بالحل المالي لإدارة موارد المؤسسات \"AgroPhos\""
 
 #: install/index.php:42
 #, php-format
@@ -268,8 +268,8 @@ msgid "Start installation process"
 msgstr "بدء عملية التثبيت"
 
 #: install/index.php:407 install/index.php:408
-msgid "FrontAccounting ERP has been installed successsfully."
-msgstr "تمت عملية تثبيت FrontAccounting ERP بنجاح"
+msgid "AgroPhos ERP has been installed successsfully."
+msgstr "تمت عملية تثبيت AgroPhos ERP بنجاح"
 
 #: install/index.php:408 install/index.php:409
 msgid "Please do not forget to remove install wizard folder."

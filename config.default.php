@@ -1,6 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) FrontAccounting, LLC.
+    Copyright (C) AgroPhos, LLC.
 	Released under the terms of the GNU General Public License, GPL, 
 	as published by the Free Software Foundation, either version 3 
 	of the License, or (at your option) any later version.
@@ -44,14 +44,14 @@ if (!isset($path_to_root) || isset($_GET['path_to_root']) || isset($_POST['path_
 	$select_trail 	= 0; // track also SELECT queries
 
 	// Main Title
-	$app_title = "FrontAccounting";
+	$app_title = "AgroPhos";
 
 	// Build for development purposes
 	$build_version 	= date("d.m.Y", filemtime("$path_to_root/CHANGELOG.txt"));
 
 	// Powered by
-	$power_by 		= "FrontAccounting";
-	$power_url 		= "http://frontaccounting.com";
+	$power_by 		= "AgroPhos";
+	$power_url 		= "http://AgroPhos.com";
 
 	/* No check on edit conflicts. Maybe needed to be set to 1 in certains Windows Servers */
 	$no_check_edit_conflicts = 0;
@@ -82,8 +82,8 @@ if (!isset($path_to_root) || isset($_GET['path_to_root']) || isset($_POST['path_
 	$old_style_help = 0;
 	// 	locally installed wiki module
 	// $help_base_url = $path_to_root.'/modules/wiki/index.php?n='._('Help').'.';
-	// 	context help feed from frontaccounting.com
-	$help_base_url = 'http://frontaccounting.com/fawiki/index.php?n=Help.';
+	// 	context help feed from AgroPhos.com
+	$help_base_url = 'http://AgroPhos.com/fawiki/index.php?n=Help.';
 	// 	set to null if not used:
 	//	$help_base_url = null;
 

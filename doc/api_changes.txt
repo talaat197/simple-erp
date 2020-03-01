@@ -1,4 +1,4 @@
-Changes in framework API introduced in FrontAccounting 2.4
+Changes in framework API introduced in AgroPhos 2.4
 ----------------------------------------------------------
 The list does not contain changes made in user interface files or local functions.
 

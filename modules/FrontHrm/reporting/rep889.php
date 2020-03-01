@@ -4,7 +4,7 @@
 |--------------------------------------------------------|
 |   Creator: Phương                                      |
 |   Date :   09-Jul-2017                                 |
-|   Description: Frontaccounting Payroll & Hrm Module    |
+|   Description: AgroPhos Payroll & Hrm Module    |
 |   Free software under GNU GPL                          |
 |                                                        |
 \=======================================================*/
@@ -183,7 +183,7 @@ $pdf->AddPage('P', 'A4');
 if($comp_logo)
 	$logo_path = company_path().'/images/'.$comp_logo;
 else
-	$logo_path = $path_to_root . '/themes/default/images/logo_frontaccounting.jpg';
+	$logo_path = $path_to_root . '/themes/default/images/logo_simple_erp.jpeg';
 
 $pdf->Image($logo_path, $x/2 - $img_width/2, 20, $img_width);
 

@@ -567,7 +567,7 @@ Rollback. Update material cost when quantity on hand is zero. @notrinos.
 M	manufacturing/includes/db/work_order_costing_db.inc
 
 2019-01-08 23:42:04 +0100 Joe Hunt 
-Merge branch 'master' of https://git.code.sf.net/p/frontaccounting/git
+Merge branch 'master' of https://git.code.sf.net/p/AgroPhos/git
 2019-01-08 23:41:40 +0100 Joe Hunt 
 Password reset mail could take several hours. After fix only a couple of seconds. Using From: email in header.
 M	includes/current_user.inc
@@ -594,7 +594,7 @@ Supplier Transaction Inquiry for GRN did not filter on date. Fixed by @notrinos.
 M	purchasing/includes/db/supp_trans_db.inc
 
 2018-12-24 00:41:51 +0100 Joe Hunt 
-Merge branch 'master' of https://git.code.sf.net/p/frontaccounting/git
+Merge branch 'master' of https://git.code.sf.net/p/AgroPhos/git
 2018-12-24 00:41:14 +0100 Joe Hunt 
 New CHANGELOG.txt file.
 M	CHANGELOG.txt
@@ -758,7 +758,7 @@ Added missing input data check for Gl Setup. @notrinos.
 M	admin/gl_setup.php
 
 2018-11-13 23:35:19 +0100 Joe Hunt 
-Merge branch 'master' of https://git.code.sf.net/p/frontaccounting/git
+Merge branch 'master' of https://git.code.sf.net/p/AgroPhos/git
 2018-11-13 23:34:52 +0100 Joe Hunt 
 Added input data check for company preferences. @notrinos.
 M	admin/company_preferences.php
@@ -787,7 +787,7 @@ Fixed deprecated each() function in PHP 7.2 (fpdi.php). @apmuthu.
 M	reporting/includes/fpdi/fpdi.php
 
 2018-10-25 20:08:57 +0200 Joe Hunt 
-Merge branch 'master' of https://git.code.sf.net/p/frontaccounting/git
+Merge branch 'master' of https://git.code.sf.net/p/AgroPhos/git
 2018-10-25 20:08:35 +0200 Joe Hunt 
 Fixed deprecated each() function in PHP 7.2 (tcpdf.php). @notrinos.
 M	reporting/includes/tcpdf.php
@@ -826,7 +826,7 @@ Fixed Customer statement reflecting wrong balance. @Braath Waate.
 M	reporting/rep108.php
 
 2018-10-02 10:04:57 +0200 Joe Hunt 
-Merge branch 'master' of https://git.code.sf.net/p/frontaccounting/git
+Merge branch 'master' of https://git.code.sf.net/p/AgroPhos/git
 2018-10-02 10:04:32 +0200 Joe Hunt 
 0004641: items->transactions should not show QOH for service items. @Braathwaate. Fixed by disabling transactions when non inventory item.
 M	inventory/manage/items.php
@@ -873,7 +873,7 @@ Update material cost when quantity on hand is zero. @notrinos.
 M	manufacturing/includes/db/work_order_costing_db.inc
 
 2018-08-26 19:07:18 +0200 Joe Hunt 
-Merge branch 'master' of https://git.code.sf.net/p/frontaccounting/git
+Merge branch 'master' of https://git.code.sf.net/p/AgroPhos/git
 2018-08-26 18:57:14 +0200 Joe Hunt 
 Bug 4601: memo line not cleared after enter new payment item Inbox. @Braathwaate.
 M	gl/gl_bank.php
@@ -1191,7 +1191,7 @@ Fixed bank account auto-selection in Customer Payments (continued).
 M	sales/customer_payments.php
 
 2018-01-13 14:14:42 +0100 Joe Hunt 
-Merge branch 'master' of https://git.code.sf.net/p/frontaccounting/git
+Merge branch 'master' of https://git.code.sf.net/p/AgroPhos/git
 2018-01-13 14:14:24 +0100 Joe Hunt 
 Fixed printing sequences of Sales Invoices.
 M	reporting/rep107.php
@@ -1467,7 +1467,7 @@ M	purchasing/inquiry/supplier_inquiry.php
 M	sales/inquiry/customer_inquiry.php
 
 2017-10-31 09:58:09 +0100 Joe Hunt 
-Merge branch 'master' of https://git.code.sf.net/p/frontaccounting/git
+Merge branch 'master' of https://git.code.sf.net/p/AgroPhos/git
 2017-10-31 09:57:56 +0100 Joe Hunt 
 Fixed Tax Report on Screen.
 M	gl/includes/db/gl_db_trans.inc
@@ -1521,7 +1521,7 @@ Add Items on the Fly. Behavior Changed in FA24. Fixed.
 M	inventory/manage/items.php
 
 2017-10-26 05:36:59 +0200 Joe Hunt 
-Merge branch 'master' of https://git.code.sf.net/p/frontaccounting/git
+Merge branch 'master' of https://git.code.sf.net/p/AgroPhos/git
 2017-10-26 05:36:30 +0200 Joe Hunt 
 Fixed FA2.4.2 error getting exchange rate from Google
 M	gl/includes/db/gl_db_rates.inc
@@ -1804,7 +1804,7 @@ M	sales/inquiry/sales_orders_view.php
 M	sales/sales_order_entry.php
 
 2017-06-08 11:31:28 +0200 Joe Hunt 
-0003876: Notice: Trying to get property of non-object in C:\Apache24\htdocs\frontaccounting\includes\errors.inc on line 74
+0003876: Notice: Trying to get property of non-object in C:\Apache24\htdocs\AgroPhos\includes\errors.inc on line 74
 M	includes/errors.inc
 
 2017-06-08 08:34:47 +0200 Joe Hunt 
@@ -1831,7 +1831,7 @@ Rerun en_US-demo.sql.
 M	sql/en_US-demo.sql
 
 2017-05-22 14:47:32 +0200 Joe Hunt 
-Merge branch 'unstable' of ssh://git.code.sf.net/p/frontaccounting/git into unstable
+Merge branch 'unstable' of ssh://git.code.sf.net/p/AgroPhos/git into unstable
 2017-05-22 14:46:45 +0200 Joe Hunt 
 Release 2.4.1
 M	CHANGELOG.txt
@@ -1871,7 +1871,7 @@ Deleted doc/CHANGELOG.old.txt. Not needed any more.
 D	doc/CHANGELOG.old.txt
 
 2017-05-19 12:28:20 +0200 Joe Hunt 
-Merge branch 'unstable' of ssh://git.code.sf.net/p/frontaccounting/git into unstable
+Merge branch 'unstable' of ssh://git.code.sf.net/p/AgroPhos/git into unstable
 2017-05-19 12:27:41 +0200 Joe Hunt 
 0003761: Reorder email is not sent for items used work order. Fixed.
 M	manufacturing/includes/db/work_order_costing_db.inc
@@ -1932,7 +1932,7 @@ A	reporting/fonts/zarnormal.ttf
 M	reporting/includes/class.graphic.inc
 
 2017-05-11 13:40:13 +0200 Joe Hunt 
-Merge branch 'unstable' of ssh://git.code.sf.net/p/frontaccounting/git into unstable
+Merge branch 'unstable' of ssh://git.code.sf.net/p/AgroPhos/git into unstable
 2017-05-11 13:39:42 +0200 Joe Hunt 
 Customer/Supplier Balances Report | Allocated column not showing correctly. Fixed.
 M	reporting/rep101.php
@@ -2055,7 +2055,7 @@ M	reporting/rep309.php
 M	purchasing/supplier_invoice.php
 
 2016-11-18 14:30:47 +0100 Joe Hunt 
-Merge branch 'unstable' of ssh://git.code.sf.net/p/frontaccounting/git into unstable
+Merge branch 'unstable' of ssh://git.code.sf.net/p/AgroPhos/git into unstable
 2016-11-18 14:30:11 +0100 Joe Hunt 
 0003667: supplier payment link after entering supplier invoice resultes in erro. Fixed.
 M	purchasing/supplier_invoice.php
@@ -2562,8 +2562,8 @@ A	themes/canvas/images/link_bg.png
 A	themes/canvas/images/locate.png
 R100	themes/aqua/images/lock.gif	themes/canvas/images/lock.gif
 R100	themes/aqua/images/login.gif	themes/canvas/images/login.gif
-A	themes/canvas/images/logo_frontaccounting.jpg
-A	themes/canvas/images/logo_frontaccounting.png
+A	themes/canvas/images/logo_simple_erp.jpeg
+A	themes/canvas/images/logo_simple_erp.png
 A	themes/canvas/images/menu_break.png
 R100	themes/aqua/images/money.png	themes/canvas/images/money.png
 A	themes/canvas/images/news.gif
@@ -2638,8 +2638,8 @@ A	themes/dropdown/images/link_bg.png
 A	themes/dropdown/images/locate.png
 R100	themes/cool/images/lock.gif	themes/dropdown/images/lock.gif
 A	themes/dropdown/images/login.gif
-A	themes/dropdown/images/logo_frontaccounting.jpg
-A	themes/dropdown/images/logo_frontaccounting.png
+A	themes/dropdown/images/logo_simple_erp.jpeg
+A	themes/dropdown/images/logo_simple_erp.png
 A	themes/dropdown/images/menu_break.png
 R100	themes/cool/images/money.png	themes/dropdown/images/money.png
 A	themes/dropdown/images/news.gif
@@ -3446,7 +3446,7 @@ M	reporting/rep109.php
 M	gl/inquiry/profit_loss.php
 
 2015-07-11 07:38:04 +0200 Joe Hunt 
-Merge branch 'master' of ssh://git.code.sf.net/p/frontaccounting/git
+Merge branch 'master' of ssh://git.code.sf.net/p/AgroPhos/git
 2015-07-11 07:37:36 +0200 Joe Hunt 
 New CHANGELOG
 M	CHANGELOG.txt
@@ -3576,7 +3576,7 @@ M	CHANGELOG.txt
 M	doc/CHANGELOG.old.txt
 
 2015-05-09 23:07:36 +0200 Joe Hunt 
-Merge branch 'master' of ssh://git.code.sf.net/p/frontaccounting/git
+Merge branch 'master' of ssh://git.code.sf.net/p/AgroPhos/git
 2015-05-09 23:06:09 +0200 Joe Hunt 
 New CHANGELOG.txt format.
 M	CHANGELOG.txt
@@ -6711,7 +6711,7 @@ M	themes/cool/renderer.php
 M	themes/default/renderer.php
 
 2013-03-15 19:55:25 +0100 Janusz Dobrowolski 
-Merge branch 'branches/default' of hg::ssh://itronics@frontaccounting.hg.sourceforge.net/hgroot/frontaccounting/frontaccounting into sf.default
+Merge branch 'branches/default' of hg::ssh://itronics@AgroPhos.hg.sourceforge.net/hgroot/AgroPhos/AgroPhos into sf.default
 2013-03-15 19:50:24 +0100 Janusz Dobrowolski 
 Customer Payments: fixed allocatable transactions display on start of new customer payment.
 M	sales/customer_payments.php
@@ -6915,7 +6915,7 @@ In case of document reference already in use, FA suggest the next number (if pos
 M	sales/sales_order_entry.php
 
 2013-01-24 11:11:59 +0100 Joe Hunt 
-New report, Inventory Movements, added to FrontAccounting core.
+New report, Inventory Movements, added to AgroPhos core.
 A	reporting/rep307.php
 M	reporting/reports_main.php
 
@@ -21498,7 +21498,7 @@ M	applications/inventory.php
 M	applications/manufacturing.php
 M	applications/setup.php
 M	applications/suppliers.php
-D	company/0/images/logo_frontaccounting.png
+D	company/0/images/logo_simple_erp.png
 M	config.php
 M	dimensions/dimension_entry.php
 M	dimensions/includes/dimensions_db.inc
@@ -22473,7 +22473,7 @@ M	update.html
 2009-02-04 21:55:46 +0000 Joe Hunt 
 Removed ALTER TABLE DROP columns
 M	CHANGELOG.txt
-D	company/0/images/logo_frontaccounting.png
+D	company/0/images/logo_simple_erp.png
 A	doc/2.1_Beta.txt
 A	doc/extensions.txt
 D	reporting/fonts/Vera.afm
@@ -25793,8 +25793,8 @@ A	company/0/images/102.jpg
 A	company/0/images/103.jpg
 A	company/0/images/104.jpg
 R100	reporting/pdf_files/index.php	company/0/images/index.php
-A	company/0/images/logo_frontaccounting.jpg
-A	company/0/images/logo_frontaccounting.png
+A	company/0/images/logo_simple_erp.jpeg
+A	company/0/images/logo_simple_erp.png
 A	company/0/index.php
 A	company/0/js_cache/index.php
 A	company/0/pdf_files/index.php
@@ -27813,8 +27813,8 @@ Binary commit of image files
 M	company/0/images/102.jpg
 M	company/0/images/103.jpg
 M	company/0/images/104.jpg
-M	company/0/images/logo_frontaccounting.jpg
-M	company/0/images/logo_frontaccounting.png
+M	company/0/images/logo_simple_erp.jpeg
+M	company/0/images/logo_simple_erp.png
 
 2008-03-28 16:44:18 +0000 Janusz Dobrowolski 
 Fixed header sales order inquiry table header for various display modes.
@@ -27827,8 +27827,8 @@ M	CHANGELOG.txt
 M	company/0/images/102.jpg
 M	company/0/images/103.jpg
 M	company/0/images/104.jpg
-M	company/0/images/logo_frontaccounting.jpg
-M	company/0/images/logo_frontaccounting.png
+M	company/0/images/logo_simple_erp.jpeg
+M	company/0/images/logo_simple_erp.png
 M	purchasing/inquiry/po_search.php
 M	purchasing/inquiry/po_search_completed.php
 M	sales/inquiry/customer_inquiry.php
@@ -27971,8 +27971,8 @@ New directory for per company data
 A	company/0/images/102.jpg
 A	company/0/images/103.jpg
 A	company/0/images/104.jpg
-A	company/0/images/logo_frontaccounting.jpg
-A	company/0/images/logo_frontaccounting.png
+A	company/0/images/logo_simple_erp.jpeg
+A	company/0/images/logo_simple_erp.png
 
 2008-03-24 10:07:40 +0000 Janusz Dobrowolski 
 Removed obsolete file.
@@ -29463,8 +29463,8 @@ A	themes/cool/default.css
 A	themes/cool/index.php
 A	themes/cool/renderer.php
 A	themes/default/default.css
-A	themes/default/images/logo_frontaccounting.jpg
-A	themes/default/images/logo_frontaccounting.png
+A	themes/default/images/logo_simple_erp.jpeg
+A	themes/default/images/logo_simple_erp.png
 A	themes/default/images/spacer.png
 A	themes/default/index.php
 A	themes/default/login.css

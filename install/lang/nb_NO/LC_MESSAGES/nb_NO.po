@@ -1,6 +1,6 @@
-# Frontaccounting ERP Installer Norwegian Bokmål (Norway) translation file
-# Copyright (C) 2017 FrontAccounting LLC
-# This file is distributed under the same license as the FrontAccounting package.
+# AgroPhos ERP Installer Norwegian Bokmï¿½l (Norway) translation file
+# Copyright (C) 2017 AgroPhos LLC
+# This file is distributed under the same license as the AgroPhos package.
 # Ap.Muthu <apmuthu@usa.net>, 2018.
 # 
 #, fuzzy
@@ -11,7 +11,7 @@ msgstr ""
 "POT-Creation-Date: 2018-05-31 23:08+0200\n"
 "PO-Revision-Date: 2018-06-01 09:10+0530\n"
 "Last-Translator: Ap.Muthu <apmuthu@usa.net>, 2018\n"
-"Language-Team: Norwegian Bokmål (Norway) (https://www.transifex.com/gnuacademy/teams/55037/nb_NO/)\n"
+"Language-Team: Norwegian Bokmï¿½l (Norway) (https://www.transifex.com/gnuacademy/teams/55037/nb_NO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -50,7 +50,7 @@ msgstr "Installert"
 
 #: install/index.php:76
 msgid "Language"
-msgstr "Språk"
+msgstr "Sprï¿½k"
 
 #: install/index.php:124
 msgid ""
@@ -253,7 +253,7 @@ msgid "Start installation process"
 msgstr ""
 
 #: install/index.php:407 install/index.php:408
-msgid "FrontAccounting ERP has been installed successsfully."
+msgid "AgroPhos ERP has been installed successsfully."
 msgstr ""
 
 #: install/index.php:408 install/index.php:409
@@ -290,7 +290,7 @@ msgstr "Upgrade from version 2.0 to 2.1"
 
 #: includes/system_tests.inc:35
 msgid "PHP MySQL extension"
-msgstr "Tilføj linie til bilag"
+msgstr "Tilfï¿½j linie til bilag"
 
 #: includes/system_tests.inc:40
 msgid "Your PHP has to have MySQL extension enabled."
@@ -481,7 +481,7 @@ msgstr "Momstype"
 
 #: includes/system_tests.inc:421
 msgid "Value"
-msgstr "Værdi"
+msgstr "Vï¿½rdi"
 
 #: includes/system_tests.inc:421
 msgid "Comments"
@@ -498,7 +498,7 @@ msgstr ""
 
 #: includes/packages.inc:294
 msgid "Cannot download repo index file."
-msgstr "Kan ikke åbne modulfilen - "
+msgstr "Kan ikke ï¿½bne modulfilen - "
 
 #: includes/packages.inc:306 includes/packages.inc:343
 #, php-format
@@ -546,5 +546,5 @@ msgid ""
 "Use database user/password with permissions to create new database, or use "
 "proper credentials for previously created empty database."
 msgstr ""
-"Bruk database bruker / passord med tillatelser til å opprette ny database, eller bruk "
+"Bruk database bruker / passord med tillatelser til ï¿½ opprette ny database, eller bruk "
 "riktig legitimasjon for tidligere opprettet tom database."

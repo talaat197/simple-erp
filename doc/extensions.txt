@@ -1,4 +1,4 @@
-Extensions to FrontAccounting
+Extensions to AgroPhos
 -----------------------------
 
 We have prepared for installation of Extensions. Like installed modules.

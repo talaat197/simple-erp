@@ -1,6 +1,6 @@
-# Frontaccounting ERP Installer
-# Copyright (C) 2010 FrontAccounting LLC
-# This file is distributed under the same license as the FrontAccounting package.
+# AgroPhos ERP Installer
+# Copyright (C) 2010 AgroPhos LLC
+# This file is distributed under the same license as the AgroPhos package.
 # Joe Hunt <joe.hunt.consulting@gmail.com>
 msgid ""
 msgstr ""
@@ -19,7 +19,7 @@ msgstr ""
 
 #: /install/index.php:20 /install/index.php:41
 msgid "FrontAccouting ERP Installation Wizard"
-msgstr "FrontAccounting ERP installationswizard"
+msgstr "AgroPhos ERP installationswizard"
 
 #: /install/index.php:42
 #, php-format
@@ -48,15 +48,15 @@ msgstr "Installerad"
 
 #: /install/index.php:76
 msgid "Language"
-msgstr "Språk"
+msgstr "Sprï¿½k"
 
 #: /install/index.php:124
 msgid ""
 "Cannot connect to database. User or password is invalid or you have no "
 "permittions to create database."
 msgstr ""
-"Kan inte ansluta till databasen. Anvøndarnamnet eller lösenordet är ogiltig "
-"eller hu har inte tillgång att skapa databasen."
+"Kan inte ansluta till databasen. Anvï¿½ndarnamnet eller lï¿½senordet ï¿½r ogiltig "
+"eller hu har inte tillgï¿½ng att skapa databasen."
 
 #: /install/index.php:164
 msgid "Cannot save system configuration file 'config.php'."
@@ -64,7 +64,7 @@ msgstr "Kan inte spara system konfigurationsfilen 'config.php'."
 
 #: /install/index.php:171
 msgid "Cannot open 'config_db.php' configuration file."
-msgstr "Kan inte öppna 'config_db.php' konfigurationsfilen."
+msgstr "Kan inte ï¿½ppna 'config_db.php' konfigurationsfilen."
 
 #: /install/index.php:174
 msgid "Cannot write to the 'config_db.php' configuration file."
@@ -75,16 +75,16 @@ msgid ""
 "Configuration file 'config_db.php' is not writable. Change its permissions "
 "so it is, then re-run installation step."
 msgstr ""
-"Konfigurationsfilen 'config_db.php' är inte skrivbar. Ändra så att den ör "
-"skrivbar, och kör installationssteget igen."
+"Konfigurationsfilen 'config_db.php' ï¿½r inte skrivbar. ï¿½ndra sï¿½ att den ï¿½r "
+"skrivbar, och kï¿½r installationssteget igen."
 
 #: /install/index.php:216
 msgid "Host name cannot be empty."
-msgstr "Värtsnamnet kan inte vara tomt."
+msgstr "Vï¿½rtsnamnet kan inte vara tomt."
 
 #: /install/index.php:220
 msgid "Database user name cannot be empty."
-msgstr "Databas användarnamet kan inte vara tomt."
+msgstr "Databas anvï¿½ndarnamet kan inte vara tomt."
 
 #: /install/index.php:224
 msgid "Database name cannot be empty."
@@ -92,19 +92,19 @@ msgstr "Databasnamnet kan inte vara toms."
 
 #: /install/index.php:278
 msgid "Company name cannot be empty."
-msgstr "Företagsnamnet kan inte vara tomt."
+msgstr "Fï¿½retagsnamnet kan inte vara tomt."
 
 #: /install/index.php:282
 msgid "Company admin name cannot be empty."
-msgstr "Företags admin namnet kan inte vara tomt."
+msgstr "Fï¿½retags admin namnet kan inte vara tomt."
 
 #: /install/index.php:286
 msgid "Company admin password cannot be empty."
-msgstr "Företags admin lösenordet kan inte vara tomt."
+msgstr "Fï¿½retags admin lï¿½senordet kan inte vara tomt."
 
 #: /install/index.php:290
 msgid "Company admin passwords differ."
-msgstr "Företags admin lösenordet är inte samma."
+msgstr "Fï¿½retags admin lï¿½senordet ï¿½r inte samma."
 
 #: /install/index.php:320
 msgid "System Diagnostics"
@@ -112,27 +112,27 @@ msgstr "System diagnostik"
 
 #: /install/index.php:322
 msgid "Select install wizard language:"
-msgstr "Välj installationswizardens språk:"
+msgstr "Vï¿½lj installationswizardens sprï¿½k:"
 
 #: /install/index.php:328
 msgid ""
 "All application preliminary requirements seems to be correct. Please press "
 "Continue button below."
 msgstr ""
-"Alla programmets behov ser ut att vara korrekta. Vänligen tryck Fortsätt "
+"Alla programmets behov ser ut att vara korrekta. Vï¿½nligen tryck Fortsï¿½tt "
 "knappen nedan."
 
 #: /install/index.php:329 /install/index.php:357 /install/index.php:364
 #: /install/index.php:371
 msgid "Continue >>"
-msgstr "Fortsätt >>"
+msgstr "Fortsï¿½tt >>"
 
 #: /install/index.php:331
 msgid ""
 "Application cannot be installed. Please fix problems listed below in red, "
 "and press Refresh button."
 msgstr ""
-"Programmet kan inte installeras. Vänligen fixa problemen som är beskrivna "
+"Programmet kan inte installeras. Vï¿½nligen fixa problemen som ï¿½r beskrivna "
 "nedan och tryk Upprepa knappen."
 
 #: /install/index.php:332
@@ -141,11 +141,11 @@ msgstr "Upprepa"
 
 #: /install/index.php:342
 msgid "Database Server Settings"
-msgstr "Databasserver inställningar"
+msgstr "Databasserver instï¿½llningar"
 
 #: /install/index.php:344
 msgid "Server Host:"
-msgstr "Server värt:"
+msgstr "Server vï¿½rt:"
 
 #: /install/index.php:345
 msgid "Database Name:"
@@ -153,11 +153,11 @@ msgstr "Databasnamn:"
 
 #: /install/index.php:346
 msgid "Database User:"
-msgstr "Databasanvändare:"
+msgstr "Databasanvï¿½ndare:"
 
 #: /install/index.php:347
 msgid "Database Password:"
-msgstr "Databaslösenord:"
+msgstr "Databaslï¿½senord:"
 
 #: /install/index.php:348
 msgid "Database Collation:"
@@ -165,7 +165,7 @@ msgstr "Databas sortering."
 
 #: /install/index.php:349
 msgid "Use '0_' Table Prefix:"
-msgstr "Använd '0_' tabell prefix:"
+msgstr "Anvï¿½nd '0_' tabell prefix:"
 
 #: /install/index.php:349 /includes/system_tests.inc:38
 #: /includes/system_tests.inc:113 /includes/system_tests.inc:126
@@ -179,35 +179,35 @@ msgstr "Nej"
 
 #: /install/index.php:350
 msgid "Install Additional Language Packs from FA Repository:"
-msgstr "Installera ytterligare språkpaket från FA Repository:"
+msgstr "Installera ytterligare sprï¿½kpaket frï¿½n FA Repository:"
 
 #: /install/index.php:351
 msgid "Install Additional COAs from FA Repository:"
-msgstr "Installera ytterligare kontoplaner från FA lagret:"
+msgstr "Installera ytterligare kontoplaner frï¿½n FA lagret:"
 
 #: /install/index.php:353
 msgid ""
 "Select collation you want to use. If you are unsure or you will use various "
 "languages, select unicode collation."
 msgstr ""
-"Välj sortering som du önskar att använda. Om du är osäker eller will använda "
-"olika språk, välj då unicode sortering."
+"Vï¿½lj sortering som du ï¿½nskar att anvï¿½nda. Om du ï¿½r osï¿½ker eller will anvï¿½nda "
+"olika sprï¿½k, vï¿½lj dï¿½ unicode sortering."
 
 #: /install/index.php:354
 msgid ""
 "Use table prefix if you share selected database for more than one FA company "
 "using the same collation."
 msgstr ""
-"Använd tabell prefix om du delar vald daabas med flera än ett FA bolag som "
-"använder samma sortering. "
+"Anvï¿½nd tabell prefix om du delar vald daabas med flera ï¿½n ett FA bolag som "
+"anvï¿½nder samma sortering. "
 
 #: /install/index.php:355
 msgid ""
 "Do not select additional langs nor COAs if you have no working internet "
 "connection right now. You can install them later."
 msgstr ""
-"Välj inte ytterligare språk eller kontoplaner om du inte har någon "
-"fungerande internet förbindelse nu. Du kan installere dem senare."
+"Vï¿½lj inte ytterligare sprï¿½k eller kontoplaner om du inte har nï¿½gon "
+"fungerande internet fï¿½rbindelse nu. Du kan installere dem senare."
 
 #: /install/index.php:356 /install/index.php:363 /install/index.php:370
 #: /install/index.php:394
@@ -216,7 +216,7 @@ msgstr "<< Tillbaka"
 
 #: /install/index.php:361
 msgid "User Interface Languages Selection"
-msgstr "Användar språkval"
+msgstr "Anvï¿½ndar sprï¿½kval"
 
 #: /install/index.php:368
 msgid "Charts of Accounts Selection"
@@ -224,11 +224,11 @@ msgstr "Kontoplansval"
 
 #: /install/index.php:385
 msgid "Company Settings"
-msgstr "Företagsinställningar"
+msgstr "Fï¿½retagsinstï¿½llningar"
 
 #: /install/index.php:387
 msgid "Company Name:"
-msgstr "Företagsnamn:"
+msgstr "Fï¿½retagsnamn:"
 
 #: /install/index.php:388
 msgid "Admin Login:"
@@ -236,36 +236,36 @@ msgstr "Admin logga in:"
 
 #: /install/index.php:389
 msgid "Admin Password:"
-msgstr "Admin lösenord:"
+msgstr "Admin lï¿½senord:"
 
 #: /install/index.php:390
 msgid "Reenter Password:"
-msgstr "Upprepa lösenordet:"
+msgstr "Upprepa lï¿½senordet:"
 
 #: /install/index.php:391
 msgid "Select Chart of Accounts:"
-msgstr "Välj kontoplan:"
+msgstr "Vï¿½lj kontoplan:"
 
 #: /install/index.php:392
 msgid "Select Default Language:"
-msgstr "Välj standardspråk:"
+msgstr "Vï¿½lj standardsprï¿½k:"
 
 #: /install/index.php:395
 msgid "Start installation process"
-msgstr "Påbörja installationen"
+msgstr "Pï¿½bï¿½rja installationen"
 
 #: /install/index.php:399
-msgid "FrontAccounting ERP has been installed successsfully."
-msgstr "FrontAccounting ERP har installerats."
+msgid "AgroPhos ERP has been installed successsfully."
+msgstr "AgroPhos ERP har installerats."
 
 #: /install/index.php:400
 msgid "Please do not forget to remove install wizard folder."
 msgstr ""
-"Vänligen glöm inte att omdöpa eller ta bort installationswizrdens mapp."
+"Vï¿½nligen glï¿½m inte att omdï¿½pa eller ta bort installationswizrdens mapp."
 
 #: /install/index.php:403
 msgid "Click here to start."
-msgstr "Klicka här för at börja:"
+msgstr "Klicka hï¿½r fï¿½r at bï¿½rja:"
 
 #: /includes/system_tests.inc:15
 msgid "Info"
@@ -281,7 +281,7 @@ msgstr "Rekommanderad"
 
 #: /includes/system_tests.inc:18
 msgid "Required "
-msgstr "Nödvändig"
+msgstr "Nï¿½dvï¿½ndig"
 
 #: /includes/system_tests.inc:24
 msgid "MySQL version"
@@ -293,11 +293,11 @@ msgstr "Uppgradera MySQL servern till minst version 4.1"
 
 #: /includes/system_tests.inc:35
 msgid "PHP MySQL extension"
-msgstr "PHP MySQL tillägg"
+msgstr "PHP MySQL tillï¿½gg"
 
 #: /includes/system_tests.inc:40
 msgid "Your PHP has to have MySQL extension enabled."
-msgstr "Din PHP måste ha MySQL tillägg aktiverat."
+msgstr "Din PHP mï¿½ste ha MySQL tillï¿½gg aktiverat."
 
 #: /includes/system_tests.inc:46
 msgid "PHP version"
@@ -305,7 +305,7 @@ msgstr "PHP version"
 
 #: /includes/system_tests.inc:50
 msgid "Upgrade PHP to version at least 5.0.0"
-msgstr "Uppgrader PHP till åtminstone"
+msgstr "Uppgrader PHP till ï¿½tminstone"
 
 #: /includes/system_tests.inc:57
 msgid "Server system"
@@ -317,7 +317,7 @@ msgstr "Session save path"
 
 #: /includes/system_tests.inc:79
 msgid "Removed install wizard folder"
-msgstr "Omdöpt installationswizardens mapp"
+msgstr "Omdï¿½pt installationswizardens mapp"
 
 #: /includes/system_tests.inc:82
 msgid "Not removed"
@@ -326,7 +326,7 @@ msgstr "Inte borttagen"
 #: /includes/system_tests.inc:83
 msgid "Remove or rename install wizard folder for security reasons."
 msgstr ""
-"Ta bort eller omdöp installationswizardens mapp av säkerhetsmässiga orsaker."
+"Ta bort eller omdï¿½p installationswizardens mapp av sï¿½kerhetsmï¿½ssiga orsaker."
 
 #: /includes/system_tests.inc:90
 msgid "Browser type"
@@ -334,7 +334,7 @@ msgstr "Browswrtyp"
 
 #: /includes/system_tests.inc:94
 msgid "Any browser is supported"
-msgstr "Alla browser stöds."
+msgstr "Alla browser stï¿½ds."
 
 #: /includes/system_tests.inc:101
 msgid "Http server type"
@@ -342,7 +342,7 @@ msgstr "Http servertyp"
 
 #: /includes/system_tests.inc:105
 msgid "Any server is supported"
-msgstr "Alla servrar stöds"
+msgstr "Alla servrar stï¿½ds"
 
 #: /includes/system_tests.inc:112
 msgid "Native gettext"
@@ -350,15 +350,15 @@ msgstr "Inhemsk gettext"
 
 #: /includes/system_tests.inc:116
 msgid "In case of no gettext support, php emulation is used"
-msgstr "Om inte gettext stöds, används PHP emulering."
+msgstr "Om inte gettext stï¿½ds, anvï¿½nds PHP emulering."
 
 #: /includes/system_tests.inc:124
 msgid "Debugging mode"
-msgstr "Debug sätt"
+msgstr "Debug sï¿½tt"
 
 #: /includes/system_tests.inc:128
 msgid "To switch debugging on set $go_debug>0 in config.php file"
-msgstr "För att koppla på debugging, sätt $go_debug>0 i config.php filen"
+msgstr "Fï¿½r att koppla pï¿½ debugging, sï¿½tt $go_debug>0 i config.php filen"
 
 #: /includes/system_tests.inc:138
 msgid "Error logging"
@@ -370,11 +370,11 @@ msgstr "Bortkopplat"
 
 #: /includes/system_tests.inc:149
 msgid "To switch error logging set $error_logging in config.php file"
-msgstr "För att koppla på fel log, sätt $error_logging i config.php filen"
+msgstr "Fï¿½r att koppla pï¿½ fel log, sï¿½tt $error_logging i config.php filen"
 
 #: /includes/system_tests.inc:152
 msgid "Log file is not writeable"
-msgstr "Loggfilen är inte skrivbar"
+msgstr "Loggfilen ï¿½r inte skrivbar"
 
 #: /includes/system_tests.inc:162
 msgid "Current database version"
@@ -387,7 +387,7 @@ msgstr ""
 
 #: /includes/system_tests.inc:181
 msgid "Company subdirectories consistency"
-msgstr "Företagsundermapp konsistens "
+msgstr "Fï¿½retagsundermapp konsistens "
 
 #: /includes/system_tests.inc:194 /includes/system_tests.inc:201
 #: /includes/system_tests.inc:209 /includes/system_tests.inc:226
@@ -395,28 +395,28 @@ msgstr "Företagsundermapp konsistens "
 #: /includes/system_tests.inc:359 /includes/system_tests.inc:367
 #, php-format
 msgid "'%s' is not writeable"
-msgstr "'%s' är inte skrivbar"
+msgstr "'%s' ï¿½r inte skrivbar"
 
 #: /includes/system_tests.inc:222
 msgid "Temporary directory"
-msgstr "Temporär mapp"
+msgstr "Temporï¿½r mapp"
 
 #: /includes/system_tests.inc:234
 msgid "Language configuration consistency"
-msgstr "Språkkonfiguration konsistens"
+msgstr "Sprï¿½kkonfiguration konsistens"
 
 #: /includes/system_tests.inc:243
 msgid "Languages folder should be writeable."
-msgstr "Språkmapp måste vara skrivbar"
+msgstr "Sprï¿½kmapp mï¿½ste vara skrivbar"
 
 #: /includes/system_tests.inc:252
 msgid "Languages configuration file should be writeable."
-msgstr "Språkkonfigurationsfil måste vara skrivbar."
+msgstr "Sprï¿½kkonfigurationsfil mï¿½ste vara skrivbar."
 
 #: /includes/system_tests.inc:271
 #, php-format
 msgid "Missing %s translation file."
-msgstr "'%s' översättningsfil saknas."
+msgstr "'%s' ï¿½versï¿½ttningsfil saknas."
 
 #: /includes/system_tests.inc:276
 #, php-format
@@ -440,7 +440,7 @@ msgstr "'%s' filen finns redan."
 #: /includes/system_tests.inc:301
 #, php-format
 msgid "'%s' file should be read-only"
-msgstr "'%s' filen måste vara read-only"
+msgstr "'%s' filen mï¿½ste vara read-only"
 
 #: /includes/system_tests.inc:310
 msgid "Database auth file"
@@ -451,32 +451,32 @@ msgstr "Databas Auth fil"
 msgid ""
 "'%s' file should be read-only if you do not plan to add or change companies"
 msgstr ""
-"'%s' filen måste vara read-only om du inte planerar att lägga till eller "
-"ändra företag."
+"'%s' filen mï¿½ste vara read-only om du inte planerar att lï¿½gga till eller "
+"ï¿½ndra fï¿½retag."
 
 #: /includes/system_tests.inc:334
 msgid "Extensions system"
-msgstr "Tilläggssystem"
+msgstr "Tillï¿½ggssystem"
 
 #: /includes/system_tests.inc:372
 msgid "Extensions configuration files and directories should be writeable"
-msgstr "Tillägskonfigurationsfilen och mappar måste vara skrivbara"
+msgstr "Tillï¿½gskonfigurationsfilen och mappar mï¿½ste vara skrivbara"
 
 #: /includes/system_tests.inc:385
 #, php-format
 msgid "Non-standard theme directory '%s' is not writable"
-msgstr "Icke standard theme mapp '%s' är inte skrivbar"
+msgstr "Icke standard theme mapp '%s' ï¿½r inte skrivbar"
 
 #: /includes/system_tests.inc:395
 msgid ""
 "OpenSSL PHP extension have to be enabled to use extension repository system."
-msgstr "OpenSSL PHP tillägget måste vara aktivt för att använda tillägslagret"
+msgstr "OpenSSL PHP tillï¿½gget mï¿½ste vara aktivt fï¿½r att anvï¿½nda tillï¿½gslagret"
 
 #: /includes/system_tests.inc:398
 msgid ""
 "OpenSSL have to be available on your server to use extension repository "
 "system."
-msgstr "OpenSSL måste finnas på din server för att använda tillägslagret."
+msgstr "OpenSSL mï¿½ste finnas pï¿½ din server fï¿½r att anvï¿½nda tillï¿½gslagret."
 
 #: /includes/system_tests.inc:421
 msgid "Test"
@@ -488,7 +488,7 @@ msgstr "Testtyp"
 
 #: /includes/system_tests.inc:421
 msgid "Value"
-msgstr "Värde"
+msgstr "Vï¿½rde"
 
 #: /includes/system_tests.inc:421
 msgid "Comments"
@@ -501,7 +501,7 @@ msgstr "Ok"
 #: /includes/packages.inc:189
 #, php-format
 msgid "No key field '%s' in file '%s'"
-msgstr "Inget nyckel fält '%s' i filen '%s'"
+msgstr "Inget nyckel fï¿½lt '%s' i filen '%s'"
 
 #: /includes/packages.inc:294
 msgid "Cannot download repo index file."
@@ -515,7 +515,7 @@ msgstr "Kan inte radera gammal '%s' fil."
 #: /includes/packages.inc:310
 msgid "Release file in repository is invalid, or public key is outdated."
 msgstr ""
-"Release filen i repository är ogiltig, eller också är publika nyckeln "
+"Release filen i repository ï¿½r ogiltig, eller ocksï¿½ ï¿½r publika nyckeln "
 "ogiltig."
 
 #: /includes/packages.inc:327
@@ -533,7 +533,7 @@ msgid ""
 "Security alert: broken index file in repository '%s'. Please inform "
 "repository administrator about this issue."
 msgstr ""
-"Säkerhetsvarning: Bruten indes fil i repository '%s'. Vänligen informera "
+"Sï¿½kerhetsvarning: Bruten indes fil i repository '%s'. Vï¿½nligen informera "
 "repository administratorn om detta."
 
 #: /includes/packages.inc:383
@@ -542,7 +542,7 @@ msgid ""
 "Security alert: broken package '%s' in repository. Please inform repository "
 "administrator about this issue."
 msgstr ""
-"Säkerhetsvarning: Brutet paket '%s' i repository. Vänligen informera "
+"Sï¿½kerhetsvarning: Brutet paket '%s' i repository. Vï¿½nligen informera "
 "repository administratorn om detta."
 
 #: /includes/packages.inc:641 /includes/packages.inc:696

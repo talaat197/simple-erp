@@ -1,19 +1,19 @@
-FrontAccounting is developed as cooperative effort by wide range of community
+AgroPhos is developed as cooperative effort by wide range of community
 members including developers, testers, translators and professional users.
 
 Copyright 2007-2009 Joe Hunt Consulting
-Copyright 2010-2018 FrontAccounting LLC
+Copyright 2010-2018 AgroPhos LLC
 
 Contributors:
   Joe Hunt <joe.hunt.consulting@gmail.com>
-  Janusz Dobrowolski <janusz@frontaccounting.eu>
+  Janusz Dobrowolski <janusz@AgroPhos.eu>
   ApMuthu <ApMuthu@usa.net>
   Cambell Prince <cambell.prince@gmail.com>
   Maxime Bourget <bmx007@gmail.com>
   Braath Waate <braathwaate@whitewaterhill.com>
   Notrinos <trananhphuong83@gmail.com>
-  Alastair Robertson <frontaccounting@kwikpay.co.nz>
-  Ross Addison <frontaccounting@bbqq.co.uk>
+  Alastair Robertson <AgroPhos@kwikpay.co.nz>
+  Ross Addison <AgroPhos@bbqq.co.uk>
   Thomas A. Moulton <tom@moulton.us>
   Mithy <themithy@gmail.com>
   Boxygen <faisalayub1980@gmail.com>

@@ -1,6 +1,6 @@
 <?php
 /**********************************************************************
-	Copyright (C) FrontAccounting, LLC.
+	Copyright (C) AgroPhos, LLC.
 	Released under the terms of the GNU General Public License, GPL,
 	as published by the Free Software Foundation, either version 3
 	of the License, or (at your option) any later version.
@@ -108,7 +108,7 @@ $inst_langs = array(
   'de_DE' => array ( 'name' => 'Deutsch',	'code' => 'de_DE',	'encoding' => 'iso-8859-1'),
   'el_GR' => array ( 'name' => 'Greek',	'code' => 'el_GR',	'encoding' => 'utf-8'),
   'es_MX' => array ( 'name' => 'Spanish',	'code' => 'es_MX',	'encoding' => 'iso-8859-1'),
-  'fr_FR' => array ( 'name' => 'Français',	'code' => 'fr_FR',	'encoding' => 'iso-8859-1'),
+  'fr_FR' => array ( 'name' => 'Franï¿½ais',	'code' => 'fr_FR',	'encoding' => 'iso-8859-1'),
   'hi_IN' => array ( 'name' => 'Hindi',	'code' => 'hi_IN',	'encoding' => 'utf-8'),
   'id_ID' => array ( 'name' => 'Indonesian','code' => 'id_ID',	'encoding' => 'iso-8859-1'),
   'it_IT' => array ( 'name' => 'Italian','code' => 'it_IT',	'encoding' => 'iso-8859-1'),
@@ -117,8 +117,8 @@ $inst_langs = array(
   'nl_BE' => array ( 'name' => 'Nederlands (Belgian)','code' => 'nl_BE',	'encoding' => 'iso-8859-1'),
   'nl_NL' => array ( 'name' => 'Nederlands (Netherlands)','code' => 'nl_NL',	'encoding' => 'iso-8859-1'),
   'pl_PL' => array ( 'name' => 'Polski',	'code' => 'pl_PL',	'encoding' => 'iso-8859-2'),
-  'pt_BR' => array ( 'name' => 'Português (Brasilia)','code' => 'pt_BR',	'encoding' => 'iso-8859-1'),
-  'pt_PT' => array ( 'name' => 'Português','code' => 'pt_PT',	'encoding' => 'iso-8859-1'),
+  'pt_BR' => array ( 'name' => 'Portuguï¿½s (Brasilia)','code' => 'pt_BR',	'encoding' => 'iso-8859-1'),
+  'pt_PT' => array ( 'name' => 'Portuguï¿½s','code' => 'pt_PT',	'encoding' => 'iso-8859-1'),
   'sv_SE' => array ( 'name' => 'Svenska',	'code' => 'sv_SE',	'encoding' => 'iso-8859-1'),
   'ta_IN' => array ( 'name' => 'Tamil',	'code' => 'ta_IN',	'encoding' => 'utf-8'),
   'vi_VN' => array ( 'name' => 'Vietnamese',	'code' => 'vi_VN',	'encoding' => 'utf-8'),

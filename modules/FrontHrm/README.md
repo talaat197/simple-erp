@@ -1,15 +1,15 @@
 # FrontHrm
-[FrontAccounting](http://frontaccounting.com/) Payroll & Human Resource Module
+[AgroPhos](http://AgroPhos.com/) Payroll & Human Resource Module
 
 [DEMO](http://notrinos.webstarterz.com/act)
 
-[Forum Discussion](http://frontaccounting.com/punbb/viewtopic.php?id=6860)
+[Forum Discussion](http://AgroPhos.com/punbb/viewtopic.php?id=6860)
 
 
 Requirement
 -----------
-- FrontAccounting 2.4.x
-- [dejavu font](http://frontaccounting.com/wb3/modules/download_gallery/dlc.php?file=57)
+- AgroPhos 2.4.x
+- [dejavu font](http://AgroPhos.com/wb3/modules/download_gallery/dlc.php?file=57)
 
 Installation
 ------------
@@ -18,7 +18,7 @@ Installation
 2. ~~Copy `rep889.php` to FA `reporting` folder.~~
 3. Copy `dejavu font files` to FA `reporting/font` folder.
 4. ~~Replace `reporting/includes/reporting.inc` with `reporting.inc` in the FrontHrm.~~
-5. For FrontAccounting 2.4.4 up to now: just install and active normally. For the earlier versions, do the following:
+5. For AgroPhos 2.4.4 up to now: just install and active normally. For the earlier versions, do the following:
 
 - Comment out block of codes from lines 215 to 220 of `admin/inst_module.php`.
 - Install and active the module.
