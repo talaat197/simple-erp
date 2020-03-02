@@ -154,7 +154,7 @@ echo "<td class='bottomBarCell'>$date</td>\n";
 echo "</tr></table>\n";
 echo "<table class='footer'>\n";
 echo "<tr>\n";
-echo "<td><a target='_blank' href='" . $SysPrefs->power_url . "' tabindex='-1'>" . $SysPrefs->app_title . " $version - " . _("Theme:") . " " . $def_theme . "</a></td>\n";
+echo "<td><a target='_blank' href='" . $SysPrefs->power_url . "' tabindex='-1'>" . $SysPrefs->app_title . "</a></td>\n";
 echo "</tr>\n";
 echo "<tr>\n";
 echo "<td><a target='_blank' href='" . $SysPrefs->power_url . "' tabindex='-1'>" . $SysPrefs->power_by . "</a></td>\n";

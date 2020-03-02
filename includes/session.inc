@@ -377,7 +377,7 @@ set_error_handler('error_handler' /*, errtypes */);
 set_exception_handler('exception_handler');
 
 include_once($path_to_root . "/includes/current_user.inc");
-include_once($path_to_root . "/frontaccounting.php");
+include_once($path_to_root . "/simpleErp.php");
 include_once($path_to_root . "/admin/db/security_db.inc");
 include_once($path_to_root . "/includes/lang/language.inc");
 include_once($path_to_root . "/config_db.php");
