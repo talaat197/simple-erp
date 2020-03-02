@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: frontaccounting.php:72 frontaccounting.php:73
+#: simpleErp.php:72 simpleErp.php:73
 msgid "Main  Menu"
 msgstr ""
 
-#: frontaccounting.php:74 access/logout.php:21 themes/default/renderer.php:73
+#: simpleErp.php:74 access/logout.php:21 themes/default/renderer.php:73
 #: themes/default/renderer.php:87
 msgid "Logout"
 msgstr ""
