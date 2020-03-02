@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //--------------------------------------------------------------------------------------------------
 function pager_link($link_text, $url, $icon=false)
@@ -37,7 +30,7 @@ function navi_button_cell($name, $value, $enabled=true, $align='left') {
 
 //-----------------------------------------------------------------------------
 //
-//    Sql paged table view. Call this function inside form.
+
 //
 function display_db_pager(&$pager) {
     global	$path_to_root;
@@ -48,7 +41,7 @@ function display_db_pager(&$pager) {
     $headers = array();
 
 	foreach($pager->columns as $num_col=>$col) {
-		// record status control column is displayed only when control checkbox is on
+		
     	if (isset($col['head']) && ($col['type']!='inactive' || get_post('show_inactive'))) {
 			if (!isset($col['ord']))
 				$headers[] = $col['head'];
@@ -64,7 +57,7 @@ function display_db_pager(&$pager) {
     start_table(TABLESTYLE, "width='$pager->width'");
     table_header($headers);
 
-	if($pager->header_fun) {	// if set header handler
+	if($pager->header_fun) {	
 		start_row("class='{$pager->header_class}'");
 		$fun = $pager->header_fun;
 		if (method_exists($pager, $fun)) { 
@@ -73,7 +66,7 @@ function display_db_pager(&$pager) {
 			$h = $fun($pager);
 		}
 		
-		foreach($h as $c) {	 // draw header columns
+		foreach($h as $c) {	 
 			$pars = isset($c[1]) ? $c[1] : '';
 			label_cell($c[0], $pars);
 		}
@@ -99,7 +92,7 @@ function display_db_pager(&$pager) {
 		   $coltype = $col['type'];
 		   $cell = isset($col['name']) ? $row[$col['name']] : '';
 
-		   if (isset($col['fun'])) { // use data input function if defined
+		   if (isset($col['fun'])) { 
 		    $fun = $col['fun']; 
 		    if (method_exists($pager, $fun)) { 
 				$cell = $pager->$fun($row, $cell);
@@ -108,14 +101,14 @@ function display_db_pager(&$pager) {
 			} else
 				$cell = '';
 		   }
-		   switch($coltype) { // format column
+		   switch($coltype) { 
 		    case 'time':
 		  	  label_cell($cell, "width='40'"); break;
 		    case 'date':
 		  	  label_cell(sql2date($cell), "align='center' nowrap"); break;
-		    case 'dstamp':	// time stamp displayed as date
+		    case 'dstamp':	
 		  	  label_cell(sql2date(substr($cell, 0, 10)), "align='center' nowrap"); break;
-		    case 'tstamp':	// time stamp - FIX user format
+		    case 'tstamp':	
 		  	  label_cell(sql2date(substr($cell, 0, 10)).
 			  ' '. substr($cell, 10), "align='center'"); break;
 		    case 'percent':
@@ -143,14 +136,14 @@ function display_db_pager(&$pager) {
 			  	  label_cell($cell, "align='" . $col['align'] . "'");
 			  else
 			  	  label_cell($cell);
-		    case 'skip':	// column not displayed
+		    case 'skip':	
 	  	  }
 	  }
 	    end_row();
 	}
 	//end of while loop
 
-	if($pager->footer_fun) {	// if set footer handler
+	if($pager->footer_fun) {	
 		start_row("class='{$pager->footer_class}'");
 		$fun = $pager->footer_fun;
 		if (method_exists($pager, $fun)) { 
@@ -159,7 +152,7 @@ function display_db_pager(&$pager) {
 			$h = $fun($pager);
 		}
 		
-		foreach($h as $c) {	 // draw footer columns
+		foreach($h as $c) {	 
 			$pars = isset($c[1]) ? $c[1] : '';
 			label_cell($c[0], $pars);
 		}
@@ -177,7 +170,7 @@ function display_db_pager(&$pager) {
 	    start_table();
 		start_row();
 		if (@$pager->inactive_ctrl) 
-				submit('Update', _('Update'), true, '', null); // inactive update
+				submit('Update', _('Update'), true, '', null); 
 		echo navi_button_cell($but_pref.'first', _('First'), $pager->first_page, 'right');
 		echo navi_button_cell($but_pref.'prev', _('Prev'), $pager->prev_page,'right');
 		echo navi_button_cell($but_pref.'next', _('Next'), $pager->next_page,'right');

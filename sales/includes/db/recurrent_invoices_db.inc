@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 function add_recurrent_invoice($description, $order_no, $debtor_no, $group_no, $days, $monthly,
@@ -53,11 +46,11 @@ function delete_recurrent_invoice($selected_id)
 
 function get_recurrent_invoices($date=null)
 {
-	// last_sent stores end date of last generated invoice _plus_ 1 (or is empty)
+	
 	if ($date)
 	{
 		$date = date2sql($date);
-		// we can issue invoice after or at last day of covered period
+		
 		$sql = "SELECT *, DATE_ADD(DATE_ADD(IF(`last_sent`='0000-00-00', `begin`, `last_sent`), INTERVAL `monthly` MONTH), INTERVAL `days` DAY) <= '$date'
 			AND last_sent < DATE_ADD(`end`, INTERVAL 1 DAY) as overdue";
 	} else

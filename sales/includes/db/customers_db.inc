@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 function add_customer($CustName, $cust_ref, $address, $tax_id, $curr_code,
@@ -72,7 +65,7 @@ function get_customer_details($customer_id, $to=null, $all=true)
 		$todate = date2sql($to);
 	$past1 = get_company_pref('past_due_days');
 	$past2 = 2 * $past1;
-	// removed - debtor_trans.alloc from all summations
+	
 	$sign = "IF(`type` IN(".implode(',',  array(ST_CUSTCREDIT,ST_CUSTPAYMENT,ST_BANKDEPOSIT))."), -1, 1)";
 	if ($all)
     	$value = "IFNULL($sign*(trans.ov_amount + trans.ov_gst + trans.ov_freight + trans.ov_freight_tax + trans.ov_discount),0)";
@@ -154,7 +147,7 @@ function get_customer_contacts($customer_id, $action=null)
 	$res = get_crm_persons('customer', $action, $customer_id);
 	while($contact = db_fetch($res))
 	{
-		if ($contact['lang'] == 'C') // Fix for improper lang in demo sql files.
+		if ($contact['lang'] == 'C') 
 			$contact['lang'] = '';
 		$results[] = $contact;
 	}	

@@ -1,15 +1,8 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
-// Author: Joe Hunt, 17/11/2015. Upgraded to release 2.4. 10/11/2015.
+
 
 	class renderer
 	{
@@ -93,7 +86,7 @@
 				echo "</ul>\n";
 				$indicator = "$path_to_root/themes/".user_theme(). "/images/ajax-loader.gif";
 				echo "<h1>$SysPrefs->power_by $version<span style='padding-left:300px;'><img id='ajaxmark' src='$indicator' align='center' style='visibility:hidden;'></span></h1>\n";
-				echo "</div>\n"; // header
+				echo "</div>\n"; 
 							
 				echo "<div id='cssmenu'>\n";
 				echo "<ul>\n";
@@ -158,12 +151,12 @@
 								echo "        </ul>\n";	
 							echo "      </li>\n";
 						}
-						echo "    </ul>\n"; // menu
+						echo "    </ul>\n"; 
 					}
 					echo"  </li>\n";
 				}	
 				echo "</ul>\n"; 
-				echo "</div>\n"; // menu
+				echo "</div>\n"; 
 			}
 			echo "<div class='fa-body'>\n";
 			echo "<div class='fa-content'>\n";
@@ -185,8 +178,8 @@
 			include_once($path_to_root . "/includes/date_functions.inc");
 
 			if (!$no_menu)
-				echo "</div>\n"; // fa-content
-			echo "</div>\n"; // fa-body
+				echo "</div>\n"; 
+			echo "</div>\n"; 
 			if (!$no_menu)
 			{
 				echo "<div class='fa-footer'>\n";
@@ -200,9 +193,9 @@
 					echo "<span class='date'>" . _("Theme:") . " " . user_theme() . "</span>\n";
 					echo "<span class='date'>".show_users_online()."</span>\n";
 				}
-				echo "</div>\n"; // footer
+				echo "</div>\n"; 
 			}
-			echo "</div>\n"; // fa-main
+			echo "</div>\n"; 
 		}
 
 		function display_applications(&$waapp)
@@ -221,16 +214,16 @@
 			$selected_app = $waapp->get_selected_application();
 			if (!$_SESSION["wa_current_user"]->check_application_access($selected_app))
 				return;
-			// first have a look through the directory, 
-			// and remove old temporary pdfs and pngs
+			
+			
 			$dir = company_path(). '/pdf_files';
 	
 			if ($d = @opendir($dir)) {
 				while (($file = readdir($d)) !== false) {
 					if (!is_file($dir.'/'.$file) || $file == 'index.php') continue;
-				// then check to see if this one is too old
+				
 					$ftime = filemtime($dir.'/'.$file);
-				 // seems 3 min is enough for any report download, isn't it?
+				 
 					if (time()-$ftime > 180){
 						unlink($dir.'/'.$file);
 					}
@@ -390,7 +383,7 @@
 		$pg = new graph();
 
 		echo "<table width='100%'>";
-		echo "<tr valign=top><td style='width:50%'>\n"; // outer table
+		echo "<tr valign=top><td style='width:50%'>\n"; 
 
 		$title = customer_top($today, 3, 66, $pg);
 		source_graphic($today, $title, _("Customer"), $pg);

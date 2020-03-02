@@ -1,16 +1,9 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
-// Type of requirement for positive test result
+
 $test_level = array(
 	0 => _('Info'),
 	1 => _('Optional'),
@@ -18,7 +11,7 @@ $test_level = array(
 	3 => _('Required ')
 );
 
-// test mysql server version
+
 function tst_mysql() 
 {
 	$test['descr'] = _('MySQL version'). ' >=4.1';
@@ -32,7 +25,7 @@ function tst_mysql()
 
 	return $test;
 }
-// test php mysql extension
+
 function tst_phpmysql() 
 {
 	$test['descr'] = _('PHP MySQL extension');
@@ -140,7 +133,7 @@ function tst_logging()
 	$error_logfile = $SysPrefs->error_logfile;
 	$test['descr'] = _('Error logging');
 	$test['type'] = 2;
-	// if error lgging is on, but log file does not exists try write
+	
 	if ($error_logfile && !is_file($error_logfile)) 
 	{
 		@fclose(@fopen($error_logfile, 'w'));
@@ -205,8 +198,8 @@ function tst_subdirs($install=false)
 			} else {
 				$dir = opendir($spath);
 				while (false !== ($fname = readdir($dir))) {
-					// check only *.js files. Manually installed package can contain other
-					// non-writable files which are non-crucial for normal operations
+					
+					
 					if (preg_match('/.*(\.js)/', $fname) && !is_writable("$spath/$fname")) {
 						$test['result'] = false;
 						$test['comments'][] = sprintf(_("'%s' is not writeable"), "$spath/$fname");
@@ -261,7 +254,7 @@ function tst_langs($install)
 	
 	foreach ($installed_languages as $lang) {
 
-		if ($lang['code'] == 'C') continue; // no translation (English)
+		if ($lang['code'] == 'C') continue; 
 		$langs[] = $lang['code'];
 
 		$file = $path_to_root.'/lang/'.$lang['code'].'/LC_MESSAGES/'.$lang['code'];

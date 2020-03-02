@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_SECROLES';
 $path_to_root = "..";
@@ -23,10 +16,10 @@ include_once($path_to_root . "/admin/db/security_db.inc");
 
 $new_role = get_post('role')=='' || get_post('cancel') || get_post('clone'); 
 //--------------------------------------------------------------------------------------------------
-// Following compare function is used for sorting areas 
-// in such a way that security areas defined by module/plugin
-// is properly placed under related section regardless of 
-// unique extension number, with order inside sections preserved.
+
+
+
+
 //
 function comp_areas($area1, $area2) 
 {
@@ -69,7 +62,7 @@ if (get_post('addupdate'))
       	display_error( _("Role name cannot be empty."));
 		set_focus('name');
    	}
-		// prevent accidental editor lockup by removing SA_SECROLES
+		
 	if (get_post('role') == $_SESSION['wa_current_user']->access) {
 		if (!isset($_POST['Area'.$security_areas['SA_SECROLES'][0]])
 			|| !isset($_POST['Section'.SS_SETUP])) {
@@ -88,7 +81,7 @@ if (get_post('addupdate'))
 			if (substr($p,0,4) == 'Area' && $val == 1) {
 				$a = substr($p, 4);
 				if (($a&~0xffff) && (($a&0xff00)<(99<<8))) {
-					$sections[] = $a&~0xff;	// add extended section for plugins
+					$sections[] = $a&~0xff;	
 				}
 				$areas[] = (int)$a;
 			}
@@ -200,14 +193,14 @@ end_table(1);
 	$ext = $sec = $m = -1;
 
 	foreach(sort_areas($security_areas) as $area =>$parms ) {
-		// system setup areas are accessable only for site admins i.e. 
-		// admins of first registered company
+		
+		
 		if (user_company() && (($parms[0]&0xff00) == SS_SADMIN)) continue;
 		
 		$newsec = ($parms[0]>>8)&0xff;
 		$newext  = $parms[0]>>16;
 		if ($newsec != $sec || (($newext != $ext) && ($newsec>99)))
-		{ // features set selection
+		{ 
 			$ext = $newext; 
 			$sec = $newsec;
 			$m = $parms[0] & ~0xff;

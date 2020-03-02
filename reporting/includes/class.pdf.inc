@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 /*
 	This class is an extension to the tcpdf class using a syntax that the original reports were written in
@@ -87,14 +80,14 @@ class Cpdf extends FPDI {
 		$lang = array_search_value($code, $installed_languages, 'code');
 		$GetText->set_language($lang['code'], strtoupper($lang['encoding']));
 
-		// $local_path_to_root is  set inside find_custom_file.
-		// Select extension domain if po file is provided
-		// otherwise use global translation.
+		
+		
+		
 		if (file_exists($local_path_to_root.'/lang/'.$lang['code'].'/LC_MESSAGES/'.$lang['code'].'.po'))
 			$GetText->add_domain($lang['code'], $local_path_to_root . "/lang");
 		else
 			$GetText->add_domain($lang['code'], $path_to_root . "/lang", @$lang['version']);
-		// re-read translated sys names.
+		
 		include($path_to_root.'/includes/sysnames.inc');
 
 		$l = array('a_meta_charset' => strtoupper($lang['encoding']), 
@@ -123,29 +116,29 @@ class Cpdf extends FPDI {
 	}
 
 
-	// $fontname should be a standard PDF font (like 'times', 'helvetica' or 'courier')
-	// or one that's been installed on your system.  An empty string can also be used
-	// which will retain the font currently in use.
-	// $style is either:
-	//   * a special case string:
-	//     * bold
-	//     * italic
-	//   * or a case-insensitive string where each char represents a style choice
-	// and you can use more than one or none at all.  Possible choices:
-	//      * empty string: regular
-    //      * B: bold
-    //      * I: italic
-    //      * U: underline
-    //      * D: line trough (aka "strike through")
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    
+    
+    
+    
 	function selectFont($fontname, $style = '')
 	{
-		// Parse the style - check for special cases, otherwise leave as-is
+		
 		if ($style == 'italic')
 			$style = 'i';
 		elseif ($style == 'bold')
 			$style = 'b';
 
-		// Parse the fontname
+		
 		if ($fontname != '')
 			$fontname = basename($fontname);
 		if ($fontname == '')
@@ -181,7 +174,7 @@ class Cpdf extends FPDI {
                     default :        $fontname = "freesans13";     break;
                 }
             }
-            // else use built-in adobe fonts helvetica.
+            
 		}
 		$this->SetFont($fontname, $style);
 	}
@@ -308,7 +301,7 @@ class Cpdf extends FPDI {
 		else
 		{
 			if ($align == 'right')
-				$align = 'R';// This may need to be 'L'
+				$align = 'R';
 			elseif ($align == 'left')
 				$align = 'R';
 			elseif ($align == 'center')
@@ -318,12 +311,12 @@ class Cpdf extends FPDI {
 		}
 
 		$txt = parent::unhtmlentities($txt);
-		// If horizontal scaling was requested, check to see if we're trying to scale
-		// too much.  If so, cut back string first and then scale it.
+		
+		
 		$maxScaleFactor = 1.4;
 		if ($stretch == 1 || $stretch == 2)
 			$txt = $this->calcTextWrap($txt, $w * $maxScaleFactor, $spacebreak);
-		// Wrap text if stretching isn't turned on
+		
 		else
 			$txt = $this->calcTextWrap($txt, $w, $spacebreak);
 		$ret = $txt[1];
@@ -341,5 +334,5 @@ class Cpdf extends FPDI {
 		parent::Text($x,$y, parent::unhtmlentities($txt), $stroke, $clip);
 	}
 
-} // end of class
+} 
 

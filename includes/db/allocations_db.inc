@@ -10,7 +10,7 @@
 	See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
 ***********************************************************************/
 //
-// Functions below are unified interface to allocations (should supersede currently separate cust/supp allocations in a future)
+
 //
 //----------------------------------------------------------------------------------------
 //
@@ -42,7 +42,7 @@ function get_payments_for($trans_no, $trans_type, $person_id)
 //
 function allocate_payment($type_from, $no_from, $type_to, $no_to, $person_id, $amount, $date)
 {
-	$date = date2sql($date); // FIXME types
+	$date = date2sql($date); 
 	if (in_array($type_to, array(ST_SALESORDER, ST_CUSTCREDIT, ST_CUSTDELIVERY, ST_SALESINVOICE)))
 		$allocations = 'cust_allocations';
 	else
@@ -71,8 +71,8 @@ function allocate_payment($type_from, $no_from, $type_to, $no_to, $person_id, $a
 //----------------------------------------------------------------------------------------
 //
 //	Reallocates allocations to selected transaction.
-//  $allocs is table of payments which should be reallocated
-//  $free_remainder should be true if old allacations should be freed when not allocated to new transaction.
+
+
 //
 function reallocate_payments($trans_no, $trans_type, $alloc_date, $max_alloc, $allocs, $person_id, $free_remainder=true)
 {

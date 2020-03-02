@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_MANUFISSUE';
 $path_to_root = "..";
@@ -102,7 +95,7 @@ function can_process()
 if (isset($_POST['Process']) && can_process())
 {
 
-	// if failed, returns a stockID
+	
 	$failed_data = add_work_order_issue($_SESSION['issue_items']->order_id,
 		$_POST['ref'], $_POST['IssueType'], $_SESSION['issue_items']->line_items,
 		$_POST['Location'], $_POST['WorkCentre'], $_POST['date_'], $_POST['memo_']);

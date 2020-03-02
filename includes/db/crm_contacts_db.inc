@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 function add_crm_person($ref, $name, $name2, $address, $phone, $phone2, $fax, $email, $lang, $notes,
@@ -111,7 +104,7 @@ function get_crm_persons($type=null, $action=null, $entity=null, $person=null, $
 	 	$sql .= " ORDER BY contact_id";
 
 	$result = db_query($sql, "Can't get crm persons");
-	// fallback to general contacts
+	
 	if (!db_num_rows($result) && $action && $action != 'general')
 		return get_crm_persons($type, 'general', $entity, $person, $unique);
 	else
@@ -176,7 +169,7 @@ function update_person_contacts($id, $cat_ids, $entity_id=null, $type=null)
 function delete_entity_contacts($class, $entity)
 {
 	delete_crm_contacts(null, $class, $entity);
-	// cleanup
+	
 	$res = get_crm_persons($class, null, $entity, null, true);
 	while($person = db_fetch($res)) {
 		$rels = get_person_contacts($person['id']);
@@ -214,7 +207,7 @@ function update_crm_category($selected_id, $type, $action, $name, $description)
 
 function delete_crm_category($selected_id)
 {
-	// preserve system categories
+	
 	$sql="DELETE FROM ".TB_PREF."crm_categories WHERE system=0 AND id=".db_escape($selected_id);
 	db_query($sql,"could not delete crm category");
 }

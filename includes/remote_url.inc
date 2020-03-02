@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 /*
@@ -16,7 +9,7 @@
 */
 function url_get_contents($url, $timeout=10)
 {
-	// get the host name and url path
+	
 	$parsedUrl = parse_url($url);
 
 	if (@$parsedUrl['scheme'] == 'file')
@@ -27,7 +20,7 @@ function url_get_contents($url, $timeout=10)
 	if (isset($parsedUrl['path'])) {
 		$path = $parsedUrl['path'];
 	} else {
-		// the url is pointing to the host like http://www.mysite.com
+		
 		$path = '/';
 	}
 
@@ -38,17 +31,17 @@ function url_get_contents($url, $timeout=10)
 	if (isset($parsedUrl['port'])) {
 		$port = $parsedUrl['port'];
 	} else {
-		// most sites use port 80
+		
 		$port = '80';
 	}
 
 	$response = '';
-	// connect to the remote server
+	
 	$fp = @fsockopen($host, $port, $errno, $errstr, $timeout );
 	if( !$fp ) {
 		return null;
 	} else {
-		// send the necessary headers to get the file
+		
 		fputs($fp, "GET $path HTTP/1.0\r\n" .
 			"Host: $host\r\n".
 			(isset($parsedUrl['pass']) ? "Authorization: Basic ".
@@ -60,19 +53,19 @@ function url_get_contents($url, $timeout=10)
 			"Connection: close\r\n" .
 			"Referer: http://$host\r\n\r\n");
 
-		// retrieve the response from the remote server
+		
 
 		$response = stream_get_contents($fp);
 
 		if (!strpos($response, "200 OK\r\n"))
 			return null;
-		// strip the headers
+		
 		$pos = strpos($response, "\r\n\r\n");
 
 		$response = substr($response, $pos + 4);
 	}
 
-	// return the file content
+	
 	return $response;
 }
 

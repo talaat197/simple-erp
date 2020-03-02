@@ -199,7 +199,7 @@ function validate_payslip_generation() {
         set_focus('from_date');
         return false;
     }
-    // The following two cases need to be set in correct order
+    
     if(!employee_has_salary_scale($_POST['person_id'])) {
     	display_error('Selected Employee does not have a Salary Scale, please define it first.');
     	set_focus('person_id');
@@ -419,7 +419,7 @@ if (count($_SESSION['journal_items']->gl_items)) {
 }
 div_end();
 
-// highlight_string("<?php\n" . var_export($_SESSION['journal_items'], true));
+
 
 end_form();
 end_page();

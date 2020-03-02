@@ -1,24 +1,24 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
-//  
-//  Copyright (c) 2003 Laurent Bedubourg
-//  
-//  This library is free software; you can redistribute it and/or
-//  modify it under the terms of the GNU Lesser General Public
-//  License as published by the Free Software Foundation; either
-//  version 2.1 of the License, or (at your option) any later version.
-//  
-//  This library is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//  Lesser General Public License for more details.
-//  
-//  You should have received a copy of the GNU Lesser General Public
-//  License along with this library; if not, write to the Free Software
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-//  
-//  Authors: Laurent Bedubourg <laurent.bedubourg@free.fr>
-//  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 define('GETTEXT_NATIVE', 1);
 define('GETTEXT_PHP', 2);
@@ -35,7 +35,7 @@ function get_text_init($managerType = GETTEXT_NATIVE) {
                 return;
             }
         }
-        // fail back to php support 
+        
 		$GetText = new gettext_php_support();
 	}
 }
@@ -70,7 +70,7 @@ class gettext_native_support
         putenv("LC_ALL=$lang_code");
         putenv("LANGUAGE=$lang_code");
 
-		// cover a couple of country/encoding variants 
+		
 		$up = strtoupper($encoding);
 		$low = strtolower($encoding);
 		$lshort = strtr($up, '-','');
@@ -83,10 +83,10 @@ class gettext_native_support
 				$lang_code.".".$up, $lang_code.".".$low,
 				$lang_code.".".$ushort,	$lang_code.".".$lshort);
 
-        setlocale(LC_NUMERIC, 'C'); // important for numeric presentation etc.
+        setlocale(LC_NUMERIC, 'C'); 
         if ($set === false) 
         {
-			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') // don't do this test if server is WIN
+			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') 
 				return 0;
             $str = sprintf('language code "%s", encoding "%s" not supported by your system',
                 $lang_code, $encoding);
@@ -98,9 +98,9 @@ class gettext_native_support
 	 */
 	function check_support($lang_code, $encoding)
     {
-		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') // don't do this test if server is WIN
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') 
 			return true;
-		$old = setlocale(LC_CTYPE, '0'); // LC_MESSAGES does not exist on Win
+		$old = setlocale(LC_CTYPE, '0'); 
 		$up = strtoupper($encoding);
 		$low = strtolower($encoding);
 		$lshort = strtr($up, '-','');
@@ -128,9 +128,9 @@ class gettext_native_support
 	    if ($domain == "")
 	    	$domain = "?";
 		if ($version) {
-	// To avoid need for apache server restart after change of *.mo file
-	// we have to include file version as part of filename.
-	// This is alternative naming convention: $domain = $version.'/'.$domain;
+	
+	
+	
 			$domain .= '-'.$version;
 		}
         bindtextdomain($domain, $path);
@@ -191,8 +191,8 @@ class gettext_native_support
         while (preg_match('/\$\{(.*?)\}/sm', $value, $m)) {
             list($src, $var) = $m;
 
-            // retrieve variable to interpolate in context, throw an exception
-            // if not found.
+            
+            
             $var2 = $this->_get_var($var);
             if ($var2 === false) {
                 $str = sprintf('Interpolation error, var "%s" not set', $var);
@@ -246,7 +246,7 @@ class gettext_php_support extends gettext_native_support
      */
     function set_language($lang_code, $encoding)
     {
-        // if language already set, try to reload domains
+        
         if ($this->_lang_code !== false and $this->_lang_code != $lang_code) 
         {
             foreach ($this->_domains as $domain) 
@@ -259,13 +259,13 @@ class gettext_php_support extends gettext_native_support
         
         $this->_lang_code = $lang_code;
 
-        // this allow us to set the language code after 
-        // domain list.
+        
+        
         while (count($this->_jobs) > 0) 
         {
             list($domain, $path) = array_shift($this->_jobs);
             $err = $this->add_domain($domain, $path);
-            // error raised, break jobs
+            
 			if (is_error($err)) 
 			{
                 return $err;
@@ -307,7 +307,7 @@ class gettext_php_support extends gettext_native_support
             $this->_jobs[] = array($domain, $path); 
             return;
         }
-        // Don't fill the domains with false data, it increased the error.log
+        
        	if (strpos($domain, $this->_lang_code) === false)
         	return;
  
@@ -348,7 +348,7 @@ class gettext_php_support extends gettext_native_support
         if (!file_exists($php_domain) || (filemtime($php_domain) < filemtime($src_domain))) 
         {
             
-            // parse and compile translation table
+            
             $parser = new gettext_php_support_parser();
             $hash   = $parser->parse($src_domain);
             if (!defined('GETTEXT_NO_CACHE')) 
@@ -456,7 +456,7 @@ class gettext_php_support_parser
      */
     function _parse_line($line, $nbr)
     {
-        $line = str_replace("\\\"", "'", $line); // Should be inside preg_match, but I couldn't find the solution. This works.
+        $line = str_replace("\\\"", "'", $line); 
         if (preg_match('/^\s*?#/', $line)) { return; }
         if (preg_match('/^\s*?msgid \"(.*?)(?!<\\\)\"/', $line, $m)) {
             $this->_store_key();
@@ -532,7 +532,7 @@ function set_ext_domain($path='') {
 	global $path_to_root, $GetText;
 	static $domain_stack = array('');
 
-	if ($path)	// save path on domain stack
+	if ($path)	
 		array_unshift($domain_stack,  $path);
 	else
 	{
@@ -541,7 +541,7 @@ function set_ext_domain($path='') {
 	}
 
 	$lang_path = $path_to_root . ($path ? '/' : '') .$path.'/lang';
-	// ignore change when extension does not provide translation structure and test for valid gettext.
+	
 	if (file_exists($lang_path) && isset($GetText))
 		$GetText->add_domain($_SESSION['language']->code,
 			$lang_path, $path ? '' : $_SESSION['language']->version);

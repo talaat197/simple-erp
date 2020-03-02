@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_SALESPAYMNT';
 $path_to_root = "..";
@@ -43,11 +36,11 @@ if (isset($_GET['customer_id']))
 	$_POST['customer_id'] = $_GET['customer_id'];
 }
 
-if (!isset($_POST['bank_account'])) { // first page call
+if (!isset($_POST['bank_account'])) { 
 	$_SESSION['alloc'] = new allocation(ST_CUSTPAYMENT, 0, get_post('customer_id'));
 
 	if (isset($_GET['SInvoice'])) {
-		//  get date and supplier
+		
 		$inv = get_customer_trans($_GET['SInvoice'], ST_SALESINVOICE);
 		$dflt_act = get_default_bank_account($inv['curr_code']);
 		$_POST['bank_account'] = $dflt_act['id'];
@@ -74,7 +67,7 @@ if (!isset($_POST['bank_account'])) { // first page call
 }
 
 if (list_updated('BranchID')) {
-	// when branch is selected via external editor also customer can change
+	
 	$br = get_branch(get_post('BranchID'));
 	$_POST['customer_id'] = $br['debtor_no'];
 	$_SESSION['alloc']->person_id = $br['debtor_no'];
@@ -261,8 +254,8 @@ function read_customer_data()
 
 	$_POST['HoldAccount'] = $myrow["dissallow_invoices"];
 	$_POST['pymt_discount'] = $myrow["pymt_discount"];
-	// To support Edit feature
-	// If page is called first time and New entry fetch the nex reference number
+	
+	
 	if (!$_SESSION['alloc']->trans_no && !isset($_POST['charge'])) 
 		$_POST['ref'] = $Refs->get_next(ST_CUSTPAYMENT, null, array(
 			'customer' => get_post('customer_id'), 'date' => get_post('DateBanked')));
@@ -271,7 +264,7 @@ function read_customer_data()
 //----------------------------------------------------------------------------------------------
 $new = 1;
 
-// To support Edit feature
+
 if (isset($_GET['trans_no']) && $_GET['trans_no'] > 0 )
 {
 	$_POST['trans_no'] = $_GET['trans_no'];

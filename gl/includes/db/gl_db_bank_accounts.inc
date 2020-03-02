@@ -20,7 +20,7 @@ function add_bank_account($account_code, $account_type, $bank_account_name,
 	$bank_name, $bank_account_number, $bank_address, $bank_curr_code, 
 	$dflt_curr_act, $bank_charge_act)
 {
-	if($dflt_curr_act) 	// only one default account for any currency
+	if($dflt_curr_act) 	
 	  clear_dflt_curr_account($bank_curr_code);
 
 	$sql = "INSERT INTO ".TB_PREF."bank_accounts (account_code, account_type, 
@@ -39,7 +39,7 @@ function add_bank_account($account_code, $account_type, $bank_account_name,
 function update_bank_account($id, $account_code, $account_type, $bank_account_name, 
 	$bank_name, $bank_account_number, $bank_address, $bank_curr_code, $dflt_curr_act, $bank_charge_act)
 {
-	if($dflt_curr_act) 	// only one default account for any currency
+	if($dflt_curr_act) 	
 	  clear_dflt_curr_account($bank_curr_code);
 
 	$sql = "UPDATE ".TB_PREF."bank_accounts	SET account_type = ".db_escape($account_type).",
@@ -247,7 +247,7 @@ function get_quick_entry_line($selected_id)
 function get_max_reconciled($date, $bank_account)
 {
 	$date = date2sql($date);
-	 // temporary fix to enable fix of invalid entries made in 2.2RC
+	 
 	if ($date == 0) $date = '0000-00-00';
 
 	$sql = "SELECT MAX(reconciled) as last_date,
@@ -297,7 +297,7 @@ function update_reconciled_values($reconcile_id, $reconcile_value, $reconcile_da
 		." WHERE id=".db_escape($reconcile_id);
 
   	db_query($sql, "Can't change reconciliation status");
-	// save last reconcilation status (date, end balance)
+	
     $sql2 = "UPDATE ".TB_PREF."bank_accounts SET last_reconciled_date='"
 			.date2sql($reconcile_date)."',
     	    ending_reconcile_balance=$end_balance
@@ -359,7 +359,7 @@ function get_bank_account_limit($account, $date, $user=null)
 	$bankacc = get_bank_account($account);
 	if ($bankacc['account_type'] != BT_CASH)
 		return null;
-	return max(0, get_balance_before_for_bank_account($account, add_days($date,1))); // in case of manco made before the check was implemented
+	return max(0, get_balance_before_for_bank_account($account, add_days($date,1))); 
 }
  
 function identify_bank_account($account_number)

@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_USERS';
 $path_to_root = "..";
@@ -77,7 +70,7 @@ if (($Mode=='ADD_ITEM' || $Mode=='UPDATE_ITEM') && check_csrf_token())
 				$_POST['phone'], $_POST['email'], $_POST['role_id'], $_POST['language'],
 				$_POST['print_profile'], check_value('rep_popup'), $_POST['pos']);
 			$id = db_insert_id();
-			// use current user display preferences as start point for new user
+			
 			$prefs = $_SESSION['wa_current_user']->prefs->get_all();
 			
 			update_user_prefs($id, array_merge($prefs, get_post(array('print_profile',
@@ -112,7 +105,7 @@ if ($Mode == 'RESET')
 {
  	$selected_id = -1;
 	$sav = get_post('show_inactive', null);
-	unset($_POST);	// clean all input fields
+	unset($_POST);	
 	$_POST['show_inactive'] = $sav;
 }
 

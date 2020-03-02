@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root . "/purchasing/includes/supp_trans_class.inc");
 
@@ -28,9 +21,9 @@ include_once($path_to_root . "/purchasing/includes/db/suppliers_db.inc");
 
 //-------------------------------------------------------------------------------------------------------------
 
-// add a supplier-related gl transaction
-// $date_ is display date (non-sql)
-// $amount is in SUPPLIERS'S currency
+
+
+
 
 function add_gl_trans_supplier($type, $type_no, $date_, $account, $dimension, $dimension2,  
 	$amount, $supplier_id, $err_msg="", $rate=0, $memo="")
@@ -117,7 +110,7 @@ function add_or_update_purchase_data($supplier_id, $stock_id, $price, $descripti
 
 function get_po_prepayments($supp_trans)
 {
-	// collect purchase order line ids
+	
 	$allocations = array();
 	$line_ids = array();
 	foreach($supp_trans->grn_items as $item)
@@ -151,7 +144,7 @@ function add_direct_supp_trans($cart)
 	global $Refs, $type_shortcuts;
 
 	if ($cart->trans_type != ST_PURCHORDER) {
-		// for direct grn/invoice set same dates for lines as for whole document
+		
 		foreach ($cart->line_items as $line_no =>$line)
 			$cart->line_items[$line_no]->req_del_date = $cart->orig_order_date;
 	}
@@ -159,7 +152,7 @@ function add_direct_supp_trans($cart)
 	$ref = $cart->reference;
 	if ($cart->trans_type != ST_PURCHORDER) {
 		$cart->reference = 'auto';
-		begin_transaction();	// all db changes as single transaction for direct document
+		begin_transaction();	
 	}
 	$order_no = add_po($cart);
    	$cart->order_no = $order_no;
@@ -176,7 +169,7 @@ function add_direct_supp_trans($cart)
 		$cart->line_items[$key]->receive_qty = $line->quantity;
 	$grn_no = add_grn($cart);
 	if ($cart->trans_type == ST_SUPPRECEIVE) {
-		commit_transaction(); // save PO+GRN
+		commit_transaction(); 
 		return $grn_no;
 	}
 	//	Direct Purchase Invoice
@@ -218,7 +211,7 @@ function add_direct_supp_trans($cart)
 		update_supp_trans_allocation(ST_SUPPINVOICE, $inv_no, $inv->supplier_id);
 		update_supp_trans_allocation(ST_SUPPAYMENT, $pmt_no, $inv->supplier_id);
 	}
-	commit_transaction(); // save PO+GRN+PI(+SP)
+	commit_transaction(); 
 	return $inv_no;
 }
 

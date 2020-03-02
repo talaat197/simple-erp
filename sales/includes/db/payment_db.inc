@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 /*
   Write/update customer payment.
@@ -42,7 +35,7 @@ function write_customer_payment($trans_no, $customer_id, $branch_id, $bank_accou
 
 	$bank = get_bank_account($bank_account);
 
-	if (!$bank_amount) 	// backward compatibility workaround
+	if (!$bank_amount) 	
 	{
 		if(!$rate)
 			$rate = get_exchange_rate_from_to(get_customer_currency($customer_id),
@@ -51,7 +44,7 @@ function write_customer_payment($trans_no, $customer_id, $branch_id, $bank_accou
 		$bank_amount = $amount/$rate;
 	}
 
-	// do not use $rate here: global rate stored in exrate table is always used
+	
 	$payment_no = write_customer_trans(ST_CUSTPAYMENT, $trans_no, $customer_id, $branch_id, 
 		$date_, $ref, $amount, $discount);
 
@@ -142,7 +135,7 @@ function void_customer_payment($type, $type_no)
 function get_cust_bank_charge($type, $trans_no)
 {
 
-	// restore charge amount from amounts in bank currency if possible, otherwise calculate from GL posting with exchange rate used for amount posting
+	
 	$sql = "SELECT	IF(act.bank_curr_code=home_curr.value, charge.amount,
 					IF(act.bank_curr_code=debtor.curr_code, -(trans.amount-ar.ov_amount+ar.ov_discount),
 					IFNULL(charge.amount*trans.amount/pmt.amount, 0)))

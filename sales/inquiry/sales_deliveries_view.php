@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_SALESINVOICE';
 $path_to_root = "../..";
@@ -45,7 +38,7 @@ elseif (isset($_POST['selected_customer']))
 
 if (isset($_POST['BatchInvoice']))
 {
-	// checking batch integrity
+	
     $del_count = 0;
     if (isset($_POST['Sel_'])) {
 		foreach($_POST['Sel_'] as $delivery => $branch) {
@@ -85,7 +78,7 @@ if (get_post('_DeliveryNumber_changed'))
 	$Ajax->addDisable(true, 'StockLocation', $disable);
 	$Ajax->addDisable(true, '_SelectStockFromList_edit', $disable);
 	$Ajax->addDisable(true, 'SelectStockFromList', $disable);
-	// if search is not empty rewrite table
+	
 	if ($disable) {
 		$Ajax->addFocus(true, 'DeliveryNumber');
 	} else
@@ -133,7 +126,7 @@ function batch_checkbox($row)
 	$name = "Sel_" .$row['trans_no'];
 	return $row['Done'] ? '' :
 		"<input type='checkbox' name='$name' value='1' >"
-// add also trans_no => branch code for checking after 'Batch' submit
+
 	 ."<input name='Sel_[".$row['trans_no']."]' type='hidden' value='"
 	 .$row['branch_code']."'>\n";
 }

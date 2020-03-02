@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 function display_bank_header(&$order)
 {
@@ -17,7 +10,7 @@ function display_bank_header(&$order)
 	$customer_error = false;
 	div_start('pmt_header');
 
-	start_outer_table(TABLESTYLE2, "width='90%'"); // outer table
+	start_outer_table(TABLESTYLE2, "width='90%'"); 
 
 	table_section(1);
 	
@@ -73,7 +66,7 @@ function display_bank_header(&$order)
 				$_POST['PersonDetailID'] = ANY_NUMERIC;
         		hidden('PersonDetailID');
         	}
-        	$trans = get_customer_habit($_POST['person_id']); // take care of customers on hold
+        	$trans = get_customer_habit($_POST['person_id']); 
         	if ($trans['dissallow_invoices'] != 0)
         	{
         		if ($payment)
@@ -90,7 +83,7 @@ function display_bank_header(&$order)
 			quick_entries_list_row(_("Type").":", 'person_id', null, ($payment ? QE_PAYMENT : QE_DEPOSIT), true);
 			$qid = get_quick_entry(get_post('person_id'));
 			if (list_updated('person_id')) {
-				unset($_POST['totamount']); // enable default
+				unset($_POST['totamount']); 
 				$Ajax->activate('footer');
 				$Ajax->activate('totamount');
 			}
@@ -119,7 +112,7 @@ function display_bank_header(&$order)
 
 	exchange_rate_display(get_company_currency(), $bank_currency, $_POST['date_']);
 
-	end_outer_table(1); // outer table
+	end_outer_table(1); 
 
 	div_end();
 	if ($customer_error)

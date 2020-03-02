@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 class user_prefs 
 {
@@ -29,22 +22,22 @@ class user_prefs
 	var $theme;
 	var $print_profile;
 	var $rep_popup;
-	var $pagesize; // for printing
+	var $pagesize; 
 	var $show_hints;
-	var $query_size; // table pager page length
-	var $graphic_links; // use graphic links
-	var $sticky_date;	// save date on subsequent document entry
-	var $startup_tab;  // default start-up menu tab
-	var $transaction_days; // transaction days in inquiries
-	var $save_report_selection; // save report selections days 0...
-	var $use_date_picker; // use date picker for all date fields
-	var $def_print_destination; // default print destination. 0 = PDF/Printer, 1 = Excel
-	var $def_print_orientation; // default print orientation. 0 = Portrait. 1 = Landscape
+	var $query_size; 
+	var $graphic_links; 
+	var $sticky_date;	
+	var $startup_tab;  
+	var $transaction_days; 
+	var $save_report_selection; 
+	var $use_date_picker; 
+	var $def_print_destination; 
+	var $def_print_orientation; 
 
 	function __construct($user=null)
 	{
 		if ($user == null) { 
-			// set default values, used before login
+			
 			global $dflt_lang, $SysPrefs;
 
 			$this->date_sep = $SysPrefs->dflt_date_sep;

@@ -1,16 +1,9 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //----------------------------------------------------------------------------------------
-// Mark changes in debtor_trans_details
+
 //
 function update_customer_trans_version($type, $versions) {
 
@@ -26,9 +19,9 @@ function update_customer_trans_version($type, $versions) {
 }
 
 //----------------------------------------------------------------------------------------
-// Gets document header versions for transaction set of type $type
-// $trans_no = array(num1, num2,...);
-// returns array(num1=>ver1, num2=>ver2...)
+
+
+
 //
 function get_customer_trans_version($type, $trans_no) {
 	if (!is_array($trans_no))
@@ -51,8 +44,8 @@ function get_customer_trans_version($type, $trans_no) {
 	return $vers;
 }
 //----------------------------------------------------------------------------------------
-// $Total, $Tax, $Freight, $discount all in customer's currency
-// date_ is display date (non-sql)
+
+
 function write_customer_trans($trans_type, $trans_no, $debtor_no, $BranchNo,
 	$date_, $reference, $Total, $discount=0, $Tax=0, $Freight=0, $FreightTax=0,
 	$sales_type=0, $order_no=0, $ship_via=0, $due_date="",
@@ -95,7 +88,7 @@ function write_customer_trans($trans_type, $trans_no, $debtor_no, $BranchNo,
 		".db_escape($dimension_id).", ".db_escape($dimension2_id).", "
 		.db_escape($payment_terms, true).", "
 		.db_escape($tax_included).", ".db_escape($prep_amount).")";
-	} else {	// may be optional argument should stay unchanged ?
+	} else {	
 	$sql = "UPDATE ".TB_PREF."debtor_trans SET
 		debtor_no=".db_escape($debtor_no)." , branch_code=".db_escape($BranchNo).",
 		tran_date='$SQLDate', due_date='$SQLDueDate',
@@ -111,7 +104,7 @@ function write_customer_trans($trans_type, $trans_no, $debtor_no, $BranchNo,
 	}
 	db_query($sql, "The debtor transaction record could not be inserted");
 
-	if ($trans_type != ST_JOURNAL) // skip for journal entries
+	if ($trans_type != ST_JOURNAL) 
 		add_audit_trail($trans_type, $trans_no, $date_, $new ? '': _("Updated."));
 
 	return $trans_no;
@@ -131,7 +124,7 @@ function get_customer_trans($trans_id, $trans_type, $customer_id=null)
 		."com.memo_";
 
 	if ($trans_type == ST_CUSTPAYMENT || $trans_type == ST_BANKDEPOSIT) {
-		// it's a payment so also get the bank account
+		
 		$sql .= ",bank_act,".TB_PREF."bank_accounts.bank_name, ".TB_PREF."bank_accounts.bank_account_name,
 			".TB_PREF."bank_accounts.account_type AS BankTransType,
 			".TB_PREF."bank_accounts.bank_curr_code,
@@ -139,7 +132,7 @@ function get_customer_trans($trans_id, $trans_type, $customer_id=null)
 	}
 
 	if ($trans_type == ST_SALESINVOICE || $trans_type == ST_CUSTCREDIT || $trans_type == ST_CUSTDELIVERY) {
-		// it's an invoice so also get the shipper and salestype
+		
 		$sql .= ", ".TB_PREF."shippers.shipper_name, "
 		.TB_PREF."sales_types.sales_type, "
 		.TB_PREF."sales_types.tax_included, "
@@ -159,12 +152,12 @@ function get_customer_trans($trans_id, $trans_type, $customer_id=null)
 					".TB_PREF."debtors_master cust";
 
 	if ($trans_type == ST_CUSTPAYMENT || $trans_type == ST_BANKDEPOSIT) {
-		// it's a payment so also get the bank account
+		
 		$sql .= ", ".TB_PREF."bank_trans, ".TB_PREF."bank_accounts";
 	}
 
 	if ($trans_type == ST_SALESINVOICE || $trans_type == ST_CUSTCREDIT || $trans_type == ST_CUSTDELIVERY) {
-		// it's an invoice so also get the shipper, salestypes
+		
 		$sql .= ", ".TB_PREF."sales_types, "
 		.TB_PREF."cust_branch branch, "
 		.TB_PREF."tax_groups ";
@@ -182,14 +175,14 @@ function get_customer_trans($trans_id, $trans_type, $customer_id=null)
 		$sql .= " AND trans.debtor_no=".db_escape($customer_id);
 
 	if ($trans_type == ST_CUSTPAYMENT || $trans_type == ST_BANKDEPOSIT) {
-		// it's a payment so also get the bank account
+		
 		$sql .= " AND ".TB_PREF."bank_trans.trans_no =".db_escape($trans_id)."
 			AND ".TB_PREF."bank_trans.type=$trans_type
 			AND ".TB_PREF."bank_trans.amount != 0
 			AND ".TB_PREF."bank_accounts.id=".TB_PREF."bank_trans.bank_act ";
 	}
 	if ($trans_type == ST_SALESINVOICE || $trans_type == ST_CUSTCREDIT || $trans_type == ST_CUSTDELIVERY) {
-		// it's an invoice so also get the shipper
+		
 		$sql .= " AND ".TB_PREF."sales_types.id = trans.tpe
 			AND branch.branch_code = trans.branch_code
 			AND branch.tax_group_id = ".TB_PREF."tax_groups.id ";
@@ -201,14 +194,14 @@ function get_customer_trans($trans_id, $trans_type, $customer_id=null)
 	$result = db_query($sql, "Cannot retreive a debtor transaction");
 
 	if (db_num_rows($result) == 0) {
-		// can't return nothing
+		
 		if ($SysPrefs->go_debug)
 			display_backtrace();
 		display_db_error("no debtor trans found for given params", $sql, true);
 		exit;
 	}
 	if (db_num_rows($result) > 1) {
-		// can't return multiple
+		
 		if($SysPrefs->go_debug)
 			display_backtrace();
 		display_db_error("duplicate debtor transactions found for given params", $sql, true);
@@ -233,7 +226,7 @@ function exists_customer_trans($type, $type_no)
 
 //----------------------------------------------------------------------------------------
 
-// retreives the related sales order for a given trans
+
 
 function get_customer_trans_order($type, $type_no)
 {
@@ -267,7 +260,7 @@ function get_customer_details_from_trans($type, $type_no)
 
 function void_customer_trans($type, $type_no)
 {
-	// clear all values and mark as void
+	
 	$sql = "UPDATE ".TB_PREF."debtor_trans SET ov_amount=0, ov_discount=0, ov_gst=0, ov_freight=0,
 		ov_freight_tax=0, alloc=0, prep_amount=0, version=version+1 WHERE type=".db_escape($type)." AND trans_no=".db_escape($type_no);
 
@@ -278,7 +271,7 @@ function void_customer_trans($type, $type_no)
 
 function clear_customer_trans($type, $type_no)
 {
-	// Delete
+	
 	$sql = "DELETE FROM ".TB_PREF."debtor_trans WHERE type=".db_escape($type)." AND trans_no=".db_escape($type_no);
 
 	db_query($sql, "could not clear debtor transactions for type=$type and trans_no=$type_no");
@@ -319,8 +312,8 @@ function get_sql_for_customer_inquiry($from, $to, $cust_id = ALL_TEXT, $filter =
 		debtor.curr_code,
 		IF(prep_amount, prep_amount, trans.ov_amount + trans.ov_gst + trans.ov_freight 
 			+ trans.ov_freight_tax + trans.ov_discount)	AS TotalAmount,"
-//   	if ($filter != ALL_TEXT)
-//  		$sql .= "@bal := @bal+IF(prep_amount, prep_amount, trans.ov_amount + trans.ov_gst + trans.ov_freight + trans.ov_freight_tax + trans.ov_discount), ";
+
+
 
 //	else
 //		$sql .= "IF(trans.type=".ST_CUSTDELIVERY.",'', IF(trans.type=".ST_SALESINVOICE." OR trans.type=".ST_BANKPAYMENT.",@bal := @bal+
@@ -347,7 +340,7 @@ function get_sql_for_customer_inquiry($from, $to, $cust_id = ALL_TEXT, $filter =
                         LEFT JOIN ".TB_PREF."users as user ON (audit.user=user.id)
 			LEFT JOIN ".TB_PREF."cust_branch as branch ON trans.branch_code=branch.branch_code,"
 			.TB_PREF."debtors_master as debtor
-		WHERE debtor.debtor_no = trans.debtor_no"; // exclude voided transactions and self-balancing (journal) transactions:
+		WHERE debtor.debtor_no = trans.debtor_no"; 
     if (!$show_voided) 	
     	 	$sql .= " AND ISNULL(v.date_) AND (trans.ov_amount + trans.ov_gst + trans.ov_freight + trans.ov_freight_tax + trans.ov_discount) != 0";
 

@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 function add_exchange_variation($trans_no, $date_, $acc_id, $account,
     $currency, $person_type_id=null, $person_id = "")
@@ -18,8 +11,8 @@ function add_exchange_variation($trans_no, $date_, $acc_id, $account,
 		$date_ = Today();
 	$for_amount = 0;
 
-	// We have to calculate all the currency accounts belonging to the GL account
-	// upto $date_ and calculate with the exchange rates. And then compare with the GL account balance.
+	
+	
 	$sql = "SELECT SUM(bt.amount) AS for_amount, ba.bank_curr_code 		
 		FROM ".TB_PREF."bank_trans bt, ".TB_PREF."bank_accounts ba
 		WHERE ba.id = bt.bank_act AND ba.account_code = ".db_escape($account)." AND bt.trans_date<='".date2sql($date_)."'
@@ -36,7 +29,7 @@ function add_exchange_variation($trans_no, $date_, $acc_id, $account,
 	$diff = $amount - $for_amount;
 	if (floatcmp($diff,0))
 	{
-		// generate journal entry // FIXME: use cart?
+		
 		global $Refs;
 
 		begin_transaction();
@@ -160,7 +153,7 @@ function add_exchange_variation_all($date=null, $ref="", $memo)
 		$date = Today();
 	$exchange_act = get_company_pref('exchange_diff_act');
 	$je = 0;
-	// debtors
+	
 	$res = get_cust_account_curr_balances($date);
 	
 	while($row = db_fetch($res)) 
@@ -176,7 +169,7 @@ function add_exchange_variation_all($date=null, $ref="", $memo)
 			$je++;	
 		}
 	}
-	// creditors
+	
 	$res = get_supp_account_curr_balances($date);
 	
 	while($row = db_fetch($res)) 
@@ -231,7 +224,7 @@ function add_bank_transfer($from_account, $to_account, $date_,
 	
 	$exchanged = false;
 	$total = 0;
-	// do the source account postings
+	
     $total += add_gl_trans($trans_type, $trans_no, $date_, $from_gl_account, 0, 0, $person_id,
 		-($amount + $charge), $currency);
 
@@ -254,18 +247,18 @@ function add_bank_transfer($from_account, $to_account, $date_,
 			$charge_act, 0, 0, $person_id, $charge, $currency);
 	}
 
-	// provide backward compatibility for extension modules (target amount can be not passed)
+	
 	$to_currency = $target_amount ? $toact['bank_curr_code'] : $currency;
 	$to_amount = $target_amount ? $target_amount : $amount;
 
-	// do the destination account postings
+	
 	$total += add_gl_trans($trans_type, $trans_no, $date_, $to_gl_account, 0, 0, $person_id,
 		$to_amount, $to_currency);
 		
 	/*Post a balance post if $total != 0 */
 	if ($currency == $to_currency)
 		add_gl_balance($trans_type, $trans_no, $date_, -$total);
-	else	// in this case those are exchange variances between bank and home rates
+	else	
 	   	add_gl_trans($trans_type, $trans_no, $date_, get_company_pref('exchange_diff_act'),
 	   		0, 0, _("Exchange Variance"), -$total);
 	
@@ -310,14 +303,14 @@ function check_bank_transfer($trans_no, $from_account, $to_account, $date_,
 		$old_from = $old_to;
 		$old_to = $tmp;
 	}
-	// There are four accounts to consider:
-	// 1) The original from account that is being voided. This results in funds being put back which is always fine.
-	// 2) The original to account that is being voided. This results in funds being removed which may result in a
-	//    negative balance in the account at some time and therefore needs to be checked.
+	
+	
+	
+	
 	$problemTransaction = check_bank_account_history(-$old_to['amount'], $old_to['bank_act'], sql2date($old_from['trans_date']));
 	if ($problemTransaction) {
-		// If the destination account is the same as that being edited, it may be that this edit will resolve the
-		// problem of voiding.
+		
+		
 		if ($to_account == $old_to['bank_act'] && sql_date_comp($problemTransaction['trans_date'], date2sql($date_)) > 0) {
 			$problemTransaction['amount'] += $amount;
 			if ($problemTransaction['amount'] >= 0) {
@@ -331,13 +324,13 @@ function check_bank_transfer($trans_no, $from_account, $to_account, $date_,
 		}
 	}
 
-	// 3) The edited from account, that is having funds removed which may result in a
-	//    negative balance in the account at some time and therefore needs to be checked.
+	
+	
 	$balance_offset = 0;
 	if ($from_account == $old_from['bank_act'] && sql_date_comp(date2sql($date_), $old_from['trans_date']) >= 0) {
-		// If the edited from_account is the same as the original transaction, and the new date is later than the old date
-		// then add the amount from the original from transaction when checking the history to simulate the void that would
-		// take effect from that date.
+		
+		
+		
 		$balance_offset = -$old_from['amount'];
 	}
 	$problemTransaction = check_bank_account_history(-$amount, $from_account, $date_, null, $balance_offset);
@@ -346,7 +339,7 @@ function check_bank_transfer($trans_no, $from_account, $to_account, $date_,
 		$problemTransaction['bank_account_name'] = $old_from['bank_account_name'];
 		return $problemTransaction;
 	}
-	// 4) The edited to account, that is having funds added which is always ok.
+	
 
 	return $problemTransaction;
 }
@@ -371,22 +364,22 @@ function update_bank_transfer(
 //	Add bank payment or deposit to database.
 //
 //	$from_account - bank account id
-//  $items - transaction cart (line amounts in bank account's currency); negative for deposit
-//  $person_type_id - defines type of $person_id identifiers
-//  $person_id	- supplier/customer/other id
-//  $person_detail_id - customer branch id or not used
-//  $settled_amount - settled amount in AR/AP (if applicable) in customer/supplier currency (always non-negative number)
+
+
+
+
+
 //
-// returns an array of (inserted trans type, trans no)
+
 //
-// FIXME -revise code for update case
+
 //
 function write_bank_transaction($trans_type, $trans_no, $from_account, $items, $date_,
 	$person_type_id, $person_id, $person_detail_id,	$ref, $memo_, $use_transaction=true, $settled_amount=null)
 {
 	global $Refs, $SysPrefs;
 
-	// we can only handle type 1 (payment)and type 2 (deposit)
+	
 	if ($trans_type != ST_BANKPAYMENT && $trans_type != ST_BANKDEPOSIT)
 		display_db_error("Invalid type ($trans_type) sent to add_bank_transaction");
 
@@ -412,14 +405,14 @@ function write_bank_transaction($trans_type, $trans_no, $from_account, $items, $
 	$currency = get_bank_account_currency($from_account);
 	$bank_gl_account = get_bank_gl_account($from_account);
 
-	// the gl items are already inversed/negated for type 2 (deposit)
+	
 	$total_amount = $items->gl_items_total();
 
     if ($person_type_id == PT_CUSTOMER)
     {
-    	// we need to add a customer transaction record
-		// convert to customer currency
-		if (!isset($settled_amount)) // leaved for backward/ext compatibility 
+    	
+		
+		if (!isset($settled_amount)) 
 			$cust_amount = exchange_from_to(abs($total_amount), $currency, get_customer_currency($person_id), $date_);
 		else
 			$cust_amount = $settled_amount;
@@ -434,9 +427,9 @@ function write_bank_transaction($trans_type, $trans_no, $from_account, $items, $
     }
     elseif ($person_type_id == PT_SUPPLIER)
     {
-    	// we need to add a supplier transaction record
-		// convert to supp currency
-		if (!isset($settled_amount)) // leaved for for backward/ext compatibility 
+    	
+		
+		if (!isset($settled_amount)) 
 			$supp_amount = exchange_from_to(abs($total_amount), $currency, get_supplier_currency($person_id), $date_);
 		else
 			$supp_amount = $settled_amount;
@@ -462,7 +455,7 @@ function write_bank_transaction($trans_type, $trans_no, $from_account, $items, $
 		update_attachment($aid, $row['type_no'], $trans_no, $row['description'],
 			$row['filename'], $row['unique_name'], $row['filesize'], $row['filetype']);
 	}
-	// do the source account postings
+	
 
     add_bank_trans($trans_type, $trans_no, $from_account, $ref,
     	$date_, -$total_amount,
@@ -476,11 +469,11 @@ function write_bank_transaction($trans_type, $trans_no, $from_account, $items, $
 
 		if ($trans_type == ST_BANKPAYMENT AND $is_bank_to)
 		{
-			// we don't allow payments to go to a bank account. use transfer for this !
+			
 			display_db_error("invalid payment entered. Cannot pay to another bank account", "");
 		}
 
-    	// do the destination account postings
+    	
     	$total += add_gl_trans($trans_type, $trans_no, $date_, $gl_item->code_id,
     		$gl_item->dimension_id, $gl_item->dimension2_id, $gl_item->reference,
     		$gl_item->amount, $currency, $person_type_id, $person_id);
@@ -497,7 +490,7 @@ function write_bank_transaction($trans_type, $trans_no, $from_account, $items, $
     				$currency, $person_type_id, $person_id);
     		}
     	}
-		// store tax details if the gl account is a tax account
+		
 
 		$amount = $gl_item->amount;
 		$ex_rate = get_exchange_rate_from_home_currency($currency, $date_);
@@ -506,7 +499,7 @@ function write_bank_transaction($trans_type, $trans_no, $from_account, $items, $
 			$ex_rate, $date_, $memo_);
 	}
 
-	// do the source account postings
+	
     add_gl_trans($trans_type, $trans_no, $date_, $bank_gl_account, 0, 0, $memo_,
     	-$total, null, $person_type_id, $person_id);
 
@@ -526,8 +519,8 @@ function write_bank_transaction($trans_type, $trans_no, $from_account, $items, $
 	$Refs->save($trans_type, $trans_no, $ref);
 	add_audit_trail($trans_type, $trans_no, $date_);
 
-	// old transaction can be voided only after new transaction is entered,
-	//  otherwise the operation could fail for cash accounts due to temporary negative balance
+	
+	
 	if ($old_trans) 
 	{
 		$msg = void_transaction($trans_type, $old_trans, Today(), _("Document reentered."));

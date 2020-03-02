@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //---------------------------------------------------------------------------
 //
@@ -100,7 +93,7 @@ if (isset($_GET['AddedID'])) {
 	}
 	unset($line);
 
-    // Remove also src_doc delivery note
+    
     $sources = &$_SESSION['Items']->src_docs;
     unset($sources[$_GET['RemoveDN']]);
 }
@@ -391,7 +384,7 @@ if(list_updated('payment')) {
 	}
 }
 
-// find delivery spans for batch invoice display
+
 $dspans = array();
 $lastdn = ''; $spanlen=1;
 
@@ -539,7 +532,7 @@ $dn_line_cnt = 0;
 
 foreach ($_SESSION['Items']->line_items as $line=>$ln_itm) {
 	if (!$prepaid && ($ln_itm->quantity == $ln_itm->qty_done)) {
-		continue; // this line was fully invoiced
+		continue; 
 	}
 	alt_table_row_color($k);
 	view_stock_status_cell($ln_itm->stock_id);
@@ -556,7 +549,7 @@ foreach ($_SESSION['Items']->line_items as $line=>$ln_itm) {
 		qty_cell($ln_itm->qty_done, false, $dec);
 
 	if ($is_batch_invoice || $prepaid) {
-		// for batch invoices we can only remove whole deliveries
+		
 		echo '<td nowrap align=right>';
 		hidden('Line' . $line, $ln_itm->qty_dispatched );
 		echo number_format2($ln_itm->qty_dispatched, $dec).'</td>';

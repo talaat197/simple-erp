@@ -1,29 +1,22 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $path_to_root = "..";
 include($path_to_root . "/includes/session.inc");
-include_once($path_to_root . "/includes/types.inc"); // For tag constants
+include_once($path_to_root . "/includes/types.inc"); 
 include_once($path_to_root . "/admin/db/tags_db.inc");
 include($path_to_root . "/includes/ui.inc");
 
-// Set up page security based on what type of tags we're working with
+
 if (@$_GET['type'] == "account" || get_post('type') == TAG_ACCOUNT) {
 	$page_security = 'SA_GLACCOUNTTAGS';
 } else if(@$_GET['type'] == "dimension" || get_post('type') == TAG_DIMENSION) {
 	$page_security = 'SA_DIMTAGS';
 }
 
-// We use $_POST['type'] throughout this script, so convert $_GET vars
-// if $_POST['type'] is not set.
+
+
 if (!isset($_POST['type'])) {
 	if ($_GET['type'] == "account")
 		$_POST['type'] = TAG_ACCOUNT;
@@ -33,14 +26,14 @@ if (!isset($_POST['type'])) {
 		die(_("Unspecified tag type"));
 }
 
-// Set up page based on what type of tags we're working with
+
 switch ($_POST['type']) {
 	case TAG_ACCOUNT:
-		// Account tags
+		
 		$_SESSION['page_title'] = _($help_context = "Account Tags");
 		break;
 	case TAG_DIMENSION:
-		// Dimension tags
+		
 		$_SESSION['page_title'] = _($help_context = "Dimension Tags");
 }
 
@@ -149,16 +142,16 @@ end_table(1);
 
 start_table(TABLESTYLE2);
 
-if ($selected_id != -1) // We've selected a tag 
+if ($selected_id != -1) 
 {
 	if ($Mode == 'Edit') {
-		// Editing an existing tag
+		
 		$myrow = get_tag($selected_id);
 	
 		$_POST['name'] = $myrow["name"];
 		$_POST['description'] = $myrow["description"];
 	}
-	// Note the selected tag
+	
 	hidden('selected_id', $selected_id);
 }
 	

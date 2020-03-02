@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root . "/admin/db/company_db.inc");
 
@@ -19,13 +12,13 @@ include_once($path_to_root . "/admin/db/company_db.inc");
 class sys_prefs 
 {
 	var $prefs;
-	var $db_ok; // check whether database has been upgraded after src update.
+	var $db_ok; 
 
 	function __construct()
 	{
 		global $path_to_root;
 
-		// retrieve set system wide preferences
+		
 		include $path_to_root.'/config.default.php';
 		if (file_exists($path_to_root.'/config.php'))
 			include $path_to_root.'/config.php';
@@ -53,7 +46,7 @@ class sys_prefs
 		global $db_version;
 
 		$sql = "SELECT name, value FROM ".TB_PREF."sys_prefs";
-		$result = @db_query($sql); // supress errors before 2.3 db structure upgrade
+		$result = @db_query($sql); 
 
 		if(!$result)
 			return null;
@@ -62,7 +55,7 @@ class sys_prefs
 			$this->prefs[$pref['name']] = $pref['value'];
 		}
 
-		// update current db status for info in log file
+		
 		$this->db_ok = $this->prefs['version_id'] == $db_version;
 	}
 

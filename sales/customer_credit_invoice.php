@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //---------------------------------------------------------------------------
 //
@@ -140,7 +133,7 @@ function check_quantities()
 	$ok =1;
 	foreach ($_SESSION['Items']->line_items as $line_no=>$itm) {
 		if ($itm->quantity == $itm->qty_done) {
-			continue; // this line was fully credited/removed
+			continue; 
 		}
 		if (isset($_POST['Line'.$line_no])) {
 			if (check_num('Line'.$line_no, 0, $itm->quantity)) {
@@ -227,7 +220,7 @@ function display_credit_items()
 	hidden('cart_id');
 
 	start_table(TABLESTYLE2, "width='80%'", 5);
-	echo "<tr><td>"; // outer table
+	echo "<tr><td>"; 
 
     start_table(TABLESTYLE, "width='100%'");
     start_row();
@@ -256,7 +249,7 @@ function display_credit_items()
 	end_row();
 	end_table();
 
-    echo "</td><td>";// outer table
+    echo "</td><td>";
 
     start_table(TABLESTYLE, "width='100%'");
 
@@ -268,7 +261,7 @@ function display_credit_items()
 
 	echo "</td></tr>";
 
-	end_table(1); // outer table
+	end_table(1); 
 
 	div_start('credit_items');
     start_table(TABLESTYLE, "width='80%'");
@@ -280,7 +273,7 @@ function display_credit_items()
 
     foreach ($_SESSION['Items']->line_items as $line_no=>$ln_itm) {
 		if ($ln_itm->quantity == $ln_itm->qty_done) {
-			continue; // this line was fully credited/removed
+			continue; 
 		}
 		alt_table_row_color($k);
 

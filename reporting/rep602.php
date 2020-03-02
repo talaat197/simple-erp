@@ -1,22 +1,15 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_BANKREP';
-// ----------------------------------------------------------------
-// $ Revision:	2.3.3-1
-// Creator:	Chaitanya-India <3chaitanya@gmail.com>
-// date_:	2005-05-19
-// Title:	Bank Statements w/Reconcile
-// Desc:	Bank Statement w/ Reconcile like the normal Bank Statement but with reconcile columns
-// ----------------------------------------------------------------
+
+
+
+
+
+
+
 $path_to_root="..";
 
 include_once($path_to_root . "/includes/session.inc");
@@ -108,8 +101,8 @@ function print_bank_transactions_reconcile()
 		$rep->Font();
 		$total = $prev_balance;
 		$rep->NewLine(2);
-		// Keep a running total as we loop through
-		// the transactions.
+		
+		
 		$total_debit = $total_credit = 0;			
 		if ($rows > 0)
 		{
@@ -147,7 +140,7 @@ function print_bank_transactions_reconcile()
 			$rep->NewLine();
 		}
 		
-		// Print totals for the debit and credit columns.
+		
 		$rep->TextCol(3, 5, _("Total Debit / Credit"));
 		$rep->AmountCol(5, 6, $total_debit, $dec);
 		$rep->AmountCol(6, 7, $total_credit, $dec);
@@ -162,7 +155,7 @@ function print_bank_transactions_reconcile()
 		$rep->Font();
 		$rep->NewLine(2);	
 		
-		// Print the difference between starting and ending balances.
+		
 		$net_change = ($total - $prev_balance); 
 		$rep->TextCol(3, 5, _("Net Change"));
 		if ($total > 0.0)
@@ -172,7 +165,7 @@ function print_bank_transactions_reconcile()
 		$rep->Font();
 		$rep->NewLine(2);	
 		
-		// Calculate Bank Balance as per reco
+		
 		$date = date2sql($to);
 		$sql = "SELECT SUM(IF(reconciled<='$date' AND reconciled !='0000-00-00', amount, 0)) as reconciled,
 				 SUM(amount) as books_total
@@ -190,7 +183,7 @@ function print_bank_transactions_reconcile()
 		}			
 		$difference = $books_total - $reconciled;		
 		
-		// Bank Balance (by Reco)
+		
 		$rep->Font('bold');
 		$rep->TextCol(3, 5,	_("Bank Balance"));
 		if ($reconciled > 0.0)
@@ -200,7 +193,7 @@ function print_bank_transactions_reconcile()
 		$rep->Font();
 		$rep->NewLine(2);	
 
-		// Reco Difference
+		
 		$rep->Font('bold');
 		$rep->TextCol(3, 5,	_("Difference"));
 		if ($difference > 0.0)

@@ -1,17 +1,10 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 class fa2_1 extends fa_patch {
-	var $previous = '';		// applicable database version
-	var $version = '2.1';	// version installed
+	var $previous = '';		
+	var $version = '2.1';	
 	var $description;
 	var $sql = 'alter2.1.sql';
 
@@ -47,7 +40,7 @@ class fa2_1 extends fa_patch {
 				return false;
 			}
 		}
-		// copy all item codes from stock_master into item_codes
+		
 		$sql = "SELECT `stock_id`,`description`,`category_id` FROM ".TB_PREF."stock_master";
 		$result = db_query($sql);
 		if (!$result) {
@@ -68,15 +61,15 @@ class fa2_1 extends fa_patch {
 				}
 			}
 		}
-		// remove obsolete bank_trans_types table 
-		// (DROP queries are skipped during non-forced upgrade)
+		
+		
 		$sql = "DROP TABLE IF EXISTS `".TB_PREF."bank_trans_types`";
 		db_query($sql);
 		//
 		//	Move all debtor and supplier trans tax details to new table
-		// (INSERT INTO t  SELECT ... FROM t ... available after 4.0.14)
-		// No easy way to restore net amount for 0% tax rate for moved
-		// FA 2.0 transactions, but who cares?
+		
+		
+		
 		//
 	$move_sql =array( 
 	"debtor_trans_tax_details" =>
@@ -135,8 +128,8 @@ class fa2_1 extends fa_patch {
 	//
 	function prepare()
 	{
-	// We cannot perform successfull upgrade on system where the
-	// trans tax details tables was deleted during previous try.
+	
+	
 		$pref = $this->companies[$company]['tbpref'];
 
 		if (check_table($pref, 'debtor_trans_tax_details') 
@@ -149,7 +142,7 @@ class fa2_1 extends fa_patch {
 			return false;
 		}
 
-		return true; // true when ok, fail otherwise
+		return true; 
 	}
 };
 

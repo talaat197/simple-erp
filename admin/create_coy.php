@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_CREATECOMPANY';
 $path_to_root="..";
@@ -173,8 +166,8 @@ function handle_delete($id)
 {
 	global $Ajax, $def_coy, $db_connections, $comp_subdirs, $path_to_root, $Mode;
 
-	// First make sure all company directories from the one under removal are writable. 
-	// Without this after operation we end up with changed per-company owners!
+	
+	
 	for($i = $id; $i < count($db_connections); $i++) {
 			$comp_path = company_path($i);
 		if (!is_dir($comp_path) || !is_writable($comp_path)) {
@@ -182,22 +175,22 @@ function handle_delete($id)
 			return;
 		}
 	}
-	// make sure config file is writable
+	
 	if (!is_writeable($path_to_root . "/config_db.php"))
 	{
 		display_error(_("The configuration file ") . $path_to_root . "/config_db.php" . _(" is not writable. Change its permissions so it is, then re-run the operation."));
 		return;
 	}
-	// rename directory to temporary name to ensure all
-	// other subdirectories will have right owners even after
-	// unsuccessfull removal.
+	
+	
+	
 	$cdir = company_path($id);
 	$tmpname  = company_path('/old_'.$id);
 	if (!@rename($cdir, $tmpname)) {
 		display_error(_('Cannot rename subdirectory to temporary name.'));
 		return;
 	}
-	// 'shift' company directories names
+	
 	for ($i = $id+1; $i < count($db_connections); $i++) {
 		if (!rename(company_path($i), company_path($i-1))) {
 			display_error(_("Cannot rename company subdirectory"));
@@ -222,7 +215,7 @@ function handle_delete($id)
 		@rename($tmpname, $cdir);
 		return;
 	}
-	// finally remove renamed company directory
+	
 	@flush_dir($tmpname, true);
 	if (!@rmdir($tmpname))
 	{
@@ -312,7 +305,7 @@ function display_company_edit($selected_id)
 	{
 		$_POST['tbpref'] = $tb_pref_counter."_";
 
-		// Use current settings as default
+		
 		$conn = $db_connections[user_company()];
 		$_POST['name'] = '';
 		$_POST['host']  = $conn['host'];

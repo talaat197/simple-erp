@@ -16,33 +16,33 @@ class SessionManager
 {
    	function sessionStart($name, $limit = 0, $path = '/', $domain = null, $secure = null)
 	{
-		// Set the cookie name
+		
 		session_name($name);
 
-		// Set SSL level
+		
 		$https = isset($secure) ? $secure : (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
 
-		// Set session cookie options
-		if (version_compare(PHP_VERSION, '5.2', '<')) // avoid failure on older php versions
+		
+		if (version_compare(PHP_VERSION, '5.2', '<')) 
 			session_set_cookie_params($limit, $path, $domain, $https);
 		else
 			session_set_cookie_params($limit, $path, $domain, $https, true);
 
 		session_start();
 
-		// Make sure the session hasn't expired, and destroy it if it has
+		
 		if ($this->validateSession())
 		{
-			// Check to see if the session is new or a hijacking attempt
+			
 			if(!$this->preventHijacking())
 			{
-				// Reset session data and regenerate id
+				
 				$_SESSION = array();
 				$_SESSION['IPaddress'] = $_SERVER['REMOTE_ADDR'];
 				$_SESSION['userAgent'] = @$_SERVER['HTTP_USER_AGENT'];
 				$this->regenerateSession();
 
-			// Give a 5% chance of the session id changing on any request
+			
 			}
 			elseif (rand(1, 100) <= 5)
 			{
@@ -73,25 +73,25 @@ class SessionManager
 
 	function regenerateSession()
 	{
-		// If this session is obsolete it means there already is a new id
+		
 		if (isset($_SESSION['OBSOLETE']) && ($_SESSION['OBSOLETE'] == true))
 			return;
 
-		// Set current session to expire in 10 seconds
+		
 		$_SESSION['OBSOLETE'] = true;
 		$_SESSION['EXPIRES'] = time() + 10;
 
-		// Create new session without destroying the old one
+		
 		session_regenerate_id();
-		// Grab current session ID and close both sessions to allow other scripts to use them
+		
 		$newSession = session_id();
 		session_write_close();
-		// Set session ID to the new one, and start it back up again
+		
 
 		session_id($newSession);
 		session_start();
 		
-		// Now we unset the obsolete and expiration values for the session we want to keep
+		
 		unset($_SESSION['OBSOLETE']);
 		unset($_SESSION['EXPIRES']);
 	}
@@ -111,10 +111,10 @@ class SessionManager
 function output_html($text)
 {
 	global $before_box, $Ajax, $messages;
-	// Fatal errors are not send to error_handler,
-	// so we must check the output
+	
+	
 	if ($text && preg_match('/\bFatal error(<.*?>)?:(.*)/i', $text, $m)) {
-		$Ajax->aCommands = array();  // Don't update page via ajax on errors
+		$Ajax->aCommands = array();  
 		$text = preg_replace('/\bFatal error(<.*?>)?:(.*)/i','', $text);
 		$messages[] = array(E_ERROR, $m[2], null, null);
 	}
@@ -192,7 +192,7 @@ function check_faillog()
 */
 function cache_invalidate($filename)
 {
-	if (function_exists('opcache_invalidate'))	// OpCode extension
+	if (function_exists('opcache_invalidate'))	
 		opcache_invalidate($filename);
 }
 
@@ -208,7 +208,7 @@ function write_login_filelog($login, $result)
 
 	$ip = $_SERVER['REMOTE_ADDR'];
 
-	if (!isset($login_faillog[$user][$ip]) || $result) // init or reset on successfull login
+	if (!isset($login_faillog[$user][$ip]) || $result) 
 		$login_faillog[$user] = array($ip => 0, 'last' => '');
 
  	if (!$result)
@@ -217,7 +217,7 @@ function write_login_filelog($login, $result)
 
  			$login_faillog[$user][$ip]++;
  		} else {
- 			$login_faillog[$user][$ip] = 0; // comment out to restart counter only after successfull login.
+ 			$login_faillog[$user][$ip] = 0; 
 	 		error_log(sprintf(_("Brute force attack on account '%s' detected. Access for non-logged users temporarily blocked."	), $login));
 	 	}
  		$login_faillog[$user]['last'] = time();
@@ -248,7 +248,7 @@ function check_page_security($page_security)
 	
 	if (!$_SESSION["wa_current_user"]->check_user_access())
 	{
-		// notification after upgrade from pre-2.2 version
+		
 		$msg = $_SESSION["wa_current_user"]->old_db ?
 			 _("Security settings have not been defined for your user account.")
 				. "<br>" . _("Please contact your system administrator.")	
@@ -293,14 +293,14 @@ function set_page_security($value=null, $trans = array(), $gtrans = array())
 {
 	global $page_security;
 
-	// first check is this is not start page call
+	
 	foreach($gtrans as $key => $area)
 		if (isset($_GET[$key])) {
 			$page_security = $area;
 			return;
 		}
 
-	// then check session value
+	
 	if (isset($trans[$value])) {
 		$page_security = $trans[$value];
 		return;
@@ -343,7 +343,7 @@ function html_cleanup(&$parms)
 		else
 			$parms[$name] = html_specials_encode($value);
 	}
-	reset($parms); // needed for direct key() usage later throughout the sources
+	reset($parms); 
 }
 
 //============================================================================
@@ -351,7 +351,7 @@ function html_cleanup(&$parms)
 //
 function login_timeout()
 {
-	// skip timeout on logout page
+	
 	if ($_SESSION["wa_current_user"]->logged) {
 		$tout = $_SESSION["wa_current_user"]->timeout;
 		if ($tout && (time() > $_SESSION["wa_current_user"]->last_act + $tout))
@@ -367,12 +367,12 @@ if (!isset($path_to_root))
 	$path_to_root = ".";
 }
 
-// Prevent register_globals vulnerability
+
 if (isset($_GET['path_to_root']) || isset($_POST['path_to_root']))
 	die("Restricted access");
 
 include_once($path_to_root . "/includes/errors.inc");
-// colect all error msgs
+
 set_error_handler('error_handler' /*, errtypes */);
 set_exception_handler('exception_handler');
 
@@ -387,7 +387,7 @@ include_once($path_to_root . "/includes/prefs/sysprefs.inc");
 
 include_once($path_to_root . "/includes/hooks.inc");
 //
-// include all extensions hook files.
+
 //
 foreach ($installed_extensions as $ext)
 {
@@ -395,7 +395,7 @@ foreach ($installed_extensions as $ext)
 		include_once($path_to_root.'/'.$ext['path'].'/hooks.php');
 }
 
-ini_set('session.gc_maxlifetime', 36000); // moved from below.
+ini_set('session.gc_maxlifetime', 36000); 
 
 $Session_manager = new SessionManager();
 $Session_manager->sessionStart('FA'.md5(dirname(__FILE__)));
@@ -405,7 +405,7 @@ $_SESSION['SysPrefs'] = new sys_prefs();
 $SysPrefs = &$_SESSION['SysPrefs'];
 
 //----------------------------------------------------------------------------------------
-// set to reasonable values if not set in config file (pre-2.3.12 installations)
+
 
 if ((!isset($SysPrefs->login_delay)) || ($SysPrefs->login_delay < 0))
     $SysPrefs->login_delay = 10;
@@ -430,13 +430,13 @@ if ($SysPrefs->error_logfile != '') {
 	to avoid unexpeced session timeouts.
 	Make sure this directory exists and is writable!
 */
-// ini_set('session.save_path', VARLIB_PATH.'/');
 
-// ini_set('session.gc_maxlifetime', 36000); // 10hrs - moved to before session_manager
+
+
 
 hook_session_start(@$_POST["company_login_name"]);
 
-// this is to fix the "back-do-you-want-to-refresh" issue - thanx PHPFreaks
+
 header("Cache-control: private");
 
 get_text_init();
@@ -444,7 +444,7 @@ get_text_init();
 if ($SysPrefs->login_delay > 0 && file_exists(VARLIB_PATH."/faillog.php"))
 	include_once(VARLIB_PATH."/faillog.php");
 
-// Page Initialisation
+
 if (!isset($_SESSION['wa_current_user']) || !$_SESSION['wa_current_user']->logged_in()
 	|| !isset($_SESSION['language']) || !method_exists($_SESSION['language'], 'set_language'))
 {
@@ -461,19 +461,19 @@ include_once($path_to_root . "/version.php");
 include_once($path_to_root . "/includes/main.inc");
 include_once($path_to_root . "/includes/app_entries.inc");
 
-// Ajax communication object
+
 $Ajax = new Ajax();
 
-// js/php validation rules container
+
 $Validate = array();
-// bindings for editors
+
 $Editors = array();
-// page help. Currently help for function keys.
+
 $Pagehelp = array();
 
 $Refs = new references();
 
-// intercept all output to destroy it in case of ajax call
+
 register_shutdown_function('end_flush');
 ob_start('output_html',0);
 
@@ -485,8 +485,8 @@ html_cleanup($_POST);
 html_cleanup($_REQUEST);
 html_cleanup($_SERVER);
 
-// logout.php is the only page we should have always 
-// accessable regardless of access level and current login status.
+
+
 if (!defined('FA_LOGOUT_PHP_FILE')){
 
 	login_timeout();
@@ -510,7 +510,7 @@ if (!defined('FA_LOGOUT_PHP_FILE')){
             if ($db_connections[$i]["name"] == $_POST["company_login_nickname"]) {
               $_POST["company_login_name"] = $i;
               unset($_POST["company_login_nickname"]);
-              break 1; // cannot pass variables to break from PHP v5.4 onwards
+              break 1; 
             }
           }
         }
@@ -525,10 +525,10 @@ if (!defined('FA_LOGOUT_PHP_FILE')){
         password_reset_fail();
       }
     }
-		// Show login screen
+		
 		if (!isset($_POST["user_name_entry_field"]) or $_POST["user_name_entry_field"] == "")
 		{
-			// strip ajax marker from uri, to force synchronous page reload
+			
 			$_SESSION['timeout'] = array( 'uri'=>preg_replace('/JsHttpRequest=(?:(\d+)-)?([^&]+)/s',
 					'', html_specials_encode($_SERVER['REQUEST_URI'])),
 				'post' => $_POST);
@@ -543,24 +543,24 @@ if (!defined('FA_LOGOUT_PHP_FILE')){
 					if ($db_connections[$i]["name"] == $_POST["company_login_nickname"]) {
 						$_POST["company_login_name"] = $i;
 						unset($_POST["company_login_nickname"]);
-						break 1; // cannot pass variables to break from PHP v5.4 onwards
+						break 1; 
 					}
 				}
 			}
 			$succeed = isset($db_connections[$_POST["company_login_name"]]) &&
 				$_SESSION["wa_current_user"]->login($_POST["company_login_name"],
 				$_POST["user_name_entry_field"], $_POST["password"]);
-			// select full vs fallback ui mode on login
+			
 			$_SESSION["wa_current_user"]->ui_mode = $_POST['ui_mode'];
 			if (!$succeed)
 			{
-			// Incorrect password
+			
 				login_fail();
 			}
 			elseif(isset($_SESSION['timeout']) && !$_SESSION['timeout']['post'])
 			{
-				// in case of GET request redirect to avoid confirmation dialog 
-				// after return from menu option
+				
+				
 				header("HTTP/1.1 303 See Other");
 				header("Location: ".$_SESSION['timeout']['uri']);
 				exit();
@@ -583,6 +583,6 @@ if (!defined('FA_LOGOUT_PHP_FILE')){
 	}
 }
 
-// POST vars cleanup needed for direct reuse.
-// We quote all values later with db_escape() before db update.
+
+
 $_POST = strip_quotes($_POST);

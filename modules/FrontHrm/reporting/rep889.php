@@ -1,13 +1,4 @@
 <?php
-/*=======================================================\
-|                        FrontHrm                        |
-|--------------------------------------------------------|
-|   Creator: Phương                                      |
-|   Date :   09-Jul-2017                                 |
-|   Description: AgroPhos Payroll & Hrm Module    |
-|   Free software under GNU GPL                          |
-|                                                        |
-\=======================================================*/
 
 $path_to_root = '../../..';
 include_once($path_to_root . '/reporting/includes/tcpdf.php');

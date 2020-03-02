@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_ITEM';
 $path_to_root = "../..";
@@ -245,7 +238,7 @@ if (isset($_POST['addupdate']))
 			update_record_status($_POST['NewStockID'], $_POST['inactive'],
 				'item_codes', 'item_code');
 			set_focus('stock_id');
-			$Ajax->activate('stock_id'); // in case of status change
+			$Ajax->activate('stock_id'); 
 			display_notification(_("Item has been updated."));
 		} 
 		else 
@@ -272,7 +265,7 @@ if (isset($_POST['addupdate']))
 }
 
 if (get_post('clone')) {
-	set_edit($_POST['stock_id']); // restores data for disabled inputs too
+	set_edit($_POST['stock_id']); 
 	unset($_POST['stock_id']);
 	$stock_id = '';
 	unset($_POST['inactive']);
@@ -342,8 +335,8 @@ function item_settings(&$stock_id, $new_item)
 		$_POST['inactive'] = 0;
 	} 
 	else 
-	{ // Must be modifying an existing item
-		if (get_post('NewStockID') != get_post('stock_id') || get_post('addupdate')) { // first item display
+	{ 
+		if (get_post('NewStockID') != get_post('stock_id') || get_post('addupdate')) { 
 
 			$_POST['NewStockID'] = $_POST['stock_id'];
 			set_edit($_POST['stock_id']);
@@ -360,7 +353,7 @@ function item_settings(&$stock_id, $new_item)
 
 	stock_categories_list_row(_("Category:"), 'category_id', null, false, $new_item, $fixed_asset);
 
-	if ($new_item && (list_updated('category_id') || !isset($_POST['sales_account']))) { // changed category for new item or first page view
+	if ($new_item && (list_updated('category_id') || !isset($_POST['sales_account']))) { 
 
 		$category_record = get_item_category($_POST['category_id']);
 
@@ -382,7 +375,7 @@ function item_settings(&$stock_id, $new_item)
 	$fresh_item = !isset($_POST['NewStockID']) || $new_item 
 		|| check_usage($_POST['stock_id'],false);
 
-	// show inactive item tax type in selector only if already set.
+	
   item_tax_types_list_row(_("Item Tax Type:"), 'tax_type_id', null, !$new_item && item_type_inactive(get_post('tax_type_id')));
 
 	if (!get_post('fixed_asset'))
@@ -429,7 +422,7 @@ function item_settings(&$stock_id, $new_item)
 		if ($_POST['depreciation_method'] == 'D')
 			small_amount_row(_("Rate multiplier").':', 'depreciation_factor', null, null, '', 2);
 
-		// do not allow to change the depreciation start after this item has been depreciated
+		
 		if ($new_item || $_POST['depreciation_start'] == $_POST['depreciation_date'])
 			date_row(_("Depreciation Start").':', 'depreciation_start', null, null, 1 - date('j'));
 		else {
@@ -485,15 +478,15 @@ function item_settings(&$stock_id, $new_item)
 
 	table_section_title(_("Other"));
 
-	// Add image upload for New Item  - by Joe
+	
 	file_row(_("Image File (.jpg)") . ":", 'pic', 'pic');
-	// Add Image upload for New Item  - by Joe
+	
 	$stock_img_link = "";
 	$check_remove_image = false;
 	if (isset($_POST['NewStockID']) && file_exists(company_path().'/images/'
 		.item_img_name($_POST['NewStockID']).".jpg")) 
 	{
-	 // 31/08/08 - rand() call is necessary here to avoid caching problems.
+	 
 		$stock_img_link .= "<img id='item_img' alt = '[".$_POST['NewStockID'].".jpg".
 			"]' src='".company_path().'/images/'.item_img_name($_POST['NewStockID']).
 			".jpg?nocache=".rand()."'"." height='".$SysPrefs->pic_height."' border='0'>";
@@ -570,7 +563,7 @@ div_start('details');
 
 $stock_id = get_post('stock_id');
 if (!$stock_id)
-	unset($_POST['_tabs_sel']); // force settings tab for new customer
+	unset($_POST['_tabs_sel']); 
 
 $tabs = (get_post('fixed_asset'))
 	? array(
@@ -659,7 +652,7 @@ function generateBarcode() {
 		$random_7  = rand(0,9);
 		//$random_8  = rand(0,9);
 
-			// http://stackoverflow.com/questions/1136642/ean-8-how-to-calculate-checksum-digit
+			
 		$sum1 = $random_2 + $random_4 + $random_6; 
 		$sum2 = 3 * ($random_1  + $random_3  + $random_5  + $random_7 );
 		$checksum_value = $sum1 + $sum2;
@@ -672,7 +665,7 @@ function generateBarcode() {
 
 		$tmpBarcodeID = $random_1 . $random_2 . $random_3 . $random_4 . $random_5 . $random_6 . $random_7 . $random_8;
 
-		// LETS CHECK TO SEE IF THIS NUMBER HAS EVER BEEN USED
+		
 		$query = "SELECT stock_id FROM ".TB_PREF."stock_master WHERE stock_id='" . $tmpBarcodeID . "'";
 		$arr_stock = db_fetch(db_query($query));
   

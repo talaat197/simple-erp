@@ -27,7 +27,7 @@ function next_depreciation_date($depreciation_date) {
 
 function depreciation_months($depreciation_start) {
 
-  // assume that depreciation start is the same fiscal year
+  
   //$start = strtotime($depreciation_start);
   //$end = strtotime($year['end']);
 
@@ -35,8 +35,8 @@ function depreciation_months($depreciation_start) {
 
   return 12 - date('n', $start) + 1;
 
-  //$d1 = date('j', $start); // day of the month
-  //$d2 = date('t', $start); // number of days in month
+  //$d1 = date('j', $start); 
+  //$d2 = date('t', $start); 
 
   //if ($d2 > $d1)
     //$months++;
@@ -69,7 +69,7 @@ function compute_gl_rows_for_depreciation($item, $no_months, $period) {
 			$value = $line_value;
 		break;
 
-    case 'S':	// purchase_cost stores start cost of item
+    case 'S':	
 		$done_months = months_between_dates($item['depreciation_start'], $item['depreciation_date']);
 		$remaining_months = 12.0 * 100.0/$item['depreciation_rate'] - $done_months;
 		$value = $item['purchase_cost']*$item['depreciation_rate']/100/12;
@@ -103,7 +103,7 @@ function compute_gl_rows_for_depreciation($item, $no_months, $period) {
     $total += $value;
 
     if (FA_YEARLY == $period) {
-      // yearly
+      
       if ($i == $m + $no_months - 1)
         $rows[] = array('date' => $date, 'value' => $total);
       /*else
@@ -111,14 +111,14 @@ function compute_gl_rows_for_depreciation($item, $no_months, $period) {
         */
     }
     else {
-      // monthly
+      
       $rows[] = array('date' => $date, 'value' => $value);
     }
 
     $cnt++;
 
 	if ($item['depreciation_method'] == 'O') {
-		// depreciate only in the first month
+		
 		$value = 0;
 	}
  }

@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root . "/includes/remote_url.inc");
 //---------------------------------------------------------------------------------------------
@@ -19,7 +12,7 @@ function get_exchange_rate($rate_id)
 	return db_fetch($result);
 }
 
-// Retrieves buy exchange rate for given currency/date, zero if no result
+
 function get_date_exchange_rate($curr_code, $date_)
 {
 	$date = date2sql($date_);
@@ -130,7 +123,7 @@ function get_extern_rate($curr_b, $provider = 'ECB', $date)
 {
 	global	$path_to_root;
 
-	if ($date != Today())	// no historical rates available
+	if ($date != Today())	
 		return 0;
 
 	$contents = '';
@@ -146,7 +139,7 @@ function get_extern_rate($curr_b, $provider = 'ECB', $date)
     }
 	elseif ($provider == 'YAHOO')
 	{
-		$filename = "/d/quotes.csv?s={$curr_a}{$curr_b}=X&f=sl1d1t1ba&e=.csv"; // new URL's for YAHOO
+		$filename = "/d/quotes.csv?s={$curr_a}{$curr_b}=X&f=sl1d1t1ba&e=.csv"; 
 		$site = "download.finance.yahoo.com";
 		$site_ip="203.84.220.151";
 	}
@@ -172,7 +165,7 @@ function get_extern_rate($curr_b, $provider = 'ECB', $date)
 	}
 	if (empty($contents)) {
 		if (function_exists('curl_init'))
-		{	// first check with curl as we can set short timeout;
+		{	
 			$retry = 1;
 	 		do {
 	       		$ch = curl_init();
@@ -180,14 +173,14 @@ function get_extern_rate($curr_b, $provider = 'ECB', $date)
 	       		curl_setopt ($ch, CURLOPT_COOKIEJAR, VARLIB_PATH."/cookie.txt");
     	   		curl_setopt ($ch, CURLOPT_HEADER, 0);
 	       		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
-	       		// prevent warning while safe_mode/open_basedir on (redirection doesn't occur at least on ECB page)
+	       		
 		   		if (!ini_get('safe_mode') && !ini_get('open_basedir'))
     	   			curl_setopt ($ch, CURLOPT_FOLLOWLOCATION, 1);
 	       		curl_setopt ($ch, CURLOPT_TIMEOUT, 3);
     	   		$contents = curl_exec ($ch);
 	       		curl_close($ch);
-				// due to resolver bug in some curl versions (e.g. 7.15.5) 
-				// try again for constant IP.
+				
+				
 				if (isset($site_ip))
 		   			$site=$site_ip;
 	   		} while( ($contents == '') && $retry--);
@@ -218,7 +211,7 @@ function get_extern_rate($curr_b, $provider = 'ECB', $date)
 	}
 	elseif ($provider == 'YAHOO')
 	{
-		$array = explode(',',$contents); // New operations for YAHOO. Safer.
+		$array = explode(',',$contents); 
 		$val = $array[1];
 		if ($val != 0)
 			$val = 1 / $val;
@@ -256,8 +249,8 @@ function get_sql_for_exchange_rates($curr)
 
 function getInnerStr($str, $start, $end) 
 {
-	// $start must be the first occurrence
-	// $start must not be part of $end
+	
+	
 	$val = '';
 	$val = strstr($str, $start);
 	$val = trim($val);

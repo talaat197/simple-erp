@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //-----------------------------------------------------------------------------
 //	Add or update Sales Invoice
@@ -34,21 +27,21 @@ function write_sales_invoice(&$invoice)
 
 	add_new_exchange_rate($customer['curr_code'], $date_, $invoice->ex_rate);
 
-	// offer price values without freight costs
+	
 	$items_total = $invoice->get_items_total_dispatch();
 	$freight_tax = $invoice->get_shipping_tax();
 
 	if (!$invoice->is_prepaid())
 		update_customer_trans_version(get_parent_type(ST_SALESINVOICE), $invoice->src_docs);
-    elseif (count($invoice->prepayments)) {	// partial invoice
+    elseif (count($invoice->prepayments)) {	
 		$last_payment = end($invoice->prepayments);
 		$gl_date = sql2date($last_payment['tran_date']);
-	} else {	// final invoice
+	} else {	
 		$gl_date = $invoice->document_date;
 	}
 
 	$ov_gst = 0;
-	$taxes = $invoice->get_taxes(); // all taxes with freight_tax
+	$taxes = $invoice->get_taxes(); 
 	$dec = user_price_dec();
 	foreach ($taxes as $taxitem) {
 		$taxitem['Value'] =  round2($taxitem['Value'], $dec);
@@ -66,7 +59,7 @@ function write_sales_invoice(&$invoice)
 	/* Insert/update the debtor_trans */
 	$sales_order = $invoice->order_no;
 	if (is_array($sales_order))
-			$sales_order = $sales_order[0]; // assume all crucial SO data are same for every delivery
+			$sales_order = $sales_order[0]; 
 
 	if ($trans_no) {
 		$allocs = get_payments_for($trans_no, ST_SALESINVOICE, $invoice->customer_id);
@@ -76,16 +69,16 @@ function write_sales_invoice(&$invoice)
 	} else
 		$allocs = get_payments_for($invoice->order_no, ST_SALESORDER, $invoice->customer_id);
 
-	if ($invoice->is_prepaid()) // selected prepayment is already in cart
+	if ($invoice->is_prepaid()) 
 	{
 		$allocs = $invoice->prepayments;
-		// values posted are reduced by prepaid_factor
+		
 		$prepaid_factor = $invoice->prep_amount/$invoice->get_trans_total();
 	} else {
 		$prepaid_factor = 1;
 	}
 
-	 // write_customer_trans have to be called after optional void_cust_allocations above
+	 
 	$invoice_no = write_customer_trans(ST_SALESINVOICE, $trans_no, $invoice->customer_id,
 		$invoice->Branch, $date_, $invoice->reference, $items_total, 0,
 		$items_added_tax, $invoice->freight_cost, $freight_added_tax,
@@ -99,7 +92,7 @@ function write_sales_invoice(&$invoice)
 		move_trans_attachments(ST_SALESINVOICE, $trans_no, $invoice_no);
 
 	$total = 0;
-	// for prepayments use deferred income account if set
+	
 	$sales_account = $invoice->is_prepaid() ? get_company_pref('deferred_income_act') : 0;
 
 	foreach ($invoice->line_items as $line_no => $invoice_line) {
@@ -118,7 +111,7 @@ function write_sales_invoice(&$invoice)
 			$invoice_line->standard_cost, $invoice_line->src_id,
 			$trans_no ? $invoice_line->id : 0);
 
-		// Update delivery items for the quantity invoiced
+		
 		if ($invoice_line->qty_old != $invoice_line->qty_dispatched)
 		{
 			if ($invoice->is_prepaid())
@@ -132,12 +125,12 @@ function write_sales_invoice(&$invoice)
 			if ($invoice_line->line_price() != 0) {
 				//Post sales transaction to GL credit sales
 
-				// If there is a Branch Sales Account, then override with this,
-				// else take the Item Sales Account
+				
+				
 				if (!$invoice->is_prepaid())
 					$sales_account = ($branch_data['sales_account'] != "" ? $branch_data['sales_account'] : $stock_gl_code['sales_account']);
-				// If there is a Customer Dimension, then override with this,
-				// else take the Item Dimension (if any)
+				
+				
 				$dim = ($invoice->dimension_id != $customer['dimension_id'] ? $invoice->dimension_id : 
 					($customer['dimension_id'] != 0 ? $customer["dimension_id"] : $stock_gl_code["dimension_id"]));
 				$dim2 = ($invoice->dimension2_id != $customer['dimension2_id'] ? $invoice->dimension2_id : 
@@ -169,7 +162,7 @@ function write_sales_invoice(&$invoice)
 			-$invoice->get_tax_free_shipping()*$prepaid_factor, $invoice->customer_id,
 			"The freight GL posting could not be inserted");
 	}
-	// post all taxes
+	
 	foreach ($taxes as $taxitem) {
 		if ($taxitem['Net'] != 0) {
 			$ex_rate = get_exchange_rate_from_home_currency(get_customer_currency($invoice->customer_id), $date_);
@@ -194,10 +187,10 @@ function write_sales_invoice(&$invoice)
 			$amount = $items_total + $items_added_tax + $invoice->freight_cost 
 				+ $freight_added_tax;
 			if ($amount != 0) {
-				// to use debtors.pmt_discount on cash sale:
-				// extend invoice entry page with final amount after discount 
-				// and change line below.
-				$discount = 0; // $invoice->cash_discount*$amount;
+				
+				
+				
+				$discount = 0; 
 				$pmtno = write_customer_payment(0, $invoice->customer_id, 
 					$invoice->Branch, $invoice->pos['pos_account'], $date_,
 					$Refs->get_next(ST_CUSTPAYMENT, null, array('customer' => $invoice->customer_id,
@@ -229,7 +222,7 @@ function void_sales_invoice($type, $type_no)
 	void_bank_trans($type, $type_no, true);
 	void_gl_trans($type, $type_no, true);
 
-	// reverse all the changes in parent document(s)
+	
 	$factor = get_cust_prepayment_invoice_factor($type_no);
 	if ($factor != 0)
 	{
@@ -260,17 +253,17 @@ function void_sales_invoice($type, $type_no)
 			}
 		}
 	}
-	// clear details after they've been reversed in the sales order
+	
 	void_customer_trans_details($type, $type_no);
 
-	void_stock_move($type, $type_no); // in case of credit note with return
+	void_stock_move($type, $type_no); 
 
 	void_trans_tax_details($type, $type_no);
 
 	void_cust_allocations($type, $type_no);
 
-	// do this last because other voidings can depend on it - especially voiding
-	// DO NOT MOVE THIS ABOVE VOIDING or we can end up with trans with alloc < 0
+	
+	
 	void_customer_trans($type, $type_no);
 
 	commit_transaction();

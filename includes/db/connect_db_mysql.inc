@@ -1,16 +1,9 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 define('DB_DUPLICATE_ERROR', 1062);
-define('SQL_MODE', 'STRICT_ALL_TABLES'); // prevents SQL injection with silent field content truncation
+define('SQL_MODE', 'STRICT_ALL_TABLES'); 
 
 function set_global_connection($company=-1)
 {
@@ -20,7 +13,7 @@ function set_global_connection($company=-1)
 	if ($company == -1) 
 		$company = user_company();
 
-	cancel_transaction(); // cancel all aborted transactions if any
+	cancel_transaction(); 
 
 	$_SESSION["wa_current_user"]->cur_con = $company;
 
@@ -32,11 +25,11 @@ function set_global_connection($company=-1)
 
 	$db = mysql_connect($server, $connection["dbuser"], $connection["dbpassword"]);
 	mysql_select_db($connection["dbname"], $db);
-	///// From MySql release 5.6.6 the sql_mode is no longer empty as it was prior to
-	///// this release. Just for safety we make it empty for all 5.6 release and higher.
-	///// This non empty sql_mode values can interphere with FA, so all is set empty during
-	///// our sessions.
-	///// We are, however, investigating the existing code to be compatible in the future.
+	///
+	///
+	///
+	///
+	///
 	db_query("SET sql_mode = '".SQL_MODE."'");
 	/////
 	$SysPrefs->refresh();
@@ -49,7 +42,7 @@ function db_query($sql, $err_msg=null)
 {
 	global $db, $SysPrefs, $sql_queries, $Ajax, $db_connections, $db_last_inserted_id;
 
-	// set current db prefix
+	
 	$comp = isset($_SESSION["wa_current_user"]->cur_con) ? $_SESSION["wa_current_user"]->cur_con : 0;
 	$cur_prefix = $db_connections[$comp]['tbpref'];
 	$sql = str_replace(TB_PREF, $cur_prefix, $sql);
@@ -60,12 +53,12 @@ function db_query($sql, $err_msg=null)
 		$sql_queries .= "<pre>$sql</pre>\n<hr>";
 	}
 
-	db_profile(); // mysql profiling
+	db_profile(); 
 
 	$retry = MAX_DEADLOCK_RETRY;
 	do {
 		$result = mysql_query($db, $sql);
-		if (mysql_errno($db) == 1213)	{ // deadlock detected
+		if (mysql_errno($db) == 1213)	{ 
 			sleep(1); $retry--;
 		} else
 			$retry = 0;
@@ -74,7 +67,7 @@ function db_query($sql, $err_msg=null)
 	db_profile($sql);
 
 	if($SysPrefs->sql_trail) {
-		$db_last_inserted_id = mysql_insert_id($db);	// preserve in case trail insert is done
+		$db_last_inserted_id = mysql_insert_id($db);	
 		if ($SysPrefs->select_trail || (strstr($sql, 'SELECT') === false)) {
 			mysql_query(
 			"INSERT INTO ".$cur_prefix."sql_trail
@@ -234,7 +227,7 @@ function db_drop_db($connection)
     	$all_tables = array();
     	while($row = db_fetch($res))
     		$all_tables[] = $row;
-        // get table structures
+        
 		foreach ($all_tables as $table)
 		{
 			if (strpos($table['Name'], $connection["tbpref"]) === 0)

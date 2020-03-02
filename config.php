@@ -3,35 +3,35 @@
 if (!isset($path_to_root) || isset($_GET['path_to_root']) || isset($_POST['path_to_root']))
 	die("Restricted access");
 
-	// Server time zone. Since php 5.3.0 time zone have to be set either here or in server php ini file
+	
 	if (!ini_get('date.timezone'))
 		ini_set('date.timezone', 'Europe/Berlin');
 
-	// Log file for error/warning messages. Should be set to any location
-	// writable by www server. When set to empty string logging is switched off. 
-	// Special value 'syslog' can be used for system logger usage (see php manual).
+	
+	
+	
 	//$error_logfile = '';
 	$error_logfile = VARLOG_PATH.'/errors.log';
-	$debug 			= 0;	// show sql on database errors
+	$debug 			= 0;	
 
-	$show_sql 		= 0;	// show all sql queries in page footer for debugging purposes
-	$go_debug 		= 0;	// set to 1 for basic debugging, or 2 to see also backtrace after failure.
-	$pdf_debug 		= 0;	// display pdf source instead reports for debugging when $go_debug!=0
-	// set $sql_trail to 1 only if you want to perform bugtracking sql trail
-	// Warning: this produces huge amount of data in sql_trail table.
-	// Don't forget switch the option off and flush the table manually after 
-	// trail, or your future backup files are overloaded with unneeded data.
+	$show_sql 		= 0;	
+	$go_debug 		= 0;	
+	$pdf_debug 		= 0;	
+	
+	
+	
+	
 	//
-	$sql_trail 		= 0; // save all sql queries in sql_trail
-	$select_trail 	= 0; // track also SELECT queries
+	$sql_trail 		= 0; 
+	$select_trail 	= 0; 
 
-	// Main Title
+	
 	$app_title = "Agro Phos";
 
-	// Build for development purposes
-	$build_version 	= date("d.m.Y", filemtime("$path_to_root/CHANGELOG.txt"));
+	
+	// $build_version 	= date("d.m.Y", filemtime("$path_to_root/CHANGELOG.txt"));
 
-	// Powered by
+	
 	$power_by 		= "Agro Phos";
 	$power_url 		= "";
 
@@ -58,15 +58,15 @@ if (!isset($path_to_root) || isset($_GET['path_to_root']) || isset($_POST['path_
 	/* show users online discretely in the footer */
 	$show_users_online = 0;
 
- 	// Wiki context help configuration
- 	// If your help wiki use translated page titles uncomment next line
- 	// $old_style_help = 1; // this setting is depreciated and subject to removal in next FA versions
+ 	
+ 	
+ 	
 	$old_style_help = 0;
-	// 	locally installed wiki module
-	// $help_base_url = $path_to_root.'/modules/wiki/index.php?n='._('Help').'.';
-	// 	context help feed from AgroPhos.com
+	
+	
+	
 	$help_base_url = '';
-	// 	set to null if not used:
+	
 	//	$help_base_url = null;
 
 	/* per user data/cache directory */
@@ -112,7 +112,7 @@ if (!isset($path_to_root) || isset($_GET['path_to_root']) || isset($_POST['path_
 	/* Show menu category icons in core themes */
 	$show_menu_category_icons = 0;
 	
-	// Internal configurable variables
+	
 	//-----------------------------------------------------------------------------------
 
 	/* Whether to display the demo login and password or not */
@@ -133,7 +133,7 @@ if (!isset($path_to_root) || isset($_GET['path_to_root']) || isset($_POST['path_
 
 	/* UTF-8 font for Business Graphics. Copy it to /reporting/fonts/ folder. */
 	$UTF8_fontfile	= "FreeSans.ttf";
-	//$UTF8_fontfile	= "zarnormal.ttf"; // for Arabic Dashboard
+	//$UTF8_fontfile	= "zarnormal.ttf"; 
 
 /* 
 	Display a dropdown select box for choosing Company to login if false.

@@ -1,27 +1,20 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root."/includes/packages.inc");
 //
 //	Utility class contains basic database upgrade routines.
 //
 class fa_patch {
-	var $previous;				// previous database version 
-	var $version;		 		// version after upgrade
-	var $description;			// short patch description
+	var $previous;				
+	var $version;		 		
+	var $description;			
 
-	var $sql;					// basic sql file
+	var $sql;					
 
 	var $cur_company;
-	var $backup;				// pre-upgrade backup filename
+	var $backup;				
 
 	var $errors = array();
 	var	$max_upgrade_time = 300;
@@ -126,13 +119,13 @@ class fa_patch {
 			return $this->log_error(sprintf(_("Cannot upgrade company %s: database version is incompatible ('%s' instead of '%s')."),
 				$this->cur_company, $cur_ver, $this->previous));
 
-		$this->update_extensions();	// disable uncompatible extensions
+		$this->update_extensions();	
 
-		if (!$this->prepare())	// fetch params, perform additional checks (if any)
+		if (!$this->prepare())	
 		  return false;
 
 		if (!$this->sql)
-			return true;	// skip security backup if database content is not changed
+			return true;	
 
 		$this->backup = db_backup($this->companies[$this->cur_company], 'no', 'Security backup before upgrade',
 			$SysPrefs->backup_dir($this->cur_company));
@@ -151,7 +144,7 @@ class fa_patch {
 	{
 		global $path_to_root;
 
-		if ($this->sql != '')	// perform basic upgrade operations defined in sql file
+		if ($this->sql != '')	
 		{
 			$result = true;
 
@@ -168,7 +161,7 @@ class fa_patch {
 				} else
 				{
 					$this->log_error($result);
-					unset($this->backup); // prevent restore (database was not touched due to other errors)
+					unset($this->backup); 
 				}
 				return false;
 			}
@@ -187,7 +180,7 @@ class fa_patch {
 		{
 			if ($this->backup)
 			{
-				if (!set_global_connection($this->cur_company)) // reset connection to clear encoding
+				if (!set_global_connection($this->cur_company)) 
 					return $this->log_error(_("Cannot connect to company database for database restore."));
 
 				set_time_limit($this->max_upgrade_time);
@@ -300,17 +293,17 @@ function get_installers()
 	if ($datadir)
 	{
 		while(false !== ($fname = readdir($datadir)))
-		{ // check all php files but index.php
+		{ 
 			if (!is_dir($patchdir . $fname) && ($fname != 'index.php')
 				&& stristr($fname, '.php') != false && $fname[0] != '.')
 			{
 				unset($install);
 				include_once($patchdir . $fname);
-				if (isset($install)) // add installer if found
+				if (isset($install)) 
 					$upgrades[$install->previous] =  $install;
 			}
 		}
-		ksort($upgrades); // sort by file name
+		ksort($upgrades); 
 	}
 	return $upgrades;
 }

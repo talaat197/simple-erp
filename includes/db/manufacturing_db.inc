@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //----------------------------------------------------------------------------------------
 function get_demand_qty($stock_id, $location)
@@ -50,7 +43,7 @@ function load_stock_levels($location)
 	return $qoh_stock;
 }
 
-// recursion fixed. Max 10 recursion levels.
+
 function stock_demand_manufacture($stock_id, $qty, $demand_id, $location, $level=0) 
 {
 	global $bom_list, $qoh_stock;
@@ -60,7 +53,7 @@ function stock_demand_manufacture($stock_id, $qty, $demand_id, $location, $level
 		display_warning("BOM Too many Manufacturing levels deep $level");
 		return $demand;
 	}
-	// Load all stock levels (stock moves) into $qoh_stock
+	
 	if ($qoh_stock == NULL)
 		$qoh_stock = load_stock_levels($location);
 
@@ -78,7 +71,7 @@ function stock_demand_manufacture($stock_id, $qty, $demand_id, $location, $level
 		if ($location != "") $sql .= " AND loc_code = ".db_escape($location);
 		$result = db_query($sql, "Could not search bom");
 		$bom = array();
-		// Even if we get no results, remember that fact 
+		
 		$bom[] = array($stock_id, '', 0); 
 		while ($row = db_fetch_row($result)) {
 			$bom[] = array($row[0], $row[1], $row[2]);
@@ -91,7 +84,7 @@ function stock_demand_manufacture($stock_id, $qty, $demand_id, $location, $level
 	while ($i < $len) {
 		$row = $bom[$i];
 		$i++; 
-		// Ignore the dummy entry
+		
 		if ($row[1] == '') continue;
 		$q = $qty * $row[2];
 		if ($row[1] == $demand_id) $demand += $q;
@@ -100,7 +93,7 @@ function stock_demand_manufacture($stock_id, $qty, $demand_id, $location, $level
 	return $demand;
 }
 
-// recursion fixed by Tom Moulton
+
 function get_demand_asm_qty($stock_id, $location) 
 {
 	$demand_qty = 0.0;

@@ -1,15 +1,8 @@
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 var replinks = {
-	'a, button': function(e) { // traverse menu
+	'a, button': function(e) { 
 		e.onkeydown = function(ev) { 
 			ev = ev||window.event;
 			key = ev.keyCode||ev.which;
@@ -31,7 +24,7 @@ var replinks = {
 	'a.repclass_link': function(e) {
 		e.onclick = function() {
 		    save_focus(this);
-			showClass(this.id.substring(5)); // id=classX
+			showClass(this.id.substring(5)); 
 			return false;
 		}
 	}
@@ -55,7 +48,7 @@ function showClass(pClass) {
 		classlinks[i].style.fontWeight = classlinks[i].id == ('class'+pClass) ?
 			'bold' : 'normal';
 
-    set_options(); // clear optionset links
+    set_options(); 
 	document.getElementById('rep_form').innerHTML = '';
 	return false;
 }

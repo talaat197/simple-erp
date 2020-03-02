@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once 'class.data_set.inc';
 
@@ -52,7 +45,7 @@ class reflines_db extends data_set {
 		if (substr_count($data['pattern'], '{') != substr_count($data['pattern'], '}'))
 			return $this->error(_("Curly brackets does not balance."));
 
-		if (preg_match_all('/\{([^\}]*)\}/', $data['pattern'], $match)) // placeholders defind in template
+		if (preg_match_all('/\{([^\}]*)\}/', $data['pattern'], $match)) 
 		{
 			$numph = 0;
 			foreach($match[1] as $ph) {
@@ -154,12 +147,12 @@ class reflines_db extends data_set {
 	{
 		$sql = "SELECT * FROM ".TB_PREF."reflines WHERE trans_type=".db_escape($type)
 			." AND CHAR_LENGTH(`prefix`) AND LEFT(".db_escape($reference).", CHAR_LENGTH(`prefix`)) = `prefix`";
-		if ($fallback)	// if not found return refline with empty prefix
+		if ($fallback)	
 			$sql .= " UNION SELECT * FROM ".TB_PREF."reflines WHERE trans_type=".db_escape($type)." AND `prefix`=''";
 		$ret = db_query($sql, "cannot check reference line id");
 		$line = db_fetch($ret);
 
-		if (!$fallback && (db_num_rows($fallback) != 1))	// more than one record means ambigous reference line
+		if (!$fallback && (db_num_rows($fallback) != 1))	
 			return null;
 
 		return $line ? $line['id'] : null;

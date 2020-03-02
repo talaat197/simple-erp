@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 function add_wo_costing($workorder_id, $cost_type, $trans_type, $trans_no, $factor=1)
@@ -53,7 +46,7 @@ function update_material_cost($stock_id, $qty, $unit_cost, $date)
 
 	$qoh = get_qoh_on_date($stock_id, null, $date);
 
-	// unit_cost*qty is already posted on inventory GL
+	
 /* 
 	if ($qoh > 0)
 	{
@@ -79,7 +72,7 @@ function update_material_cost($stock_id, $qty, $unit_cost, $date)
 
 	if ($qty_delayed > 0 && ($unit_cost != $avg_cost))
 	{
-		// post	$qty_delayed*($avg_cost-$unit_cost)
+		
 		$diff = $qty_delayed*($unit_cost-$avg_cost);
 		$stock_gl_code = get_item($stock_id);
 
@@ -176,7 +169,7 @@ function work_order_production_gl($woid, $stock_id, $quantity, $date_, $rcv_no)
 	
 	$result = get_wo_requirements($woid);
 
-	// credit all the components
+	
 	$total_cost = 0;
 	while ($bom_item = db_fetch($result))
 	{
@@ -187,7 +180,7 @@ function work_order_production_gl($woid, $stock_id, $quantity, $date_, $rcv_no)
 		}
 		update_wo_requirement_issued($bom_item['id'], $bom_item["units_req"] * $quantity, $bom_item["ComponentCost"]);
 
-		// insert a -ve stock move for each item
+		
 		add_stock_move(ST_MANURECEIVE, $bom_item["stock_id"], $rcv_no,
 			$bom_item["loc_code"], $date_, "", -$bom_item["units_req"] * $quantity, $bom_item["ComponentCost"], 0);
 
@@ -229,7 +222,7 @@ function void_wo_costing($wo_id)
 
 	while($row = db_fetch($res))
 	{
-		// void any related gl trans
+		
 		$date = Today();
 		$type = $row['trans_type'];
 		$trans_no = $row['trans_no'];

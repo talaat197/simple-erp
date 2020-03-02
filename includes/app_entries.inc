@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 /*
 	This file contains all application entry points.
@@ -24,10 +17,10 @@ $trans_editors = array(
 	//ST_BANKTRANSFER => ,
 
 	ST_SALESINVOICE => "/sales/customer_invoice.php?ModifyInvoice=%d",
-//   11=>
-// free hand (debtors_trans.order_==0)
+
+
 //	"/sales/credit_note_entry.php?ModifyCredit=%d"
-// credit invoice
+
 //	"/sales/customer_credit_invoice.php?ModifyCredit=%d"
 	ST_CUSTCREDIT =>  "/sales/customer_credit_invoice.php?ModifyCredit=%s",
 	ST_CUSTPAYMENT =>  "/sales/customer_payments.php?trans_no=%d",

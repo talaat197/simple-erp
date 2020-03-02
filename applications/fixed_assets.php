@@ -26,7 +26,7 @@ class assets_app extends application
 			"sales/sales_order_entry.php?NewInvoice=0&FixedAsset=1", 'SA_SALESINVOICE', MENU_TRANSACTION);
 		$this->add_rapp_function(0, _("Process &Depreciation"),
 			"fixed_assets/process_depreciation.php", 'SA_DEPRECIATION', MENU_MAINTENANCE);
-    // TODO: needs work
+    
 		//$this->add_rapp_function(0, _("Fixed Assets &Revaluation"),
 	//		"inventory/cost_update.php?FixedAsset=1", 'SA_STANDARDCOST', MENU_MAINTENANCE);
 

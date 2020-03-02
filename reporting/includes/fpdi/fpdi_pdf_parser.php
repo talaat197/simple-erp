@@ -1,20 +1,20 @@
 <?php
 //
-//  FPDI - Version 1.2.1
+
 //
-//    Copyright 2004-2008 Setasign - Jan Slabon
+
 //
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
+
+
+
 //
-//      http://www.apache.org/licenses/LICENSE-2.0
+
 //
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
+
+
+
+
+
 //
 
 require_once("pdf_parser.php");
@@ -72,13 +72,13 @@ class fpdi_pdf_parser extends pdf_parser {
 		
         parent::__construct($filename);
 
-        // resolve Pages-Dictonary
+        
         $pages = $this->pdf_resolve_object($this->c, $this->root[1][1]['/Pages']);
 
-        // Read pages
+        
         $this->read_pages($this->c, $pages, $this->pages);
         
-        // count pages;
+        
         $this->page_count = count($this->pages);
     }
     
@@ -130,13 +130,13 @@ class fpdi_pdf_parser extends pdf_parser {
      *
      * @param array $obj Array of pdf-data
      */
-    function _getPageResources ($obj) { // $obj = /Page
+    function _getPageResources ($obj) { 
     	$obj = $this->pdf_resolve_object($this->c, $obj);
 
-        // If the current object has a resources
-    	// dictionary associated with it, we use
-    	// it. Otherwise, we move back to its
-    	// parent object.
+        
+    	
+    	
+    	
         if (isset ($obj[1][1]['/Resources'])) {
     		$res = $this->pdf_resolve_object($this->c, $obj[1][1]['/Resources']);
     		if ($res[0] == PDF_TYPE_OBJECT)
@@ -321,7 +321,7 @@ class fpdi_pdf_parser extends pdf_parser {
         return $this->_getPageRotation($this->pages[$pageno-1]);
     }
     
-    function _getPageRotation ($obj) { // $obj = /Page
+    function _getPageRotation ($obj) { 
     	$obj = $this->pdf_resolve_object($this->c, $obj);
     	if (isset ($obj[1][1]['/Rotate'])) {
     		$res = $this->pdf_resolve_object($this->c, $obj[1][1]['/Rotate']);
@@ -348,7 +348,7 @@ class fpdi_pdf_parser extends pdf_parser {
      * @param array the result-array
      */
     function read_pages (&$c, &$pages, &$result) {
-        // Get the kids dictionary
+        
     	$kids = $this->pdf_resolve_object ($c, $pages[1][1]['/Kids']);
 
         if (!is_array($kids))
@@ -356,8 +356,8 @@ class fpdi_pdf_parser extends pdf_parser {
         foreach ($kids[1] as $v) {
     		$pg = $this->pdf_resolve_object ($c, $v);
             if ($pg[1][1]['/Type'][1] === '/Pages') {
-                // If one of the kids is an embedded
-    			// /Pages array, resolve it as well.
+                
+    			
                 $this->read_pages ($c, $pg, $result);
     		} else {
     			$result[] = $pg;

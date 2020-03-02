@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //----------------------------------------------------------------------------------
 //	AgroPhos system transaction types
@@ -49,12 +42,12 @@ define('ST_DIMENSION', 40);
 define('ST_CUSTOMER', 41);
 define('ST_SUPPLIER', 42);
 
-// Don't include these defines in the $systypes_array.
-// They are used for documents only.
+
+
 define ('ST_STATEMENT', 91);
 define ('ST_CHEQUE', 92);
 
-// document inheritance
+
 $document_child_types = array(
 		ST_SALESQUOTE => ST_SALESORDER,
 		ST_SALESORDER => ST_CUSTDELIVERY,
@@ -149,7 +142,7 @@ function payment_person_has_items($type) {
 			return true;
 		case PT_QUICKENTRY :
 			return db_has_quick_entries();
-		case PT_WORKORDER : // 070305 changed to open workorders JH
+		case PT_WORKORDER : 
 			return db_has_open_workorders();
 		case PT_CUSTOMER :
 			return db_has_customers();
@@ -181,7 +174,7 @@ define('WO_MATERIALS', 2);
 //----------------------------------------------------------------------------------
 //	GL account classes
 //
-define('CL_NONE', 0); // for backward compatibility
+define('CL_NONE', 0); 
 define('CL_ASSETS', 1);
 define('CL_LIABILITIES', 2);
 define('CL_EQUITY', 3);
@@ -215,7 +208,7 @@ define('ALL_TEXT', '');
 define('ALL_NUMERIC', -1);
 
 //----------------------------------------------------------------------------------
-// Special class values for tables (start_table())
+
 define('TABLESTYLE',  1);
 define('TABLESTYLE2', 2);
 define('TABLESTYLE_NOBORDER', 3);
@@ -226,7 +219,7 @@ define('TAG_ACCOUNT',   1);
 define('TAG_DIMENSION', 2);
 
 //----------------------------------------------------------------------------------
-// Payment term types
+
 
 define('PTT_PRE', 1);
 define('PTT_CASH', 2);
@@ -234,10 +227,10 @@ define('PTT_DAYS', 3);
 define('PTT_FOLLOWING', 4);
 
 //----------------------------------------------------------------------------------
-// Tax calculation algorithms used in als and purchase (depends on supplier's invoicing software)
 
-define('TCA_TOTALS', 1); // taxes are calculated from respective net totals for all lines
-define('TCA_LINES', 2); // taxes calculated for every line, then summed
+
+define('TCA_TOTALS', 1); 
+define('TCA_LINES', 2); 
 //
 //	Bank account owner types
 //
@@ -248,11 +241,11 @@ define('BO_SUPPLIER', 3);
 
 include_once($path_to_root . '/includes/sysnames.inc');
 
-// tax register type
-define('TR_OUTPUT', 0); // sales
-define('TR_INPUT', 1);	// purchase
+
+define('TR_OUTPUT', 0); 
+define('TR_INPUT', 1);	
 //---------------------------------------------------------------------------------
-// Constants optionally redefined locally
+
 //
 defined('ICON_EDIT') || define('ICON_EDIT', 'edit.gif');
 defined('ICON_DELETE') || define('ICON_DELETE', 'delete.gif');

@@ -1,15 +1,4 @@
 <?php
-
-/**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
- ***********************************************************************/
 if (!isset($path_to_root) || isset($_GET['path_to_root']) || isset($_POST['path_to_root']))
 	die(_("Restricted access"));
 include_once($path_to_root . "/includes/ui.inc");
@@ -22,7 +11,7 @@ function defaultCompany()
 }
 </script>";
 add_js_file('login.js');
-// Display demo user name and password within login form if allow_demo_mode option is true
+
 if ($SysPrefs->allow_demo_mode == true) {
 	$demo_text = _("Login as user: demouser and password: password");
 } else {
@@ -86,7 +75,7 @@ start_form(false, false, $_SESSION['timeout']['uri'], "loginform");
 start_table(false, "class='login'");
 start_row();
 echo "<td align='center' colspan=2>";
-if (!$login_timeout) { // FA logo
+if (!$login_timeout) { 
 	echo "<a target='_blank' href='" . $SysPrefs->power_url . "'><img src='$path_to_root/themes/$def_theme/images/logo_simple_erp.png' alt='AgroPhos' height='50' onload='fixPNG(this)' border='0' ></a>";
 } else {
 	echo "<font size=5>" . _('Authorization timeout') . "</font>";
@@ -132,7 +121,7 @@ echo "<center><input type='submit' value='&nbsp;&nbsp;" . _("Login -->") . "&nbs
 	. " onclick='set_fullmode();'" . (isset($blocked_msg) ? " disabled" : '') . " ></center>\n";
 
 foreach ($_SESSION['timeout']['post'] as $p => $val) {
-	// add all request variables to be resend together with login data
+	
 	if (!in_array($p, array(
 		'ui_mode', 'user_name_entry_field',
 		'password', 'SubmitUser', 'company_login_name'

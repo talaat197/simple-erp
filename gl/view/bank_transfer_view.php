@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_BANKTRANSVIEW';
 $path_to_root="../..";
@@ -35,7 +28,7 @@ $trans2 = db_fetch($result);
 
 if ($trans1["amount"] < 0) 
 {
-    $from_trans = $trans1; // from trans is the negative one
+    $from_trans = $trans1; 
     $to_trans = $trans2;
 } 
 else 

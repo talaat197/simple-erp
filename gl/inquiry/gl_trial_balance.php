@@ -31,7 +31,7 @@ $k = 0;
 $pdeb = $pcre = $cdeb = $ccre = $tdeb = $tcre = $pbal = $cbal = $tbal = 0;
 
 //----------------------------------------------------------------------------------------------------
-// Ajax updates
+
 //
 if (get_post('Show'))
 {
@@ -106,8 +106,8 @@ function display_trial_balance($type, $typename)
 			$printtitle = 1;
 		}
 
-		// FA doesn't really clear the closed year, therefore the brought forward balance includes all the transactions from the past, even though the balance is null.
-		// If we want to remove the balanced part for the past years, this option removes the common part from from the prev and tot figures.
+		
+		
 		if (@$SysPrefs->clear_trial_balance_opening)
 		{
 			$open = get_balance($account["account_code"], $_POST['Dimension'], $_POST['Dimension2'], $begin,  $begin, false, true);

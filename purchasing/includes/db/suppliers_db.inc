@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 function add_supplier($supp_name, $supp_ref, $address, $supp_address, $gst_no,
@@ -86,7 +79,7 @@ function get_supplier_details($supplier_id, $to=null, $all=true)
 		$todate = date2sql($to);
 	$past1 = get_company_pref('past_due_days');
 	$past2 = 2 * $past1;
-	// removed - supp_trans.alloc from all summations
+	
 
 	if ($all)
     	$value = "(trans.ov_amount + trans.ov_gst + trans.ov_discount)";

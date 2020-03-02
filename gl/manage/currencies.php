@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_CURRENCY';
 $path_to_root = "../..";
@@ -86,7 +79,7 @@ function check_can_delete($curr)
 	if ($curr == "")
 		return false;
 
-	// PREVENT DELETES IF DEPENDENT RECORDS IN debtors_master
+	
 	if (key_in_foreign_table($curr, 'debtors_master', 'curr_code'))
 	{
 		display_error(_("Cannot delete this currency, because customer accounts have been created referring to this currency."));
@@ -105,7 +98,7 @@ function check_can_delete($curr)
 		return false;
 	}
 	
-	// see if there are any bank accounts that use this currency
+	
 	if (key_in_foreign_table($curr, 'bank_accounts', 'bank_curr_code'))
 	{
 		display_error(_("Cannot delete this currency, because thre are bank accounts that use this currency."));

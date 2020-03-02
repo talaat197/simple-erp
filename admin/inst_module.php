@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_CREATEMODULES';
 $path_to_root="..";
@@ -60,7 +53,7 @@ function local_extension($id)
 		$hooks = new $hooks_class;
 		$hooks->install_extension(false);
 	}
-	$Ajax->activate('ext_tbl'); // refresh settings display
+	$Ajax->activate('ext_tbl'); 
 	if (!update_extensions($exts))
 		return false;
 	return true;
@@ -90,7 +83,7 @@ function handle_delete($id)
 	return true;
 }
 //
-// Helper for formating menu tabs/entries to be displayed in extension table
+
 //
 function fmt_titles($defs)
 {
@@ -102,7 +95,7 @@ function fmt_titles($defs)
 }
 //---------------------------------------------------------------------------------------------
 //
-// Display list of all extensions - installed and available from repository
+
 //
 function display_extensions($mods)
 {
@@ -136,13 +129,13 @@ function display_extensions($mods)
 			(($installed && ($installed != '-' || $installed != '')) ? $installed : _("Unknown")));
 		label_cell($available ? $available : _("Unknown"));
 
-		if (!$available && $ext['type'] == 'extension')	{// third-party plugin
+		if (!$available && $ext['type'] == 'extension')	{
 			if (!$installed)
 				button_cell('Local'.$ext['package'], _("Install"), _('Install third-party extension.'), 
 					ICON_DOWN);
 			else
 				label_cell('');
-		} elseif (check_pkg_upgrade($installed, $available)) // outdated or not installed extension in repo
+		} elseif (check_pkg_upgrade($installed, $available)) 
 			button_cell('Update'.$pkg_name, $installed ? _("Update") : _("Install"),
 				_('Upload and install latest extension package'), ICON_DOWN);
 		else
@@ -167,8 +160,8 @@ function display_extensions($mods)
 }
 //---------------------------------------------------------------------------------
 //
-// Get all installed extensions and display
-// with current status stored in company directory.
+
+
 //
 function company_extensions($id)
 {
@@ -228,7 +221,7 @@ if (get_post('Refresh')) {
 					. _("Check Install/Activate page for newer package version."), $ext['name']));
 				continue;
 			}
-			$activated = activate_hooks($ext['package'], $comp, !$ext['active']);	// change active state
+			$activated = activate_hooks($ext['package'], $comp, !$ext['active']);	
 
 			if ($activated !== null)
 				$result &= $activated;
@@ -242,7 +235,7 @@ if (get_post('Refresh')) {
 	
 	if(!$result) {
 		display_error(_('Status change for some extensions failed.'));
-		$Ajax->activate('ext_tbl'); // refresh settings display
+		$Ajax->activate('ext_tbl'); 
 	}else
 		display_notification(_('Current active extensions set has been saved.'));
 }

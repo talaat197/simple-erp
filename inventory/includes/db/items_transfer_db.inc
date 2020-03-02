@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //-------------------------------------------------------------------------------------------------------------
 
@@ -58,10 +51,10 @@ function add_stock_transfer($Items, $location_from, $location_to, $date_, $refer
 
 //-------------------------------------------------------------------------------------------------------------
 
-// add 2 stock_moves entries for a stock transfer
-// $date_ is display date (not sql)
-// std_cost is in HOME currency
-// it seems the standard_cost field is not used at all
+
+
+
+
 
 function add_stock_transfer_item($transfer_id, $stock_id, $location_from, $location_to,
 	$date_, $reference, $quantity)
@@ -80,7 +73,7 @@ function add_stock_transfer_item($transfer_id, $stock_id, $location_from, $locat
 //
 function get_stock_transfer($trans_no)
 {
-	// retrieve common data from any two from/to move records
+	
 	$sql = "SELECT loc_from.*, loc_to.*
 		FROM
 			(SELECT trans_no, type, tran_date, reference, move.loc_code as from_loc, loc.location_name as from_name

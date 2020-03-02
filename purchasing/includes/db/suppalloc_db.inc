@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //----------------------------------------------------------------------------------------
 
@@ -89,7 +82,7 @@ function clear_supp_alloctions($type, $type_no, $person_id=null, $date="")
 		$sql .= " AND ca.person_id=".db_escape($person_id);
 	db_query($sql, "could not clear allocation");
 
-	// remove any allocations for this transaction
+	
 	$sql = "DELETE FROM ".TB_PREF."supp_allocations
 			WHERE  ((trans_type_from=".db_escape($type)." AND trans_no_from=".db_escape($type_no).")
 				OR (trans_type_to=".db_escape($type)." AND trans_no_to=".db_escape($type_no)."))";
@@ -164,7 +157,7 @@ function get_allocatable_purch_orders($supplier_id = null, $trans_no=null, $type
 	}
 	else
 	{
-		$sql .= " AND ISNULL(grn.purch_order_no)"; // only sales orders no yet received
+		$sql .= " AND ISNULL(grn.purch_order_no)"; 
 	}
 	if ($supplier_id)
 		$sql .= " AND porder.supplier_id=".db_escape($supplier_id);
@@ -290,20 +283,20 @@ function get_sql_for_supplier_allocation_inquiry()
    		$sql .= " AND trans.supplier_id = ".db_escape($_POST['supplier_id']);
    	if (isset($_POST['filterType']) && $_POST['filterType'] != ALL_TEXT)
    	{
-   		if (($_POST['filterType'] == '1') || ($_POST['filterType'] == '2')) // invoices
+   		if (($_POST['filterType'] == '1') || ($_POST['filterType'] == '2')) 
    		{
    			$sql .= " AND trans.type = ".ST_SUPPINVOICE." ";
    		}
-   		elseif ($_POST['filterType'] == '3')	// payments
+   		elseif ($_POST['filterType'] == '3')	
    		{
 			$sql .= " AND trans.type = ".ST_SUPPAYMENT." ";
    		}
-   		elseif (($_POST['filterType'] == '4') || ($_POST['filterType'] == '5')) // credits
+   		elseif (($_POST['filterType'] == '4') || ($_POST['filterType'] == '5')) 
    		{
 			$sql .= " AND trans.type = ".ST_SUPPCREDIT." ";
    		}
 
-   		if (($_POST['filterType'] == '2') || ($_POST['filterType'] == '5')) // overdude 
+   		if (($_POST['filterType'] == '2') || ($_POST['filterType'] == '5')) 
    		{
    			$today =  date2sql(Today());
 			$sql .= " AND trans.due_date < '$today' ";

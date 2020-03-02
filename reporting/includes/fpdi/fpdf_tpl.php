@@ -1,20 +1,20 @@
 <?php
 //
-//  FPDF_TPL - Version 1.1.4
+
 //
-//    Copyright 2004-2010 Setasign - Jan Slabon
+
 //
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
+
+
+
 //
-//      http://www.apache.org/licenses/LICENSE-2.0
+
 //
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
+
+
+
+
+
 //
 
 class FPDF_TPL extends FPDF {
@@ -86,7 +86,7 @@ class FPDF_TPL extends FPDF {
         if ($h == null)
             $h = $this->h;
 
-        // Save settings
+        
         $this->tpl++;
         $tpl =& $this->tpls[$this->tpl];
         $tpl = array(
@@ -108,7 +108,7 @@ class FPDF_TPL extends FPDF {
 
         $this->SetAutoPageBreak(false);
         
-        // Define own high and width to calculate possitions correct
+        
         $this->h = $h;
         $this->w = $w;
 
@@ -200,7 +200,7 @@ class FPDF_TPL extends FPDF {
             'lty' => ($this->h-$_y-$_h) - ($this->h-$h) * ($_h/$h)
         );
         
-        $this->_out(sprintf("q %.4F 0 0 %.4F %.4F %.4F cm", $tData['scaleX'], $tData['scaleY'], $tData['tx']*$this->k, $tData['ty']*$this->k)); // Translate 
+        $this->_out(sprintf("q %.4F 0 0 %.4F %.4F %.4F cm", $tData['scaleX'], $tData['scaleY'], $tData['tx']*$this->k, $tData['ty']*$this->k)); 
         $this->_out(sprintf('%s%d Do Q', $this->tplprefix, $tplidx));
 
         $this->lastUsedTemplateData = $tData;
@@ -330,13 +330,13 @@ class FPDF_TPL extends FPDF {
             $this->_out('/Subtype /Form');
             $this->_out('/FormType 1');
             $this->_out(sprintf('/BBox [%.2F %.2F %.2F %.2F]',
-                // llx
+                
                 $tpl['x']*$this->k,
-                // lly
+                
                 -$tpl['y']*$this->k,
-                // urx
+                
                 ($tpl['w']+$tpl['x'])*$this->k,
-                // ury
+                
                 ($tpl['h']-$tpl['y'])*$this->k
             ));
             

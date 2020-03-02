@@ -10,12 +10,12 @@
     See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
 ***********************************************************************/
 $page_security = 'SA_SUPPLIERANALYTIC';
-// ----------------------------------------------------------------
-// $ Revision:	2.0 $
-// Creator:	Joe Hunt
-// date_:	2005-05-19
-// Title:	Customer Details Listing
-// ----------------------------------------------------------------
+
+
+
+
+
+
 $path_to_root="..";
 
 include_once($path_to_root . "/includes/session.inc");
@@ -124,7 +124,7 @@ function print_supplier_details_listing()
 		{
 			$newrow = 0;
 			$rep->NewLine();
-			// Here starts the new report lines
+			
 			$contacts = get_supplier_contacts($myrow['supplier_id']);
 			$rep->TextCol(0, 1,	$myrow['supp_name']);
 			$rep->TextCol(1, 2,	_('Tax_Id') . ": " . $myrow['gst_no']);

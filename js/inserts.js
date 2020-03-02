@@ -10,9 +10,9 @@
 ***********************************************************************/
 var _focus;
 var _hotkeys = {
-	'alt': false,	// whether is the Alt key pressed
-	'list': false, // list of all elements with hotkey used recently
-	'focus': -1		// currently selected list element
+	'alt': false,	
+	'list': false, 
+	'focus': -1		
 };
 
 function validate(e) {
@@ -52,7 +52,7 @@ function _expand(tabobj) {
 
   if (ul.getAttribute("rel")){
 	for (var i=0; i<alltabs.length; i++){
-	  alltabs[i].className = "ajaxbutton"  //deselect all tabs // Review CP 2014-11 This will remove all other classes from the element.
+	  alltabs[i].className = "ajaxbutton"  //deselect all tabs 
 	}
 	tabobj.className = "current";
 	JsHttpRequest.request(tabobj)
@@ -72,8 +72,8 @@ function _set_combo_input(e) {
 		  var button = document.getElementsByName(but_name)[0];
 		  var select = document.getElementsByName(this.getAttribute('rel'))[0];
 		  save_focus(select);
-// submit request if there is submit_on_change option set and
-// search field has changed.
+
+
 
 		  if (button && (this.value != this.getAttribute('_last'))) {
 			JsHttpRequest.request(button);
@@ -133,9 +133,9 @@ function _update_box(s) {
 }
 
 function _set_combo_select(e) {
-		// When combo position is changed via js (eg from searchbox)
-		// no onchange event is generated. To ensure proper change
-		// signaling we must track selectedIndex in onblur handler.
+		
+		
+		
 		e.setAttribute('_last', e.selectedIndex);
 		e.onblur = function() {
 		    var box = document.getElementsByName(this.getAttribute('rel'))[0];
@@ -173,7 +173,7 @@ function _set_combo_select(e) {
 				setFocus(box);
 			    return false;
 			 } else {
-			 	if (key == 13 && !e.length) // prevent chrome issue (blocked cursor after CR on empty selector)
+			 	if (key == 13 && !e.length) 
 			 		return false;
 			 }
 		}
@@ -183,27 +183,27 @@ var _w;
 
 function callEditor(key) {
   var el = document.getElementsByName(editors[key][1])[0];
-  if(_w) _w.close(); // this is really necessary to have window on top in FF2 :/
+  if(_w) _w.close(); 
   var left = (screen.width - editors[key][2]) / 2;
   var top = (screen.height - editors[key][3]) / 2;
   _w = open(editors[key][0]+el.value+'&popup=1',
 	  "edit","scrollbars=yes,resizable=0,width="+editors[key][2]+",height="+editors[key][3]+",left="+left+",top="+top+",screenX="+left+",screenY="+top);
   if (_w.opener == null)
 	  _w.opener = self;
-  editors._call = key; // store call point for passBack
+  editors._call = key; 
   _w.focus();
 }
 
 function passBack(value) {
 	var o = opener;
 	if(value != false) {
-		var back = o.editors[o.editors._call]; // form input bindings
+		var back = o.editors[o.editors._call]; 
 		var to = o.document.getElementsByName(back[1])[0];
 		if (to) {
 			if (to[0] != undefined)
-				to[0].value = value; // ugly hack to set selector to any value
+				to[0].value = value; 
 			to.value = value;
-			// update page after item selection
+			
 			o.JsHttpRequest.request('_'+to.name+'_update', to.form);
 			o.setFocus(to.name);
 		}
@@ -221,11 +221,11 @@ function fix_date(date, last)
 	var cur = date.split(user.datesep);
 	var day, month, year;
 
-// TODO: user.date as default?
-// TODO: user.datesys
-	if (date == "" || date == last) // should we return an empty date or should we return last?
+
+
+	if (date == "" || date == last) 
 		return date;
-	if (user.datefmt == 0 || user.datefmt == 3) // set defaults
+	if (user.datefmt == 0 || user.datefmt == 3) 
 	{
 		day = dat[1]; month = dat[0]; year = dat[2];
 	} else if (user.datefmt == 1 || user.datefmt == 4){
@@ -233,14 +233,14 @@ function fix_date(date, last)
 	} else {
 		day = dat[2]; month = dat[1]; year = dat[0];
 	}
-	if (cur[1] != undefined && cur[1] != "") // day or month entered, could be string 3
+	if (cur[1] != undefined && cur[1] != "") 
 	{
 		if (user.datefmt == 0 || user.datefmt == 3 || ((user.datefmt == 2 || user.datefmt == 5) && (cur[2] == undefined || cur[2] == "")))
 			day = cur[1];
 		else
 			month = cur[1];
 	}
-	if (cur[0] != undefined && cur[0] != "") // day or month entered. could be string 3
+	if (cur[0] != undefined && cur[0] != "") 
 	{
 		if (cur[1] == undefined || cur[1] == "")
 			day = cur[0];
@@ -251,7 +251,7 @@ function fix_date(date, last)
 		else
 			day = cur[0];
 	}
-	if (cur[2] != undefined && cur[2] != "") // year,
+	if (cur[2] != undefined && cur[2] != "") 
 	{
 		if (user.datefmt == 2 || user.datefmt == 5)
 			day = cur[2];
@@ -302,12 +302,12 @@ var inserts = {
 	},
 	'input.combo2,input[aspect="fallback"]':
 	function(e) {
-  	    // this hides search button for js enabled browsers
+  	    
 	    e.style.display = 'none';
 	},
 	'div.js_only':
 	function(e) {
-  	    // this shows divs for js enabled browsers only
+  	    
 	    e.style.display = 'block';
 	},
 	'button': function(e) {
@@ -321,7 +321,7 @@ var inserts = {
 			}
 			return false;
 		},
-		e.onkeydown = function(ev) {	// block unintentional page escape with 'history back' key pressed on buttons
+		e.onkeydown = function(ev) {	
 			ev = ev||window.event;
  			key = ev.keyCode||ev.which;
 	  		if(key == 8 || (key==37 && ev.altKey)) {
@@ -331,7 +331,7 @@ var inserts = {
 		}
 
 	},
-//	'.ajaxsubmit,.editbutton,.navibutton': // much slower on IE7
+//	'.ajaxsubmit,.editbutton,.navibutton': 
 	'button.ajaxsubmit,input.ajaxsubmit,input.editbutton,button.editbutton,button.navibutton':
 	function(e) {
 			e.onclick = function() {
@@ -339,7 +339,7 @@ var inserts = {
 					save_focus(e);
 					var asp = e.getAttribute('aspect')
 					if (asp && (asp.indexOf('process') !== -1))
-						JsHttpRequest.request(this, null, 600000); // ten minutes for backup
+						JsHttpRequest.request(this, null, 600000); 
 					else
 						JsHttpRequest.request(this);
 				}
@@ -361,7 +361,7 @@ var inserts = {
 		  };
 		}
 	},
-	'.searchbox': // emulated onchange event handling for text inputs
+	'.searchbox': 
 		function(e) {
 			e.setAttribute('_last_val', e.value);
 			e.setAttribute('autocomplete', 'off'); //must be off when calling onblur
@@ -395,14 +395,14 @@ var inserts = {
 	},
 	'button[aspect=popup]': function(e) {
 		e.onclick = function() {
-			if(_w) _w.close(); // this is really necessary to have window on top in FF2 :/
+			if(_w) _w.close(); 
 			 var left = (screen.width - 800)/2;
 			 var top = (screen.height - 600)/2;
 			  _w = open(document.location+'popup=1',
 				  "edit","Scrollbars=0,resizable=0,width=800,height=600, top="+top+",left="+left+",screenX="+left+",screenY="+top);
 			  if (_w.opener == null)
 				  _w.opener = self;
-			//  editors._call = key; // store call point for passBack
+			
 //			  _w.moveTo(50, 50);
 			  _w.focus();
 			return false;
@@ -418,7 +418,7 @@ var inserts = {
 		if (string_contains(c, 'combo') || string_contains(c, 'combo2') || string_contains(c, 'combo3'))
 			_set_combo_select(e);
 		else {
-			e.onkeydown = function(ev) {	// block unintentional page escape with 'history back' key pressed on buttons
+			e.onkeydown = function(ev) {	
 				ev = ev||window.event;
  				key = ev.keyCode||ev.which;
 	  			if(key == 8 || (key=37 && ev.altKey)) {
@@ -445,7 +445,7 @@ var inserts = {
 			return false;
 		}
 	},
-	'a': function(e) { // traverse menu
+	'a': function(e) { 
   		e.onkeydown = function(ev) {
 			ev = ev||window.event;
 			key = ev.keyCode||ev.which;
@@ -455,7 +455,7 @@ var inserts = {
 					return false;
 			}
 		}
-		// prevent unneeded transaction entry abortion
+		
 		if (e.className == 'shortcut'
 		 || e.className == 'menu_option'
 		 || e.className == 'menu_tab'
@@ -467,7 +467,7 @@ var inserts = {
 					ev.returnValue = false;
 					return false;
 				}
-				if (_hotkeys.alt)	// ommit Chrome accesskeys
+				if (_hotkeys.alt)	
 					return false;
  				window.location = e.href;
 			}
@@ -494,10 +494,10 @@ var inserts = {
 	}
 /* TODO
 	'a.date_picker':  function(e) {
-	    // this un-hides data picker for js enabled browsers
+	    
 	    e.href = date_picker(this.getAttribute('rel'));
 	    e.style.display = '';
-	    e.tabindex = -1; // skip in tabbing order
+	    e.tabindex = -1; 
 	}
 */
 };
@@ -521,7 +521,7 @@ function setHotKeys() {
 	document.onkeydown = function(ev) {
 		ev = ev||window.event;
 		key = ev.keyCode||ev.which;
-		if (key == 18 && !ev.ctrlKey) {	// start selection, skip Win AltGr
+		if (key == 18 && !ev.ctrlKey) {	
 			_hotkeys.alt = true;
 			_hotkeys.focus = -1;
 			return stopEv(ev);
@@ -534,10 +534,10 @@ function setHotKeys() {
 			_hotkeys.list = l;
 			for (var i=0; i<cnt; i++) {
 				n = (n+1)%cnt;
-				// check also if the link is visible
+				
 				if (l[n].accessKey==key && (l[n].offsetWidth || l[n].offsetHeight)) {
 					_hotkeys.focus = n;
-	    // The timeout is needed to prevent unpredictable behaviour on IE.
+	    
 					var tmp = function() {l[_hotkeys.focus].focus();};
 					setTimeout(tmp, 0);
 					break;
@@ -546,11 +546,11 @@ function setHotKeys() {
 			return stopEv(ev);
 		}
 		if((ev.ctrlKey && key == 13) || key == 27) {
-			_hotkeys.alt = false; // cancel link selection
+			_hotkeys.alt = false; 
 			_hotkeys.focus = -1;
 			ev.cancelBubble = true;
    			if(ev.stopPropagation) ev.stopPropagation();
-			// activate submit/escape form
+			
 			for(var j=0; j<this.forms.length; j++) {
 				var form = this.forms[j];
 				for (var i=0; i<form.elements.length; i++){
@@ -582,7 +582,7 @@ function setHotKeys() {
 		}
 		if (editors!=='undefined' && editors[key]) {
 			callEditor(key);
-			return stopEv(ev); // prevent default binding
+			return stopEv(ev); 
 		}
 		return true;
 	};

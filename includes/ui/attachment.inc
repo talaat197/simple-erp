@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root. '/includes/ui/simple_crud_class.inc');
 
@@ -69,7 +62,7 @@ class attachments extends simple_crud {
 				}*/
 			}
 		}
-		$filters = array('trans_no' => $this->entity, 'type_no' => (isset($_GET['type_no']) ? $_GET['type_no'] : ST_CUSTOMER)); // default ST_CUSTOMER
+		$filters = array('trans_no' => $this->entity, 'type_no' => (isset($_GET['type_no']) ? $_GET['type_no'] : ST_CUSTOMER)); 
 
 		if($session_debtor_no || $session_supplier_id)
 			$filters['visible'] = 1;
@@ -127,9 +120,9 @@ class attachments extends simple_crud {
 		$type_no= $_GET['type_no'];
 
 		
-		if($type_no==ST_CUSTOMER) // 5
+		if($type_no==ST_CUSTOMER) 
 			$id_word = _("Customer ID");
-		elseif($type_no==ST_SUPPLIER) // 6
+		elseif($type_no==ST_SUPPLIER) 
 			$id_word = _("Supplier ID");
 
 		label_row(_($id_word), $_POST['trans_no']);	

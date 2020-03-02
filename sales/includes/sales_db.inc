@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root . "/includes/banking.inc");
 include_once($path_to_root . "/includes/inventory.inc");
@@ -28,9 +21,9 @@ include_once($path_to_root . "/sales/includes/db/branches_db.inc");
 include_once($path_to_root . "/sales/includes/db/customers_db.inc");
 
 //----------------------------------------------------------------------------------------
-// add a debtor-related gl transaction
-// $date_ is display date (non-sql)
-// $amount is in CUSTOMER'S currency
+
+
+
 
 function add_gl_trans_customer($type, $type_no, $date_, $account, $dimension, $dimension2,
 	$amount, $customer_id, $err_msg="", $rate=0)
@@ -135,7 +128,7 @@ function get_price ($stock_id, $currency, $sales_type_id, $factor=null, $date=nu
 //----------------------------------------------------------------------------------------
 //
 //	Get price for given item or kit.
-//  When $std==true price is calculated as a sum of all included stock items,
+
 //	otherwise all prices set for kits and items are accepted.
 //
 function get_kit_price($item_code, $currency, $sales_type_id, $factor=null, 
@@ -150,17 +143,17 @@ function get_kit_price($item_code, $currency, $sales_type_id, $factor=null,
 			return $kit_price;
 		}
 	}	
-	// no price for kit found, get total value of all items
+	
 	$kit = get_item_kit($item_code);
 	
 	while($item = db_fetch($kit)) {
 		if ($item['item_code'] != $item['stock_id']) {
-			// foreign/kit code
+			
 			$kit_price += $item['quantity'] * get_kit_price( $item['stock_id'], 
 				$currency, $sales_type_id, $factor, $date, $std);
 
 		} else {
-			// stock item
+			
 			$kit_price += $item['quantity'] * get_price( $item['stock_id'], 
 				$currency, $sales_type_id, $factor, $date);
 		}
@@ -196,7 +189,7 @@ function update_parent_line($doc_type, $line_id, $qty_dispatched, $auto=false)
 }
 
 //--------------------------------------------------------------------------------------------------
-// find inventory location for given transaction
+
 //
 function get_location(&$cart)
 {
@@ -216,7 +209,7 @@ function get_location(&$cart)
 	return null;
 }
 //--------------------------------------------------------------------------------------------------
-// Generic read debtor transaction into cart
+
 //
 //	$trans_no - array of trans nums; special case trans_no==0 - new doc
 //
@@ -226,10 +219,10 @@ function read_sales_trans($doc_type, $trans_no, &$cart)
 		$trans_no = array($trans_no);
 
 	$cart->trans_type = $doc_type;
-	if (!$trans_no) { // new document
+	if (!$trans_no) { 
 		$cart->trans_no = $trans_no;
 	} else {
-		// read header data from first document
+		
 		$myrow = get_customer_trans($trans_no[0],$doc_type);
 		if (count_array($trans_no)>1)
 			$cart->trans_no = get_customer_trans_version($doc_type, $trans_no);
@@ -249,20 +242,20 @@ function read_sales_trans($doc_type, $trans_no, &$cart)
 		$cart->order_no = $myrow["order_"];
 		$cart->due_date = sql2date($myrow["due_date"]);
 		$cart->document_date = sql2date($myrow["tran_date"]);
-		$cart->dimension_id = $myrow['dimension_id']; // added 2.1 Joe Hunt 2008-11-12
+		$cart->dimension_id = $myrow['dimension_id']; 
 		$cart->dimension2_id = $myrow['dimension2_id'];
 		$cart->Comments = '';
 		foreach ( $trans_no as $trans ) {
 			$cart->Comments .= get_comments_string($doc_type,$trans);
 		}
 
-		// FIX this should be calculated sum() for multiply parents
+		
 
 		$cart->set_delivery($myrow["ship_via"], $myrow["br_name"],
 		$myrow["br_address"], $myrow["ov_freight"]);
 
 		$location = 0;
-		$myrow = get_location($cart); // find location from movement
+		$myrow = get_location($cart); 
 
 		if($myrow!=null) {
 			$cart->set_location($myrow['loc_code'], $myrow['location_name']);
@@ -281,7 +274,7 @@ function read_sales_trans($doc_type, $trans_no, &$cart)
 		}
 		$cart->prepayments = get_payments_for($trans_no, $doc_type, $myrow["debtor_no"]);
 
-	} // !newdoc
+	} 
 
 	return true;
 }
@@ -365,8 +358,8 @@ function get_sales_parent_numbers($trans_type, $trans_no)
 
 function get_sales_child_documents($trans_type, $trans_no)
 {
-	// FIXME -  credit notes retrieved here should be those linked to invoices containing 
-	// at least one line from related invoice
+	
+	
 
 	if (!count_array($trans_no))
 		return false;

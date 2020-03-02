@@ -25,7 +25,7 @@ $tb_pref_counter = 1;
 $db_connections = array (
   0 => 
   array (
-    'name' => 'Demo Business',
+    'name' => 'Agro Phos',
     'host' => 'localhost',
     'port' => '',
     'dbname' => 'simple_erp',

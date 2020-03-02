@@ -20,12 +20,12 @@ function get_work_days($start_date, $end_date) {
         $no_days  = 0;
         $weekends = 0;
         while ($begin <= $end) {
-            $no_days++;          // no of days in the given interval
+            $no_days++;          
             $what_day = date("N", $begin);
-            if ($what_day > 6)   // 6 and 7 are weekend days
+            if ($what_day > 6)   
                 $weekends++;
             
-            $begin += 86400;     // +1 day
+            $begin += 86400;     
         }
         $working_days = $no_days - $weekends;
 
@@ -219,7 +219,7 @@ function generate_gl_items($Order) {
     }
         
 	//------------------------------------------------==================
-	unset($_POST['totamount']); // enable default
+	unset($_POST['totamount']); 
 	$Ajax->activate('totamount');
 }
 
@@ -405,7 +405,7 @@ function gl_edit_item_controls(&$order, $dim, $Index=null) {
 
 	$id = find_submit('Edit');
 	if ($Index != -1 && $Index == $id) {
-	    // Modifying an existing row
+	    
 		$item = $order->gl_items[$Index];
 		$_POST['code_id'] = $item->code_id;
 		$_POST['dimension_id'] = $item->dimension_id;
@@ -431,12 +431,12 @@ function gl_edit_item_controls(&$order, $dim, $Index=null) {
 	    $Ajax->activate('items_table');
 	}
 	else {
-	    // Adding a new row
+	    
 		$_POST['AmountDebit'] = '';  //price_format(0);
 		$_POST['AmountCredit'] = ''; //price_format(0);
 		$_POST['dimension_id'] = 0;
 		$_POST['dimension2_id'] = 0;
-		//$_POST['LineMemo'] = ""; // let memo go to next line Joe Hunt 2010-05-30
+		//$_POST['LineMemo'] = ""; 
 		$_POST['_code_id_edit'] = "";
 		$_POST['code_id'] = "";
 		if(isset($_POST['_code_id_update'])) {

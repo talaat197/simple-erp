@@ -5,7 +5,7 @@
     Version:        1.0
     last modified:  2004-05-14
 
-    Autor:          Daniel Käfer
+    Autor:          Daniel Kï¿½fer
     Homepage:       http://www.danielkaefer.de
 
     Leave this header in this file!
@@ -118,16 +118,16 @@ class email
 
 	function send()
     {
-        // Add CC Recipients 
+        
 		if (!empty($this->cc)) 
 			$this->header .= "Cc: " . implode(", ", $this->cc) . "\n" ; 
 
-		// Add BCC Recipients 
+		
 		if (!empty($this->bcc)) 
 			$this->header .= "Bcc: " . implode(", ", $this->bcc) . "\n" ; 
 		$this->header .= "Content-Type: multipart/mixed;\n boundary=\"$this->boundary\"\n";
 
-        // Add Attachments
+        
         if (!empty($this->attachment))
         {
             foreach ($this->attachment as $filename => $file)

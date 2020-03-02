@@ -1,16 +1,9 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //-----------------------------------------------------------------------------
-// insert/update sales delivery
+
 //
 function write_sales_delivery(&$delivery,$bo_policy)
 {
@@ -30,11 +23,11 @@ function write_sales_delivery(&$delivery,$bo_policy)
 	$delivery_items_total = $delivery->get_items_total_dispatch();
 	$freight_tax = $delivery->get_shipping_tax();
 
-// mark sales order for concurrency conflicts check
+
 	update_sales_order_version($delivery->src_docs);
 
 	$tax_total = 0;
-	$taxes = $delivery->get_taxes(); // all taxes with freight_tax
+	$taxes = $delivery->get_taxes(); 
 
 	foreach ($taxes as $taxitem) {
 		$taxitem['Value'] =  round2($taxitem['Value'], user_price_dec());
@@ -62,7 +55,7 @@ function write_sales_delivery(&$delivery,$bo_policy)
 	}
 
 
-	// for prepaid delivery repost income from deffered account
+	
 	if ($delivery->is_prepaid())
 	{
 		$branch_data = get_branch_accounts($delivery->Branch);
@@ -88,7 +81,7 @@ function write_sales_delivery(&$delivery,$bo_policy)
 			$delivery_line->discount_percent, $delivery_line->standard_cost, $delivery_line->src_id,
 			$trans_no ? $delivery_line->id : 0);
 
-	// Now update sales_order_details for the quantity delivered
+	
 		if ($delivery_line->qty_old != $delivery_line->qty_dispatched)
 			update_parent_line(ST_CUSTDELIVERY, $delivery_line->src_id,
 				$delivery_line->qty_dispatched-$delivery_line->qty_old);
@@ -109,8 +102,8 @@ function write_sales_delivery(&$delivery,$bo_policy)
 
 			$stock_gl_code = get_stock_gl_code($delivery_line->stock_id);
 
-			// If there is a Customer Dimension, then override with this,
-			// else take the Item Dimension (if any)
+			
+			
 			$dim = ($delivery->dimension_id != $customer['dimension_id'] ? $delivery->dimension_id : 
 				($customer['dimension_id'] != 0 ? $customer["dimension_id"] : $stock_gl_code["dimension_id"]));
 			$dim2 = ($delivery->dimension2_id != $customer['dimension2_id'] ? $delivery->dimension2_id : 
@@ -125,7 +118,7 @@ function write_sales_delivery(&$delivery,$bo_policy)
 			/* insert gl_trans to credit stock and debit cost of sales at standard cost*/
 			
 			if (is_inventory_item($delivery_line->stock_id)) {
-				// Fixed Assets
+				
 				if ($delivery->fixed_asset) {
 				    $fa_purchase_cost = get_purchase_cost($delivery_line->stock_id);
 					$fa_depreciation = $fa_purchase_cost - $delivery_line->standard_cost;
@@ -148,7 +141,7 @@ function write_sales_delivery(&$delivery,$bo_policy)
 						PT_CUSTOMER, $delivery->customer_id,
 						"The stock side of the cost of sales GL posting could not be inserted");
 				}
-				// Invetory Items
+				
 				else if ($delivery_line->standard_cost != 0) {
 					/*first the cost of sales entry*/
 					add_gl_trans_std_cost(ST_CUSTDELIVERY, $delivery_no,
@@ -178,11 +171,11 @@ function write_sales_delivery(&$delivery,$bo_policy)
 	}
 
 	if ($bo_policy == 0) {
-		// if cancelling any remaining quantities
+		
 		close_sales_order($delivery->order_no);
 	}
 
-	// taxes - this is for printing purposes
+	
 	foreach ($taxes as $taxitem) {
 		if ($taxitem['Net'] != 0) {
 				$ex_rate = get_exchange_rate_from_home_currency(get_customer_currency($delivery->customer_id), $delivery->document_date);
@@ -226,7 +219,7 @@ function void_sales_delivery($type, $type_no, $transactions=true)
 	
 	void_gl_trans($type, $type_no, true);
 
-	// reverse all the changes in the sales order
+	
 	$items_result = get_customer_trans_details($type, $type_no);
 
 	$order = get_customer_trans_order($type, $type_no);
@@ -238,15 +231,15 @@ function void_sales_delivery($type, $type_no, $transactions=true)
 		}
 	}
 
-	// clear details after they've been reversed in the sales order
+	
 	void_customer_trans_details($type, $type_no);
 
 	void_trans_tax_details($type, $type_no);
 
 	void_cust_allocations($type, $type_no);
 
-	// do this last because other voidings can depend on it
-	// DO NOT MOVE THIS ABOVE VOIDING or we can end up with trans with alloc < 0
+	
+	
 	void_customer_trans($type, $type_no);
 
 	if ($transactions)

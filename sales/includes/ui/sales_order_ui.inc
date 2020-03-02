@@ -1,21 +1,14 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root . "/sales/includes/cart_class.inc");
 
 //--------------------------------------------------------------------------------
 function add_to_order(&$order, $new_item, $new_item_qty, $price, $discount, $description='')
 {
-	// calculate item price to sum of kit element prices factor for 
-	// value distribution over all exploded kit items
+	
+	
 	 $std_price = get_kit_price($new_item, $order->customer_currency, 
 		$order->sales_type,	$order->price_factor, get_post('OrderDate'), true);
 
@@ -31,7 +24,7 @@ function add_to_order(&$order, $new_item, $new_item_qty, $price, $discount, $des
 		$std_price = get_kit_price($item['stock_id'], $order->customer_currency, 
 			$order->sales_type,	$order->price_factor, get_post('OrderDate'), true);
 
-		// rounding differences are included in last price item in kit
+		
 		$item_num--;
 		if ($item_num) {
 			$price -= $item['quantity']*$std_price*$price_factor;
@@ -44,14 +37,14 @@ function add_to_order(&$order, $new_item, $new_item_qty, $price, $discount, $des
 		$item_price = round($item_price, user_price_dec());
 
 		if (!$item['is_foreign'] && $item['item_code'] != $item['stock_id'])
-		{	// this is sales kit - recurse 
+		{	
 			add_to_order($order, $item['stock_id'], $new_item_qty*$item['quantity'],
 				$item_price, $discount);
 		}
 		else
-		{	// stock item record eventually with foreign code
+		{	
 
-			// check duplicate stock item
+			
 			foreach ($order->line_items as $order_item)
 			{
 				if (strcasecmp($order_item->stock_id, $item['stock_id']) == 0)
@@ -82,12 +75,12 @@ function get_customer_details_to_order(&$order, $customer_id, $branch_id)
 	if ($myrow['dissallow_invoices'] == 1)
 		$ret_error = _("The selected customer account is currently on hold. Please contact the credit control personnel to discuss.");
 
-	$deliver = $myrow['address']; // in case no branch address use company address
+	$deliver = $myrow['address']; 
 
 	$order->set_customer($customer_id, $name, $myrow['curr_code'], 
 		$myrow['discount'], $myrow['payment_terms'], $myrow['pymt_discount']);
 
-	// the sales type determines the price list to be used by default
+	
 	$order->set_sales_type($myrow['salestype'], $myrow['sales_type'], $myrow['tax_included'],
 	    $myrow['factor']);
 
@@ -107,7 +100,7 @@ function get_customer_details_to_order(&$order, $customer_id, $branch_id)
 
 	$myrow = db_fetch($result);
 
-	// FIX - implement editable contact selector in sales order 
+	
 	$contact = get_branch_contacts($branch_id, 'order', $customer_id);
 	$order->set_branch($branch_id, $myrow["tax_group_id"],
 	$myrow["tax_group_name"], @$contact["phone"], @$contact["email"]);
@@ -172,7 +165,7 @@ function display_order_summary($title, &$order, $editable_items=false)
 		if (!$editable_items || $id != $line_no)
 		{
 			if (in_array($stock_item->stock_id, $low_stock))
-				start_row("class='stockmankobg'");	// notice low stock status
+				start_row("class='stockmankobg'");	
 			else 
 				alt_table_row_color($k);
 
@@ -238,7 +231,7 @@ function display_order_summary($title, &$order, $editable_items=false)
     div_end();
 }
 
-// ------------------------------------------------------------------------------
+
 
 function display_order_header(&$order, $editable, $date_text)
 {
@@ -258,7 +251,7 @@ function display_order_header(&$order, $editable, $date_text)
 		hidden('branch_id', $order->Branch);
 		hidden('sales_type', $order->sales_type);
 		if ($order->trans_type != ST_SALESORDER  && $order->trans_type != ST_SALESQUOTE) {
-			hidden('dimension_id', $order->dimension_id); // 2008-11-12 Joe Hunt
+			hidden('dimension_id', $order->dimension_id); 
 			hidden('dimension2_id', $order->dimension2_id);
 		}	
 	}
@@ -268,7 +261,7 @@ function display_order_header(&$order, $editable, $date_text)
 
 		if ($order->customer_id != get_post('customer_id', -1))
 		{
-			// customer has changed
+			
 			$Ajax->activate('branch_id');
   		}
 		customer_branches_list_row(_("Branch:"),
@@ -281,7 +274,7 @@ function display_order_header(&$order, $editable, $date_text)
 
 			if (!isset($_POST['branch_id']) || $_POST['branch_id'] == "")
 			{
-				// ignore errors on customer search box call
+				
 				if ($_POST['customer_id'] == '')
 					$customer_error = _("No customer found for entered text.");
 				else
@@ -305,9 +298,9 @@ function display_order_header(&$order, $editable, $date_text)
 					&& ($order->pos['cash_sale'] != $order->pos['credit_sale'])
 					&& (($order->payment_terms['cash_sale'] && !$order->pos['cash_sale']) ||
 						(!$order->payment_terms['cash_sale'] && !$order->pos['credit_sale']))) {
-							// force payment terms refresh if terms are editable
-							// and pos have no permitions for terms selected in customer record.
-							// Terms are set to first terms in allowed category below.
+							
+							
+							
 							display_warning(
 								sprintf(_("Customer's payment terms '%s' cannot be selected on this POS"),
 									$order->payment_terms['terms']));
@@ -327,13 +320,13 @@ function display_order_header(&$order, $editable, $date_text)
 					$Ajax->activate('phone');
 					$Ajax->activate('delivery_address');
 				}
-				// change prices if necessary
-				// what about discount in template case?
+				
+				
 				if ($old_order->customer_currency != $order->customer_currency) {
 					$change_prices = 1;
 				}
 				if ($old_order->sales_type != $order->sales_type) {
-				//  || $old_order->default_discount!=$order->default_discount
+				
 					$_POST['sales_type'] = $order->sales_type;
 					$Ajax->activate('sales_type');
 					$change_prices = 1;
@@ -349,7 +342,7 @@ function display_order_header(&$order, $editable, $date_text)
 				unset($old_order);
 			}
 			set_global_customer($_POST['customer_id']);
-		} // changed branch
+		} 
 		else
 		{
 			$row = get_customer_to_order($_POST['customer_id']);
@@ -377,7 +370,7 @@ function display_order_header(&$order, $editable, $date_text)
 	start_row();
 	if (($order->pos['cash_sale'] || $order->pos['credit_sale']) 
 		&& !$order->is_started()) {
-		 // editable payment type 
+		 
 		if (get_post('payment') !== $order->payment) {
 			$order->payment = get_post('payment');
 			$order->payment_terms = get_payment_terms($order->payment);
@@ -391,7 +384,7 @@ function display_order_header(&$order, $editable, $date_text)
 		}
 		$paymcat = !$order->pos['cash_sale'] ? PM_CREDIT : 
 			(!$order->pos['credit_sale'] ? PM_CASH : PM_ANY);
-		// all terms are available for SO
+		
 		$is_order = in_array($order->trans_type, array(ST_SALESQUOTE, ST_SALESORDER));
 		sale_payment_list_cells(_('Payment:'), 'payment', $is_order ? PM_ANY : $paymcat, null, true, $is_order);
 	} else {
@@ -435,7 +428,7 @@ function display_order_header(&$order, $editable, $date_text)
 			$Ajax->activate('delivery_date');
 		}
 		if ($order->trans_type != ST_SALESORDER && $order->trans_type != ST_SALESQUOTE)
-		{	// 2008-11-12 Joe Hunt added dimensions
+		{	
 			$dim = get_company_pref('use_dimension');
 			if ($dim > 0)
 				dimensions_list_row(_("Dimension").":", 'dimension_id', 
@@ -455,7 +448,7 @@ function display_order_header(&$order, $editable, $date_text)
 		hidden('OrderDate', $order->document_date);
 	}
 
-	end_outer_table(1); // outer table
+	end_outer_table(1); 
 
 	if ($change_prices != 0) {
 		foreach ($order->line_items as $line_no=>$item) {
@@ -478,7 +471,7 @@ function sales_order_item_controls(&$order, &$rowcounter, $line_no=-1)
 	alt_table_row_color($rowcounter);
 
 	$id = find_submit('Edit');
-	if ($line_no!=-1 && $line_no == $id) // edit old line
+	if ($line_no!=-1 && $line_no == $id) 
 	{
 		$_POST['stock_id'] = $order->line_items[$id]->stock_id;
 		$dec = get_qty_dec($_POST['stock_id']);
@@ -497,12 +490,12 @@ function sales_order_item_controls(&$order, &$rowcounter, $line_no=-1)
 		}
 	    $Ajax->activate('items_table');
 	}
-	else	// prepare new line
+	else	
 	{
 		if ($order->fixed_asset)
             stock_disposable_fa_list_cells(null,'stock_id', null, _('[Select item]'), true, $order->line_items);
         else {
-            if (!isset($_POST['stock_id'])) {   // Check if stock_id dosesn't exist
+            if (!isset($_POST['stock_id'])) {   
 				$_POST['stock_id'] = last_sales_order_detail($order, 'stk_code');  //get the llast sales stock id.
 			}
             sales_items_list_cells(null,'stock_id', $_POST['stock_id'], false, true, true);
@@ -522,7 +515,7 @@ function sales_order_item_controls(&$order, &$rowcounter, $line_no=-1)
 			$order->customer_currency, $order->sales_type,
 			$order->price_factor, get_post('OrderDate'));
 		$_POST['price'] = price_format($price);
-		// default to the customer's discount %
+		
 		$_POST['Disc'] = percent_format($order->default_discount * 100);
 	}
 
@@ -573,7 +566,7 @@ function display_delivery_details(&$order)
 	div_start('delivery');	
 
 
-	if ($order->payment_terms['cash_sale']) {	// Direct payment sale
+	if ($order->payment_terms['cash_sale']) {	
 		$Ajax->activate('items_table');
 		display_heading(_('Cash payment'));
 		start_table(TABLESTYLE2, "width='60%'");
@@ -613,7 +606,7 @@ function display_delivery_details(&$order)
 		locations_list_row(_("Deliver from Location:"), 'Location', null, false, true, $order->fixed_asset);
 		if ($order->payment_terms['days_before_due'] == -1)
 		{
-			$Ajax->addUpdate('items_table', 'prep_amount', price_format($order->get_trans_total())); // bind to items_table update
+			$Ajax->addUpdate('items_table', 'prep_amount', price_format($order->get_trans_total())); 
 			if (!$order->is_started())
 				amount_row(_("Pre-Payment Required:"), 'prep_amount');
 			else

@@ -1,20 +1,13 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //--------------------------------------------------------------------------------
 
-// Base function for adding a GL transaction
-// $date_ is display date (non-sql)
-// $amount is in $currency currency
-// if $currency is not set, then defaults to no conversion
+
+
+
+
 
 function add_gl_trans($type, $trans_id, $date_, $account, $dimension, $dimension2, $memo_,
 	$amount, $currency=null, $person_type_id=null, $person_id=null,	$err_msg="", $rate=0)
@@ -72,9 +65,9 @@ function add_gl_trans($type, $trans_id, $date_, $account, $dimension, $dimension
 
 //--------------------------------------------------------------------------------
 
-// GL Trans for standard costing, always home currency regardless of person
-// $date_ is display date (non-sql)
-// $amount is in HOME currency
+
+
+
 
 function add_gl_trans_std_cost($type, $trans_id, $date_, $account, $dimension, $dimension2,
 	$memo_,	$amount, $person_type_id=null, $person_id=null, $err_msg="")
@@ -87,7 +80,7 @@ function add_gl_trans_std_cost($type, $trans_id, $date_, $account, $dimension, $
 		return 0;
 }
 
-// Function for even out rounding problems
+
 function add_gl_balance($type, $trans_id, $date_, $amount, $person_type_id=null, $person_id=null)
 {
 	$amount = round2($amount, user_price_dec());
@@ -432,17 +425,17 @@ function get_only_budget_trans_from_to($from_date, $to_date, $account, $dimensio
 function add_gl_tax_details($gl_code, $trans_type, $trans_no, $amount, $ex_rate, $date, $memo, $included=0, $net_amount = null)
 {
 	$tax_type = is_tax_account($gl_code);
-	if(!$tax_type) return;	// $gl_code is not tax account
+	if(!$tax_type) return;	
 	
 	$tax = get_tax_type($tax_type);
 	if ($trans_type == ST_SALESINVOICE || $trans_type == ST_CUSTDELIVERY || $trans_type == ST_CUSTCREDIT)
 		$amount = -$amount;
-	// we have to restore net amount as we cannot know the base amount
+	
 	if ($net_amount===null) {
 		if ($tax['rate'] == 0) {
 			$net_amount = 0;
 		} else { 
-			// calculate net amount
+			
 			$net_amount = $amount/$tax['rate']*100; 
 		}
 	}
@@ -459,7 +452,7 @@ function add_gl_tax_details($gl_code, $trans_type, $trans_no, $amount, $ex_rate,
 function add_trans_tax_details($trans_type, $trans_no, $tax_id, $rate, $included,
 	$amount, $net_amount, $ex_rate, $tran_date, $memo, $reg_type=null)
 {
-	// guess tax register if not set
+	
 	if (!isset($reg_type))
 		$reg_type = in_array($trans_type, array(ST_SUPPINVOICE, ST_SUPPCREDIT)) ? TR_OUTPUT
 				: in_array($trans_type, array(ST_SALESINVOICE, ST_CUSTCREDIT)) ? TR_INPUT : null;
@@ -551,7 +544,7 @@ function get_tax_summary($from, $to, $also_zero_purchases=false)
 			AND taxrec.tran_date <= '$todate'
 		GROUP BY ttype.id";
 
-		// display_error($sql);
+		
     return db_query($sql,"Cannot retrieve tax summary");
 }
 

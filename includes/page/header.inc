@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 /*
 	If no context is set current page/menu screen is selected.
@@ -27,7 +20,7 @@ function help_url($context=null)
 	elseif (isset($help_context))
 	{
 		$help_page_url = $help_context;
-	} else // main menu
+	} else 
 	{
 		$app = $_SESSION['sel_app'];
 		$help_page_url = $_SESSION['App']->applications[$app]->help_context;
@@ -71,7 +64,7 @@ function send_scripts()
 	{
 		$cached_name = basename($jsfile);
 		$fpath = user_js_cache().'/'.$cached_name;
-	    // compress also static files
+	    
 	  	if (!file_exists($fpath) || $SysPrefs->go_debug)
 			cache_js_file($fpath, file_get_contents($js_path.$jsfile));
 
@@ -89,11 +82,11 @@ function send_scripts()
 
 function page_header($title, $no_menu=false, $is_index=false, $onload="", $js="", $css='')
 {
-	// titles and screen header
+	
 	global $path_to_root, $SysPrefs, $db_connections;
 
 	if (in_ajax())
-		return; // just for speed up
+		return; 
 
 	$theme = user_theme();
 
@@ -121,14 +114,14 @@ function page_header($title, $no_menu=false, $is_index=false, $onload="", $js=""
 		$sel_app = user_startup_tab();
 	$_SESSION["sel_app"] = $sel_app;
 
-	// When startup tab for current user was set to already 
-	// removed/inactivated extension module select Sales tab as default.
+	
+	
 	if (isset($_SESSION["App"]) && is_object($_SESSION["App"]))
 		$_SESSION["App"]->selected_application = 
 			isset($_SESSION["App"]->applications[$sel_app]) ? $sel_app : 'orders';
 
 	$page_header_args = func_get_args();
-	if(isset($db_connections))	// skip before installation
+	if(isset($db_connections))	
 		hook_invoke_all('pre_header', $page_header_args);
 
 	$encoding = $_SESSION['language']->encoding;
@@ -139,7 +132,7 @@ function page_header($title, $no_menu=false, $is_index=false, $onload="", $js=""
 	echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n";
 	echo "<html dir='" . $_SESSION['language']->dir . "' >\n";
 	echo "<head profile=\"http://www.w3.org/2005/10/profile\"><title>$title</title>";
-	if (strpos($_SERVER['HTTP_USER_AGENT'], 'Trident/7.0; rv:11.0') != -1) // IE 11 doesn't work with input file type in form.
+	if (strpos($_SERVER['HTTP_USER_AGENT'], 'Trident/7.0; rv:11.0') != -1) 
 		echo "<meta http-equiv='X-UA-Compatible' content='IE=10'>\n";
 	echo "<meta http-equiv='Content-type' content='text/html; charset=$encoding'>";
 	echo "<link href='$path_to_root/themes/default/images/favicon.ico' rel='icon' type='image/x-icon'> \n";

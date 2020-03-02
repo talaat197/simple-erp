@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 function add_user($user_id, $real_name, $password, $phone, $email, $role_id, 
@@ -193,12 +186,12 @@ function show_users_online()
 			$ip = $_SERVER['REMOTE_ADDR'];
 		}
 
-		// Add user to database
+		
 		db_query("INSERT INTO ".TB_PREF."useronline (timestamp, ip, file) VALUES ('". $timestamp ."',". db_escape($ip) .",". db_escape($_SERVER['PHP_SELF']) .")");
 		//Remove users that were not online within $timeoutseconds.
 		db_query("DELETE FROM ".TB_PREF."useronline WHERE timestamp<". $timeout);
 
-		// Select online users
+		
 		$result = db_query("SELECT DISTINCT ip FROM ".TB_PREF."useronline");
 		$users = db_num_rows($result);
 	}

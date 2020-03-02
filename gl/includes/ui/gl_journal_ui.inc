@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root . "/includes/ui.inc");
 include_once($path_to_root . "/includes/ui/items_cart.inc");
@@ -59,7 +52,7 @@ function display_order_header(&$Order)
 		start_row();
 		$qid = get_quick_entry(get_post('quick'));
 		if (list_updated('quick')) {
-			unset($_POST['totamount']); // enable default
+			unset($_POST['totamount']); 
 		$Ajax->activate('totamount');
 		}
 		end_row();
@@ -79,7 +72,7 @@ function display_order_header(&$Order)
 	}
 
 	check_row(_('Include in tax register:'), 'taxable_trans', null, true);
-        // Query the user to retain the reconciled status
+        
         if (!$new) {
             $result = get_bank_trans(ST_JOURNAL, $Order->order_id);
             $row = db_fetch($result);
@@ -200,7 +193,7 @@ function gl_edit_item_controls(&$order, $dim, $sub_accounts, $Index=null)
 
 	if ($Index != -1 && $Index == $id)
 	{
-	    // Modifying an existing row
+	    
 		$item = $order->gl_items[$Index];
 		if (!isset($continue))
 		{
@@ -226,7 +219,7 @@ function gl_edit_item_controls(&$order, $dim, $sub_accounts, $Index=null)
 		echo gl_all_accounts_list('code_id', null, $skip_bank, true, _('[Select account]'), true, false, false);
 
 		if (is_subledger_account(get_post('code_id')))
-		{	// for home currency postings show all customers
+		{	
 			$sel_cur = get_post('currency', $order->currency);
 			subledger_list_cells(null, 'person_id', get_post('code_id'), null, false, false,
 				get_company_currency() == $sel_cur  ? null : $sel_cur);
@@ -244,7 +237,7 @@ function gl_edit_item_controls(&$order, $dim, $sub_accounts, $Index=null)
 		echo gl_all_accounts_list('code_id', null, $skip_bank, true, _('[Select account]'), true, false, false);
 		if ($sub_accounts)
 		{
-			// for home currency postings show all customers
+			
 			$sel_cur = get_post('currency', $order->currency);
 			subledger_list_cells(null, 'person_id', get_post('code_id'), null, false, false,
 				get_company_currency() == $sel_cur  ? null : $sel_cur);

@@ -12,12 +12,12 @@
 
 $page_security = $_POST['PARAM_0'] == $_POST['PARAM_1'] ?
 	'SA_SUPPTRANSVIEW' : 'SA_SUPPBULKREP';
-// ----------------------------------------------------------------
-// $ Revision:	2.0 $
-// Creator:	Joe Hunt
-// date_:	2005-05-19
-// Title:	Purchase Orders
-// ----------------------------------------------------------------
+
+
+
+
+
+
 $path_to_root="..";
 
 include_once($path_to_root . "/includes/session.inc");
@@ -77,7 +77,7 @@ function print_po()
 
 	$cols = array(4, 60, 225, 300, 340, 385, 450, 515);
 
-	// $headers in doctext.inc
+	
 	$aligns = array('left',	'left',	'left', 'right', 'left', 'right', 'right');
 
 	$params = array('comments' => $comments);

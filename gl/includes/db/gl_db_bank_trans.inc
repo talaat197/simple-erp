@@ -1,26 +1,19 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //----------------------------------------------------------------------------------
 
-// add a bank transaction
-// $amount is in $currency
-// $date_ is display date (non-sql)
+
+
+
 
 function add_bank_trans($type, $trans_no, $bank_act, $ref, $date_,
 	$amount, $person_type_id, $person_id, $currency="", $err_msg="", $rate=0)
 {
 	$sqlDate = date2sql($date_);
 
-	// convert $amount to the bank's currency
+	
 	if ($currency != "")
 	{
     	$bank_account_currency = get_bank_account_currency($bank_act);
@@ -153,11 +146,11 @@ function void_bank_trans($type, $type_no, $nested=false)
 
 	void_gl_trans($type, $type_no, true);
 
-	// in case it's a customer trans - probably better to check first
+	
 	void_cust_allocations($type, $type_no);
 	void_customer_trans($type, $type_no);
 
-	// in case it's a supplier trans - probably better to check first
+	
 	void_supp_allocations($type, $type_no);
 	void_supp_trans($type, $type_no);
 
@@ -175,12 +168,12 @@ function void_bank_trans($type, $type_no, $nested=false)
 function check_bank_account_history($delta_amount, $bank_account, $date=null, $user=null, $balance_offset = 0)
 {
 	if ($delta_amount >= 0 && isset($date))
-		 return null;	// amount increase is always safe
+		 return null;	
 
 	$balance = $date ? get_bank_account_limit($bank_account, $date, $user) : 0;
 
 	if (!isset($balance) && isset($date))
-		return null;	// unlimited account
+		return null;	
 
 	$balance += $balance_offset;
 	if (floatcmp($balance, -$delta_amount) < 0)
@@ -219,7 +212,7 @@ function check_void_bank_trans($type, $type_no)
 {
 	$moves = get_bank_trans($type, $type_no);
 	while ($trans = db_fetch($moves)) {
-		if ($trans['amount'] > 0) { // skip transfer input part
+		if ($trans['amount'] > 0) { 
 			return check_bank_account_history(-$trans['amount'], $trans['bank_act'], sql2date($trans['trans_date'])) == null;
 		}
 	}

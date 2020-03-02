@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 include_once $path_to_root.'/includes/db/class.data_set.inc';
@@ -15,7 +8,7 @@ include_once $path_to_root.'/includes/db/class.data_set.inc';
 class UI {
 	var $ui_mode;
 
-	// formatters
+	
 	function text($value, $name='', $opts=array())
 	{
 		$text = array('label', 'size'=>"", 'max'=>"", 'title'=>false,	'labparams'=>"", 'post_label'=>"", 'inparams'=>"");
@@ -37,8 +30,8 @@ class UI {
 //
 class user_view {
 
-	var	$data; 		// data in php format
-	var $fields;	// input fields format descriptions
+	var	$data; 		
+	var $fields;	
 	var $errors = array();
 	var $dec;
 	var $name;
@@ -50,7 +43,7 @@ class user_view {
 
 	function error($msg, $context=null)
 	{
-		// save error message
+		
 		if (!isset($context))
 			$context = count($this->errors);
 		$this->errors[$context] = $msg;
@@ -81,7 +74,7 @@ class user_view {
 		}
 	}
 	//
-	// Returns formatted value
+	
 	//
 	function _format_output($value, $fmt)
 	{
@@ -97,7 +90,7 @@ class user_view {
 			case 'check':
 				return !empty($value);
 			case 'stock':
-				$this->dec = get_qty_dec($value); // retrieve dec for use in following qty fields
+				$this->dec = get_qty_dec($value); 
 			case 'text':
 			case 'date':
 			default:
@@ -112,17 +105,17 @@ class user_view {
 	{
 		$value = $this->_format_output($fmt);
 
-		// available formatters with parameters
+		
 		$formatters = array(
 			'email_cell' => array('label', 'params'=>'', 'id'=>null),
 			'amount_cell' => array('label'=>null, 'bold'=>false, 'params'=>'', 'id'=>null),
 			'text_cells' => array('label', 'name', 'value'=>null, 'size'=>"", 'max'=>"", 'title'=>false,
 				'labparams'=>"", 'post_label'=>"", 'inparams'=>"")
 		);
-		// format functions used in various modes
+		
 		$formats = array(
-			// field format => (view [,edit])
-			'' => array('label_cell', 'text_cells'), // default
+			
+			'' => array('label_cell', 'text_cells'), 
 			'price' => array('label_cell', 'amount_cell'),
 			'qty',
 			'number',
@@ -182,7 +175,7 @@ class user_view {
 		if (!isset($input))
 			$input = $_POST;
 
-		if ($this->name)	// strip view name prefix
+		if ($this->name)	
 		    foreach($input as $postkey=>$postval )
     		{
 				if (strpos($postkey, $this->name) === 0)
@@ -195,13 +188,13 @@ class user_view {
 
     	$data = array();
 		foreach ($this->fields as $name => $fmt) {
-			if (is_int($name)) {	// direct string passed: this is name of field
+			if (is_int($name)) {	
 				$name = $fmt;
-				$fmt = array(); // default format
+				$fmt = array(); 
 			} elseif (!is_array($fmt))
 				$fmt = array('fmt' => $fmt);
-			$post = isset($fmt['post']) ? $fmt['post'] : $name; // input name (default to field name)
-			$fld = isset($fmt['fld']) ? $fmt['fld'] : $name;	// input value (default to field name)
+			$post = isset($fmt['post']) ? $fmt['post'] : $name; 
+			$fld = isset($fmt['fld']) ? $fmt['fld'] : $name;	
 
 
 //			if ($all || array_key_exists($post, $input))
@@ -256,19 +249,19 @@ class user_view {
 
 class simple_crud_view extends user_view {
 	var $name;
-		// object status:
+		
 	var $Mode = 'RESET';
 	var $selected_id;
 	var $prev_id;
 
-	var $_none = ''; // selector value when no item is selected
-	var $pre_handlers; // control buttons and related methods called before view display
+	var $_none = ''; 
+	var $pre_handlers; 
 	var $views;
 	var $data = array();
 	var $fields;
 	var $tool_buttons;
 	var $options = array(
-		'delete' => true,		// true or message for successfull action.
+		'delete' => true,		
 		'update' => true,
 		'insert' => true,
 		'clone' => true,
@@ -284,7 +277,7 @@ class simple_crud_view extends user_view {
 
 		$this->options = array_merge($this->options, $options);
 
-		$this->views[''] = 'list_view';			// default view
+		$this->views[''] = 'list_view';			
 
 		if ($this->options['update'])
 			$this->_add_action('Edit', '_edit', _('Edit'), _('Edit document line'), ICON_EDIT, '',
@@ -337,7 +330,7 @@ class simple_crud_view extends user_view {
 
 	function _prev_status()
 	{
-		// Restore previous mode/key (obsolete for views stored in session)
+		
 
 		$mod = get_post($this->name.'Mode', $this->Mode);
 		if ($mod) {
@@ -358,11 +351,11 @@ class simple_crud_view extends user_view {
 		global $Ajax;
 
 		$mod = '';//$this->Mode;
-		// Detect action (mode change)
-		foreach (array_keys($this->pre_handlers) as $m) { // check button controls
+		
+		foreach (array_keys($this->pre_handlers) as $m) { 
 
 			if (isset($_POST[$this->name.$m])) {
-				unset($_POST['_focus']); // focus on first form entry
+				unset($_POST['_focus']); 
 				$Ajax->activate($this->name.'_div');
 				$Ajax->activate($this->name.'_controls');
 				$val = is_array($_POST[$this->name.$m]) ? key($_POST[$this->name.$m]) : null;
@@ -371,7 +364,7 @@ class simple_crud_view extends user_view {
 				$mod = $m; break;
 			}
 		}
-		if (!$mod && $_SERVER['REQUEST_METHOD'] == 'GET') // initialize on every GET
+		if (!$mod && $_SERVER['REQUEST_METHOD'] == 'GET') 
 			$mod = 'RESET';
 
 		return $mod;
@@ -387,14 +380,14 @@ class simple_crud_view extends user_view {
 			set_focus($this->name.$field);
 		display_error($firsterr);
 
-		$this->errors = array(); // clean up to prevent false errors on object reuse
+		$this->errors = array(); 
 	}
 	//
 	//	Set record for edition
 	//
 	function _edit($mode)
 	{
-		if ($this->selected_id != $this->prev_id || $mode != $this->Mode) { // get record for edition
+		if ($this->selected_id != $this->prev_id || $mode != $this->Mode) { 
 			$this->data = $this->data_set->get($this->selected_id !== $this->_none ? $this->selected_id : null);
 			$this->set_output();
 		}
@@ -447,7 +440,7 @@ class simple_crud_view extends user_view {
 			}
 			else
 				$this->display_error();
-		} else {// mode==NEW
+		} else {
 				$this->data = $this->data_set->get();
 		}
 		$this->Mode = 'ADD';
@@ -486,7 +479,7 @@ class simple_crud_view extends user_view {
 		$this->Mode = 'RESET';
 	}
 	//
-	// Clone record for new edition
+	
 	//
 	function _cloning()
 	{
@@ -527,7 +520,7 @@ class simple_crud_view extends user_view {
 	}
 
 	//===========================================================================
-	// Public functions
+	
 	//
 
 	//
@@ -572,9 +565,9 @@ class simple_crud_view extends user_view {
 		if (isset($this->views[$this->Mode]))
 			$this->{$this->views[$this->Mode]}($Mode);
 		else
-			$this->{$this->views['']}($Mode); // default view
+			$this->{$this->views['']}($Mode); 
 
-		// this is needed only when we use temporary crud object together with ajax screen updates
+		
 		hidden($this->name.'Mode'.'['.$this->selected_id.']', $this->Mode);
 		div_end();
 	}
@@ -615,7 +608,7 @@ class selector_crud_view extends simple_crud_view {
 	{
 		global $Ajax;
 
-		// list controls lookup
+		
 		$prev_mode = $this->Mode;
 		$mod = '';
 
@@ -672,7 +665,7 @@ class table_crud_view extends simple_crud_view {
 	function curr_id($data=null)
 	{
 		if ($data)
-			return $data ? implode('_', array_intersect_key($data, array_fill_keys($this->key, true))) : null; // php 5.2.0
+			return $data ? implode('_', array_intersect_key($data, array_fill_keys($this->key, true))) : null; 
 		else
 			return $this->selected_id;
 	}
@@ -684,7 +677,7 @@ class table_crud_view extends simple_crud_view {
 	function show_record_row($line_no, $record=array())
 	{
 /* TBD
-		$id = $this->curr_id($record); // extract key
+		$id = $this->curr_id($record); 
 
 		$view = array();
 		$this->set_output($line, $view);

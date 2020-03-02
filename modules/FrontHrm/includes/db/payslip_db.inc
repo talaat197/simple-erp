@@ -46,7 +46,7 @@ function write_payslip(&$cart, $reverse, $use_transaction = true) {
 	
 	foreach ($cart->gl_items as $journal_item) {
     
-		// post to first found bank account using given gl acount code.
+		
 		$is_bank_to = is_bank_account($journal_item->code_id);
 
 		add_payroll_trans($trans_type, $trans_id, $date, $journal_item->code_id, $journal_item->dimension_id, $journal_item->dimension2_id, $journal_item->reference, $journal_item->amount, null, $cart->paytype, $cart->person_id, '', 0, $payslip_no);
@@ -54,7 +54,7 @@ function write_payslip(&$cart, $reverse, $use_transaction = true) {
 	    if ($is_bank_to)
 	        add_bank_trans($trans_type, $trans_id, $is_bank_to, $ref, $date, $journal_item->amount, $cart->paytype, $cart->person_id, get_company_currency(), "Cannot insert a destination bank transaction");
 
-		// store tax details if the gl account is a tax account
+		
 		add_gl_tax_details($journal_item->code_id, ST_JOURNAL, $trans_id, $journal_item->amount, 1, $date, $memo_);
 	}
     
@@ -96,7 +96,7 @@ function write_payslip(&$cart, $reverse, $use_transaction = true) {
     		if ($is_bank_to) {
     			add_bank_trans($trans_type, $trans_id_reverse, $is_bank_to, $ref, $reversingDate, -$journal_item->amount, 0, '', get_company_currency(), "Cannot insert a destination bank transaction");
     		}
-			// store tax details if the gl account is a tax account
+			
 			add_gl_tax_details($journal_item->code_id, ST_JOURNAL, $trans_id, $journal_item->amount, 1, $reversingDate, $memo_);
     	}
 

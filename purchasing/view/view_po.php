@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_SUPPTRANSVIEW';
 $path_to_root = "../..";
@@ -36,7 +29,7 @@ echo "<br>";
 display_po_summary($purchase_order, true);
 
 start_table(TABLESTYLE, "width='90%'", 6);
-echo "<tr><td valign=top>"; // outer table
+echo "<tr><td valign=top>"; 
 
 display_heading2(_("Line Details"));
 
@@ -53,7 +46,7 @@ foreach ($purchase_order->line_items as $stock_item)
 
 	$line_total = $stock_item->quantity * $stock_item->price;
 
-	// if overdue and outstanding quantities, then highlight as so
+	
 	if (($stock_item->quantity - $stock_item->qty_received > 0)	&&
 		date1_greater_date2(Today(), $stock_item->req_del_date))
 	{
@@ -108,7 +101,7 @@ $grns_result = get_po_grns($_GET['trans_no']);
 if (db_num_rows($grns_result) > 0)
 {
 
-    echo "</td><td valign=top>"; // outer table
+    echo "</td><td valign=top>"; 
 
     display_heading2(_("Deliveries"));
     start_table(TABLESTYLE);
@@ -133,7 +126,7 @@ $k = 0;
 if (db_num_rows($invoice_result) > 0)
 {
 
-    echo "</td><td valign=top>"; // outer table
+    echo "</td><td valign=top>"; 
 
     display_heading2(_("Invoices/Credits"));
     start_table(TABLESTYLE);
@@ -153,7 +146,7 @@ if (db_num_rows($invoice_result) > 0)
 
 echo "</td></tr>";
 
-end_table(1); // outer table
+end_table(1); 
 
 display_allocations_to(PT_SUPPLIER, $purchase_order->supplier_id, ST_PURCHORDER, $purchase_order->order_no, $total + $tax_total);
 

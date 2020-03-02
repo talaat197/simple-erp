@@ -49,13 +49,13 @@ function create_recurrent_invoices($customer_id, $branch_id, $order_no, $tmpl_no
 		$line = &$doc->line_items[$line_no];
 		$new_price = get_price($line->stock_id, $doc->customer_currency,
 			$doc->sales_type, $doc->price_factor, $doc->document_date);
-		if ($new_price != 0)	// use template price if no price is currently set for the item.
+		if ($new_price != 0)	
 			$line->price = $new_price;
 	}	
 	$cart = $doc;
 	$cart->trans_type = ST_SALESINVOICE;
 	$cart->reference = $Refs->get_next($cart->trans_type);
-	$cart->payment_terms['cash_sale'] = false; // no way to register cash payment with recurrent invoice at once
+	$cart->payment_terms['cash_sale'] = false; 
 	$invno = $cart->write(1);
 
 	return $invno;
@@ -145,7 +145,7 @@ if ($id != -1)
 		$ar = array('PARAM_0' => $min."-".ST_SALESINVOICE,	'PARAM_1' => $max."-".ST_SALESINVOICE, 'PARAM_2' => "",
 			'PARAM_3' => 0,	'PARAM_4' => 0,	'PARAM_5' => "", 'PARAM_6' => "", 'PARAM_7' => user_def_print_orientation());
 		display_note(print_link(sprintf(_("&Print Recurrent Invoices # %s - # %s"), $min, $max), 107, $ar), 0, 1);
-		$ar['PARAM_3'] = 1; // email
+		$ar['PARAM_3'] = 1; 
 		display_note(print_link(sprintf(_("&Email Recurrent Invoices # %s - # %s"), $min, $max), 107, $ar), 0, 1);
 	}
 }

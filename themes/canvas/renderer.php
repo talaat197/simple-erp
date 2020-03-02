@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 	class renderer
@@ -54,7 +47,7 @@
 				echo "</ul>\n";
 				$indicator = "$path_to_root/themes/".user_theme(). "/images/ajax-loader.gif";
 				echo "<h1>$SysPrefs->power_by $version<span style='padding-left:300px;'><img id='ajaxmark' src='$indicator' align='center' style='visibility:hidden;'></span></h1>\n";
-				echo "</div>\n"; // header
+				echo "</div>\n"; 
 				echo "<div class='fa-menu'>";
 				echo "<ul>\n";
 				foreach($applications as $app)
@@ -69,7 +62,7 @@
 					}		
 				}
 				echo "</ul>\n"; 
-				echo "</div>\n"; // menu
+				echo "</div>\n"; 
 				echo "<div class='clear'></div>\n";
 
 			}				
@@ -78,7 +71,7 @@
 			{		
 				echo "<div id='fa-submenu'>\n";
 				echo "<ul>\n";
-				switch ($sel_app) // Shortcuts
+				switch ($sel_app) 
 				{
 					case "orders":
 						$this->shortcut($local_path_to_root."/sales/sales_order_entry.php?NewOrder=Yes'",_("Sales Order"));
@@ -147,7 +140,7 @@
 				}	
 				$this->shortcut($local_path_to_root."/admin/dashboard.php?sel_app=$sel_app", _("Dashboard"));
 				echo "</ul>\n";
-				echo "</div>\n"; // fa-submenu
+				echo "</div>\n"; 
 				echo "<div class='clear'></div>\n";
 				echo "<div class='fa-content'>\n";
 			}
@@ -169,8 +162,8 @@
 			include_once($path_to_root . "/includes/date_functions.inc");
 
 			if (!$no_menu)
-				echo "</div>\n"; // fa-content
-			echo "</div>\n"; // fa-body
+				echo "</div>\n"; 
+			echo "</div>\n"; 
 			if (!$no_menu)
 			{
 				echo "<div class='fa-footer'>\n";
@@ -184,9 +177,9 @@
 					echo "<span class='date'>" . _("Theme:") . " " . user_theme() . "</span>\n";
 					echo "<span class='date'>".show_users_online()."</span>\n";
 				}
-				echo "</div>\n"; // footer
+				echo "</div>\n"; 
 			}
-			echo "</div>\n"; // fa-main
+			echo "</div>\n"; 
 		}
 
 		function display_applications(&$waapp)
@@ -204,7 +197,7 @@
 			{
         		if (!$_SESSION["wa_current_user"]->check_module_access($module))
         			continue;
-				// image
+				
 				echo "<table width='95%' align='center'><tr>";
 				echo "<td valign='top' class='menu_group'>";
 				echo "<table border=0 width='100%'>";

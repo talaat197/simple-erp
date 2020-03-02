@@ -98,8 +98,8 @@ function get_ot_from_date_range($from, $to, $emp_id, $ot_id) {
 
     //$result = 0;
 	//while($row = db_fetch($hours)) {
-	//    $result += $row['hours_no'];
-	//    $rate = $row['rate'];
+	
+	
 	//}
 	//return array('hours_no'=>$result, 'rate'=>$rate);
 }

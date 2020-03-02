@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_CUSTOMER';
 $path_to_root="../..";
@@ -214,8 +207,8 @@ function branch_settings($selected_id, $num_branches) {
 		{
 			$company_record = get_company_prefs();
 
-			// We use the Item Sales Account as default!
-		    // $_POST['sales_account'] = $company_record["default_sales_act"];
+			
+		    
 		    $_POST['sales_account'] = $_POST['notes']  = $_POST['bank_account'] = '';
 		    $_POST['sales_discount_account'] = $company_record['default_sales_discount_act'];
 		    $_POST['receivables_account'] = $company_record['debtors_act'];
@@ -309,7 +302,7 @@ else
 tabbed_content_start('tabs', array(
 		'settings' => array(_('&General settings'), $selected_id!=-1),
 		'contacts' => array(_('&Contacts'), $selected_id!=-1),
-//		'orders' => array('S&ales orders', $selected_id!=-1) // not implemented
+//		'orders' => array('S&ales orders', $selected_id!=-1) 
 	));
 	
 	switch (get_post('_tabs_sel')) {

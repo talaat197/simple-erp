@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root . "/includes/db/connect_db.inc");
 
@@ -23,11 +16,11 @@ include_once($path_to_root . "/includes/ui/ui_view.inc");
 include_once($path_to_root . "/includes/ui/ui_controls.inc");
 
 $page_nested = -1;
-// static js files path
+
 $js_path = $path_to_root.'/js/';
-// standard external js scripts included in all files
+
 $js_static = array('JsHttpRequest.js', 'behaviour.js', 'utils.js', 'inserts.js');
-// additional js source included in header
+
 $js_lib = $js_userlib = array();
 
 function page($title, $no_menu=false, $is_index=false, $onload="", $js="", $script_only=false, $css='')
@@ -50,7 +43,7 @@ function page($title, $no_menu=false, $is_index=false, $onload="", $js="", $scri
 		echo '</noscript>';
 		div_start('_page_body', null, true);
 	} else {
-		div_start('_page_body'); // whole page content for ajax reloading
+		div_start('_page_body'); 
 	}
 }
 
@@ -62,7 +55,7 @@ function end_page($no_menu=false, $is_index=false, $final_screen=false, $type_no
 
 	if (!$is_index && function_exists('hyperlink_back'))
 		hyperlink_back(true, $no_menu, $type_no, $trans_no, $final_screen);
-	div_end();	// end of _page_body section
+	div_end();	
 
 	include_once($path_to_root . "/includes/page/footer.inc");
 	page_footer($no_menu, $is_index);
@@ -125,7 +118,7 @@ function add_js_file($filename)
 	  global $js_static;
 
 	  $search = array_search($filename, $js_static);
-	  if ($search === false || $search === null) // php>4.2.0 returns null
+	  if ($search === false || $search === null) 
 		$js_static[] = $filename;	
 }
 
@@ -134,7 +127,7 @@ function add_js_ufile($filename)
 	  global $js_userlib;
 
 	  $search = array_search($filename, $js_userlib);
-	  if ($search === false || $search === null) // php>4.2.0 returns null
+	  if ($search === false || $search === null) 
 		$js_userlib[] = $filename;
 }
 
@@ -143,7 +136,7 @@ function add_js_source($text)
 	  global $js_lib;
 
 	  $search = array_search($text, $js_lib);
-	  if ($search === false || $search === null) // php>4.2.0 returns null
+	  if ($search === false || $search === null) 
 		$js_lib[] = $text;
 }
 
@@ -179,12 +172,12 @@ function js_compress($sJS)
 	
 		//loop through line's characters and take out any literal strings, replace them with ___i___ where i is the index of this string
 		$len = strlen($line);
-		if (version_compare(PHP_VERSION, '7.0.0') >= 0) // uninitialized string offser error fix. @Braath Waate
+		if (version_compare(PHP_VERSION, '7.0.0') >= 0) 
 			$line .= chr(32);
 		
 		for($j=0;$j<$len;$j++)
 		{
-			$c = $line[$j];		// this is _really_ faster than subst
+			$c = $line[$j];		
 			$d = $c.$line[$j+1];
 	
 			//look for start of quote
@@ -363,16 +356,16 @@ function find_custom_file($rep)
 {
 	global $installed_extensions, $path_to_root, $local_path_to_root;
 
-	// customized per company version
+	
 	$path = company_path();
 	$file = $path.$rep;
 	if (file_exists($file)) {
-		// add local include path
+		
 		$local_path_to_root = $path;
 		set_include_path(dirname($file).PATH_SEPARATOR.get_include_path());
 		return $file;
 	}
-	// file added by active extension modules
+	
 	if (count($installed_extensions) > 0)
 	{
 		$extensions = $installed_extensions;
@@ -387,7 +380,7 @@ function find_custom_file($rep)
 				}
 			}
 	}
-	// standard location
+	
 	$file = $path_to_root.$rep;
 	if (file_exists($file))
 		return $file;
@@ -417,7 +410,7 @@ function generate_password()
 	return  base64_encode($bytes);
 }
 
-if (!function_exists('array_fill_keys')) // since 5.2
+if (!function_exists('array_fill_keys')) 
 {
 	function array_fill_keys($keys, $value)
 	{
@@ -434,15 +427,15 @@ function random_id($strength = 128)
 	$n = ceil($strength/8);
 
 	if (function_exists('openssl_random_pseudo_bytes'))
-		$bin = openssl_random_pseudo_bytes($n, $cstrong); 	// openssl on php 5.3 and up
+		$bin = openssl_random_pseudo_bytes($n, $cstrong); 	
 	else if (file_exists('/dev/urandom'))
-		$bin = file_get_contents('/dev/urandom', false, null, -1, $n);  // linux std random device
+		$bin = file_get_contents('/dev/urandom', false, null, -1, $n);  
 	else {
 		$bin = '';
 		for($i=0; $i < $n; $i++)
-			$bin .= chr(mt_rand(0, 255));	// Mersene Twister generator
+			$bin .= chr(mt_rand(0, 255));	
 	}
-	$id = strtr(base64_encode($bin), '+/=', '-_x');	// see RFC 4648 Section 5
+	$id = strtr(base64_encode($bin), '+/=', '-_x');	
 
 	return $id;
 }

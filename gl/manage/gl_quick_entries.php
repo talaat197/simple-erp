@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_QUICKENTRY';
 $path_to_root = "../..";
@@ -40,7 +33,7 @@ function simple_page_mode2($numeric_id = true)
 		foreach ($_POST as $p => $pvar) {
 			if (strpos($p, $m) === 0) {
 //				$selected_id2 = strtr(substr($p, strlen($m)), array('%2E'=>'.'));
-				unset($_POST['_focus']); // focus on first form entry
+				unset($_POST['_focus']); 
 				$selected_id2 = quoted_printable_decode(substr($p, strlen($m)));
 				$Ajax->activate('_page_body');
 				$Mode2 = $m;
@@ -211,7 +204,7 @@ start_table(TABLESTYLE2);
 
 if ($selected_id != -1) 
 {
-	if ($Mode == 'Edit') // changed by Joe 2010-11-09
+	if ($Mode == 'Edit') 
 	{
 		$myrow = get_quick_entry($selected_id);
 

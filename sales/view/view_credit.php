@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_SALESTRANSVIEW';
 $path_to_root = "../..";
@@ -40,7 +33,7 @@ display_heading("<font color=red>" . sprintf(_("CREDIT NOTE #%d"), $trans_id). "
 echo "<br>";
 
 start_table(TABLESTYLE2, "width='95%'");
-echo "<tr valign=top><td>"; // outer table
+echo "<tr valign=top><td>"; 
 
 /*Now the customer charged to details in a sub table*/
 start_table(TABLESTYLE, "width='100%'");
@@ -52,7 +45,7 @@ label_row(null, $myrow["DebtorName"] . "<br>" . nl2br($myrow["address"]), "nowra
 end_table();
 /*end of the small table showing charge to account details */
 
-echo "</td><td>"; // outer table
+echo "</td><td>"; 
 
 start_table(TABLESTYLE, "width='100%'");
 $th = array(_("Branch"));
@@ -61,7 +54,7 @@ table_header($th);
 label_row(null, $branch["br_name"] . "<br>" . nl2br($branch["br_address"]), "nowrap");
 end_table();
 
-echo "</td><td>"; // outer table
+echo "</td><td>"; 
 
 start_table(TABLESTYLE, "width='100%'");
 start_row();
@@ -77,7 +70,7 @@ comments_display_row(ST_CUSTCREDIT, $trans_id);
 end_table();
 
 echo "</td></tr>";
-end_table(1); // outer table
+end_table(1); 
 
 $sub_total = 0;
 

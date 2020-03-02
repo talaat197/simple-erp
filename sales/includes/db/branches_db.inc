@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 function add_branch($customer_id, $br_name, $br_ref, $br_address, $salesman, $area, 
 	$tax_group_id, $sales_account, $sales_discount_account, $receivables_account, 
@@ -206,7 +199,7 @@ function get_branch_contacts($branch_code, $action=null, $customer_id=null, $def
 		$results[] = $contact;
 
 	if ($results && $default) {
-		// select first available contact in $defs order
+		
 		foreach($defs as $type) {
 			if ($n = array_search_value($type, $results, 'ext_type'))
 				return $n;
@@ -242,16 +235,16 @@ function _get_branch_contacts($branch_code, $action=null, $customer_id=null, $de
 	$results = array();
 	$type = '';
 	while($contact = db_fetch($res)) {
-		if ($type && $type != $contact['type']) break; // skip cust when branch contacts found
+		if ($type && $type != $contact['type']) break; 
 		$results[] = $contact;
 		$type = $contact['type'];
 	}
 	if ($results && $default) {
-		// here we have general and action contacts selected
+		
 		if ($n = array_search_value($action, $results, 'action')) {
 			return $n;
 		}
-		// only general contact found
+		
 		return $results[0];
 	}
 	return $results;

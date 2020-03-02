@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_GRN';
 $path_to_root = "..";
@@ -131,15 +124,15 @@ function check_po_changed()
 {
 	/*Now need to check that the order details are the same as they were when they were read
 	into the Items array. If they've changed then someone else must have altered them */
-	// Compare against COMPLETED items only !!
-	// Otherwise if you try to fullfill item quantities separately will give error.
+	
+	
 	$result = get_po_items($_SESSION['PO']->order_no);
 
 	$line_no = 0;
 	while ($myrow = db_fetch($result))
 	{
 		$ln_item = $_SESSION['PO']->line_items[$line_no];
-		// only compare against items that are outstanding
+		
 		$qty_outstanding = $ln_item->quantity - $ln_item->qty_received;
 		if ($qty_outstanding > 0)
 		{
@@ -197,7 +190,7 @@ function can_process()
 	  	}
 	}
 
-    // Check whether trying to deliver more items than are recorded on the actual purchase order (+ overreceive allowance)
+    
     $delivery_qty_too_large = 0;
 	foreach ($_SESSION['PO']->line_items as $order_line)
 	{

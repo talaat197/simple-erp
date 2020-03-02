@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //-------------------------------------------------------------------------------------------------------------
 //
@@ -57,7 +50,7 @@ function get_supp_trans($trans_no, $trans_type=-1, $supplier_id=null)
 
 	if ($trans_type == ST_SUPPAYMENT || $trans_type == ST_BANKPAYMENT)
 	{
-		// it's a payment so also get the bank account
+		
 		$sql .= ", account.bank_name, account.bank_account_name, account.bank_curr_code,
 			account.account_type AS BankTransType, bank_trans.amount AS bank_amount,
 			bank_trans.ref ";
@@ -68,7 +61,7 @@ function get_supp_trans($trans_no, $trans_type=-1, $supplier_id=null)
 
 	if ($trans_type == ST_SUPPAYMENT || $trans_type == ST_BANKPAYMENT)
 	{
-		// it's a payment so also get the bank account
+		
 		$sql .= ", "
 			.TB_PREF."bank_trans bank_trans,"
 			.TB_PREF."bank_accounts account";
@@ -85,7 +78,7 @@ function get_supp_trans($trans_no, $trans_type=-1, $supplier_id=null)
 
 	if ($trans_type == ST_SUPPAYMENT || $trans_type == ST_BANKPAYMENT)
 	{
-		// it's a payment so also get the bank account
+		
 		$sql .= " AND bank_trans.trans_no =".db_escape($trans_no)."
 			AND bank_trans.type=".db_escape($trans_type)."
 			AND account.id=bank_trans.bank_act ";
@@ -95,14 +88,14 @@ function get_supp_trans($trans_no, $trans_type=-1, $supplier_id=null)
 
     if (db_num_rows($result) == 0)
     {
-       // can't return nothing
+       
        display_db_error("no supplier trans found for given params", $sql, true);
        exit;
     }
 
     if (db_num_rows($result) > 1)
     {
-       // can't return multiple
+       
        display_db_error("duplicate supplier transactions found for given params", $sql, true);
        exit;
     }
@@ -234,7 +227,7 @@ function get_sql_for_supplier_inquiry($filter, $after_date, $to_date, $supplier_
     	(ABS(trans.ov_amount + trans.ov_gst  + trans.ov_discount) - trans.alloc <= ".FLOAT_COMP_DELTA.") AS Settled
     	FROM ".TB_PREF."supp_trans as trans, ".TB_PREF."suppliers as supplier
     	WHERE supplier.supplier_id = trans.supplier_id
-		AND trans.ov_amount != 0";	// exclude voided transactions
+		AND trans.ov_amount != 0";	
 
 	$sql2 = "SELECT ".ST_SUPPRECEIVE." as type, 
 		trans.id as trans_no,

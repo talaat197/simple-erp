@@ -26,16 +26,16 @@ function disp_msg(msg, cl) {
 //
 //	JsHttpRequest class extensions.
 //
-// Main functions for asynchronus form submitions
-// 	Trigger is the source of request and can have following forms:
-// 	- input object - all form values are also submited
-//  - arbitrary string - POST var trigger with value 1 is added to request;
+
+
+
+
 //		if form parameter exists also form values are submited, otherwise
 //		request is directed to current location
 //
 JsHttpRequest.request= function(trigger, form, tout) {
 //	if (trigger.type=='submit' && !validate(trigger)) return false;
-	tout = tout || 10000;	// default timeout value
+	tout = tout || 10000;	
 	document.getElementById('msgbox').innerHTML='';
 	set_mark(tout>10000 ? 'progressbar.gif' : 'ajax-loader.gif');
 	JsHttpRequest._request(trigger, form, tout, 0);
@@ -66,7 +66,7 @@ JsHttpRequest._request = function(trigger, form, tout, retry) {
 			content[trigger] = 1;
 			}
 		}
-			// this is to avoid caching problems
+			
 		content['_random'] = Math.random()*1234567;
 
 		var tcheck = setTimeout(
@@ -74,9 +74,9 @@ JsHttpRequest._request = function(trigger, form, tout, retry) {
 				for(var id in JsHttpRequest.PENDING)  {
 					var call = JsHttpRequest.PENDING[id];
 				 	if (call != false) {
-					if (call._ldObj.xr) // needed for gecko
+					if (call._ldObj.xr) 
 						call._ldObj.xr.onreadystatechange = function(){};
-					call.abort(); // why this doesn't kill request in firebug?
+					call.abort(); 
 //						call._ldObj.xr.abort();
 						delete JsHttpRequest.PENDING[id];
 					}
@@ -87,11 +87,11 @@ JsHttpRequest._request = function(trigger, form, tout, retry) {
 			}, tout );
 
         JsHttpRequest.query(
-            (upload ? "form." : "")+"POST "+url, // force form loader
+            (upload ? "form." : "")+"POST "+url, 
 	    	content,
-            // Function is called when an answer arrives.
+            
 	    function(result, errors) {
-                // Write the answer.
+                
 			var newwin = 0;
 	        if (result) {
 		  	  for(var i in result ) {
@@ -102,7 +102,7 @@ JsHttpRequest._request = function(trigger, form, tout, retry) {
 			  id = atom['t'];
 			  data = atom['data'];
 //				debug(cmd+':'+property+':'+type+':'+id);
-			// seek element by id if there is no elemnt with given name
+			
 			  objElement = document.getElementsByName(id)[0] || document.getElementById(id);
     		  if(cmd=='as') {
 				  eval("objElement.setAttribute('"+property+"','"+data+"');");
@@ -112,17 +112,17 @@ JsHttpRequest._request = function(trigger, form, tout, retry) {
 			    if (objElement.tagName == 'INPUT' || objElement.tagName == 'TEXTAREA')
 				  objElement.value = data;
 			    else
-				  objElement.innerHTML = data; // selector, div, span etc
+				  objElement.innerHTML = data; 
 				}
-		  	  } else if(cmd=='di') { // disable/enable element
+		  	  } else if(cmd=='di') { 
 				  objElement.disabled = data;
-			  } else if(cmd=='fc') { // set focus
+			  } else if(cmd=='fc') { 
 				  _focus = data;
-			  } else if(cmd=='js') {	// evaluate js code
-				__isGecko ? eval(data) : setTimeout(function(){eval(data);}, 200); // timeout required by IE7/8
-			  } else if(cmd=='rd') {	// client-side redirection
+			  } else if(cmd=='js') {	
+				__isGecko ? eval(data) : setTimeout(function(){eval(data);}, 200); 
+			  } else if(cmd=='rd') {	
 				  window.location = data;
-			  } else if(cmd=='pu') {	// pop-up
+			  } else if(cmd=='pu') {	
 			  	  newwin = 1;
 			  	  window.open(data,'REP_WINDOW','toolbar=no,scrollbars=yes,resizable=yes,menubar=no');
 			  } else {
@@ -131,7 +131,7 @@ JsHttpRequest._request = function(trigger, form, tout, retry) {
 		  }
 		 if(tcheck)
 		   JsHttpRequest.clearTimeout(tcheck);
-        // Write errors to the debug div.
+        
 		  document.getElementById('msgbox').innerHTML = errors;
 		  set_mark();
 
@@ -140,16 +140,16 @@ JsHttpRequest._request = function(trigger, form, tout, retry) {
 		  if (errors.length>0)
 			window.scrollTo(0,0);
 			//document.getElementById('msgbox').scrollIntoView(true);
-	  // Restore focus if we've just lost focus because of DOM element refresh
+	  
 		  	if(!newwin) {
 		  		setFocus();
 			}
 		}
             },
-	        false  // do not disable caching
+	        false  
         );
 	};
-	// collect all form input values plus inp trigger value
+	
 	JsHttpRequest.formInputs = function(inp, objForm, upload)
 	{
 		var submitObj = inp;
@@ -168,9 +168,9 @@ JsHttpRequest._request = function(trigger, form, tout, retry) {
 			  var el = formElements[i];
 			  var name = el.name;
 				if (!el.name) continue;
-				if(upload) { // for form containing file inputs collect all
-					// form elements and add value of trigger submit button
-					// (internally form is submitted via form.submit() not button click())
+				if(upload) { 
+					
+					
 					if (submitObj.type=='submit' && el==submitObj)
 					{
 						q[name] =  el.value;
@@ -232,7 +232,7 @@ function price_format(post, num, dec, label, color) {
 	for( i=cents.toString().length; i<dec; i++){
 		cents = "0"+cents;
 	}
-	if (max) // strip trailing 0
+	if (max) 
 		cents = cents.toString().replace(/0+$/,'');
 	for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
 		num = num.substring(0,num.length-(4*i+3))+user.ts+
@@ -273,11 +273,11 @@ function setFocus(name, byId) {
  if(typeof(name)=='object')
  	el = name;
  else {
-	if(!name) { // page load/ajax update
+	if(!name) { 
 		if (_focus)
-			name = _focus;	// last focus set in onfocus handlers
+			name = _focus;	
 		else
-	 		if (document.forms.length) {	// no current focus (first page display) -  set it from from last form
+	 		if (document.forms.length) {	
 			  var cur = document.getElementsByName('_focus')[document.forms.length-1];
 			  if(cur) name = cur.value;
 			}
@@ -287,8 +287,8 @@ function setFocus(name, byId) {
 		  el = document.getElementById(name);
   }
   if (el != null && el.focus) {
-    // The timeout is needed to prevent unpredictable behaviour on IE & Gecko.
-    // Using tmp var prevents crash on IE5
+    
+    
 
     var tmp = function() {el.focus(); if (el.select) el.select();};
 	setTimeout(tmp, 0);
@@ -322,7 +322,7 @@ function move_focus(dir, e0, neighbours)
 	return t;
 }
 
-var __isGecko = navigator.userAgent.match(/gecko/i); // i.e. Gecko or KHTML, like Gecko ;)
+var __isGecko = navigator.userAgent.match(/gecko/i); 
 //returns the absolute position of some element within document
 function element_pos(e) {
 	var res = new Object();
@@ -336,7 +336,7 @@ function element_pos(e) {
 		while (offsetParent !== null && offsetParent.style.display != 'none') {
 			res.x += offsetParent.offsetLeft;
 			res.y += offsetParent.offsetTop;
-			// the second case is for IE6/7 in some doctypes
+			
 			if (offsetParent != document.body && offsetParent != document.documentElement) {
 				res.x -= offsetParent.scrollLeft;
 				res.y -= offsetParent.scrollTop;
@@ -354,7 +354,7 @@ function element_pos(e) {
 			offsetParent = offsetParent.offsetParent;
 		}
 	}
-	// parentNode has style.display set to none
+	
 	if (parentNode != document.documentElement) return null;
 	return res;
 }

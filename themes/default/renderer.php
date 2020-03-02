@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 	class renderer
 	{
@@ -44,7 +37,7 @@
 			echo "<td>\n";
 			echo "<table width='100%' border='0' cellpadding='0' cellspacing='0'>\n";
 			echo "<tr>\n";
-			echo "<td class='quick_menu'>\n"; // tabs
+			echo "<td class='quick_menu'>\n"; 
 
 			$indicator = "$path_to_root/themes/".user_theme(). "/images/ajax-loader.gif";
 			if (!$no_menu)
@@ -66,7 +59,7 @@
 				}
 				echo "</div>";
 				echo "</td></tr></table>";
-				// top status bar
+				
 				$rimg = "<img src='$path_to_root/themes/".user_theme()."/images/report.png' style='width:14px;height:14px;border:0;vertical-align:middle;' alt='"._('Dashboard')."'>&nbsp;&nbsp;";
 				$pimg = "<img src='$local_path_to_root/themes/".user_theme()."/images/preferences.gif' style='width:14px;height:14px; border:0;vertical-align:middle;' alt='"._('Preferences')."'>&nbsp;&nbsp;";
 				$limg = "<img src='$local_path_to_root/themes/".user_theme()."/images/lock.gif' style='width:14px;height:14px;border:0;vertical-align:middle;' alt='"._('Change Password')."'>&nbsp;&nbsp;";
@@ -91,7 +84,7 @@
 			echo "</td></tr></table>";
 
 			if ($no_menu)
-			{	// ajax indicator for installer and popups
+			{	
 				echo "<center><table class='tablestyle_noborder'>"
 					."<tr><td><img id='ajaxmark' src='$indicator' align='center' style='visibility:hidden;' alt='ajaxmark'></td></tr>"
 					."</table></center>";
@@ -111,8 +104,8 @@
 
 			include_once($path_to_root . "/includes/date_functions.inc");
 
-			echo "</td></tr></table>\n"; // 'main_page'
-			if ($no_menu == false) // bottom status line
+			echo "</td></tr></table>\n"; 
+			if ($no_menu == false) 
 			{
 				if ($is_index)
 					echo "<table class='bottomBar'>\n";
@@ -127,7 +120,7 @@
 				}
 				echo "</tr></table>\n";
 			}
-			echo "</td></tr> </table>\n"; // 'callout_main'
+			echo "</td></tr> </table>\n"; 
 			if ($no_menu == false)
 			{
 				echo "<table align='center' id='footer'>\n";
@@ -168,9 +161,9 @@
 			{
         		if (!$_SESSION["wa_current_user"]->check_module_access($module))
         			continue;
-				// image
+				
 				echo "<tr>";
-				// values
+				
 				echo "<td valign='top' class='menu_group'>";
 				echo "<table border=0 width='100%'>";
 				echo "<tr><td class='menu_group'>";

@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_BANKTRANSFER';
 $path_to_root = "..";
@@ -73,7 +66,7 @@ function gl_payment_controls($trans_no)
 			$trans2 = db_fetch($result);
 
 			if ($trans1["amount"] < 0) {
-				$from_trans = $trans1; // from trans is the negative one
+				$from_trans = $trans1; 
 				$to_trans = $trans2;
 			} else {
 			$from_trans = $trans2;
@@ -107,7 +100,7 @@ function gl_payment_controls($trans_no)
 
     bank_accounts_list_row(_("To Account:"), 'ToBankAccount', null, true);
 
-	if (!isset($_POST['DatePaid'])) { // init page
+	if (!isset($_POST['DatePaid'])) { 
 		$_POST['DatePaid'] = new_doc_date();
 		if (!is_date_in_fiscalyear($_POST['DatePaid']))
 			$_POST['DatePaid'] = end_fiscalyear();
@@ -136,7 +129,7 @@ function gl_payment_controls($trans_no)
 
     textarea_row(_("Memo:"), 'memo_', null, 40,4);
 
-	end_outer_table(1); // outer table
+	end_outer_table(1); 
 
 	if ($trans_no) {
 		hidden('_trans_no', $trans_no);

@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_MANUFRECEIVE';
 $path_to_root = "..";
@@ -102,14 +95,14 @@ function can_process($wo_details)
 		set_focus('date_');
 		return false;
 	}
-	// don't produce more that required. Otherwise change the Work Order.
+	
 	if (input_num('quantity') > ($wo_details["units_reqd"] - $wo_details["units_issued"]))
 	{
 		display_error(_("The production exceeds the quantity needed. Please change the Work Order."));
 		set_focus('quantity');
 		return false;
 	}
-	// if unassembling we need to check the qoh
+	
 	if (($_POST['ProductionType'] == 0) && !$SysPrefs->allow_negative_stock())
 	{
 		if (check_negative_stock($wo_details["stock_id"], -input_num('quantity'), $wo_details["loc_code"], $_POST['date_']))
@@ -120,14 +113,14 @@ function can_process($wo_details)
 		}
 	}
 
-	// if production we need to check the qoh of the wo requirements
+	
 	if (($_POST['ProductionType'] == 1) && !$SysPrefs->allow_negative_stock())
 	{
     	$err = false;
     	$result = get_wo_requirements($_POST['selected_id']);
 		while ($row = db_fetch($result))
 		{
-			if ($row['mb_flag'] == 'D') // service, non stock
+			if ($row['mb_flag'] == 'D') 
 				continue;
 
 			if (check_negative_stock($row["stock_id"], -$row['units_req'] * input_num('quantity'), $row["loc_code"], $_POST['date_']))
@@ -155,7 +148,7 @@ if ((isset($_POST['Process']) || isset($_POST['ProcessAndClose'])) && can_proces
 	if (isset($_POST['ProcessAndClose']) && ($_POST['ProcessAndClose']!=""))
 		$close_wo = 1;
 
-	// if unassembling, negate quantity
+	
 	if ($_POST['ProductionType'] == 0)
 		$_POST['quantity'] = -$_POST['quantity'];
 

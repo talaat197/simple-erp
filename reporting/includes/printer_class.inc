@@ -16,7 +16,7 @@ class remote_printer {
 	//
     function __construct($queue, $host='', $port=515, $timeout=20){
 		if ($host == '')
-			$host = $_SERVER['REMOTE_ADDR']; // default is user's host
+			$host = $_SERVER['REMOTE_ADDR']; 
         $this->host = $host;
         $this->port = $port;
         $this->timeout = $timeout;
@@ -50,7 +50,7 @@ class remote_printer {
            	return _('Printer does not acept the job').' ('.ord($ack).')';
 		}
             
-        // Send Control file.
+        
         $server = $_SERVER['SERVER_NAME'];
         $ctrl = "H".$server."\nP". substr($_SESSION["wa_current_user"]->loginname,0,31) 
 			."\nfdfA".$job.$server."\n";
@@ -98,7 +98,7 @@ class remote_printer {
 		$stream = @fsockopen("tcp://".$this->host, $this->port,$errNo, $errStr, $this->timeout);
         if (!$stream){
             return _('Cannot flush printing queue').":<br>$errStr";
-			// .':<br>' . $errNo." (".$errStr.")"; return 0 (success) even on failure
+			
         } else {
             //Print any waiting jobs
             fwrite($stream, chr(1).$queue."\n");            

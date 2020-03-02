@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //--------------------------------------------------------------------------------------------------
 
@@ -75,7 +68,7 @@ function invoice_header(&$supp_trans)
 {
 	global $Ajax, $Refs;
 	
-	// if vars have been lost, recopy
+	
 	if (!isset($_POST['tran_date']))
 		copy_from_trans($supp_trans);
 
@@ -103,9 +96,9 @@ function invoice_header(&$supp_trans)
 	}
 	if ($supp_trans->supplier_id != $_POST['supplier_id'])
 	{
-		// supplier has changed
-		// delete all the order items - drastic but necessary because of
-		// change of currency, etc
+		
+		
+		
 		$supp_trans->clear_items();
 		read_supplier_details_to_trans($supp_trans, $_POST['supplier_id']);
 		copy_from_trans($supp_trans);
@@ -222,7 +215,7 @@ function display_gl_controls(&$supp_trans, $k)
 	end_row();	
 }
 
-// $mode = 0 none at the moment
+
 //		 = 1 display on invoice/credit page
 //		 = 2 display on view invoice
 //		 = 3 display on view credit
@@ -231,7 +224,7 @@ function display_gl_items(&$supp_trans, $mode=0)
 {
 	global $path_to_root, $Ajax;
 
-    // if displaying in form, and no items, exit
+    
     if (($mode == 2 || $mode == 3) && count($supp_trans->gl_codes) == 0)
     	return 0;
 
@@ -252,7 +245,7 @@ function display_gl_items(&$supp_trans, $mode=0)
 			echo quick_entries_list('qid', null, QE_SUPPINV, true);
 			$qid = get_quick_entry(get_post('qid'));
 			if (list_updated('qid')) {
-				unset($_POST['totamount']); // enable default
+				unset($_POST['totamount']); 
 				$Ajax->activate('totamount');
 			}
 			echo "&nbsp;".$qid['base_desc'].":"."&nbsp;";
@@ -351,10 +344,10 @@ function display_gl_items(&$supp_trans, $mode=0)
 
 function display_grn_items_for_selection(&$supp_trans, $k)
 {
-	if ($supp_trans->trans_type == ST_SUPPINVOICE)	// outstanding grns and eventually for selected invoice
+	if ($supp_trans->trans_type == ST_SUPPINVOICE)	
 		$result = get_grn_items(0, $supp_trans->supplier_id, true, false, $supp_trans->trans_no);
 	else
-	{ // only invoiced
+	{ 
 		if (isset($_POST['receive_begin']) && isset($_POST['receive_end']))
 			$result = get_grn_items(0, $supp_trans->supplier_id, false, true, 0, $_POST['receive_begin'], $_POST['receive_end']);
 		elseif ($supp_trans->src_docs)
@@ -420,7 +413,7 @@ function display_grn_items_for_selection(&$supp_trans, $k)
         		submit_cells('grn_item_id'.$n, _("Add"), '', _("Add to Invoice"), true);
         	else	
         		submit_cells('grn_item_id'.$n, _("Add"), '', _("Add to Credit Note"), true);
-    		if (($supp_trans->trans_type == ST_SUPPINVOICE) && $_SESSION["wa_current_user"]->can_access('SA_GRNDELETE')) {	// Added 2008-10-18 by Joe Hunt. Special access rights needed.
+    		if (($supp_trans->trans_type == ST_SUPPINVOICE) && $_SESSION["wa_current_user"]->can_access('SA_GRNDELETE')) {	
         		submit_cells('void_item_id'.$n, _("Remove"), '', _("WARNING! Be careful with removal. The operation is executed immediately and cannot be undone !!!"), true);
 				submit_js_confirm('void_item_id'.$n,
 					sprintf(_('You are about to remove all yet non-invoiced items from delivery line #%d. This operation also irreversibly changes related order line. Do you want to continue ?'), $n));
@@ -433,7 +426,7 @@ function display_grn_items_for_selection(&$supp_trans, $k)
 
 //------------------------------------------------------------------------------------
 
-// $mode = 0 none at the moment
+
 //		 = 1 display on invoice/credit page
 //		 = 2 display on view invoice
 //		 = 3 display on view credit
@@ -443,7 +436,7 @@ function display_grn_items(&$supp_trans, $mode=0)
 	global $path_to_root;
 
     $ret = true;
-    // if displaying in form, and no items, exit
+    
     if (($mode == 2  || $mode == 3) && count($supp_trans->grn_items) == 0)
     	return 0;
 
@@ -455,7 +448,7 @@ function display_grn_items(&$supp_trans, $mode=0)
 		if ($supp_trans->trans_type == ST_SUPPINVOICE)
 		{
 			$heading = _("Items Received Yet to be Invoiced");
-    		if ($_SESSION["wa_current_user"]->can_access('SA_GRNDELETE'))	// Added 2008-10-18 by Joe Hunt. Only admins can remove GRNs
+    		if ($_SESSION["wa_current_user"]->can_access('SA_GRNDELETE'))	
 				$heading2 = _("WARNING! Be careful with removal. The operation is executed immediately and cannot be undone !!!");
 		}
 		else
@@ -501,7 +494,7 @@ function display_grn_items(&$supp_trans, $mode=0)
     		_("Received On"), _("Quantity Received"), _("Quantity Invoiced"),
     		_("Qty Yet To Invoice"), $supp_trans->tax_included ? _("Price after Tax") : _("Price before Tax"), 
     		_("Total"), "");
-    	if (($supp_trans->trans_type == ST_SUPPINVOICE) && $_SESSION["wa_current_user"]->can_access('SA_GRNDELETE'))	// Added 2008-10-18 by Joe Hunt. Only admins can remove GRNs
+    	if (($supp_trans->trans_type == ST_SUPPINVOICE) && $_SESSION["wa_current_user"]->can_access('SA_GRNDELETE'))	
     		$th[] = "";
 		if ($supp_trans->trans_type == ST_SUPPCREDIT)
 		{
@@ -530,7 +523,7 @@ function display_grn_items(&$supp_trans, $mode=0)
     		{
 //				label_cell($entered_grn->id);
  				$row = get_grn_batch($grn_batch);
-				label_cell(get_trans_view_str(ST_PURCHORDER, $row["purch_order_no"]), "nowrap align='right'"); // PO
+				label_cell(get_trans_view_str(ST_PURCHORDER, $row["purch_order_no"]), "nowrap align='right'"); 
 			}	
 			label_cell($entered_grn->item_code);
 			label_cell($entered_grn->item_description);

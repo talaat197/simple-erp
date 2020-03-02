@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //----------------------------------------------------------------------------------
 //	AgroPhos global system names. They have to be stored separate from
@@ -51,7 +44,7 @@ $fa_systypes_array = array (
 	);
 
 $type_shortcuts = array(
-	ST_JOURNAL => _("GJ"), // general journal
+	ST_JOURNAL => _("GJ"), 
 	ST_BANKPAYMENT => _("BP"),
 	ST_BANKDEPOSIT => _("BD"),
 	ST_BANKTRANSFER => _("BT"),
@@ -59,10 +52,10 @@ $type_shortcuts = array(
 	ST_CUSTCREDIT => _("CN"),
 	ST_CUSTPAYMENT => _("CP"),
 	ST_CUSTDELIVERY => _("DN"),
-	ST_LOCTRANSFER => _("IT"), // inventory transfer
+	ST_LOCTRANSFER => _("IT"), 
 	ST_INVADJUST => _("IA"),
 	ST_PURCHORDER => _("PO"),
-	ST_SUPPINVOICE => _("PI"), // purchase invoice
+	ST_SUPPINVOICE => _("PI"), 
 	ST_SUPPCREDIT => _("PC"),
 	ST_SUPPAYMENT => _("SP"),
 	ST_SUPPRECEIVE => _("GRN"),
@@ -136,19 +129,19 @@ $class_types = array(
 //	Quick entry types
 //
 $quick_actions = array(
-	'=' => _('Remainder'), // post current base amount to GL account
-	'a' => _('Amount'), // post amount to GL account
-	'a+' => _('Amount, increase base'), // post amount to GL account and increase base
-	'a-' => _('Amount, reduce base'), // post amount to GL account and reduce base
-	'%' => _('% amount of base'),	// store acc*amount% to GL account
-	'%+' => _('% amount of base, increase base'),	// ditto & increase base amount
-	'%-' => _('% amount of base, reduce base'),	// ditto & reduce base amount
-	'T' => _('Taxes added'), // post taxes calculated on base amount
-	'T+' => _('Taxes added, increase base'), // ditto & increase base amount
-	'T-' => _('Taxes added, reduce base'), // ditto & reduce base amount
-	't' => _('Taxes included'), // post taxes calculated on base amount
-	't+' => _('Taxes included, increase base'), // ditto & increase base amount
-	't-' => _('Taxes included, reduce base') // ditto & reduce base amount
+	'=' => _('Remainder'), 
+	'a' => _('Amount'), 
+	'a+' => _('Amount, increase base'), 
+	'a-' => _('Amount, reduce base'), 
+	'%' => _('% amount of base'),	
+	'%+' => _('% amount of base, increase base'),	
+	'%-' => _('% amount of base, reduce base'),	
+	'T' => _('Taxes added'), 
+	'T+' => _('Taxes added, increase base'), 
+	'T-' => _('Taxes added, reduce base'), 
+	't' => _('Taxes included'), 
+	't+' => _('Taxes included, increase base'), 
+	't-' => _('Taxes included, reduce base') 
 );
 
 $quick_entry_types = array(
@@ -159,7 +152,7 @@ $quick_entry_types = array(
 );
 
 //----------------------------------------------------------------------------------
-// depreciation methods
+
 $depreciation_methods = array(
   'D' => _("Declining balance"),
   'S' => _("Straight line"),
@@ -168,7 +161,7 @@ $depreciation_methods = array(
 );
 
 //----------------------------------------------------------------------------------
-// Types of stock items
+
 $stock_types = array(
 	'M' => _("Manufactured"),
 	'B' => _("Purchased"),
@@ -183,7 +176,7 @@ $tag_types = array (
 );
 
 //----------------------------------------------------------------------------------
-// crm contacts categories
+
 $sys_crm_cats = array (
 	'cust_branch' => _("Customer branch"),
 	'supplier' => _("Supplier"),
@@ -212,7 +205,7 @@ $bank_owner_types = array(
 	BO_SUPPLIER => _("Supplier")
 );
 
-// This month array is for use with the last 3 dateformats. 
+
 $tmonths = array("", _("Jan"),_("Feb"),_("Mar"),_("Apr"),_("May"),_("Jun"),_("Jul"),_("Aug"),_("Sep"),_("Oct"),_("Nov"),_("Dec"));
 
 //
@@ -226,7 +219,7 @@ $supported_collations = array(
   'utf8_sl' => _('Slovenian'),
   'utf8_pl' => _('Polish'),
   'utf8_et' => _('Estonian'),
-  'utf8_es' => _('Spanish'), // or 'spanish2',
+  'utf8_es' => _('Spanish'), 
   'utf8_sw' => _('Swedish'),
   'utf8_tr' => _('Turkish'),
   'utf8_cs' => _('Czech'),

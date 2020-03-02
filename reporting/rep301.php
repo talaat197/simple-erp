@@ -10,12 +10,12 @@
     See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
 ***********************************************************************/
 $page_security = 'SA_ITEMSVALREP';
-// ----------------------------------------------------------------
-// $ Revision:	2.4 $
-// Creator:		Joe Hunt, boxygen
-// date_:		2014-05-13
-// Title:		Inventory Valuation
-// ----------------------------------------------------------------
+
+
+
+
+
+
 $path_to_root="..";
 
 include_once($path_to_root . "/includes/session.inc");
@@ -35,7 +35,7 @@ function get_domestic_price($myrow, $stock_id)
         $price = $myrow['price'];
         if ($myrow['person_id'] > 0)
         {
-            // Do we have foreign currency?
+            
             $supp = get_supplier($myrow['person_id']);
             $currency = $supp['curr_code'];
             $ex_rate = $myrow['ex_rate'];

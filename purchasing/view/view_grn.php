@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_SUPPTRANSVIEW';
 $path_to_root = "../..";
@@ -51,7 +44,7 @@ foreach ($purchase_order->line_items as $stock_item)
 
 	$line_total = $stock_item->qty_received * $stock_item->price;
 
-	// if overdue and outstanding quantities, then highlight as so
+	
 	if (date1_greater_date2($purchase_order->orig_order_date, $stock_item->req_del_date))
 	{
     	start_row("class='overduebg'");

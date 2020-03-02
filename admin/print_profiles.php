@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_PRINTPROFILE';
 $path_to_root = "..";
@@ -20,13 +13,13 @@ page(_($help_context = "Printing Profiles"));
 $selected_id = get_post('profile_id','');
 
 //-------------------------------------------------------------------------------------------------
-// Returns array of defined reports
+
 //
 function get_reports() {
 	global $path_to_root, $SysPrefs;
 
 	if ($SysPrefs->go_debug || !isset($_SESSION['reports'])) {	
-	// to save time, store in session.
+	
 		$paths = array (
 			$path_to_root.'/reporting/',
 			company_path(). '/reporting/');
@@ -36,8 +29,8 @@ function get_reports() {
 			$repdir = opendir($path);
 			while(false !== ($fname = readdir($repdir)))
 			{
-				// reports have filenames in form rep(repid).php 
-				// where repid must contain at least one digit (reports_main.php is not ;)
+				
+				
 				if (is_file($path.$fname) 
 					&& preg_match('/rep(.*[0-9]+.*)[.]php/', $fname, $match))
 				{
@@ -48,7 +41,7 @@ function get_reports() {
 					if (preg_match('/.*(FrontReport\()\s*_\([\'"]([^\'"]*)/', $line, $match)) {
 						$title = trim($match[2]);
 					}
-					else // for any 3rd party printouts without FrontReport() class use
+					else 
 					if (preg_match('/.*(\$Title).*[\'"](.*)[\'"].+/', $line, $match)) {
 						$title = trim($match[2]);
 					}
@@ -74,8 +67,8 @@ function clear_form()
 
 function check_delete($name)
 {
-	// check if selected profile is used by any user
-	if ($name=='') return 0; // cannot delete system default profile
+	
+	if ($name=='') return 0; 
 	return key_in_foreign_table($name, 'users', 'print_profile');
 }
 //-------------------------------------------------------------------------------------------
@@ -93,7 +86,7 @@ if ( get_post('submit'))
 
 	if (!$error)
 	{
-		$prof = array('' => get_post('Prn')); // store default value/profile name
+		$prof = array('' => get_post('Prn')); 
 		foreach (get_reports() as $rep => $descr) {
 			$val = get_post('Prn'.$rep);
 			$prof[$rep] = $val;

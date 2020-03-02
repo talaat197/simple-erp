@@ -1,19 +1,12 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 function work_order_produce($woid, $ref, $quantity, $date_, $memo, $close_wo)
 {
 	global $Refs;
 
-// FIXME: support for WO_UNASSEMBLY case
+
 	begin_transaction();
 
 	$args = func_get_args();
@@ -34,19 +27,19 @@ function work_order_produce($woid, $ref, $quantity, $date_, $memo, $close_wo)
 
 	$id = db_insert_id();
 
-	// -------------------------------------------------------------------------
-	// insert -ve and update averaged component unit cost for BOM usage (in wo_requirements)
+	
+	
 	work_order_production_gl($woid, $product["stock_id"], $quantity, $date_, $id);
 
-	// update wo quantity and close wo if requested (or finished)
+	
 	$closed = work_order_update_finished_quantity($woid, $quantity, $close_wo);
 
-	// unit_cost is known when WO is finished, then generate +ve for all items
+	
 	if ($closed)
 	{
-		// 1. calculate sums of material/labour/overhead costs
+		
 
-		// sum collected BOM material & labour costs (no way for separate overhead here for now - needs flag in bom or stock_master)
+		
 		$bom = get_wo_requirements($woid);
 		$m_cost = $l_cost = 0;
 		while ($component = db_fetch($bom))
@@ -57,7 +50,7 @@ function work_order_produce($woid, $ref, $quantity, $date_, $memo, $close_wo)
 				$l_cost += $component['unit_cost']*$component['units_issued'];
 		}
 
-		// add additional material issues
+		
 		$issues = get_additional_issues($woid);
 		while ($issue = db_fetch($issues))
 		{
@@ -67,7 +60,7 @@ function work_order_produce($woid, $ref, $quantity, $date_, $memo, $close_wo)
 				$l_cost += $issue['unit_cost']*$issue['qty_issued'];
 		}
 
-		// and additional costs
+		
 		$o_cost = get_gl_wo_cost($woid, WO_OVERHEAD);
 		$l_cost += get_gl_wo_cost($woid, WO_LABOUR);
 
@@ -81,7 +74,7 @@ function work_order_produce($woid, $ref, $quantity, $date_, $memo, $close_wo)
 
 		$unit_cost = $total_cost/($product['units_issued']+$quantity);
 
-		// first update material cost
+		
 		update_material_cost($product['stock_id'], $product['units_issued']+$quantity, $unit_cost, $date_);
 
 		add_stock_move(ST_WORKORDER, $product["stock_id"], $woid,
@@ -150,7 +143,7 @@ function void_work_order_produce($type_no)
 	begin_transaction();
 	hook_db_prevoid(ST_MANURECEIVE, $type_no);
 
-	// Skip processing already voided entry i.e. explicitly voided
+	
 	$void_entry = get_voided_entry(ST_MANURECEIVE, $type_no);
 	if ($void_entry)
 		return;
@@ -160,10 +153,10 @@ function void_work_order_produce($type_no)
 	if (work_order_is_closed($prod['workorder_id']))
 		return;
 
-	// deduct the quantity of this production from the parent work order
+	
 	work_order_update_finished_quantity($prod["workorder_id"], -$prod["quantity"], false);
 
-	// clear the production record
+	
 	$sql = "UPDATE ".TB_PREF."wo_manufacture SET quantity=0 WHERE id=".db_escape($type_no);
 	db_query($sql, "Cannot void a wo production");
 

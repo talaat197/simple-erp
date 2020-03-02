@@ -1,17 +1,10 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //----------------------------------------------------------------------------------------
-// if ($writeoff_acc==0) return goods into $cart->Location
-// if src_docs!=0 => credit invoice else credit note
+
+
 //
 function write_credit_note(&$credit_note, $write_off_acc)
 {
@@ -61,8 +54,8 @@ function write_credit_note(&$credit_note, $write_off_acc)
 	    $items_added_tax = 0;
 	    $freight_added_tax = 0;
 	}
-	// If the Customer Branch AR Account is set to a Bank Account,
-	// the transaction will be settled at once.
+	
+	
 	if (is_bank_account($branch_data['receivables_account']))
 		$alloc = $credit_note_total + $items_added_tax + $credit_note->freight_cost + $freight_added_tax;
 	else
@@ -72,7 +65,7 @@ function write_credit_note(&$credit_note, $write_off_acc)
 		$credit_note->order_no = 0;
 
 	/*Now insert the Credit Note into the debtor_trans table with the allocations as calculated above*/
-	// all amounts in debtor's currency
+	
 	$credit_no = write_customer_trans(ST_CUSTCREDIT, $trans_no, $credit_note->customer_id,
 		$credit_note->Branch, $credit_date, $credit_note->reference,
 		$credit_note_total, 0, $items_added_tax,
@@ -175,8 +168,8 @@ function write_credit_note(&$credit_note, $write_off_acc)
 }
 
 //----------------------------------------------------------------------------------------
-// Insert a stock movement coming back in to show the credit note and
-// 	a reversing stock movement to show the write off
+
+
 //
 function add_credit_movements_item(&$credit_note, &$credit_line,
 	$credit_type, $price, $credited_invoice=0)
@@ -201,8 +194,8 @@ function add_gl_trans_credit_costs($order, $order_line, $credit_no, $date_,
 {
 	$stock_gl_codes = get_stock_gl_code($order_line->stock_id);
 	$customer = get_customer($order->customer_id);
-	// If there is a Customer Dimension, then override with this,
-	// else take the Item Dimension (if any)
+	
+	
 	$dim = ($order->dimension_id != $customer['dimension_id'] ? $order->dimension_id : 
 		($customer['dimension_id'] != 0 ? $customer["dimension_id"] : $stock_gl_codes["dimension_id"]));
 	$dim2 = ($order->dimension2_id != $customer['dimension2_id'] ? $order->dimension2_id : 
@@ -247,8 +240,8 @@ function add_gl_trans_credit_costs($order, $order_line, $credit_no, $date_,
 
 		//Post sales transaction to GL credit sales
 
-		// If there is a Branch Sales Account, then override with this,
-		// else take the Item Sales Account
+		
+		
 		if ($branch_data['sales_account'] != "")
 			$sales_account = $branch_data['sales_account'];
 		else

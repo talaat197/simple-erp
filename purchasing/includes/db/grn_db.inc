@@ -1,20 +1,13 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //------------------- update average material cost ---------------------------------------------- 
 function update_average_material_cost($supplier, $stock_id, $price, $qty, $date, $adj_only=false)
 {
-	// probably this function should be optimized
-	// passing transaction cart as argument. This would
-	// save a couple of db calls like get_supplier()
+	
+	
+	
 	
 	$supp = get_supplier($supplier);
 	if ($supplier != null)
@@ -36,8 +29,8 @@ function update_average_material_cost($supplier, $stock_id, $price, $qty, $date,
 
 	$price_in_home_currency_ = $price_in_home_currency;
 
-	// Handle if inventory will become negative
-    // Skip negative inventory adjustment for case of adjust_only
+	
+    
     if (is_inventory_item($stock_id) && !$adj_only) 
         handle_negative_inventory($stock_id, $qty, $price_in_home_currency, $date);
 	
@@ -67,7 +60,7 @@ function update_average_material_cost($supplier, $stock_id, $price, $qty, $date,
 			$material_cost = ($qoh * $material_cost + $qty * $price_in_home_currency) /	($qoh + $qty);
 	}
 
-	if ($cost_adjust) // Material_cost replaced with price
+	if ($cost_adjust) 
 		adjust_deliveries($stock_id, $price_in_home_currency_, $date);
 	$sql = "UPDATE ".TB_PREF."stock_master SET material_cost=".db_escape($material_cost)."
 		WHERE stock_id=".db_escape($stock_id);
@@ -99,7 +92,7 @@ function add_grn(&$po)
 	$grn = add_grn_batch($po->order_no, $po->supplier_id, $po->reference, $po->Location, $date_, $po->ex_rate);
 
     $clearing_act = get_company_pref('grn_clearing_act');
-	if ($clearing_act) {	// otherwise GRN clearing account is not used
+	if ($clearing_act) {	
 	    $total = 0;
 	}
 	foreach ($po->line_items as $line_no => $order_line)
@@ -127,11 +120,11 @@ function add_grn(&$po)
 			   	/*Need to get the standard cost as it is now so we can process GL jorunals later*/
 			   	$order_line->standard_cost = get_unit_cost($order_line->stock_id);
 			}
-			// Update the purchase data table
+			
 			add_or_update_purchase_data($po->supplier_id, $order_line->stock_id, $order_line->price, 
 				$order_line->item_description); 
 
-			/*Need to insert a grn item */ // also need to check for over-receive.(within allowance)
+			/*Need to insert a grn item */ 
 			if ($order_line->receive_qty + $order_line->qty_received > $order_line->quantity)
 				$order_line->quantity = $order_line->receive_qty + $order_line->qty_received;
 			$grn_item = add_grn_detail_item($grn, $order_line->po_detail_rec,
@@ -305,7 +298,7 @@ function get_grn_items($grn_batch_id=0, $supplier_id="", $outstanding_only=false
 
 //----------------------------------------------------------------------------------------
 
-// get the details for a given grn item
+
 
 function get_grn_item_detail($grn_item_no)
 {
@@ -334,7 +327,7 @@ function read_grn_items_to_order($grn_batch, &$order)
 	 	while ($myrow = db_fetch($result))
 	 	{
 	 		if ($myrow['qty_recd'] == 0 && $myrow['quantity_inv'] == 0)
-				continue; // We will not have empty credited rows.
+				continue; 
 		 	if (is_null($myrow["units"]))
 		 	{
 				$units = "";
@@ -356,7 +349,7 @@ function read_grn_items_to_order($grn_batch, &$order)
 
 //----------------------------------------------------------------------------------------
 
-// read a grn into an order class
+
 
 function read_grn($grn_batch, &$order)
 {
@@ -384,7 +377,7 @@ function read_grn($grn_batch, &$order)
 
 //----------------------------------------------------------------------------------------------------------
 
-// get the GRNs (batch info not details) for a given po number
+
 
 function get_po_grns($po_number)
 {
@@ -422,8 +415,8 @@ function exists_grn_on_invoices($grn_batch)
 
 function void_grn($grn_batch)
 {
-	// if this grn is references on any invoices/credit notes, then it
-	// can't be voided
+	
+	
 	if (exists_grn_on_invoices($grn_batch))
 		return false;
 
@@ -433,7 +426,7 @@ function void_grn($grn_batch)
 	void_bank_trans(ST_SUPPRECEIVE, $grn_batch, true);
 	void_gl_trans(ST_SUPPRECEIVE, $grn_batch, true);
 
-	// clear the quantities of the grn items in the POs and invoices
+	
 	$result = get_grn_items($grn_batch);
 
     if (db_num_rows($result) > 0)
@@ -450,13 +443,13 @@ function void_grn($grn_batch)
         }
     }
 
-	// clear the quantities in the grn items
+	
 	$sql = "UPDATE ".TB_PREF."grn_items SET qty_recd=0, quantity_inv=0
 		WHERE grn_batch_id=".db_escape($grn_batch);
 
 	db_query($sql, "A grn detail item could not be voided.");
 
-    // clear the stock move items
+    
     void_stock_move(ST_SUPPRECEIVE, $grn_batch);
 
 	commit_transaction();

@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 /*
 date validation and parsing functions
@@ -202,7 +195,7 @@ function is_date_in_fiscalyear($date, $convert=false)
 	if (is_date_closed($date2))
 		return 0;
 
-	if (user_check_access('SA_MULTIFISCALYEARS')) // allow all open years for this one
+	if (user_check_access('SA_MULTIFISCALYEARS')) 
 		return is_date_in_fiscalyears($date2, false);
 
 	$myrow = get_current_fiscalyear();
@@ -261,7 +254,7 @@ function days_in_month($month, $year)
 	{
 		$days_in_month = array(30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, (((((11 * $year) + 14) % 30) < 11) ? 30 : 29));
 	}
-	else // gregorian date
+	else 
 		$days_in_month = array(31, ((!($year % 4 ) && (($year % 100) || !($year % 400)))?29:28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
 
 	return $days_in_month[$month - 1];
@@ -284,7 +277,7 @@ function end_month($date)
    	return __date($year, $month, days_in_month($month, $year));
 }
 
-function add_days($date, $days) // accepts negative values as well
+function add_days($date, $days) 
 {
 	global $SysPrefs;
     list($day, $month, $year) = explode_date_to_dmy($date);
@@ -301,7 +294,7 @@ function add_days($date, $days) // accepts negative values as well
    	return __date($year, $month, $day);
 }
 
-function add_months($date, $months) // accepts negative values as well
+function add_months($date, $months) 
 {
 	global $SysPrefs;
 
@@ -325,7 +318,7 @@ function add_months($date, $months) // accepts negative values as well
    	return __date($year, $month, $day);
 }
 
-function add_years($date, $years) // accepts negative values as well
+function add_years($date, $years) 
 {
 	global $SysPrefs;
 
@@ -352,14 +345,14 @@ function sql2date($date_)
 	//for MySQL dates are in the format YYYY-mm-dd
 
 	if (strpos($date_, "/")) 
-	{ // In MySQL it could be either / or -
+	{ 
 		list($year, $month, $day) = explode("/", $date_);
 	} 
 	elseif (strpos ($date_, "-")) 
 	{
 		list($year, $month, $day) = explode("-", $date_);
 	}
-	if (!isset($day)) // data format error
+	if (!isset($day)) 
 		return "";
 
 	if (strlen($day) > 4) 
@@ -371,7 +364,7 @@ function sql2date($date_)
 	elseif ($SysPrefs->date_system == 2)
 		list($year, $month, $day) = gregorian_to_islamic($year, $month, $day);
 	return __date($year, $month, $day);	
-} // end function sql2date
+} 
 
 
 function date2sql($date_)
@@ -388,12 +381,12 @@ and converts to a yyyy/mm/dd format */
 		return "";
 
     $year = $month = $day = 0;
-    // Split up the date by the separator based on "how" to split it
-    if ($how == 0 || $how == 3) // MMDDYYYY or MmmDDYYYY
+    
+    if ($how == 0 || $how == 3) 
         list($month, $day, $year) = explode($sep, $date_);
-    elseif ($how == 1 || $how == 4) // DDMMYYYY or DDMmYYYY
+    elseif ($how == 1 || $how == 4) 
         list($day, $month, $year) = explode($sep, $date_);
-    else // $how == 2 || $how == 5, YYYYMMDD or YYYYMmmDD
+    else 
         list($year, $month, $day) = explode($sep, $date_);
 
 	if ($how > 2)
@@ -424,7 +417,7 @@ and converts to a yyyy/mm/dd format */
 			list($year, $month, $day) = islamic_to_gregorian($year, $month, $day); 
 	}
 	return sprintf("%04d-%02d-%02d", $year, $month, $day);
-}// end of function
+}
 
 /**
  *	Compare dates in sql format.

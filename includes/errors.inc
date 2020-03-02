@@ -1,16 +1,9 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
-$messages = array(); // container for system messages
-$before_box = ''; // temporary container for output html data before error box
+$messages = array(); 
+$before_box = ''; 
 
 function get_backtrace($html = false, $skip=0)
 {
@@ -53,18 +46,18 @@ function get_backtrace($html = false, $skip=0)
 }
 
 //-----------------------------------------------------------------------------
-//    Error handler - collects all php/user messages for
-//    display in message box.
+
+
 
 function error_handler($errno, $errstr, $file, $line) {
     global $messages, $SysPrefs;
 
-	// skip well known warnings we don't care about.
-	// Please use restrainedly to not risk loss of important messages
+	
+	
 	$excluded_warnings = array(
-		'html_entity_decode', 				// nevermind encodings, special chars are processed anyway
-		'should be compatible with that',	// ignore cpdf/frontreport wrapper warnings
-		'mysql extension is deprecated'		// ignore strict warning in 5.4
+		'html_entity_decode', 				
+		'should be compatible with that',	
+		'mysql extension is deprecated'		
 	);
 	foreach($excluded_warnings as $ref) {
 		if (strpos($errstr, $ref) !== false) {
@@ -74,13 +67,13 @@ function error_handler($errno, $errstr, $file, $line) {
 
 	$bt = isset($SysPrefs) && $SysPrefs->go_debug>1 ? get_backtrace(true, 1) : array();
 
-	// error_reporting==0 when messages are set off with @ 
+	
 	if ($errno & error_reporting()) {
-		// suppress duplicated errors
+		
 		if (!in_array(array($errno, $errstr, $file, $line, @$bt), $messages))
 			$messages[] = array($errno, $errstr, $file, $line, @$bt);
 	}
-	else if ($errno&~E_NOTICE && $errstr != '') { // log all not displayed messages 
+	else if ($errno&~E_NOTICE && $errstr != '') { 
 		$user = @$_SESSION["wa_current_user"]->loginname;
 		$context = isset($SysPrefs) && !$SysPrefs->db_ok ? '[before upgrade]' : '';
 		error_log(user_company() . ":$user:". basename($file) .":$line:$context $errstr");
@@ -97,7 +90,7 @@ function exception_handler($exception)
 }
 //------------------------------------------------------------------------------
 //	Formats system messages before insert them into message <div>
-// FIX center is unused now
+
 function fmt_errors($center=false) {
     global $messages, $path_to_root, $SysPrefs;
 
@@ -118,12 +111,12 @@ function fmt_errors($center=false) {
 
 			if ($msg[0]<$type) { 
 				if ($msg[0] == E_USER_WARNING) {
-					$type = E_USER_WARNING; // user warnings 
-					$content = ''; 			// clean notices when we have errors
+					$type = E_USER_WARNING; 
+					$content = ''; 			
 				} else  {
-					$type = E_USER_ERROR; 	// php or user errors 
+					$type = E_USER_ERROR; 	
 					if($type == E_USER_WARNING)
-						$content = ''; 			// clean other messages
+						$content = ''; 			
 				}
 			}
 
@@ -142,15 +135,15 @@ function fmt_errors($center=false) {
   	return $content;
 }
 //-----------------------------------------------------------------------------
-// Error box <div> element.
+
 //
 function error_box() {
     global $before_box;
     
     echo "<div id='msgbox'>";
 
-	// Necessary restart instead of get_contents/clean calls due to a bug in php 4.3.2
-	$before_box = ob_get_clean(); // save html content before error box 
+	
+	$before_box = ob_get_clean(); 
     ob_start('output_html');
     echo "</div>";
 }
@@ -163,13 +156,13 @@ function end_flush() {
 	if (isset($Ajax))
 		$Ajax->run();
 
- 	 // on some (but not all) php versions zlib extension adds 1 additional level of buffering, 
- 	 // so flush the last buffer outside the loop to be on safe side 
+ 	 
+ 	 
  	while(ob_get_level() > 1)
  		ob_end_flush();
 	@ob_end_flush();
 
-	// if any transaction was aborted unexpectedly rollback changes
+	
 	cancel_transaction();
 }
 
@@ -204,7 +197,7 @@ function display_db_error($msg, $sql_statement=null, $exit=true)
 	else {
 		if($msg)
 			trigger_error($str, E_USER_ERROR);
-		else	// $msg can be null here only in debug mode, otherwise the error is ignored
+		else	
 			trigger_error($str, E_USER_WARNING);
 	}
 	if ($exit)

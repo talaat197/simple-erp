@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 function add_dimension($reference, $name, $type_, $date_, $due_date, $memo_)
 {
@@ -59,7 +52,7 @@ function delete_dimension($id)
 {
 	begin_transaction();
 
-	// delete the actual dimension
+	
 	$sql="DELETE FROM ".TB_PREF."dimensions WHERE id=".db_escape($id);
 	db_query($sql,"The dimension could not be deleted");
 

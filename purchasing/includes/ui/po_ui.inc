@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root . "/purchasing/includes/purchasing_db.inc");
 
@@ -119,7 +112,7 @@ function display_po_header(&$order)
 	    get_duedate_from_terms($order);
 		$_POST['due_date'] = $order->due_date;
 
-		// supplier default price update
+		
 		foreach ($order->line_items as $line_no=>$item) {
 			$line = &$order->line_items[$line_no];
 			$line->price =  get_purchase_price ($order->supplier_id, $line->stock_id);
@@ -199,7 +192,7 @@ function display_po_header(&$order)
 
 	textarea_row(_("Deliver to:"), 'delivery_address', $_POST['delivery_address'], 35, 4);
 
-	end_outer_table(); // outer table
+	end_outer_table(); 
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -390,7 +383,7 @@ function po_item_controls(&$order, &$rowcounter, $line_no=-1)
 	else
 	{
 
-		// Manufactured item can be purchased
+		
 		if ($order->fixed_asset)
 			stock_purchasable_fa_list_cells(null, 'stock_id', null, false, true, false, true, $order->line_items);
 		else

@@ -1,22 +1,15 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = $_POST['PARAM_0'] == $_POST['PARAM_1'] ?
 	'SA_SALESTRANSVIEW' : 'SA_SALESBULKREP';
-// ----------------------------------------------------------------
-// $ Revision:	2.0 $
-// Creator:	Janusz Dobrwolski
-// date_:	2008-01-14
-// Title:	Print Delivery Notes
-// ----------------------------------------------------------------
+
+
+
+
+
+
 $path_to_root="..";
 
 include_once($path_to_root . "/includes/session.inc");
@@ -55,7 +48,7 @@ function print_deliveries()
 
 	$cols = array(4, 60, 225, 300, 325, 385, 450, 515);
 
-	// $headers in doctext.inc
+	
 	$aligns = array('left',	'left',	'right', 'left', 'right', 'right', 'right');
 
 	$params = array('comments' => $comments, 'packing_slip' => $packing_slip);
@@ -77,7 +70,7 @@ function print_deliveries()
 				continue;
 			$myrow = get_customer_trans($i, ST_CUSTDELIVERY);
 			$branch = get_branch($myrow["branch_code"]);
-			$sales_order = get_sales_order_header($myrow["order_"], ST_SALESORDER); // ?
+			$sales_order = get_sales_order_header($myrow["order_"], ST_SALESORDER); 
 			if ($email == 1)
 			{
 				$rep = new FrontReport("", "", user_pagesize(), 9, $orientation);

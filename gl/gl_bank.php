@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $path_to_root = "..";
 include_once($path_to_root . "/includes/ui/items_cart.inc");
@@ -185,8 +178,8 @@ function create_cart($type, $trans_no)
 		if ($result) {
 			while ($row = db_fetch($result)) {
 				if (is_bank_account($row['account'])) {
-					// date exchange rate is currenly not stored in bank transaction,
-					// so we have to restore it from original gl amounts
+					
+					
 					$ex_rate = $bank_trans['amount']/$row['amount'];
 				} else {
 					$cart->add_gl_item( $row['account'], $row['dimension_id'],
@@ -195,7 +188,7 @@ function create_cart($type, $trans_no)
 			}
 		}
 
-		// apply exchange rate
+		
 		foreach($cart->gl_items as $line_no => $line)
 			$cart->gl_items[$line_no]->amount *= $ex_rate;
 

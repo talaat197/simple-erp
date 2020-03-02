@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 function add_journal($type, $trans_no, $amount, $tran_date, $currency, $reference, $source_ref='', $rate=1,
 	 $event_date='', $doc_date='')
@@ -64,12 +57,12 @@ function get_journal($type, $trans_no)
 }
 
 //
-// Write headers in debtor_trans for allocation purposes.
-// Amount in customer currency
+
+
 //
 function write_cust_journal($trans_type, $trans_no, $branch_id, $date, $ref, $amount, $rate)
 {
-	// we have to select any branch_id for given AR_act - in fact w
+	
 	$sql = "INSERT INTO ".TB_PREF."debtor_trans (trans_no, type, debtor_no, branch_code, tran_date, reference, ov_amount, rate)
 		SELECT "
 		.db_escape($trans_no).", ".db_escape($trans_type).", debtor_no,"
@@ -81,8 +74,8 @@ function write_cust_journal($trans_type, $trans_no, $branch_id, $date, $ref, $am
 }
 
 //
-// Write headers in supp_trans for allocation purposes.
-// Amount in supplier currency
+
+
 //
 function write_supp_journal($trans_type, $trans_no, $supp_id, $date, $ref, $amount, $rate, $src_ref)
 {
@@ -94,7 +87,7 @@ function write_supp_journal($trans_type, $trans_no, $supp_id, $date, $ref, $amou
 }
 
 //--------------------------------------------------------------------------------
-// Write/update journal entries.
+
 //
 function write_journal_entries(&$cart)
 {

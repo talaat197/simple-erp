@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 function write_item_unit($selected, $abbr, $description, $decimals)
 {
@@ -64,7 +57,7 @@ function get_all_item_units($all=false) {
 	$sql .= " ORDER BY name";
     return  db_query($sql, "could not get stock categories");
 }
-// 2008-06-15. Added to get a measure of unit by given stock_id
+
 function get_unit_dec($stock_id)
 {
 	$sql = "SELECT decimals FROM ".TB_PREF."item_units,	".TB_PREF."stock_master

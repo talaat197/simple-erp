@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 $page_security = 'SA_GLANALYTIC';
@@ -27,7 +20,7 @@ if (user_use_date_picker())
 page(_($help_context = "Journal Inquiry"), false, false, "", $js);
 
 //-----------------------------------------------------------------------------------
-// Ajax updates
+
 //
 if (get_post('Search'))
 {
@@ -52,7 +45,7 @@ end_row();
 start_row();
 ref_cells(_("Memo:"), 'Memo', '',null, _('Enter memo fragment or leave empty'));
 users_list_cells(_("User:"), 'userid', null, false);
-if (get_company_pref('use_dimension') && isset($_POST['dimension'])) // display dimension only, when started in dimension mode
+if (get_company_pref('use_dimension') && isset($_POST['dimension'])) 
 	dimensions_list_cells(_('Dimension:'), 'dimension', null, true, null, true);
 check_cells( _("Show closed:"), 'AlsoClosed', null);
 submit_cells('Search', _("Search"), '', '', 'default');

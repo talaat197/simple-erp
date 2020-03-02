@@ -1,20 +1,13 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root . "/reporting/includes/Workbook.php");
 include_once($path_to_root . "/admin/db/company_db.inc");
 include_once($path_to_root . "/admin/db/fiscalyears_db.inc");
 include_once($path_to_root . "/config.php");
 define('MAX_ROW_SHEET', 65530);
-// xls version
+
 class FrontReport extends Spreadsheet_Excel_Writer_Workbook
 {
 	var $size;
@@ -30,8 +23,8 @@ class FrontReport extends Spreadsheet_Excel_Writer_Workbook
 	var $bottomMargin = 0;
 	var $lineHeight;
 	var $leftMargin = 0;
-	var $pageWidth;		// dummy
-	var $rightMargin;	// dummy
+	var $pageWidth;		
+	var $rightMargin;	
 
 	var $cols;
 	var $params;
@@ -86,10 +79,10 @@ class FrontReport extends Spreadsheet_Excel_Writer_Workbook
 		$this->path = company_path(). '/pdf_files';
 		parent::__construct($this->path."/".$this->unique_name);
 		if ($this->code != "iso-8859-1")
-			$this->setVersion(8); // set biff version to 8 (0x0006 internal)
+			$this->setVersion(8); 
 		$this->sheet = $this->addWorksheet($this->worksheetNameGenerator($this->title));
 		if ($this->code != "iso-8859-1")
-			$this->sheet->setInputEncoding($this->code); // set sheet encoding
+			$this->sheet->setInputEncoding($this->code); 
 		if ($rtl)
 			$this->sheet->setRTL();
 		$this->formatTitle =& $this->addFormat();	
@@ -180,15 +173,15 @@ class FrontReport extends Spreadsheet_Excel_Writer_Workbook
 	function SetHeaderType($name) {
 		$this->headerFunc = $name;
 	}
-	// Check a given name to see if it's a valid Excel worksheet name,
-	// and fix if necessary
+	
+	
 	function worksheetNameGenerator($name)
 	{
-		// First, strip out characters which aren't allowed
+		
 		$illegal_chars = array(':', '\\', '/', '?', '*', '[', ']');
 		for ($i = 0; $i < count($illegal_chars); $i++)
 			$name = str_replace($illegal_chars[$i], '', $name);
-		// Now, if name is longer than 31 chars, truncate it
+		
 		if (strlen($name) > 31)
 			$name = substr($name, 0, 31);
 		return $name;
@@ -286,7 +279,7 @@ class FrontReport extends Spreadsheet_Excel_Writer_Workbook
 				}	
 			}
 		}
-		if ($this->params[0] != '') // Comments
+		if ($this->params[0] != '') 
 		{
 			$this->NewLine();
 			$str = _("Comments") . ':';
@@ -331,23 +324,23 @@ class FrontReport extends Spreadsheet_Excel_Writer_Workbook
 		return;
 	}
 
-	// Alternate header style - primary differences are for PDFs
+	
 	function Header3()
 	{
-		// Flag to make sure we only print the company name once
+		
 		$companyNamePrinted = false;
 		
 		$this->y = 0;
 		$tcol = $this->numcols - 1;
 		$this->sheet->setRow($this->y, 20);
-		// Title
+		
 		for ($i = 0; $i < $this->numcols; $i++)
 			$this->sheet->writeBlank($this->y, $i, $this->formatTitle);
 		$this->sheet->writeString($this->y, 0, $this->title, $this->formatTitle);
 		$this->sheet->mergeCells($this->y, 0, $this->y, $tcol);
 
-		// Dimension 1 - optional
-		// - only print if available and not blank
+		
+		
 		if (count($this->params) > 3)
 			if ($this->params[3]['from'] != '')
 			{
@@ -355,7 +348,7 @@ class FrontReport extends Spreadsheet_Excel_Writer_Workbook
 				$str = $this->params[3]['text'] . ':';
 				$this->sheet->writeString($this->y, 0, $str, $this->formatLeft);
 				$this->sheet->writeString($this->y, 1, $this->params[3]['from'], $this->formatLeft);
-				// Company Name - at end of this row
+				
 				if (!$companyNamePrinted)
 				{
 					$this->sheet->writeString($this->y, $tcol-1, $this->company['coy_name'], $this->formatLeft);
@@ -365,8 +358,8 @@ class FrontReport extends Spreadsheet_Excel_Writer_Workbook
 			}
 
 
-		// Dimension 2 - optional
-		// - only print if available and not blank
+		
+		
 		if (count($this->params) > 4)
 			if ($this->params[4]['from'] != '')
 			{
@@ -374,7 +367,7 @@ class FrontReport extends Spreadsheet_Excel_Writer_Workbook
 				$str = $this->params[4]['text'] . ':';
 				$this->sheet->writeString($this->y, 0, $str, $this->formatLeft);
 				$this->sheet->writeString($this->y, 1, $this->params[4]['from'], $this->formatLeft);
-				// Company Name - at end of this row
+				
 				if (!$companyNamePrinted)
 				{
 					$this->sheet->writeString($this->y, $tcol-1, $this->company['coy_name'], $this->formatLeft);
@@ -383,12 +376,12 @@ class FrontReport extends Spreadsheet_Excel_Writer_Workbook
 				}
 			}
 			
-		// Tags - optional
-		// TBD!!!		
+		
+		
 	
-		// Report Date - time period covered
-		// - can specify a range, or just the end date (and the report contents
-		//   should make it obvious what the beginning date is)
+		
+		
+		
 		$this->NewLine();
 		$str = _("Report Date") . ':';
 		$this->sheet->writeString($this->y, 0, $str, $this->formatLeft);
@@ -397,7 +390,7 @@ class FrontReport extends Spreadsheet_Excel_Writer_Workbook
 			$str = $this->params[1]['from'] . ' - ';
 		$str .= $this->params[1]['to'];
 		$this->sheet->writeString($this->y, 1, $str, $this->formatLeft);
-		// Company Name - at end of this row
+		
 		if (!$companyNamePrinted)
 		{
 			$this->sheet->writeString($this->y, $tcol-1, $this->company['coy_name'], $this->formatLeft);
@@ -405,20 +398,20 @@ class FrontReport extends Spreadsheet_Excel_Writer_Workbook
 			$companyNamePrinted = true;
 		}
 			
-		// Timestamp of when this copy of the report was generated 
+		
 		$this->NewLine();
 		$str = _("Generated At") . ':';
 		$this->sheet->writeString($this->y, 0, $str, $this->formatLeft);
 		$this->sheet->writeString($this->y, 1, Today() . "  ".Now(), $this->formatLeft);
 
-		// Name of the user that generated this copy of the report
+		
 		$this->NewLine();
 		$str = _("Generated By") . ':';
 		$this->sheet->writeString($this->y, 0, $str, $this->formatLeft);
 		$str = $this->user;
 		$this->sheet->writeString($this->y, 1, $str, $this->formatLeft);
 
-		// Comments - display any user-generated comments for this copy of the report
+		
 		if ($this->params[0] != '')
 		{
 			$this->NewLine();
@@ -590,7 +583,7 @@ class FrontReport extends Spreadsheet_Excel_Writer_Workbook
 	 */
 	function TextWrapCalc($txt, $width, $spacebreak=false)
 	{
-		// Assume an average character width
+		
 		$avg_char_width = 5;
 		$ret = "";
 		$txt2 = $txt;
@@ -647,7 +640,7 @@ class FrontReport extends Spreadsheet_Excel_Writer_Workbook
 			$this->y = 0;
 			$this->sheet = $this->addWorksheet();
 			if ($this->code != "iso-8859-1")
-				$this->sheet->setInputEncoding($this->code); // set sheet encoding
+				$this->sheet->setInputEncoding($this->code); 
 			if ($_SESSION['language']->dir == 'rtl')
 				$this->sheet->setRTL();
 			for ($i = 0; $i < $this->numcols; $i++)
@@ -657,12 +650,12 @@ class FrontReport extends Spreadsheet_Excel_Writer_Workbook
 	
 	function NewPage()
 	{
-		if (method_exists($this, $this->headerFunc))	// draw predefined page layout if any
+		if (method_exists($this, $this->headerFunc))	
 			$this->{$this->headerFunc}();
 	}
 	
-  	function ymd2Date($year, $mon, $day) // XLS internal date representation is a number between 1900-01-01 and 2078-12-31
-  	{										// if we need the time part too, we have to add this value after a decimalpoint.
+  	function ymd2Date($year, $mon, $day) 
+  	{										
       	$mo = array(0,31,28,31,30,31,30,31,31,30,31,30,31);
       	$BASE = 1900;
   	  	$MAXYEAR = 2075;
@@ -694,7 +687,7 @@ class FrontReport extends Spreadsheet_Excel_Writer_Workbook
       	return $jul;
   	}
   
-  	function px2units($px) // XLS app conversion. Not bulletproof.
+  	function px2units($px) 
   	{
   		$excel_column_width_factor = 256;
   		$unit_offset_length = $this->excelColWidthFactor;
@@ -709,14 +702,14 @@ class FrontReport extends Spreadsheet_Excel_Writer_Workbook
 			$this->sheet->writeBlank($this->y, $i, $this->formatFooter);
 		$this->sheet->mergeCells($this->y, 0, $this->y, $this->numcols - 1);
 		$this->close();
-		// first have a look through the directory, 
-		// and remove old temporary pdfs
+		
+		
 		if ($d = @opendir($this->path)) {
 			while (($file = readdir($d)) !== false) {
 				if (!is_file($this->path.'/'.$file) || $file == 'index.php') continue;
-				// then check to see if this one is too old
+				
 				$ftime = filemtime($this->path.'/'.$file);
-			 	// seems 3 min is enough for any report download, isn't it?
+			 	
 				if (time()-$ftime > 180){
 					unlink($this->path.'/'.$file);
 				}

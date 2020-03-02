@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 /*
 	TODO:
@@ -57,24 +50,24 @@ class FrontReport extends Cpdf
 	var $fontSize;
 	var $oldFontSize;
 	var $currency;
-	var $companyLogoEnable;  // select whether to use a company logo graphic in some header templates
+	var $companyLogoEnable;  
 	var $scaleLogoWidth;
-	var $footerEnable;  // select whether to print a page footer or not
-	var $footerText;  // store user-generated footer text
-	var $headerTmpl;  // store the name of the currently selected header template
-	var $tmplSize; // pdf header template size in pages
+	var $footerEnable;  
+	var $footerText;  
+	var $headerTmpl;  
+	var $tmplSize; 
 
 	var $rep_id;
-	var $formData; // common data used for printing headers footers etc.
-	var $contactData; // contact data for sending emials/reportlanguage selection
+	var $formData; 
+	var $contactData; 
 	
-	var $dest;	// destination: email or printer
+	var $dest;	
 	
 	function __construct($title, $filename, $size = 'A4', $fontsize = 9, $orientation = 'P', $margins = NULL, $excelColWidthFactor = NULL)
 	{
 		global $page_security;
 
-		$this->rep_id = $_POST['REP_ID'];	// FIXME
+		$this->rep_id = $_POST['REP_ID'];	
 		
 		if (!$_SESSION["wa_current_user"]->can_access_page($page_security))
 		{
@@ -82,7 +75,7 @@ class FrontReport extends Cpdf
 			end_page();
 			exit;
 		}
-		// Page margins - if user-specified, use those.  Otherwise, use defaults below.
+		
 		if (isset($margins))
 		{
 			$this->topMargin = $margins['top'];
@@ -90,14 +83,14 @@ class FrontReport extends Cpdf
 			$this->leftMargin = $margins['left'];
 			$this->rightMargin = $margins['right'];
 		}
-		// Page orientation - P: portrait, L: landscape
+		
 		$orientation = strtoupper($orientation);
-		// Page size name
+		
 		switch (strtoupper($size))
 		{
 			default:
 		  case 'A4':
-			  // Portrait
+			  
 		  	  if ($orientation == 'P')
 			  {
 		  		  $this->pageWidth=595;
@@ -110,7 +103,7 @@ class FrontReport extends Cpdf
 					  $this->rightMargin=30;
 				  }
 			  }
-			  // Landscape
+			  
 			  else
 			  {
 		  		  $this->pageWidth=842;
@@ -125,7 +118,7 @@ class FrontReport extends Cpdf
 			  }
 			  break;
 		   case 'A3':
-			  // Portrait
+			  
 		  	  if ($orientation == 'P')
 			  {
 		  		  $this->pageWidth=842;
@@ -138,7 +131,7 @@ class FrontReport extends Cpdf
 					  $this->rightMargin=40;
 				  }
 			  }
-			  // Landscape
+			  
 			  else
 			  {
 		  		  $this->pageWidth=1190;
@@ -153,7 +146,7 @@ class FrontReport extends Cpdf
 			  }
 			  break;
 		   case 'LETTER':
-			  // Portrait
+			  
 		  	  if ($orientation == 'P')
 			  {
 		  		  $this->pageWidth=612;
@@ -166,7 +159,7 @@ class FrontReport extends Cpdf
 					  $this->rightMargin=25;
 				  }
 			  }
-			  // Landscape
+			  
 			  else
 			  {
 		  		  $this->pageWidth=792;
@@ -181,7 +174,7 @@ class FrontReport extends Cpdf
 			  }
 			  break;
 		   case 'LEGAL':
-			  // Portrait
+			  
 		  	  if ($orientation == 'P')
 			  {
 		  		  $this->pageWidth=612;
@@ -194,7 +187,7 @@ class FrontReport extends Cpdf
 					  $this->rightMargin=25;
 				  }
 			  }
-			  // Landscape
+			  
 			  else
 			  {
 		  		  $this->pageWidth=1008;
@@ -219,8 +212,8 @@ class FrontReport extends Cpdf
 		$this->oldFontSize = 0;
 		$this->row = $this->pageHeight - $this->topMargin;
 		$this->currency = '';
-		$this->scaleLogoWidth = false; // if Logo, scale on width (else height).
-		$this->SetHeaderType('Header'); // default
+		$this->scaleLogoWidth = false; 
+		$this->SetHeaderType('Header'); 
 
 		parent::__construct($size, $_SESSION['language']->code, $orientation);
 	}
@@ -284,10 +277,10 @@ class FrontReport extends Cpdf
 		$this->headers2 = $headers2;
 		$this->aligns2 = $aligns2;
 
-		// Set whether to display company logo in some header templates
+		
 		$this->companyLogoEnable = $companylogoenable;
 		
-		// Store footer settings
+		
 		$this->footerEnable = $footerenable;
 		$this->footerText = $footertext;	
 	}
@@ -354,7 +347,7 @@ class FrontReport extends Cpdf
 				$this->Text($titleCol, $str, $companyCol);
 			}
 		}
-		if ($this->params[0] != '') // Comments
+		if ($this->params[0] != '') 
 		{
 			$this->NewLine();
 			$str = _("Comments") . ':';
@@ -417,10 +410,10 @@ class FrontReport extends Cpdf
 		$this->formData['document_amount'] = @$this->formData['ov_amount']+@$this->formData['ov_freight']+@$this->formData['ov_gst'];
 		if (count($contacts)) {
 			if (!is_array($contacts[0]))
-				$contacts = array($contacts); // change to array when single contact passed
+				$contacts = array($contacts); 
 			$this->contactData = $contacts;
-			// as report is currently generated once despite number of email recipients
-			// we select language for the first recipient as report language
+			
+			
 			$this->formData['rep_lang'] = $contacts[0]['lang'];
 		}
 	}
@@ -435,7 +428,7 @@ class FrontReport extends Cpdf
 	*/
 	function Header2()
 	{
-		global $dflt_lang; // FIXME should be passed as params
+		global $dflt_lang; 
 
 		$this->SetLang(@$this->formData['rep_lang'] ? $this->formData['rep_lang'] : $dflt_lang);
 		$doctype = $this->formData['doctype'];
@@ -445,23 +438,23 @@ class FrontReport extends Cpdf
 		$this->SetLang(@$this->formData['rep_lang'] ? $this->formData['rep_lang']
  			: ( $lang ? $lang : $dflt_lang));
 
- 		 // leave layout files names without path to enable including
- 		 // modified versions from company/x/reporting directory
+ 		 
+ 		 
 		include("includes/doctext.inc");
 		include("includes/header2.inc");
 
 		$this->row = $temp;
 	}
 
-	// Alternate header style which also supports a simple footer
+	
 	function Header3()
 	{
-		// Turn off cell padding for the main report header, restoring the current setting later
+		
 		$oldcMargin = $this->cMargin;
 		$this->SetCellPadding(0);
 
-		// Set some constants which control header item layout
-		// only set them once or the PHP interpreter gets angry
+		
+		
 		if ($this->pageNumber == 1)
 		{
 			define('COMPANY_WIDTH', 150);
@@ -475,7 +468,7 @@ class FrontReport extends Cpdf
 			define('FOOTER_FONT_SIZE', 10);
 			define('FOOTER_MARGIN', 4);
 		}
-		// Set some variables which control header item layout
+		
 		$companyCol = $this->endLine - COMPANY_WIDTH;
 		$headerFieldCol = $this->leftMargin + LABEL_WIDTH;
 		$pageNumCol = $this->endLine - PAGE_NUM_WIDTH;
@@ -484,14 +477,14 @@ class FrontReport extends Cpdf
 
 		$this->row = $this->pageHeight - $this->topMargin;
 
-		// Set the color of dividing lines we'll draw
+		
 		$oldDrawColor = $this->GetDrawColor();
 		$this->SetDrawColor(128, 128, 128);
 
-		// Tell TCPDF that we want to use its alias system to track the total number of pages
+		
 		$this->AliasNbPages();
 		
-		// Footer
+		
 		if ($this->footerEnable)
 		{
 			$this->Line($footerRow, 1);
@@ -507,28 +500,28 @@ class FrontReport extends Cpdf
 		}
 
 		//
-		// Header
+		
 		//
 		
-		// Print gray line across the page
+		
 		$this->Line($this->row + 8, 1);
 
 		$this->NewLine();
 
-		// Print the report title nice and big
+		
 		$oldFontSize = $this->fontSize;
 		$this->fontSize = TITLE_FONT_SIZE;
 		$this->Font('B');
 		$this->Text($this->leftMargin, $this->title, $companyCol);
 		$this->fontSize = HEADER1_FONT_SIZE;
 
-		// Print company logo if present and requested, or else just print company name
-		// Build a string specifying the location of the company logo file
+		
+		
 		$logo = company_path() . "/images/" . $this->company['coy_logo'];
 		if ($this->companyLogoEnable && ($this->company['coy_logo'] != '') && file_exists($logo))
 		{
-			// Width being zero means that the image will be scaled to the specified height
-			// keeping its aspect ratio intact.
+			
+			
 			if ($this->scaleLogoWidth)
 				$this->AddImage($logo, $companyCol, $this->row + 15, COMPANY_WIDTH, 0);
 			else	
@@ -537,8 +530,8 @@ class FrontReport extends Cpdf
 		else
 			$this->Text($companyCol, $this->company['coy_name']);
 
-		// Dimension 1 - optional
-		// - only print if available and not blank
+		
+		
 		if (count($this->params) > 3)
 			if ($this->params[3]['from'] != '')
 			{
@@ -549,8 +542,8 @@ class FrontReport extends Cpdf
 				$this->Text($headerFieldCol, $str, $companyCol);
 			}
 
-		// Dimension 2 - optional
-		// - only print if available and not blank
+		
+		
 		if (count($this->params) > 4)
 			if ($this->params[4]['from'] != '')
 			{
@@ -561,8 +554,8 @@ class FrontReport extends Cpdf
 				$this->Text($headerFieldCol, $str, $companyCol);
 			}
 
-		// Tags - optional
-		// if present, it's an array of tag names
+		
+		
 		if (count($this->params) > 5)
 			if ($this->params[5]['from'] != '')
 			{
@@ -579,9 +572,9 @@ class FrontReport extends Cpdf
 				$this->Text($headerFieldCol, $str, $companyCol);
 			}
 
-		// Report Date - time period covered
-		// - can specify a range, or just the end date (and the report contents
-		//   should make it obvious what the beginning date is)
+		
+		
+		
 		$this->NewLine(1, 0, $this->fontSize + 2);
 		$str = _("Report Period") . ':';
 		$this->Text($this->leftMargin, $str, $headerFieldCol);
@@ -591,15 +584,15 @@ class FrontReport extends Cpdf
 		$str .= $this->params[1]['to'];
 		$this->Text($headerFieldCol, $str, $companyCol);
 
-		// Turn off Bold
+		
 		$this->Font();
 		
 		$this->NewLine(1, 0, $this->fontSize + 1);
 
-		// Make the remaining report headings a little less important
+		
 		$this->fontSize = HEADER2_FONT_SIZE;
 
-		// Timestamp of when this copy of the report was generated
+		
 		$str = _("Generated At") . ':';
 		$this->Text($this->leftMargin, $str, $headerFieldCol);
 		$str = Today() . '   ' . Now();
@@ -607,15 +600,15 @@ class FrontReport extends Cpdf
 			$str .= ' ' . date('O') . ' GMT';
 		$this->Text($headerFieldCol, $str, $companyCol);
 
-		// Name of the user that generated this copy of the report
+		
 		$this->NewLine(1, 0, $this->fontSize + 1);
 		$str = _("Generated By") . ':';
 		$this->Text($this->leftMargin, $str, $headerFieldCol);
 		$str = $this->user;
 		$this->Text($headerFieldCol, $str, $companyCol);
 
-		// Display any user-generated comments for this copy of the report
-		if ($this->params[0] != '') // Comments
+		
+		if ($this->params[0] != '') 
 		{
 			$this->NewLine(1, 0, $this->fontSize + 1);
 			$str = _("Comments") . ':';
@@ -625,29 +618,29 @@ class FrontReport extends Cpdf
 			$this->Font();
 		}
 
-		// Add page numbering to header if footer is turned off
+		
 		if (!$this->footerEnable)
 		{
 			$str = _("Page") . ' ' . $this->pageNumber . '/' . $this->getAliasNbPages();
 			$this->Text($pageNumCol, $str, 0, 0, 0, 'right', 0, 0, NULL, 1);
 		}
 		
-		// Print gray line across the page
+		
 		$this->Line($this->row - 5, 1);
 
-		// Restore font size to user-defined size
+		
 		$this->fontSize = $oldFontSize;
 
-		// restore user-specified cell padding for column headers
+		
 		$this->SetCellPadding($oldcMargin);
 
-		// scoot down the page a bit
+		
 		$oldLineHeight = $this->lineHeight;
 		$this->lineHeight = $this->fontSize + 1;
 		$this->row -= ($this->lineHeight + 6);
 		$this->lineHeight = $oldLineHeight;
 
-		// Print the column headers!
+		
 		$this->Font('I');
 		if ($this->headers2 != null)
 		{
@@ -663,7 +656,7 @@ class FrontReport extends Cpdf
 
 		$this->NewLine(2);
 
-		// restore user-specified draw color
+		
 		$this->SetDrawColor($oldDrawColor[0], $oldDrawColor[1], $oldDrawColor[2]);		
 	}
 
@@ -702,31 +695,31 @@ class FrontReport extends Cpdf
 			$this->addJpegFromFile($logo, $x, $y, $w, $h);
 	}
 
-	// Get current draw color setting from TCPDF object; returns array of RGB numbers
+	
 	function GetDrawColor()
 	{
-		// Convert the TCPDF stored DrawColor string into an array of strings
+		
 		$colorFields = explode(' ', $this->DrawColor);
 
-		// Test last value: G == grayscale, single number; RG == RGB, 3 numbers
+		
 		if ($colorFields[count($colorFields) - 1] == 'G')
-			// Convert a grayscale string value to the equivalent RGB value
+			
 			$drawColor = array((float) $colorFields[0], (float) $colorFields[0], (float) $colorFields[0]);
 		else
-			// Convert RGB string values to the a numeric array
+			
 			$drawColor = array((float) $colorFields[0], (float) $colorFields[1], (float) $colorFields[2]);
 		
 		return $drawColor;
 	}
 	
-	// Get current cell padding setting from TCPDF object
+	
 	function GetCellPadding()
 	{
 		return $this->cMargin;
 	}
 
-	// Set desired cell padding (aka "cell margin")
-	// Seems to be just left and right margins...
+	
+	
 	function SetCellPadding($pad)
 	{
 		parent::SetCellPadding($pad);
@@ -876,43 +869,43 @@ class FrontReport extends Cpdf
 	*/
 	function UnderlineCell($c, $r = 0, $type = 1, $linewidth = 0, $style = array())
 	{
-		// If line width was specified, save current setting so we can reset it
+		
 		if ($linewidth != 0)
 		{
 			$oldLineWidth = $this->GetLineWidth();
 			$this->SetLineWidth($linewidth);
 		}
 
-		// Figure out how far down to move the line based on current font size
-		// Calculate this because printing underline directly at $this->row goes on top
-		// of the parts of characters that "hang down", like the bottom of commas &
-		// lowercase letter 'g', etc.
+		
+		
+		
+		
 		if ($this->fontSize < 10)
 			$y_adj = 2;
 		else
 			$y_adj = 3; 
 		parent::line($this->cols[$c] + $this->cMargin, $this->row - $r - $y_adj, $this->cols[$c + 1] - $this->cMargin, $this->row - $r - $y_adj, $style);
 
-		// Double underline, far enough below the first underline so as not to overlap
-		// the first underline (depends on current line thickness (aka "line width")
+		
+		
 		if ($type == 2)
 			parent::line($this->cols[$c] + $this->cMargin, $this->row - $r - $y_adj - ($this->GetLineWidth() + 2), $this->cols[$c + 1] - $this->cMargin, $this->row - $r - $y_adj - ($this->GetLineWidth() + 2), $style);
 
-		// If line width was specified, reset it back to the original setting
+		
 		if ($linewidth != 0)
 			$this->SetLineWidth($oldLineWidth);
 	}
 	
 	function NewLine($l=1, $np=0, $h = NULL)
 	{
-		// If the line height wasn't specified, use the current setting
+		
 		if ($h == NULL)
 			$h = $this->lineHeight;
 
-		// Move one line down the page
+		
 		$this->row -= ($l * $h);
 
-		// Check to see if we're at the bottom and should insert a page break
+		
 		if ($this->row < $this->bottomMargin + ($np * $h))
 			$this->NewPage();
 	}
@@ -921,8 +914,8 @@ class FrontReport extends Cpdf
 	{
 		if ($this->pageNumber==0)
 		{
-			// check if there is pdf header template for this report
-			// and set if it is found
+			
+			
 			$tmpl_pdf = find_custom_file("/reporting/forms/".$this->headerTmpl.".pdf");
 			if ($tmpl_pdf) {
 				$this->tmplSize = $this->setSourceFile($tmpl_pdf);
@@ -933,18 +926,18 @@ class FrontReport extends Cpdf
 		parent::newPage();
 
 		if ($this->tmplSize) {
-			$this->row = $this->pageHeight - $this->topMargin; // reset row
+			$this->row = $this->pageHeight - $this->topMargin; 
 			$id = $this->importPage(min($this->pageNumber, $this->tmplSize));
 			$this->useTemplate($id);
 		}
 
-		// include related php file if any
+		
 		$tmpl_php = find_custom_file("/reporting/forms/".$this->headerTmpl.".php");
 		if ($tmpl_php) {
 			include($tmpl_php);
 		}
 
-		if (method_exists($this, $this->headerTmpl))	// draw predefined page layout if any
+		if (method_exists($this, $this->headerTmpl))	
 			$this->{$this->headerTmpl}();
 	}
 
@@ -953,7 +946,7 @@ class FrontReport extends Cpdf
 		global $SysPrefs, $path_to_root;
 
 		if (!empty($SysPrefs->prefs['print_dialog_direct']))		
-			$this->includeJS("print();"); // force to open print dialog
+			$this->includeJS("print();"); 
 
 		if ($SysPrefs->pdf_debug == 1)
 		{
@@ -971,8 +964,8 @@ class FrontReport extends Cpdf
 			{
 				mkdir ($dir,0777);
 			}
-			// do not use standard filenames or your sensitive company data 
-			// are world readable
+			
+			
 			$fname = $dir.'/'.random_id().'.pdf';
 			$this->Output($fname, 'F');
 
@@ -1030,7 +1023,7 @@ class FrontReport extends Cpdf
     					$mail->attachment($fname, $this->filename);
     					$emails .= " " . $contact['email'];
     					if ($mail->send()) $sent++;
-					} // foreach contact
+					} 
 					unlink($fname);
 					$this->SetLang(user_language());
 					if (!$try) {
@@ -1051,9 +1044,9 @@ class FrontReport extends Cpdf
 						global $Ajax;
 
 						if (user_rep_popup()) 
-							$Ajax->popup($fname); // when embeded pdf viewer used
+							$Ajax->popup($fname); 
 						else
-							$Ajax->redirect($fname); // otherwise use faster method
+							$Ajax->redirect($fname); 
 					} else {
 						header('Content-type: application/pdf');
 						header('Content-Disposition: inline; filename='.$this->filename);
@@ -1062,7 +1055,7 @@ class FrontReport extends Cpdf
 						header('Pragma: public');
 						$this->Stream($this->filename);
 					}
-				} else { // send report to network printer
+				} else { 
 					$prn = new remote_printer($printer['queue'],$printer['host'],
 						$printer['port'], $printer['timeout']);
 					$error = $prn->print_file($fname);
@@ -1072,14 +1065,14 @@ class FrontReport extends Cpdf
 						display_notification(_('Report has been sent to network printer ').$printer['name']);
 				}
 			}
-			// first have a look through the directory, 
-			// and remove old temporary pdfs
+			
+			
 			if ($d = @opendir($dir)) {
 				while (($file = readdir($d)) !== false) {
 					if (!is_file($dir.'/'.$file) || $file == 'index.php') continue;
-				// then check to see if this one is too old
+				
 					$ftime = filemtime($dir.'/'.$file);
-				 // seems 3 min is enough for any report download, isn't it?
+				 
 					if (time()-$ftime > 180){
 						unlink($dir.'/'.$file);
 					}

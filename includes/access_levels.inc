@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 /*
 	Security sections groups various areas on both functionality and privilege levels.
@@ -24,13 +17,13 @@
 	for sections/areas defined in this file, and extid+1 for those defined 
 	by extensions 
 */
-define('SS_SADMIN',	1<<8);	// site admin
-define('SS_SETUP',	2<<8);	// company level setup
-define('SS_SPEC',	3<<8);	// special administration
+define('SS_SADMIN',	1<<8);	
+define('SS_SETUP',	2<<8);	
+define('SS_SPEC',	3<<8);	
 
-define('SS_SALES_C',11<<8); // configuration
-define('SS_SALES',	12<<8);	// transactions
-define('SS_SALES_A',13<<8); // analytic functions/reports/inquires
+define('SS_SALES_C',11<<8); 
+define('SS_SALES',	12<<8);	
+define('SS_SALES_A',13<<8); 
 
 define('SS_PURCH_C',21<<8);
 define('SS_PURCH',	22<<8);
@@ -119,7 +112,7 @@ $security_areas =array(
 	'SA_FORMSETUP' => array(SS_SETUP|13, _("Forms setup")),
 	'SA_CRMCATEGORY' => array(SS_SETUP|14, _("Contact categories")),
 //
-// Special and common functions
+
 //
 	'SA_VOIDTRANSACTION' => array(SS_SPEC|1, _("Voiding transactions")),
 	'SA_BACKUP' => array(SS_SPEC|2, _("Database backup/restore")),
@@ -129,7 +122,7 @@ $security_areas =array(
 	'SA_CHGPASSWD' => array(SS_SPEC|6, _("Password changes")),
 	'SA_EDITOTHERSTRANS' => array(SS_SPEC|7, _("Edit other users transactions")),
 //
-// Sales related functionality
+
 //
 	'SA_SALESTYPES' => array(SS_SALES_C|1, _("Sales types")),
 	'SA_SALESPRICE' => array(SS_SALES_C|2, _("Sales prices edition")),
@@ -159,7 +152,7 @@ $security_areas =array(
 	'SA_CUSTPAYMREP' => array(SS_SALES_A|7, _("Customer payments report")),
 
 //
-// Purchase related functions
+
 //
 	'SA_PURCHASEPRICING' => array(SS_PURCH_C|1, _("Purchase price changes")),
 
@@ -177,7 +170,7 @@ $security_areas =array(
 	'SA_SUPPBULKREP' => array(SS_PURCH_A|2, _("Supplier document bulk reports")),
 	'SA_SUPPPAYMREP' => array(SS_PURCH_A|3, _("Supplier payments report")),
 //
-// Inventory 
+
 //
 	'SA_ITEM' => array(SS_ITEMS_C|1, _("Stock items add/edit")),
 	'SA_SALESKIT' => array(SS_ITEMS_C|2, _("Sales kits")),
@@ -195,7 +188,7 @@ $security_areas =array(
 	'SA_ITEMSVALREP' => array(SS_ITEMS_A|3, _("Inventory valuation report")),
 
 //
-// Fixed Assets
+
 //
 	'SA_ASSET' => array(SS_ASSETS_C|1, _("Fixed Asset items add/edit")),
 	'SA_ASSETCATEGORY' => array(SS_ASSETS_C|2, _("Fixed Asset categories")),
@@ -209,7 +202,7 @@ $security_areas =array(
 	'SA_ASSETSANALYTIC' => array(SS_ASSETS_A|1, _("Fixed Asset analytical reports and inquiries")),
 
 //
-// Manufacturing module 
+
 //
 	'SA_BOM' => array(SS_MANUF_C|1, _("Bill of Materials")),
 
@@ -224,7 +217,7 @@ $security_areas =array(
 	'SA_MANUFBULKREP' => array(SS_MANUF_A|3, _("Work order bulk reports")),
 	'SA_BOMREP' => array(SS_MANUF_A|4, _("Bill of materials reports")),
 //
-// Dimensions
+
 //
 	'SA_DIMTAGS' => array(SS_DIM_C|1, _("Dimension tags")),
 
@@ -234,7 +227,7 @@ $security_areas =array(
 
 	'SA_DIMENSIONREP' => array(SS_DIM|3, _("Dimension reports")),
 //
-// Banking and General Ledger
+
 //
 	'SA_ITEMTAXTYPE' => array(SS_GL_C|1, _("Item tax type definitions")),
 	'SA_GLACCOUNT' => array(SS_GL_C|2, _("GL accounts edition")),
@@ -249,7 +242,7 @@ $security_areas =array(
 	'SA_GLSETUP' => array(SS_GL_C|10, _("Company GL setup")),
 	'SA_GLACCOUNTTAGS' => array(SS_GL_C|11, _("GL Account tags")),
 	'SA_GLCLOSE' => array(SS_GL_C|14, _("Closing GL transactions")),
-	'SA_GLREOPEN' => array(SS_GL_C|15, _("Reopening GL transactions")), // see below
+	'SA_GLREOPEN' => array(SS_GL_C|15, _("Reopening GL transactions")), 
 	'SA_MULTIFISCALYEARS' => array(SS_GL_C|13, _("Allow entry on non closed Fiscal years")),
 
 	'SA_BANKTRANSVIEW' => array(SS_GL|1, _("Bank transactions view")),
@@ -298,21 +291,21 @@ function add_access_extensions()
 		$trans = array();
 		foreach($extsections as $code =>$name) {
 			$trans[$code] = $scode<<8;
-			// reassign section codes
+			
 			$security_sections[$trans[$code]|$extcode] = $name;
 			$scode++;
 		}
 		foreach($extareas as $code => $area) {
 			$section = $area[0]&0xff00;
-			// extension modules:
-			// if area belongs to nonstandard section
-			// use translated section codes and
-			// preserve lower part of area code
+			
+			
+			
+			
 			if (isset($trans[$section])) {
 				$section = $trans[$section];
 			} 
-				// otherwise assign next available
-				// area code >99
+				
+				
 			$area[0] = $extcode | $section | ($acode++);
 			$security_areas[$code] = $area;
 		}
@@ -326,10 +319,10 @@ function check_edit_access($name)
 	$access = @$input_security[$name];
 
 	if (!$access)
-		$access = @$input_security['']; // default access level
+		$access = @$input_security['']; 
 
 	if (!$access)
-		return true; // if constraint is not defined edit access is allowed
+		return true; 
 
 	return  user_check_access($access);
 }

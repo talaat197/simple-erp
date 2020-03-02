@@ -225,7 +225,7 @@ function employees_table() {
         $table =& new_db_pager('student_tbl', $sql, $cols);
         $table->width = "80%";
 	
-	    // display_note(_('Press name to edit employee details.'));
+	    
         display_db_pager($table);
 	}
 	else

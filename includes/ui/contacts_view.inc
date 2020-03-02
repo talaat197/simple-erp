@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root. '/includes/ui/simple_crud_class.inc');
 include_once($path_to_root . "/includes/db/crm_contacts_db.inc");
@@ -60,7 +53,7 @@ class contacts extends simple_crud {
 
 				 	edit_button_cell("{$this->name}Edit[{$last['id']}]", _("Edit"));
 
-					// delete button removes only category unless this is the last contact for this person
+					
 					delete_button_cell("{$this->name}Delete[{$last['id']}]", _("Delete"));
 					end_row();
 					$description = array();
@@ -154,7 +147,7 @@ class contacts extends simple_crud {
 	//
 	function db_delete() {
 		if (delete_crm_contacts($this->selected_id, $this->class, $this->entity)) {
-			// if this is the last relation - delete contact data
+			
 			$rels = get_person_contacts($this->selected_id);
 			if (count($rels)==0) {
 				return delete_crm_person($this->selected_id);

@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 /*
 	Common entry procedure for all work order types
@@ -103,10 +96,10 @@ function delete_work_order($woid, $stock_id, $qty, $date)
 	begin_transaction();
 	hook_db_prevoid(ST_WORKORDER, $woid);
 
-	// delete the work order requirements
+	
 	delete_wo_requirements($woid);
 
-	// delete the actual work order
+	
 	$sql = "DELETE FROM ".TB_PREF."workorders WHERE id=".db_escape($woid);
 	db_query($sql,"The work order could not be deleted");
 
@@ -190,7 +183,7 @@ function release_work_order($woid, $releaseDate, $memo_)
 		released=1 WHERE id = ".db_escape($woid);
 	db_query($sql, "could not release work order");
 
-	// create wo_requirements records according to current BOM
+	
 	create_wo_requirements($woid, $stock_id);
 
 	add_comments(ST_WORKORDER, $woid, $releaseDate, $memo_);
@@ -235,12 +228,12 @@ function work_order_update_finished_quantity($woid, $quantity, $force_close=0)
 
 	db_query($sql, "The work order couldn't be closed");
 
-	return db_num_affected_rows();	// returns 1 if WO has been closed
+	return db_num_affected_rows();	
 }
 
 function reopen_work_order($woid)
 {
-		// FIXME: update_material_cost
+		
 //		update_material_cost($work_order['stock_id'], -$work_order['units_issued'], ... );
 
 		void_gl_trans(ST_WORKORDER, $woid);
@@ -274,22 +267,22 @@ function void_work_order($woid)
 			void_work_order_produce($prod['id']);
 	}
 
-	// void addtional material issues
+	
 	$issues = get_work_order_issues($woid);
 	while($issue = db_fetch($issues))
 		void_work_order_issue($issue['issue_no']);
 
-	// void all related stock moves
+	
 	void_stock_move(ST_WORKORDER, $woid);
 
-	// void any related costing records
+	
 	void_wo_costing($woid);
 
-	// clear the requirements units received
+	
 	void_wo_requirements($woid);
 
-	// close workorder
-	// FIXME: due to bug in 2.4 db scheme (conflicting wo_ref unique key) we have to fix wo_ref here:
+	
+	
 	$sql = "UPDATE ".TB_PREF."workorders SET closed=1,units_reqd=0,units_issued=0, wo_ref=CONCAT(wo_ref, ' ', '".uniqid()."') WHERE id = "
 		.db_escape($woid);
 	db_query($sql, "The work order couldn't be voided");

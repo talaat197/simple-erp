@@ -1,16 +1,9 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
-// Standard report classess
+
 define('RC_CUSTOMER', 0);
 define('RC_SUPPLIER', 1);
 define('RC_INVENTORY', 2);
@@ -22,7 +15,7 @@ define('RC_FIXEDASSETS', 7);
 
 class BoxReports
 {
-	var $ar_classes; // report class names
+	var $ar_classes; 
 	var $ar_reports;
 	var $ctrl_handlers = array();
 
@@ -42,7 +35,7 @@ class BoxReports
 
 	function addReport($class, $id, $rep_name, $params=null)
 	{
-		unset($this->ar_reports[$class][$id]); // unset std report if any
+		unset($this->ar_reports[$class][$id]); 
 		$this->ar_reports[$class][$id] = new Report($id, $rep_name, $params);
 	}
 
@@ -69,7 +62,7 @@ class BoxReports
 		foreach($this->ar_classes as $class_id => $name)
 		{
 			if (!isset($this->ar_reports[$class_id]))
-				continue; // e.g. no dimensions
+				continue; 
 
 			$acc = access_string($name);
 			$st_classes .= "<a href='"
@@ -94,7 +87,7 @@ class BoxReports
 				}
 
 				if (isset($_REQUEST['REP_ID']) && $_REQUEST['REP_ID']==$report->id) {
-					// parameters form
+					
 					$action = $_SERVER['PHP_SELF'];
 					$st_params = "<table><tr><td>\n"
 						. "<form method='POST' action='$action' target='_blank'>\n";
@@ -133,15 +126,15 @@ class BoxReports
 		foreach($controls as $title => $type)
 		{
 			$ctrl = '';
-			foreach($this->ctrl_handlers as $fun) { // first check for non-standard controls
+			foreach($this->ctrl_handlers as $fun) { 
 				$ctrl = $fun('PARAM_'.$cnt, $type);
 				if ($ctrl) break;
 			}
 			if ($ctrl == '') {
-				if (($id == 102 || $id == 202) && $cnt == 3) // set default Show Also Allocated to Yes in aged reports 2014-09-19 Joe Hunt
+				if (($id == 102 || $id == 202) && $cnt == 3) 
 					$_POST['PARAM_'.$cnt] = 1;
 				
-				if (isset($_COOKIE['select'][$id][$cnt])) // saved parameters 2010-10-06 Joe Hunt
+				if (isset($_COOKIE['select'][$id][$cnt])) 
 					$_POST['PARAM_'.$cnt] = $_COOKIE['select'][$id][$cnt];
 				$ctrl = $this->get_ctrl('PARAM_'.$cnt, $type);
 			}
@@ -159,7 +152,7 @@ class BoxReports
 
 	//
 	//	Register additional control handler
-	// $handle - name of global function f($name, $type) returning html code for control
+	
 	function register_controls($handler) {
 		$this->ctrl_handlers[] = $handler;
 	}
@@ -212,7 +205,7 @@ class BoxReports
 							}
 						}
 					}
-					else // saved parameters
+					else 
 						$date = $_POST[$name];
 					$st = "<input type='text' name='$name' value='$date'>";
 					if (user_use_date_picker())
@@ -267,10 +260,10 @@ class BoxReports
 					$value = (isset($_POST[$name]) ? $_POST[$name] : "");
 					return "<textarea rows=4 cols=30 maxlength=130 name='$name'>$value</textarea>";
 
-				case 'ACCOUNTS': // not used
+				case 'ACCOUNTS': 
 					return gl_account_types_list($name, null, _("No Account Group Filter"), true);
 
-				case 'ACCOUNTS_NO_FILTER': // not used
+				case 'ACCOUNTS_NO_FILTER': 
 					return gl_account_types_list($name);
 
 				case 'GL_ACCOUNTS':
@@ -515,7 +508,7 @@ function add_custom_reports(&$reports)
 {
 	global $installed_extensions, $path_to_root;
 	
-	// include reports installed inside extension modules
+	
 	if (count($installed_extensions) > 0)
 	{
 		$extensions = $installed_extensions;

@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 function process_fixed_asset_depreciation($stock_id, $gl_rows, $refline, $memo_)
@@ -176,13 +169,13 @@ function get_sql_for_fixed_assets($show_inactive = false)
 //	 	 LEFT JOIN ".TB_PREF."supp_trans st ON st.type=gl.type AND gl.type_no=st.trans_no
 //	 	 LEFT JOIN ".TB_PREF."suppliers supp ON gl.person_type_id=3 AND gl.person_id=supp.supplier_id
 //		 WHERE gl.amount!=0
-//     AND NOT ISNULL(a.gl_seq)";
+
 //
 ////	if (!$alsoclosed) {
 ////		$sql .= " AND gl_seq=0";
 ////	}
-//// 	else
-//// 		$sql .= " AND NOT ISNULL(a.gl_seq)";
+//
+//
 //
 //	$sql .= " GROUP BY tran_date, gl_seq, trans_type, trans_no";
 //

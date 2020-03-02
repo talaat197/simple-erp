@@ -1,46 +1,46 @@
 <?php
 //============================================================+
-// File name   : html_entity_decode_php4.php
-// Begin       : 2006-06-22
-// Last Update : 2008-04-01
-// Author      : Nicola Asuni
-// Version     : 1.0.000
-// License     : GNU LGPL (http://www.gnu.org/copyleft/lesser.html)
-// 	----------------------------------------------------------------------------
-//  Copyright (C) 2002-2008  Nicola Asuni - Tecnick.com S.r.l.
-// 	
-// 	This program is free software: you can redistribute it and/or modify
-// 	it under the terms of the GNU Lesser General Public License as published by
-// 	the Free Software Foundation, either version 2.1 of the License, or
-// 	(at your option) any later version.
-// 	
-// 	This program is distributed in the hope that it will be useful,
-// 	but WITHOUT ANY WARRANTY; without even the implied warranty of
-// 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// 	GNU Lesser General Public License for more details.
-// 	
-// 	You should have received a copy of the GNU Lesser General Public License
-// 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-// 	
-// 	See LICENSE.TXT file for more information.
-//  ----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //
 //
-// Description : This is a PHP4 function that redefine the 
-//               standard html_entity_decode function to support
-//               UTF-8 encoding.
+
+
+
 //
 //
-// Author: Nicola Asuni
+
 //
-// (c) Copyright:
-//               Nicola Asuni
-//               Tecnick.com S.r.l.
-//               Via della Pace, 11
-//               09044 Quartucciu (CA)
-//               ITALY
-//               www.tecnick.com
-//               info@tecnick.com
+
+
+
+
+
+
+
+
 //============================================================+
 
 /**
@@ -68,7 +68,7 @@ function code_to_utf8($num) {
 	} elseif ($num <= 0x1FFFFF) {
 		return chr(($num >> 0x12) + 0xF0).chr((($num >> 0x0C) & 0x3F) + 0x80).chr((($num >> 0x06) & 0x3F) + 0x80).chr(($num & 0x3F) + 0x80);
 	}
-	return ' '; // default value
+	return ' '; 
 }
 
 /**
@@ -347,5 +347,5 @@ function html_entity_decode_php4($text_to_convert) {
 }
 
 //============================================================+
-// END OF FILE
+
 //============================================================+

@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 /*
 	Class for supplier/customer payment/credit allocations edition
@@ -22,7 +15,7 @@ class allocation
 	var $type;
 	var $person_id = '';
 	var $person_name = '';
-	var $person_type;	// PT_SUPPLIER/PT_CUSTOMER
+	var $person_type;	
 	var $person_curr;
 	var $date_;
 	var $amount = 0; /*Total amount of the transaction in FX */
@@ -39,7 +32,7 @@ class allocation
 		if ($person_id)
 			$this->set_person($person_id, $person_type_id);
 
-		$this->read($type, $trans_no, $person_id, $person_type_id); // read payment or credit
+		$this->read($type, $trans_no, $person_id, $person_type_id); 
 	}
 
 	function set_person($person_id, $person_type)
@@ -100,11 +93,11 @@ class allocation
 	//
 	//	Read payment or credit current/available allocations to cart.
 	//
-	// FIXME - read all transactions below twice seems to be suboptimal
+	
 	//
 	function read($type = null, $trans_no = 0, $person_id=null, $person_type_id=null)
 	{
-		if ($type !== null) {	// otherwise re-read
+		if ($type !== null) {	
 			$type = $this->type;
 			$trans_no = $this->trans_no;
 
@@ -112,7 +105,7 @@ class allocation
 			{
 				$this->person_type = $person_type_id;
 				$this->person_id = $person_id;
-			} else { // guess person_type_id
+			} else { 
 				if (in_array($type, array(ST_BANKPAYMENT, ST_BANKDEPOSIT)))
 				{
 					$bank_trans = db_fetch(get_bank_trans($type, $trans_no));
@@ -130,7 +123,7 @@ class allocation
 				$this->date_ = sql2date($trans["tran_date"]);
 				$this->person_curr = $trans['curr_code'];
 				$this->currency = isset($trans['bank_curr_code']) ? $trans['bank_curr_code'] : $trans['curr_code'];
-				$this->bank_amount = isset($trans["bank_amount"]) ? $trans["bank_amount"] : $trans["Total"]; // not set for journal entry
+				$this->bank_amount = isset($trans["bank_amount"]) ? $trans["bank_amount"] : $trans["Total"]; 
 				$this->amount = $trans["Total"];
 			}
 		}
@@ -150,13 +143,13 @@ class allocation
 				$this->add_item($myrow["type"], $myrow["trans_no"],
 					sql2date($myrow["tran_date"]),
 					sql2date($myrow["due_date"]),
-					$myrow["Total"], // trans total
-					$myrow["alloc"], // trans total allocated
+					$myrow["Total"], 
+					$myrow["alloc"], 
 					0,
-					$myrow["reference"]); // this allocation
+					$myrow["reference"]); 
 			}
 		}
-		if ($this->trans_no == 0) return; // this is new payment
+		if ($this->trans_no == 0) return; 
 
 	/* Now get trans that might have previously been allocated to by this trans
 	NB existing entries where still some of the trans outstanding entered from
@@ -192,7 +185,7 @@ class allocation
 		else
 		 	clear_cust_alloctions($this->type, $this->trans_no, $this->person_id, $this->date_);
 
-		// now add the new allocations
+		
 		$total_allocated = 0;
 		$dec = user_price_dec();
 		foreach ($this->allocs as $alloc_item)
@@ -214,7 +207,7 @@ class allocation
 
 	 				update_debtor_trans_allocation($alloc_item->type, $alloc_item->type_no, $this->person_id);
 				}
-				// Exchange Variations Joe Hunt 2008-09-20 ////////////////////
+				
 				if ($alloc_item->type != ST_SALESORDER && !@$no_exchange_variations
 					&& $alloc_item->type != ST_PURCHORDER && $alloc_item->type != ST_JOURNAL && $this->type != ST_JOURNAL)
 					exchange_variation($this->type, $this->trans_no,

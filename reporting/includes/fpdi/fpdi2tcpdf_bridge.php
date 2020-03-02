@@ -1,20 +1,20 @@
 <?php
 //
-//  FPDI - Version 1.2.1
+
 //
-//    Copyright 2004-2008 Setasign - Jan Slabon
+
 //
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
+
+
+
 //
-//      http://www.apache.org/licenses/LICENSE-2.0
+
 //
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
+
+
+
+
+
 //
 
 /**
@@ -46,7 +46,7 @@ class FPDF extends TCPDF {
             case 'pageNumber':
                 return $this->pageNumber;
             default:
-                // Error handling
+                
                 $this->Error('Cannot access protected property '.get_class($this).':$'.$name.' / Undefined property: '.get_class($this).'::$'.$name);
         }
     }
@@ -57,7 +57,7 @@ class FPDF extends TCPDF {
                 $this->PDFVersion = $value;
                 break;
             default:
-                // Error handling
+                
                 $this->Error('Cannot access protected property '.get_class($this).':$'.$name.' / Undefined property: '.get_class($this).'::$'.$name);
         }
     }
@@ -88,7 +88,7 @@ class FPDF extends TCPDF {
                 	$value[1] = $this->hex2str($value[1]);
                 	$value[1] = $this->_RC4($this->_objectkey($this->_current_obj_id), $value[1]);
                     
-                	// remake hexstring of encrypted string
+                	
     				$value[1] = $this->str2hex($value[1]);
                 }
                 break;

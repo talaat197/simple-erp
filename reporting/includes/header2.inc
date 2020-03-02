@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 /**
@@ -60,13 +53,13 @@
 			$this->LineTo($col += $width, $iline2,$col, $iline4);
 		}
 		$this->LineTo($this->leftMargin, $iline5 ,$this->leftMargin, $iline7);
-		if ($this->l['a_meta_dir'] == 'rtl') // avoid line overwrite in rtl language
+		if ($this->l['a_meta_dir'] == 'rtl') 
 			$this->LineTo($this->cols[$cols - 2], $iline5 ,$this->cols[$cols - 2], $iline7);
 		else	
 			$this->LineTo($this->cols[$cols - 2] + 4, $iline5 ,$this->cols[$cols - 2] + 4, $iline7);
 		$this->LineTo($right, $iline5 ,$right, $iline7);
 
-		// Company Logo
+		
 		$this->NewLine();
 		$logo = company_path() . "/images/" . $this->company['coy_logo'];
 		if ($this->company['coy_logo'] != '' && file_exists($logo))
@@ -81,7 +74,7 @@
 			$this->Font();
 			$this->fontSize -= 4;
 		}
-		// Document title
+		
 		$this->SetTextColor(190, 190, 190);
 		$this->fontSize += 10;
 		$this->Font('bold');
@@ -92,7 +85,7 @@
 		$this->SetTextColor(0, 0, 0);
 		$adrline = $this->row;
 
-		// Company data
+		
 		$this->TextWrapLines($ccol, $icol, $this->company['postal_address']);
 		$this->Font('italic');
 		if (@$this->company['phone'])
@@ -150,19 +143,19 @@
 		$this->Text($mcol, $Addr2['title']);
 		$this->fontSize += 4;
 
-// address1
+
 		$temp = $this->row = $this->row - $this->lineHeight - 5;
 		$this->Text($ccol, $Addr1['name'], $icol);
 		$this->NewLine();
 		$this->TextWrapLines($ccol, $icol - $ccol, $Addr1['address']);
 
-// address2
+
 		$this->row = $temp;
 		$this->Text($mcol, $Addr2['name']);
 		$this->NewLine();
 		$this->TextWrapLines($mcol, $this->rightMargin - $mcol, $Addr2['address'], 'left', 0, 0, NULL, 1);
 
-		// Auxiliary document information
+		
 		$col = $this->leftMargin;
 		foreach($aux_info as $info_header => $info_content)
 		{
@@ -173,13 +166,13 @@
 			$this->TextWrap($col, $this->row, $width, $info_content, 'C');
 			$col += $width;
 		}
-		// Payment terms
+		
 		$this->row -= (2 * $this->lineHeight);
 		$this->Font('italic');
 		$this->TextWrap($ccol, $this->row, $right-$ccol, $Payment_Terms);
 		$this->Font();
 
-		// Line headers
+		
 		$this->row = $iline5 - $this->lineHeight - 1;
 		$this->Font('bold');
 		$count = count($this->headers);
@@ -188,13 +181,13 @@
 			$this->TextCol($i, $i + 1, $this->headers[$i], -2);
 		$this->Font();
 
-		// Footer
+		
 		$this->Font('italic');
 		$this->row = $iline7 - $this->lineHeight - 6;
 
 		foreach ($Footer as $line => $txt)
 		{
-			if (!is_numeric($line))	// title => link
+			if (!is_numeric($line))	
 			{
 				$this->fontSize -= 2;
 				$this->TextWrap($ccol, $this->row, $right - $ccol, $line, 'C');

@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_JOURNALENTRY';
 $path_to_root = "..";
@@ -129,21 +122,21 @@ function create_cart($type=0, $trans_no=0)
 		}
 		$cart->memo_ = get_comments_string($type, $trans_no);
 		$cart->reference = $header['reference'];
-		// update net_amounts from tax register
+		
 
-		// retrieve tax details
-		$tax_info = $cart->collect_tax_info(); // tax amounts in reg are always consistent with GL, so we can read them from GL lines
+		
+		$tax_info = $cart->collect_tax_info(); 
 
 		$taxes = get_trans_tax_details($type, $trans_no);
 		while ($detail = db_fetch($taxes))
 		{
 			$tax_id = $detail['tax_type_id'];
-			$tax_info['net_amount'][$tax_id] = $detail['net_amount']; // we can two records for the same tax_id, but in this case net_amount is the same
+			$tax_info['net_amount'][$tax_id] = $detail['net_amount']; 
 			$tax_info['tax_date'] = sql2date($detail['tran_date']);
 			//$tax_info['tax_group'] = $detail['tax_group_id'];
 
 		}
-		if (isset($tax_info['net_amount']))	// guess exempt sales/purchase if any tax has been found
+		if (isset($tax_info['net_amount']))	
 		{
 			$net_sum = 0;
 			foreach($cart->gl_items as $gl)
@@ -262,7 +255,7 @@ if (isset($_POST['Process']))
 			set_focus('tax_date');
 			$input_error = 1;
 		}
-		// FIXME: check proper tax net input values, check sum of net values against total GL an issue warning
+		
 	}
 
 	if (check_value('taxable_trans'))
@@ -270,7 +263,7 @@ if (isset($_POST['Process']))
 	 	if (!tab_visible('tabs', 'tax'))
 	 	{
 			display_warning(_("Check tax register records before processing transaction or switch off 'Include in tax register' option."));
-			$_POST['tabs_tax'] = true; // force tax tab select
+			$_POST['tabs_tax'] = true; 
    			$input_error = 1;
 		} else {
 			$taxes = get_all_tax_types();
@@ -280,11 +273,11 @@ if (isset($_POST['Process']))
 				$tax_id = $tax['id'];
 				$net_amount += input_num('net_amount_'.$tax_id);
 			}
-			// in case no tax account used we have to guss tax register on customer/supplier used.
+			
 			if ($net_amount && !$_SESSION['journal_items']->has_taxes() && !$_SESSION['journal_items']->has_sub_accounts())
 			{
 				display_error(_("Cannot determine tax register to be used. You have to make at least one posting either to tax or customer/supplier account to use tax register."));
-				$_POST['tabs_gl'] = true; // force gl tab select
+				$_POST['tabs_gl'] = true; 
    				$input_error = 1;
 			}
 		}
@@ -313,7 +306,7 @@ if (isset($_POST['Process']))
 
 	if (check_value('taxable_trans'))
 	{
-		// complete tax register data
+		
 		$cart->tax_info['tax_date'] = $_POST['tax_date'];
 		//$cart->tax_info['tax_group'] = $_POST['tax_group'];
 		$taxes = get_all_tax_types();
@@ -327,7 +320,7 @@ if (isset($_POST['Process']))
 		$cart->tax_info = false;
 	$trans_no = write_journal_entries($cart);
 
-        // retain the reconciled status if desired by user
+        
         if (isset($_POST['reconciled'])
             && $_POST['reconciled'] == 1) {
             $sql = "UPDATE ".TB_PREF."bank_trans SET reconciled=".db_escape($_POST['reconciled_date'])
@@ -461,7 +454,7 @@ function handle_new_item()
 //-----------------------------------------------------------------------------------------------
 if (isset($_POST['_taxable_trans_update']))
 {	if (!check_value('taxable_trans'))
-		$_POST['tabs_gl'] = true; // force tax tab select
+		$_POST['tabs_gl'] = true; 
 	else
 		set_focus('taxable_trans');
 	$Ajax->activate('tabs');

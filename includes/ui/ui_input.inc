@@ -1,16 +1,9 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //
-// Sets local POST value and adds Value to ajax posting if needed
+
 //
 /*function set_post($name, $value, $ajax_trigger=true) {
     global $Ajax;
@@ -20,9 +13,9 @@
 }
 */
 //------------------------------------------------------------------------------
-//    Seek for _POST variable with $prefix.
-//    If var is found returns variable name with prefix stripped,
-//    and null or -1 otherwise.
+
+
+
 //
 function find_submit($prefix, $numeric=true)
 {
@@ -48,7 +41,7 @@ function input_changed($name)
 
 //------------------------------------------------------------------------------
 //
-// Helper function for simple db table editor pages
+
 //
 function simple_page_mode($numeric_id = true)
 {
@@ -69,7 +62,7 @@ function simple_page_mode($numeric_id = true)
 		foreach ($_POST as $p => $pvar) {
 			if (strpos($p, $m) === 0) {
 //				$selected_id = strtr(substr($p, strlen($m)), array('%2E'=>'.'));
-				unset($_POST['_focus']); // focus on first form entry
+				unset($_POST['_focus']); 
 				$selected_id = quoted_printable_decode(substr($p, strlen($m)));
 				$Ajax->activate('_page_body');
 				$Mode = $m;
@@ -95,8 +88,8 @@ function input_num($postname=null, $dflt=0)
 //---------------------------------------------------------------------------------
 //
 //	Thanks to hidden fields buffering hidden() helper can be used in arbitrary places and 
-//  proper html structure is still preserved. Buffered hidden fields are output on the nearest 
-//  table or form closing tag (see output_hidden()).
+
+
 //
 $hidden_fields = array();
 
@@ -140,7 +133,7 @@ function submit($name, $value, $echo=true, $title=false, $atype=false, $icon=fal
 	if ($atype === null) {
 		$aspect = fallback_mode() ? " aspect='fallback'" : " style='display:none;'";
 
-	} elseif (!is_bool($atype)) { // necessary: switch uses '=='
+	} elseif (!is_bool($atype)) { 
 
 		$aspect = " aspect='$atype' ";
 		$types = explode(' ', $atype);
@@ -286,15 +279,15 @@ function submit_js_confirm($name, $msg, $set = true) {
 function set_icon($icon, $title=false)
 {
 	global $path_to_root;
-	if (basename($icon) === $icon) // standard icons does not contain path separator
+	if (basename($icon) === $icon) 
 		$icon = "$path_to_root/themes/".user_theme()."/images/$icon";
 	return "<img src='$icon' style='vertical-align:middle;width:12px;height:12px;border:0;'".($title ? " title='$title'" : "")." >\n";	
 }
 
 function button($name, $value, $title=false, $icon=false,  $aspect='')
 {
-	// php silently changes dots,spaces,'[' and characters 128-159
-	// to underscore in POST names, to maintain compatibility with register_globals
+	
+	
 	$rel = '';
 	if ($aspect == 'selector') {
 		$rel = " rel='$value'";
@@ -302,10 +295,10 @@ function button($name, $value, $title=false, $icon=false,  $aspect='')
 	}
 	if (user_graphic_links() && $icon)
 	{
-		if ($value == _("Delete")) // Helper during implementation
+		if ($value == _("Delete")) 
 			$icon = ICON_DELETE;
 		return "<button type='submit' class='editbutton' name='"
-			.html_specials_encode(strtr($name, array('.'=>'=2E', '='=>'=3D',// ' '=>'=20','['=>'=5B'
+			.html_specials_encode(strtr($name, array('.'=>'=2E', '='=>'=3D',
 			)))
 			."' value='1'" . ($title ? " title='$title'":" title='$value'")
 			. ($aspect ? " aspect='$aspect'" : '')
@@ -314,7 +307,7 @@ function button($name, $value, $title=false, $icon=false,  $aspect='')
 	}
 	else
 		return "<input type='submit' class='editbutton' name='"
-			.htmlentities(strtr($name, array('.'=>'=2E', '='=>'=3D',// ' '=>'=20','['=>'=5B'
+			.htmlentities(strtr($name, array('.'=>'=2E', '='=>'=3D',
 			)))
 			."' value='$value'"
 			.($title ? " title='$title'":'')
@@ -477,7 +470,7 @@ function percent_cell($label, $bold=false, $id=null)
 	else
 		label_cell(percent_format($label), "nowrap align=right", $id);
 }
-// 2008-06-15. Changed
+
 function qty_cell($label, $bold=false, $dec=null, $id=null)
 {
 	if (!isset($dec))
@@ -629,7 +622,7 @@ function link_row_ex($label, $name, $size, $max=null, $title=null, $value=null, 
 //-----------------------------------------------------------------------------------
 //
 //	Since FA 2.2  $init parameter is superseded by $check. 
-//  When $check!=null current date is displayed in red when set to other 
+
 //	than current date.
 //	
 function date_cells($label, $name, $title = null, $check=null, $inc_days=0, 
@@ -730,10 +723,10 @@ function ref_cells($label, $name, $title=null, $init=null, $params=null, $submit
 	global $Ajax, $Refs;
 
 	if (isset($type)) {
-		if (empty($_POST[$name.'_list'])) // restore refline id
+		if (empty($_POST[$name.'_list'])) 
 			$_POST[$name.'_list'] = $Refs->reflines->find_refline_id(empty($_POST[$name]) ? $init : $_POST[$name], $type);
 
-		if (empty($_POST[$name])) // initialization
+		if (empty($_POST[$name])) 
 		{
 			if (isset($init))
 			{
@@ -744,7 +737,7 @@ function ref_cells($label, $name, $title=null, $init=null, $params=null, $submit
 			$Ajax->addUpdate(true, $name, $_POST[$name]);
 		}
 
-		if (check_ui_refresh($name)) { // call context changed
+		if (check_ui_refresh($name)) { 
 			$_POST[$name] = $Refs->normalize($_POST[$name], $type, $context, $_POST[$name.'_list']);
 			$Ajax->addUpdate(true, $name, $_POST[$name]);
 		}
@@ -766,7 +759,7 @@ function ref_cells($label, $name, $title=null, $init=null, $params=null, $submit
 			.(check_edit_access($name) ? '' : 'disabled ')
 			."value='".@$_POST[$name]."' size=16 maxlength=35>");
 	}
-	else // just wildcard ref field (e.g. for global inquires)
+	else 
 	{
 		text_cells_ex($label, $name, 16, 35, $init, $title, $params, null, $submit_on_change);
 	}
@@ -936,8 +929,8 @@ function textarea_row($label, $name, $value, $cols, $rows, $title=null, $params=
 //-----------------------------------------------------------------------------------
 //
 //	When show_inactive page option is set 
-//  displays value of inactive field as checkbox cell.
-//  Also updates database record after status change.
+
+
 //
 function inactive_control_cell($id, $value, $table, $key)
 {

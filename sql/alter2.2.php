@@ -1,22 +1,15 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 class fa2_2 extends fa_patch  {
-	var $previous = '2.1';		// applicable database version
-	var $version = '2.2rc';	// version installed
+	var $previous = '2.1';		
+	var $version = '2.2rc';	
 	var $description;
 	var $sql = 'alter2.2.sql';
 	var $preconf = true;
-	var $beta = false; // upgrade from 2.1 or 2.2beta; set in prepare()
+	var $beta = false; 
 	
 	function __construct() {
 		global $security_groups;
@@ -37,15 +30,15 @@ class fa2_2 extends fa_patch  {
 			return false;
 
 		$pref = $db_connections[$company]['tbpref'];
-		// Until 2.2 sanitizing text input with db_escape was not
-		// consequent enough. To avoid comparision problems we have to 
-		// fix this now.
+		
+		
+		
 		sanitize_database($pref);
 
-		if ($this->beta)	// nothing more to be done on upgrade from 2.2beta
+		if ($this->beta)	
 			return true;
 
-		// set item category dflt accounts to values from company GL setup
+		
 		$prefs = get_company_prefs();
 		$sql = "UPDATE ".TB_PREF."stock_category SET "
 			."dflt_sales_act = '" . $prefs['default_inv_sales_act'] . "',"
@@ -58,7 +51,7 @@ class fa2_2 extends fa_patch  {
 			.':<br>'. db_error_msg($db));
 			return false;
 		}
-		// add all references to refs table for easy searching via journal interface
+		
 		foreach($systypes_array as $typeno => $typename) {
 			$info = get_systype_db_info($typeno);
 			if ($info == null || $info[3] == null) continue;
@@ -108,8 +101,8 @@ class fa2_2 extends fa_patch  {
 
 		if ($this->beta)
 			$this->sql = 'alter2.2rc.sql';
-		// return ok when security groups still defined (upgrade from 2.1)
-		// or usersonline not defined (upgrade from 2.2 beta)
+		
+		
 		$pref = $this->companies[$company]['tbpref'];
 
 		return isset($security_groups) || (check_table($pref, 'usersonline')!=0);
@@ -185,7 +178,7 @@ function convert_roles($pref)
 		}
 		$result = get_users(true);
 		$users = array();
-		while($row = db_fetch($result)) { // complete old user ids and roles
+		while($row = db_fetch($result)) { 
 			$users[$row['role_id']][] = $row['id'];
 		}
 		foreach($users as $old_id => $uids)
@@ -215,7 +208,7 @@ function fix_extensions() {
 	global $path_to_root, $db_connections;
 
 	if (!file_exists($path_to_root.'/modules/installed_modules.php'))
-		return true; // already converted
+		return true; 
 	
 	if (!is_writable($path_to_root.'/modules/installed_modules.php')) {
 		display_error(_('Cannot upgrade extensions system: file /modules/installed_modules.php is not writeable'));
@@ -270,7 +263,7 @@ function sanitize_database($pref, $test = false) {
 			}
 		}
 
- 		if (empty($keys)) { // comments table have no primary key, so give up
+ 		if (empty($keys)) { 
  			continue;
  		}
 	 	if ($test)
@@ -278,13 +271,13 @@ function sanitize_database($pref, $test = false) {
 
 		if (!count($textcols)) continue;
 
-		// fetch all records containing special characters in text fields
+		
 		$sql = "SELECT ".implode(',', array_unique(array_merge($keys,$textcols)))
 			." FROM {$table} WHERE 
 			CONCAT(".implode(',', $textcols).") REGEXP '[\\'\"><&]'";
 		$result = db_query($sql, "Cannot select all suspicious fields in $table");
 
-		// and fix them
+		
 		while($rec= db_fetch($result)) {
 			$sql = "UPDATE {$table} SET ";
 			$val = $key = array();

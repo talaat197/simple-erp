@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //----------------------------------------------------------------------------------------
 
@@ -83,7 +76,7 @@ function clear_cust_alloctions($type, $type_no, $person_id=null, $date="")
 		$sql .= " AND ca.person_id=".db_escape($person_id);
 	db_query($sql, "could not clear allocation");
 
-	// remove any allocations for this transaction
+	
 	$sql = "DELETE FROM ".TB_PREF."cust_allocations
 			WHERE  ((trans_type_from=".db_escape($type)." AND trans_no_from=".db_escape($type_no).")
 				OR (trans_type_to=".db_escape($type)." AND trans_no_to=".db_escape($type_no)."))";
@@ -91,7 +84,7 @@ function clear_cust_alloctions($type, $type_no, $person_id=null, $date="")
 		$sql .= " AND person_id=".db_escape($person_id);
 
 	db_query($sql, "could not void debtor transactions for type=$type and trans_no=$type_no");
-// is this necessary?
+
 //	if ($date != "")
 //		exchange_variation($type, $type_no, $row['trans_type_to'], $row['trans_no_to'], $date,
 //			$row['amt'], PT_CUSTOMER, true);
@@ -164,7 +157,7 @@ function get_allocatable_sales_orders($customer_id = null, $trans_no=null, $type
 	}
 	else
 	{
-		$sql .= " AND round(sorder.prep_amount)>0 and Total>0"; // only sales orders with prepayment level set and no yet fully invoiced
+		$sql .= " AND round(sorder.prep_amount)>0 and Total>0"; 
 	}
 	if ($customer_id)
 		$sql .= " AND sorder.debtor_no=".db_escape($customer_id);
@@ -357,7 +350,7 @@ function credit_sales_invoice_allocate($invoice_no, $credit_no, $amount, $date)
 	$free = $invoice['total'] - $invoice['alloc'];
 
 	if ($free < $amount) {
-	 // if there is not enough unallocated amount - remove some payment allocations
+	 
 		$sql = "SELECT * FROM ".TB_PREF."cust_allocations
 			WHERE (trans_type_to=".ST_SALESINVOICE." AND trans_no_to=".db_escape($invoice_no)." AND person_id=".db_escape($invoice['debtor_no']).")
 			AND trans_type_from <> ".ST_CUSTCREDIT;
@@ -377,8 +370,8 @@ function credit_sales_invoice_allocate($invoice_no, $credit_no, $amount, $date)
 		}
 	}
 	if (floatcmp($free, $amount)<0) {
-		// this should never happen unless sparse credit notices were allocated to 
-		// the invoice, or summarized freight costs on credit notes is more than those on invoice.
+		
+		
 		display_error(_("Unsuspected overallocation happened due to sparse credit notes exists for this invoice.
  Check all credit notes allocated to this invoice for summarized freight charges."));
 		return false;

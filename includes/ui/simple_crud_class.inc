@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //
 //	Template for simple table editors
@@ -16,8 +9,8 @@ class simple_crud {
 	var $name;
 	var $Mode;
 	var $selected_id;
-	var $_none = ''; // selector value when no item is selected
-	var $pre_handlers; // control buttons and related methods called before view display
+	var $_none = ''; 
+	var $pre_handlers; 
 	var $views;
 	var $data = array();
 	var $fields;
@@ -39,7 +32,7 @@ class simple_crud {
 			'CLONE' => '_cloning'
 			);
 		$this->views = array(
-			'' => 'list_view',			// default view
+			'' => 'list_view',			
 			'Edit' => 'editor_view',
 			'Delete' => 'list_view',
 			'NEW' => 'editor_view',
@@ -94,7 +87,7 @@ class simple_crud {
 			case 'percent':
 				return percent_format($value*100);
 			case 'stock':
-				$this->dec = get_qty_dec($value); // retrieve dec for use in later qty fields
+				$this->dec = get_qty_dec($value); 
 			case 'text':
 			case 'date':
 			default:
@@ -106,10 +99,10 @@ class simple_crud {
 	{
 		global $Ajax;
 
-		// list controls lookup
+		
 		foreach (array_keys($this->pre_handlers) as $m) {
 			if (isset($_POST[$this->name.$m])) {
-				unset($_POST['_focus']); // focus on first form entry
+				unset($_POST['_focus']); 
 				$Ajax->activate($this->name.'_div');
 				$val = @key($_POST[$this->name.$m]);
 				$this->selected_id = $val!==null ? @quoted_printable_decode($val) : $this->_none;
@@ -185,7 +178,7 @@ class simple_crud {
 		$this->Mode = '';
 	}
 	//
-	// Clone record for new edition
+	
 	//
 	function _cloning()
 	{
@@ -231,7 +224,7 @@ class simple_crud {
 		echo "</center>";
 	}
 	//===========================================================================
-	// Public functions
+	
 	//
 	
 	function tool_button($name, $selected_id=null, $params='')
@@ -298,10 +291,10 @@ class simple_crud {
 		if (isset($this->views[$this->Mode]))
 			$this->{$this->views[$this->Mode]}();
 		else
-			$this->{$this->views['']}(); // default view
+			$this->{$this->views['']}(); 
 
 		$this->_bottom_controls();
-		// this is needed only when we use temporary crud object together with ajax screen updates
+		
 		hidden($this->name.'Mode'.'['.$this->selected_id.']', $this->Mode);
 		div_end();
 	}

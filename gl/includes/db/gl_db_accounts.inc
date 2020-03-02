@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 function add_gl_account($account_code, $account_name, $account_type, $account_code2)
 {
@@ -210,7 +203,7 @@ function gl_account_in_quick_entry_lines($acc)
 }
 //
 //	Returns n>0 when account is AR, n<0 when account is AP
-//  (priority for AR accounts)
+
 //
 function is_subledger_account($account)
 {
@@ -312,6 +305,6 @@ function get_chart_accounts_search($like, $skip=false)
           	chart.account_name LIKE " . db_escape("%" . $like. "%") . " OR
           	chart.account_code LIKE " . db_escape("%" . $like. "%") . "
         	) 
-    		ORDER BY chart.account_code LIMIT 0,".(int)($limit); // We only display 10 items.
+    		ORDER BY chart.account_code LIMIT 0,".(int)($limit); 
 	return db_query($sql, "Failed in retreiving GL account list.");
 }

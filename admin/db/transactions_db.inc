@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 //--------------------------------------------------------------------------------------
@@ -49,8 +42,8 @@ function get_sql_for_view_transactions($filtertype, $from, $to, &$trans_ref)
 	elseif ($type_name != null)
 		$sql .= " AND t.`$type_name` = ".db_escape($filtertype);
 
-	// the ugly hack below is necessary to exclude old gl_trans records lasting after edition,
-	// otherwise old data transaction can be retrieved instead of current one.
+	
+	
 	if ($table_name==TB_PREF.'gl_trans')
 		$sql .= " AND t.`amount` <> 0";
 
@@ -125,12 +118,12 @@ function get_counterparty_name($trans_type, $trans_no, $full=true)
 			." AND trans.supplier_id=supp.supplier_id";
 			break;
 
-		case ST_JOURNAL:	// FIXME - this one can have multiply counterparties of various types depending on person_type_id
+		case ST_JOURNAL:	
 
 		default: 
-		/*	// internal operations
+		/*	
 		case ST_WORKORDER :
-		case ST_INVADJUST : // GRN/DN returns ?
+		case ST_INVADJUST : 
 		case ST_BANKTRANSFER :
 		case ST_LOCTRANSFER :
 		case ST_MANUISSUE :
@@ -161,7 +154,7 @@ function get_next_trans_no ($trans_type){
 	$st = get_systype_db_info($trans_type);
 
 	if (!($st && $st[0] && $st[2])) {
-		// this is in fact internal error condition.
+		
 		display_error('Internal error: invalid type passed to get_next_trans_no()');
 		return 0;
 	}
@@ -169,7 +162,7 @@ function get_next_trans_no ($trans_type){
 	if ($st[1] != null)
 		 $sql1 .= " WHERE `$st[1]`=".db_escape($trans_type);
 
-	// check also in voided transactions (some transactions like location transfer are removed completely)
+	
 	$sql2 = "SELECT MAX(`id`) as last_no FROM ".TB_PREF."voided WHERE `type`=".db_escape($trans_type);
 
 	$sql = "SELECT max(last_no) last_no FROM ($sql1 UNION $sql2) a";

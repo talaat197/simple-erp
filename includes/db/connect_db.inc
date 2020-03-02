@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //$path_to_root="..";
 define('MAX_DEADLOCK_RETRY', 3);
@@ -15,7 +8,7 @@ define('MAX_DEADLOCK_RETRY', 3);
 if (function_exists('mysqli_connect'))
 	include_once("connect_db_mysqli.inc");
 else
-	include_once("connect_db_mysql.inc"); // use deprecated mysql_* API as fallback on old servers
+	include_once("connect_db_mysql.inc"); 
 
 function db_get_version()
 {
@@ -76,7 +69,7 @@ function get_mysql_collation($lang=null)
 		'utf8_sl' => 'utf8_slovenian_ci',
 		'utf8_pl' => 'utf8_polish_ci',
 		'utf8_et' => 'utf8_estonian_ci',
-		'utf8_es' => 'utf8_spanish_ci', // or 'spanish2',
+		'utf8_es' => 'utf8_spanish_ci', 
 		'utf8_sw' => 'utf8_swedish_ci',
 		'utf8_tr' => 'utf8_turkish_ci',
 		'utf8_cs' => 'utf8_czech_ci',
@@ -102,7 +95,7 @@ function db_fixed()
 {
 	$result = db_query("SELECT value FROM ".TB_PREF."sys_prefs WHERE name='version_id'");
 	$data = db_fetch($result);
-	return !db_num_rows($result) // new database is fixed by default 
+	return !db_num_rows($result) 
 		|| ($data[0] > "2.3rc");
 }
 

@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 function add_stock_adjustment($items, $location, $date_, $reference, $memo_)
@@ -35,7 +28,7 @@ function add_stock_adjustment($items, $location, $date_, $reference, $memo_)
 
 		if ($SysPrefs->loc_notification() == 1 && $line_item->quantity < 0)
 		{
-			$chg = $line_item; $chg->quantity= -$chg->quantity;	// calculate_reorder_level expect positive qty
+			$chg = $line_item; $chg->quantity= -$chg->quantity;	
 			$loc = calculate_reorder_level($location, $chg, $st_ids, $st_names, $st_num, $st_reorder); 
 		}
 
@@ -107,7 +100,7 @@ function add_stock_adjustment_item($adj_id, $stock_id, $location, $date_, $refer
 	$adj_value = $standard_cost * -($quantity);
 
 	if (is_fixed_asset($mb_flag)) {
-		// get the initial value of the fixed assset.
+		
 		$row = get_fixed_asset_move($stock_id, ST_SUPPRECEIVE);
 		$inv_value = $row['price'] * $quantity;
 		$adj_value = (-($row['price']) + $standard_cost) * $quantity;
@@ -125,7 +118,7 @@ function add_stock_adjustment_item($adj_id, $stock_id, $location, $date_, $refer
 	}
 
 	if (is_fixed_asset($mb_flag)) {
-		// Additional gl entry for fixed asset.
+		
 		$grn_act = get_company_pref('default_loss_on_asset_disposal_act');
 		add_gl_trans_std_cost(ST_INVADJUST, $adj_id, $date_, $grn_act, 0, 0, $memo_, ($standard_cost * -($quantity)));
 	}

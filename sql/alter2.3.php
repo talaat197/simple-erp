@@ -1,21 +1,14 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 class fa2_3 extends fa_patch {
-	var $previous = '2.2rc';		// applicable database version
-	var $version = '2.3rc';	// version installed
+	var $previous = '2.2rc';		
+	var $version = '2.3rc';	
 	var $description;
 	var $sql = 'alter2.3.sql';
 	var $preconf = true;
-	var $beta = false; // upgrade from 2.2 or 2.3beta;
+	var $beta = false; 
 	
 	function __construct() {
 		$this->description = _('Upgrade from version 2.2 to 2.3');
@@ -34,7 +27,7 @@ class fa2_3 extends fa_patch {
 			return false;
 
 		if (!$this->beta) {
-			// all specials below are already done on 2.3beta
+			
 
 			$sql = "SELECT debtor_no, payment_terms FROM ".TB_PREF."debtors_master";
 
@@ -44,7 +37,7 @@ class fa2_3 extends fa_patch {
 				.':<br>'. db_error_msg($db));
 				return false;
 			}
-			// update all sales orders and transactions with customer std payment terms
+			
 			while($cust = db_fetch($result)) {
 				$sql = "UPDATE ".TB_PREF."debtor_trans SET "
 					."payment_terms = '" .$cust['payment_terms']
@@ -72,7 +65,7 @@ class fa2_3 extends fa_patch {
 				return false;
 			}
 			//remove obsolete and temporary columns.
-			// this have to be done here as db_import rearranges alter query order
+			
 			$dropcol = array(
 				'crm_persons' => array('tmp_id','tmp_class'),
 				'debtors_master' => array('email'),
@@ -88,7 +81,7 @@ class fa2_3 extends fa_patch {
 						return false;
 					}
 				}
-			// remove old preferences table after upgrade script has been executed
+			
 			$sql = "DROP TABLE IF EXISTS `".TB_PREF."company`";
 			if (!db_query($sql))
 				return false;
@@ -162,8 +155,8 @@ class fa2_3 extends fa_patch {
 			$link = db_fetch($result);
 			return array($link['trans_link']);
 		}
-		if ($trans_type!=ST_SALESINVOICE) return 0;	// this is credit note with no parent invoice
-		// invoice: find batch invoice parent trans.
+		if ($trans_type!=ST_SALESINVOICE) return 0;	
+		
 		$sql = 'SELECT trans_no FROM
 				'.TB_PREF.'debtor_trans WHERE
 				(trans_link='.db_escape($trans_no).' AND type='. get_parent_type($trans_type) .')';
@@ -218,7 +211,7 @@ class fa2_3 extends fa_patch {
 			$src_n = db_num_rows($src_lines);
 
 			if (($type == ST_CUSTCREDIT) && ($src_n == 0))
-				 continue;  // free credit note has no src lines 
+				 continue;  
 
 			$max = $type == ST_CUSTDELIVERY ? $n : max($src_n, $n);
 
@@ -230,7 +223,7 @@ class fa2_3 extends fa_patch {
 					break;
 
 				if ($type == ST_CUSTDELIVERY)
-					$src_line['stock_id'] = $src_line['stk_code']; // SO details has another field name 
+					$src_line['stock_id'] = $src_line['stk_code']; 
 
 				if ($src_line['stock_id'] == $doc_line['stock_id']
 					&& ($src_line['quantity'] >= $doc_line['quantity'])) {
@@ -275,7 +268,7 @@ class fa2_3 extends fa_patch {
 
 		foreach($installed_extensions as $i => $ext)
 		{
-			if (isset($ext['title'])) // old type entry
+			if (isset($ext['title'])) 
 			{
 				if ($ext['type'] == 'module') {
 					$new['type'] = 'extension';
@@ -287,7 +280,7 @@ class fa2_3 extends fa_patch {
 					);
 					$new['path'] = $ext['path'];
 				}
-				else // plugin
+				else 
 				{
 					$new['type'] = 'extension';
 					$new['tabs'] = array();
@@ -309,7 +302,7 @@ class fa2_3 extends fa_patch {
 			}
 		}
 */		
-		// Preserve non-standard themes
+		
 		$path = $path_to_root.'/themes/';
 		$themes = array();
 		$themedir = opendir($path);
@@ -319,7 +312,7 @@ class fa2_3 extends fa_patch {
 				&& !in_array($fname, array('aqua', 'cool', 'default')))
 			{
 				foreach($installed_extensions as $ext)  
-					if ($ext['path'] == 'themes/'.$fname) // skip if theme is already listed
+					if ($ext['path'] == 'themes/'.$fname) 
 						continue 2;
 				$new_exts[$next_extension_id++] = array(
 					'name' => 'Theme '. ucwords($fname),

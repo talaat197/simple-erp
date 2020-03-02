@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_BACKUP';
 
@@ -141,14 +134,14 @@ $backup_path = $SysPrefs->backup_dir() . $backup_name;
 if (get_post('creat')) {
 	generate_backup($conn, get_post('comp'), get_post('comments'));
 	$Ajax->activate('backups');
-	$SysPrefs->refresh(); // re-read system setup
+	$SysPrefs->refresh(); 
 };
 
 if (get_post('restore')) {
 	if ($backup_name) {
 		if (db_import($backup_path, $conn, true, false, check_value('protected')))
 			display_notification(_("Restore backup completed."));
-		$SysPrefs->refresh(); // re-read system setup
+		$SysPrefs->refresh(); 
 	} else
 		display_error(_("Select backup file first."));
 }
@@ -208,7 +201,7 @@ table_section_title(_("Backup scripts maintenance"));
 	submit_js_confirm('restore',_("You are about to restore database from backup file.\nDo you want to continue?"));
 
 	submit_row('deldump', _("Delete Backup"), false, '','', true);
-	// don't use 'delete' name or IE js errors appear
+	
 	submit_js_confirm('deldump', sprintf(_("You are about to remove selected backup file.\nDo you want to continue ?")));
 	end_table();
 	echo "</td>";

@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 function add_tag($type, $name, $description)
@@ -134,15 +127,15 @@ function add_tag_associations($recordid, $tagids)
 
 function update_tag_associations($type, $recordid, $tagids)
 {
-	// Delete the old associations
+	
 	delete_tag_associations($type, $recordid, false);
-	// Add the new associations
+	
 	add_tag_associations($recordid, $tagids);
 }
 
 //--------------------------------------------------------------------------------------
-// To delete tag associations, we need to specify the tag type.
-// Otherwise we may inadvertantly delete records for another type of tag
+
+
 //
 function delete_tag_associations($type, $recordid, $all=false)
 {
@@ -151,7 +144,7 @@ function delete_tag_associations($type, $recordid, $all=false)
 				INNER JOIN ".TB_PREF."tags tags ON tags.id = ta.tag_id 
 				WHERE tags.type = ".db_escape($type)." AND ta.record_id = ".db_escape($recordid);
 */
-	// To support MySQL 3.xx we have to use multiply queries
+	
 	$sql = "SELECT * FROM ".TB_PREF."tag_associations ta 
 			INNER JOIN ".TB_PREF."tags tags ON tags.id = ta.tag_id 
 			WHERE tags.type = ".db_escape($type)." AND ta.record_id = ".db_escape($recordid);
@@ -170,7 +163,7 @@ function delete_tag_associations($type, $recordid, $all=false)
 
 function get_records_associated_with_tag($id)
 {
-	// Which table we query is based on the tag type
+	
 	$type = get_tag_type($id);
 	
 	$table = $key = '';

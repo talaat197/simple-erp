@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_CREATELANGUAGE';
 $path_to_root="..";
@@ -26,7 +19,7 @@ simple_page_mode(true);
 
 //---------------------------------------------------------------------------------------------
 //
-// Display all packages - both already installed and available from repository
+
 //
 function display_languages()
 {
@@ -39,7 +32,7 @@ function display_languages()
 	div_start('lang_tbl');
 	start_form();
 	//
-	// select/display system locales support for sites using native gettext
+	
 	//
 	if (function_exists('gettext'))
 	{
@@ -55,11 +48,11 @@ function display_languages()
 
 	$k = 0;
 
-	// get list of all (available and installed) langauges
+	
 	$langs = get_languages_list();
 	foreach ($langs as $pkg_name => $lng)
 	{
-		if ($lng == 'C') // skip default locale (aka no translation)
+		if ($lng == 'C') 
 			continue;
 
 		$lang = $lng['code'];
@@ -96,10 +89,10 @@ function display_languages()
 		if (function_exists('gettext') && check_value('DisplayAll'))
 			label_cell($support ? _("Yes") :_("No"));
 
-		if (!$available && ($lang != 'C'))	// manually installed language
+		if (!$available && ($lang != 'C'))	
 			button_cell('Edit'.$id, _("Edit"), _('Edit non standard language configuration'), 
 				ICON_EDIT);
-		elseif (check_pkg_upgrade($installed, $available)) // outdated or not installed language in repo
+		elseif (check_pkg_upgrade($installed, $available)) 
 			button_cell('Update'.$pkg_name, $installed ? _("Update") : _("Install"),
 				_('Upload and install latest language package'), ICON_DOWN);
 		else
@@ -125,7 +118,7 @@ function display_languages()
 	div_end();
 }
 //---------------------------------------------------------------------------------------------
-// Non standard (manually entered) languages support.
+
 //
 function check_data()
 {
@@ -243,7 +236,7 @@ function handle_delete($id)
 			return;
 			
 	if ($lang == $dflt_lang ) { 
-		// on delete set default to current.
+		
 		$dflt_lang = $_SESSION['language']->code;
 	}
 	
@@ -254,7 +247,7 @@ function handle_delete($id)
 		return;
 
 	$dirname = "$path_to_root/lang/$lang";
-	if ($lang && is_dir($dirname)) {	// remove nonstadard language dir
+	if ($lang && is_dir($dirname)) {	
 		flush_dir($dirname, true);
 		rmdir($dirname);
 	}

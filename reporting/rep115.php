@@ -11,12 +11,12 @@
 ***********************************************************************/
 $page_security = 'SA_CUSTPAYMREP';
 
-// ----------------------------------------------------------------
-// $ Revision:    2.0 $
-// Creator:    @boxygen
-// date_:    2018-12-20
-// Title:    Customer Trial Balances
-// ----------------------------------------------------------------
+
+
+
+
+
+
 $path_to_root="..";
 
 include_once($path_to_root . "/includes/session.inc");
@@ -111,7 +111,7 @@ function print_customer_balances()
     $to = $_POST['PARAM_1'];
     $fromcust = $_POST['PARAM_2'];
     $area = $_POST['PARAM_3']; //added by Faisal to filter by area
-    $folk = $_POST['PARAM_4'];  // added by Faisal to filter by sales person
+    $folk = $_POST['PARAM_4'];  
     $currency = $_POST['PARAM_5'];
     $no_zeros = $_POST['PARAM_6'];
     $comments = $_POST['PARAM_7'];
@@ -188,7 +188,7 @@ function print_customer_balances()
         ON ".TB_PREF."cust_branch.salesman=".TB_PREF."salesman.salesman_code";
     if ($fromcust != ALL_TEXT )
     {
-        // if ($area != 0 || $folk != 0) continue;
+        
         $sql .= " WHERE ".TB_PREF."debtors_master.debtor_no=".db_escape($fromcust);
     }
     elseif ($area != 0)

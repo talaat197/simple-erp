@@ -6,7 +6,7 @@
 	FA extension system documentation.
 */
 
-$next_extension_id = 20; // unique id for next installed extension
+$next_extension_id = 20; 
 
 $installed_extensions = array (
   1 => 

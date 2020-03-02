@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_RECONCILE';
 $path_to_root = "..";
@@ -51,7 +44,7 @@ function rec_checkbox($row)
 	$hidden = 'last['.$row['id'].']';
 	$value = $row['reconciled'] != '';
 
-// save also in hidden field for testing during 'Reconcile'
+
 	return is_closed_trans($row['type'], $row['trans_no']) ? "--" : checkbox(null, $name, $value, true, _('Reconcile this transaction'))
  		. hidden($hidden, $value, false);
 }
@@ -105,17 +98,17 @@ function update_data()
 	$Ajax->activate('summary');
 }
 //---------------------------------------------------------------------------------------------
-// Update db record if respective checkbox value has changed.
+
 //
 function change_tpl_flag($reconcile_id)
 {
 	global	$Ajax;
 
 	if (!check_date() 
-		&& check_value("rec_".$reconcile_id)) // temporary fix
+		&& check_value("rec_".$reconcile_id)) 
 		return false;
 
-	if (get_post('bank_date')=='')	// new reconciliation
+	if (get_post('bank_date')=='')	
 		$Ajax->activate('bank_date');
 
 	$_POST['bank_date'] = date2sql(get_post('reconcile_date'));
@@ -137,7 +130,7 @@ function set_tpl_flag($reconcile_id)
 	if (check_value("rec_".$reconcile_id))
 		return;
 
-	if (get_post('bank_date')=='')	// new reconciliation
+	if (get_post('bank_date')=='')	
 		$Ajax->activate('bank_date');
 
 	$_POST['bank_date'] = date2sql(get_post('reconcile_date'));
@@ -150,7 +143,7 @@ function set_tpl_flag($reconcile_id)
 	$Ajax->activate('difference');
 }
 
-if (!isset($_POST['reconcile_date'])) { // init page
+if (!isset($_POST['reconcile_date'])) { 
 	$_POST['reconcile_date'] = new_doc_date();
 //	$_POST['bank_date'] = date2sql(Today());
 }
@@ -208,12 +201,12 @@ $result = get_max_reconciled(get_post('reconcile_date'), $_POST['bank_account'])
 if ($row = db_fetch($result)) {
 	$_POST["reconciled"] = price_format($row["end_balance"]-$row["beg_balance"]);
 	$total = $row["total"];
-	if (!isset($_POST["beg_balance"])) { // new selected account/statement
+	if (!isset($_POST["beg_balance"])) { 
 		$_POST["last_date"] = sql2date($row["last_date"]);
 		$_POST["beg_balance"] = price_format($row["beg_balance"]);
 		$_POST["end_balance"] = price_format($row["end_balance"]);
 		if (get_post('bank_date')) {
-			// if it is the last updated bank statement retrieve ending balance
+			
 
 			$row = get_ending_reconciled($_POST['bank_account'], $_POST['bank_date']);
 			if($row) {

@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_ITEMTAXTYPE';
 $path_to_root = "..";
@@ -39,7 +32,7 @@ if ($Mode=='ADD_ITEM' || $Mode=='UPDATE_ITEM')
 	if ($input_error != 1) 
 	{
 		
-		// create an array of the exemptions
+		
     	$exempt_from = array();
     	
         $tax_types = get_all_tax_types_simple();
@@ -151,11 +144,11 @@ if ($selected_id != -1)
 {
 	if ($Mode == 'Edit') {
    		$myrow = get_item_tax_type($selected_id);
-   		unset($_POST); // clear exemption checkboxes
+   		unset($_POST); 
    		$_POST['name']  = $myrow["name"];
    		$_POST['exempt']  = $myrow["exempt"];
     	
-   		// read the exemptions and check the ones that are on
+   		
    		$exemptions = get_item_tax_type_exemptions($selected_id);
     	
    		if (db_num_rows($exemptions) > 0)

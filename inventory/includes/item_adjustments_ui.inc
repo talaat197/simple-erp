@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root . "/includes/ui.inc");
 include_once($path_to_root . "/includes/ui/items_cart.inc");
@@ -28,7 +21,7 @@ function display_order_header(&$order)
 {
 	global $Refs;
 
-	start_outer_table(TABLESTYLE2, "width='70%'"); // outer table
+	start_outer_table(TABLESTYLE2, "width='70%'"); 
 	table_section(1);
 
 	locations_list_row(_("Location:"), 'StockLocation', null, false, false, $order->fixed_asset);
@@ -39,7 +32,7 @@ function display_order_header(&$order)
 	ref_row(_("Reference:"), 'ref', '', $Refs->get_next(ST_INVADJUST, null, array('location'=>get_post('StockLocation'), 'date'=>get_post('AdjDate'))),
 		 false, ST_INVADJUST);
 
-	end_outer_table(1); // outer table
+	end_outer_table(1); 
 }
 
 //---------------------------------------------------------------------------------
@@ -75,7 +68,7 @@ function display_adjustment_items($title, &$order)
 		if ($id != $line_no)
 		{
 			if (in_array($stock_item->stock_id, $low_stock))
-				start_row("class='stockmankobg'");	// notice low stock status
+				start_row("class='stockmankobg'");	
 			else 
 				alt_table_row_color($k);
 

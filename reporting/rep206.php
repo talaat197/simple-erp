@@ -11,12 +11,12 @@
 ***********************************************************************/
 $page_security = 'SA_SUPPLIERANALYTIC';
 
-// ----------------------------------------------------------------
-// $ Revision:    2.0 $
-// Creator:    @boxygen, Joe Hunt
-// date_:    2018-12-20
-// Title:    Supplier Trial Balances
-// ----------------------------------------------------------------
+
+
+
+
+
+
 $path_to_root="..";
 
 include_once($path_to_root . "/includes/session.inc");
@@ -221,7 +221,7 @@ function print_supplier_balances()
         //$rep->Line($rep->row  - 2);
         $rep->NewLine();
     }
-    $rep->Line($rep->row + 4); // added line by Joe
+    $rep->Line($rep->row + 4); 
     $rep->NewLine();
     $rep->fontSize += 2;
     $rep->TextCol(0, 3,    _('Grand Total'));

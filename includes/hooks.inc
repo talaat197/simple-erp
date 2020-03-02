@@ -1,32 +1,25 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //
-// AgroPhos extension modules integration.
-// This file is included in session.inc even before session is started,
-// and includes hooks.php connector files from all installed extensions.
-// To make hooks active install_hooks() have to be called after interface
-// language is set.
+
+
+
+
+
 //
-// To find how various hooks are processed look into respective hook_* functions below.
+
 //
 class hooks {
-	var $module_name; // extension module name.
+	var $module_name; 
 
 	// 
-	// Helper for updating databases with extension scheme
+	
 	//
-	// $comp can be company number, -1 for all, 
-	// $updates - table of filename => array(table, field, property)
-	// $check_only - don't update database, check table/field/property existence only
+	
+	
+	
 	//
 	function update_databases($comp, $updates, $check_only=false)
 	{
@@ -59,7 +52,7 @@ class hooks {
 			if (!$result)
 				break;
 		}
-		set_global_connection(0); // return to siteadmin account
+		set_global_connection(0); 
 
 		return $result;
 	}
@@ -68,7 +61,7 @@ class hooks {
 	//
 	function install_tabs($app)
 	{
-//		$app->add_application(new example_class); // add menu tab defined by example_class
+//		$app->add_application(new example_class); 
 	}
 	//
 	//	Install additonal menu options provided by extension
@@ -107,9 +100,9 @@ class hooks {
 	}
 
 	//
-	// Price in words. $doc_type is set to document type and can be used to suppress 
-	// price in words printing for selected document types.
-	// Used instead of built in simple english price_in_words() function.
+	
+	
+	
 	//
 	//	Returns: amount in words as string.
 
@@ -118,36 +111,36 @@ class hooks {
 	}
 
 	//
-	// Exchange rate currency $curr as on date $date.
-	// Keep in mind FA has internally implemented 3 exrate providers
-	// If any of them supports your currency, you can simply use function below
-	// with apprioprate provider set, otherwise implement your own.
-	// Returns: $curr value in home currency units as a real number.
+	
+	
+	
+	
+	
 
 	function retrieve_exrate($curr, $date)
 	{
-//	 	$provider = 'ECB'; // 'ECB', 'YAHOO' or 'GOOGLE'
+//	 	$provider = 'ECB'; 
 //		return get_extern_rate($curr, $provider, $date);
 		return null;
 	}
 
-	// External authentication
-	// If used should return true after successfull athentication, false otherwise.
+	
+	
 	function authenticate($login, $password)
 	{
 		return null;
 	}
-	// Generic function called at the end of Tax Report (report 709)
-	// Can be used e.g. for special database updates on every report printing
-	// or to print special tax report footer 
+	
+	
+	
 	//
-	// Returns: nothing
+	
 	function tax_report_done()
 	{
 	}
-	// Following database transaction hooks akcepts array of parameters:
-	// 'cart' => transaction data
-	// 'trans_type' => transaction type
+	
+	
+	
 
 	function db_prewrite(&$cart, $trans_type)
 	{
@@ -224,7 +217,7 @@ function install_hooks()
 
 	$Hooks = array();
 	
-	// include current language related $Hooks object if locale file exists
+	
 	$lang_code  = clean_file_name($_SESSION['language']->code);
 	if (file_exists($path_to_root . "/lang/" . $lang_code . "/locale.inc"))
 	{
@@ -234,7 +227,7 @@ function install_hooks()
 		$Hooks[$code] = new $hook_class;
 		unset($code, $hook_class);
 	}
-	// install hooks provided by active extensions
+	
 	if (isset($installed_extensions) && !empty($installed_extensions)) {
 		foreach($installed_extensions as $ext) {
 			$hook_class = 'hooks_'.$ext['package'];
@@ -258,7 +251,7 @@ function activate_hooks($ext, $comp, $on=true)
 		if (class_exists($hookclass))
 			$hooks = new $hookclass;
 		else
-			return true; // extension does not have hooks file
+			return true; 
 	}
 	if (!$hooks)
 		return false;
@@ -357,13 +350,13 @@ function hook_invoke_last($method, &$data, $opts=null)
 //	$cart - transaction cart
 //	$args is optional array of parameters
 //
-// For FA 2.3 prewrite, postwrite and prevoid hooks are implemented for following transaction types:
+
 //
-// ST_BANKPAYMENT, ST_BANKDEPOSIT, ST_BANKTRANSFER,
-// ST_SALESORDER, ST_SALESQUOTE, ST_SALESINVOICE, ST_CUSTCREDIT, ST_CUSTPAYMENT, ST_CUSTDELIVERY,
-// ST_LOCTRANSFER, ST_INVADJUST, 
-// ST_PURCHORDER, ST_SUPPINVOICE, ST_SUPPCREDIT, ST_SUPPAYMENT, ST_SUPPRECEIVE,
-// ST_WORKORDER, ST_MANUISSUE, ST_MANURECEIVE, 
+
+
+
+
+
 
 /*
 	Invoked after transaction has been read from database to cart.
@@ -408,7 +401,7 @@ function hook_retrieve_exrate($currency, $date)
 	return hook_invoke_last('retrieve_exrate', $currency, $date);
 }
 //
-// Generic function called at the end of Tax Report (report 709)
+
 //
 function hook_tax_report_done()
 {

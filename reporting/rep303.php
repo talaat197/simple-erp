@@ -10,12 +10,12 @@
     See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
 ***********************************************************************/
 $page_security = 'SA_ITEMSVALREP';
-// ----------------------------------------------------------------
-// $ Revision:	2.0 $
-// Creator:	Joe Hunt
-// date_:	2005-05-19
-// Title:	Stock Check Sheet
-// ----------------------------------------------------------------
+
+
+
+
+
+
 $path_to_root="..";
 
 include_once($path_to_root . "/includes/session.inc");
@@ -240,9 +240,9 @@ function print_stock_check()
 
 	if ($barcodes)
 	{
-    	// define barcode style
+    	
     	$style = array(
-    		'position' => 'L', // If blank string, barcode starts on left edge of page
+    		'position' => 'L', 
     		'stretch' => false,
     		'fitwidth' => true,
     		'cellfitalign' => '',
@@ -255,7 +255,7 @@ function print_stock_check()
     		'fontsize' => 8,
     		'stretchtext' => 4
     	);
-    	// write1DBarcode($code, $type, $x='', $y='', $w='', $h='', $xres=0.4, $style='', $align='')
+    	
     }	
 
    	$rep = new FrontReport(_('Stock Check Sheets'), "StockCheckSheet", user_pagesize(), 9, $orientation);
@@ -325,7 +325,7 @@ function print_stock_check()
 				$adjust = true;
 				$bar_y = $rep->GetY();
 				$barcode = str_pad($trans['stock_id'], 7, '0', STR_PAD_LEFT);
-				$barcode = substr($barcode, 0, 8); // EAN 8 Check digit is auto computed and barcode printed
+				$barcode = substr($barcode, 0, 8); 
 				$rep->write1DBarcode($barcode, 'EAN8', $rep->cols[$firstcol++], $bar_y + 22, 22, $SysPrefs->pic_height, 1.2, $style, 'N');
 			}	
 			if ($pictures)

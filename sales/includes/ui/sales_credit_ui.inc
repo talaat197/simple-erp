@@ -1,17 +1,10 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root . "/includes/ui.inc");
 
-// ------------------------------------------------------------------------------
+
 
 function display_credit_header(&$order)
 {
@@ -30,7 +23,7 @@ function display_credit_header(&$order)
 
 	if ($order->customer_id != $_POST['customer_id'] /*|| $order->sales_type != $_POST['sales_type_id']*/)
 	{
-		// customer has changed
+		
 		$Ajax->activate('branch_id');
 	}
 
@@ -52,8 +45,8 @@ function display_credit_header(&$order)
 		$Ajax->activate('deliver_to');
 		$Ajax->activate('phone');
 		$Ajax->activate('delivery_address');
-		// change prices if necessary
-		// what about discount in template case?
+		
+		
 		if ($old_order->customer_currency != $order->customer_currency) {
 			$change_prices = 1;
 		}
@@ -122,7 +115,7 @@ function display_credit_header(&$order)
 		}
 		$Ajax->activate('_ex_rate');
 	}
-	// added dimensions
+	
 	$dim = get_company_pref('use_dimension');
 	if ($dim > 0)
 		dimensions_list_row(_("Dimension").":", 'dimension_id', 
@@ -135,7 +128,7 @@ function display_credit_header(&$order)
 	else
 		hidden('dimension2_id', 0);
 
-	end_outer_table(1); // outer table
+	end_outer_table(1); 
 
 	if ($change_prices != 0) {
 		foreach ($order->line_items as $line_no=>$item) {
@@ -271,7 +264,7 @@ function credit_edit_item_controls(&$order, $rowcounter, $line_no=-1)
 			$order->price_factor, get_post('OrderDate'));
 		$_POST['price'] = price_format($price);
 		
-		// default to the customer's discount %
+		
 		$_POST['Disc'] = percent_format($order->default_discount * 100);
 	}
 

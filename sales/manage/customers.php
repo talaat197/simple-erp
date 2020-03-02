@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_CUSTOMER';
 $path_to_root = "../..";
@@ -95,7 +88,7 @@ function handle_submit(&$selected_id)
 		update_record_status($_POST['customer_id'], $_POST['inactive'],
 			'debtors_master', 'debtor_no');
 
-		$Ajax->activate('customer_id'); // in case of status change
+		$Ajax->activate('customer_id'); 
 		display_notification(_("Customer has been updated."));
 	} 
 	else 
@@ -149,7 +142,7 @@ if (isset($_POST['delete']))
 
 	$cancel_delete = 0;
 
-	// PREVENT DELETES IF DEPENDENT RECORDS IN 'debtor_trans'
+	
 
 	if (key_in_foreign_table($selected_id, 'debtor_trans', 'debtor_no'))
 	{
@@ -346,7 +339,7 @@ else
 
 //if (!$selected_id || list_updated('customer_id'))
 if (!$selected_id)
-	unset($_POST['_tabs_sel']); // force settings tab for new customer
+	unset($_POST['_tabs_sel']); 
 
 tabbed_content_start('tabs', array(
 		'settings' => array(_('&General settings'), $selected_id),

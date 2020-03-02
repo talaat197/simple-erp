@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //-----------------------------------------------------------------------------
 //
@@ -105,7 +98,7 @@ if (isset($_GET['OrderNumber']) && $_GET['OrderNumber'] > 0) {
 			."</center></b>";
 		display_footer_exit();
 	}
- 	// Adjust Shipping Charge based upon previous deliveries TAM
+ 	
 	adjust_shipping_charge($ord, $_GET['OrderNumber']);
  
 	$_SESSION['Items'] = $ord;
@@ -245,7 +238,7 @@ function copy_from_cart()
 function check_quantities()
 {
 	$ok =1;
-	// Update cart delivery quantities/descriptions
+	
 	foreach ($_SESSION['Items']->line_items as $line=>$itm) {
 		if (isset($_POST['Line'.$line])) {
 			if($_SESSION['Items']->trans_no) {
@@ -319,7 +312,7 @@ start_form();
 hidden('cart_id');
 
 start_table(TABLESTYLE2, "width='80%'", 5);
-echo "<tr><td>"; // outer table
+echo "<tr><td>"; 
 
 start_table(TABLESTYLE, "width='100%'");
 start_row();
@@ -356,7 +349,7 @@ if (!isset($_POST['ship_via'])) {
 label_cell(_("Shipping Company"), "class='tableheader2'");
 shippers_list_cells(null, 'ship_via', $_POST['ship_via']);
 
-// set this up here cuz it's used to calc qoh
+
 if (!isset($_POST['DispatchDate']) || !is_date($_POST['DispatchDate'])) {
 	$_POST['DispatchDate'] = new_doc_date();
 	if (!is_date_in_fiscalyear($_POST['DispatchDate'])) {
@@ -368,7 +361,7 @@ end_row();
 
 end_table();
 
-echo "</td><td>";// outer table
+echo "</td><td>";
 
 start_table(TABLESTYLE, "width='90%'");
 
@@ -401,7 +394,7 @@ end_row();
 end_table();
 
 echo "</td></tr>";
-end_table(1); // outer table
+end_table(1); 
 
 $row = get_customer_to_order($_SESSION['Items']->customer_id);
 if ($row['dissallow_invoices'] == 1)
@@ -429,19 +422,19 @@ foreach ($_SESSION['Items']->line_items as $line=>$ln_itm) {
 		continue; //this line is fully delivered
 	}
 	if(isset($_POST['_Location_update']) || isset($_POST['clear_quantity']) || isset($_POST['reset_quantity'])) {
-		// reset quantity
+		
 		$ln_itm->qty_dispatched = $ln_itm->quantity-$ln_itm->qty_done;
 	}
-	// if it's a non-stock item (eg. service) don't show qoh
+	
 	$row_classes = null;
 	if (has_stock_holding($ln_itm->mb_flag) && $ln_itm->qty_dispatched) {
-		// It's a stock : call get_dispatchable_quantity hook  to get which quantity to preset in the
-		// quantity input box. This allows for example a hook to modify the default quantity to what's dispatchable
-		// (if there is not enough in hand), check at other location or other order people etc ...
-		// This hook also returns a 'reason' (css classes) which can be used to theme the row.
+		
+		
+		
+		
 		//
-		// FIXME: hook_get_dispatchable definition does not allow qoh checks on transaction level
-		// (but anyway dispatch is checked again later before transaction is saved)
+		
+		
 
 		$qty = $ln_itm->qty_dispatched;
 		if ($check = check_negative_stock($ln_itm->stock_id, $ln_itm->qty_done-$ln_itm->qty_dispatched, $_POST['Location'], $_POST['DispatchDate']))
@@ -449,7 +442,7 @@ foreach ($_SESSION['Items']->line_items as $line=>$ln_itm) {
 
 		$q_class =  hook_get_dispatchable_quantity($ln_itm, $_POST['Location'], $_POST['DispatchDate'], $qty);
 
-		// Skip line if needed
+		
 		if($q_class === 'skip')  continue;
 		if(is_array($q_class)) {
 		  list($ln_itm->qty_dispatched, $row_classes) = $q_class;
@@ -473,7 +466,7 @@ foreach ($_SESSION['Items']->line_items as $line=>$ln_itm) {
 	if(isset($_POST['clear_quantity'])) {
 		$ln_itm->qty_dispatched = 0;
 	}
-	$_POST['Line'.$line]=$ln_itm->qty_dispatched; /// clear post so value displayed in the fiel is the 'new' quantity
+	$_POST['Line'.$line]=$ln_itm->qty_dispatched; /
 	small_qty_cells(null, 'Line'.$line, qty_format($ln_itm->qty_dispatched, $ln_itm->stock_id, $dec), null, null, $dec);
 
 	$display_discount_percent = percent_format($ln_itm->discount_percent*100) . "%";

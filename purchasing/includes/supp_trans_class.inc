@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 /* Definition of the Supplier Transactions class to hold all the information for an accounts payable invoice or credit note
 */
@@ -28,13 +21,13 @@ class supp_trans
 	var $tax_group_id;
 	var $tax_included;
 	
-	var $trans_type;	// invoice or credit
+	var $trans_type;	
 	var $trans_no;
 
 	var $Comments;
 	var $tran_date;
 	var $due_date;
-	var $src_docs = array();		// source invoice for this credit note (if any)
+	var $src_docs = array();		
 
 	var $supp_reference;
 	var $reference;
@@ -44,7 +37,7 @@ class supp_trans
 	var $gl_codes_counter=0;
 	var $credit = 0;
 	var $currency;
-	var $tax_overrides = array();		// array of taxes manually inserted during sales invoice entry
+	var $tax_overrides = array();		
 
 	var $dimension,
 		$dimension2;
@@ -82,7 +75,7 @@ class supp_trans
 
 		$this->src_docs = find_src_invoices($this);
 
-		unset($this->tax_overrides); // cancel tax overrides after cart change
+		unset($this->tax_overrides); 
 		return 1;
 	}
 
@@ -91,18 +84,18 @@ class supp_trans
 		$this->gl_codes[$this->gl_codes_counter] = new gl_codes($this->gl_codes_counter, 
 			$gl_code, $gl_act_name, $gl_dim, $gl_dim2, $amount, $memo_);
 		$this->gl_codes_counter++;
-		unset($this->tax_overrides); // cancel tax overrides after cart change
+		unset($this->tax_overrides); 
 		return 1;
 	}
 
 	function remove_grn_from_trans($grn_item_id)
 	{
-		unset($this->tax_overrides); // cancel tax overrides after cart change
+		unset($this->tax_overrides); 
 	    unset($this->grn_items[$grn_item_id]);
 	}
 	function remove_gl_codes_from_trans($gl_code_counter)
 	{
-		unset($this->tax_overrides); // cancel tax overrides after cart change
+		unset($this->tax_overrides); 
 		unset($this->gl_codes[$gl_code_counter]);
 	}
 
@@ -130,7 +123,7 @@ class supp_trans
         if ($tax_group_id == null)
         	$tax_group_id = $this->tax_group_id;
 
-		// preload the taxgroup
+		
 		$tax_group = get_tax_group_items_as_array($tax_group_id);
 
         foreach ($this->grn_items as $ln_itm) 
@@ -146,14 +139,14 @@ class supp_trans
         	$this->tax_included);
 
 		if (isset($this->tax_overrides))
-			foreach($this->tax_overrides as $id => $value) // add values entered manually
+			foreach($this->tax_overrides as $id => $value) 
 			{
 				$taxes[$id]['Override'] = $value;
 			}
 
-		// Taxes included in gl_codes table have exact value, but count to overrides as well.
-		// Therefore when we want to now taxes only for items (gl_codes==false),
-		// we have to subtract gl_taxes from override values.
+		
+		
+		
 		foreach ($this->gl_codes as $gl_code)
 		{
 			$index = is_tax_account($gl_code->gl_code);
@@ -175,7 +168,7 @@ class supp_trans
     {
     	$total = 0;
 
-		// preload the taxgroup !
+		
 		if ($tax_group_id != null)
 			$tax_group = get_tax_group_items_as_array($tax_group_id);
 		else

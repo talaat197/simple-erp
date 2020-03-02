@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $path_to_root = "..";
 $page_security = 'SA_PURCHASEORDER';
@@ -91,7 +84,7 @@ if (isset($_GET['AddedID']))
 
 	hyperlink_params($path_to_root . "/purchasing/po_receive_items.php", _("&Receive Items on this Purchase Order"), "PONumber=$order_no");
 
-  // TODO, for fixed asset
+  
 	hyperlink_params($_SERVER['PHP_SELF'], _("Enter &Another Purchase Order"), "NewOrder=yes");
 	
 	hyperlink_no_params($path_to_root."/purchasing/inquiry/po_search.php", _("Select An &Outstanding Purchase Order"));
@@ -313,7 +306,7 @@ function handle_add_new_item()
 			{
 				$_SESSION['PO']->add_to_order (count($_SESSION['PO']->line_items), $_POST['stock_id'], input_num('qty'), 
 					get_post('stock_id_text'), //$myrow["description"], 
-					input_num('price'), '', // $myrow["units"], (retrived in cart)
+					input_num('price'), '', 
 					$_SESSION['PO']->trans_type == ST_PURCHORDER ? $_POST['req_del_date'] : '', 0, 0);
 
 				unset_form_variables();
@@ -419,7 +412,7 @@ function handle_commit_order()
 
 		copy_to_cart();
 		new_doc_date($cart->orig_order_date);
-		if ($cart->order_no == 0) { // new po/grn/invoice
+		if ($cart->order_no == 0) { 
 			$trans_no = add_direct_supp_trans($cart);
 			if ($trans_no) {
 				unset($_SESSION['PO']);
@@ -430,7 +423,7 @@ function handle_commit_order()
 				else
 					meta_forward($_SERVER['PHP_SELF'], "AddedPI=$trans_no");
 			}
-		} else { // order modification
+		} else { 
 			$order_no = update_po($cart);
 			unset($_SESSION['PO']);
         	meta_forward($_SERVER['PHP_SELF'], "AddedID=$order_no&Updated=1");	

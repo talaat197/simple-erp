@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $path_to_root = "../..";
 
@@ -166,7 +159,7 @@ function tmpl_checkbox($row)
 	$name = "chgtpl" .$row['order_no'];
 	$value = $row['type'] ? 1:0;
 
-// save also in hidden field for testing during 'Update'
+
 
  return checkbox(null, $name, $value, true,
  	_('Set this order as a template for direct deliveries/invoices'))
@@ -175,7 +168,7 @@ function tmpl_checkbox($row)
 
 function invoice_prep_link($row)
 {
-	// invoicing should be available only for partially allocated orders
+	
 	return 
 		$row['inv_payments'] < $row['total'] ?
 		pager_link($row['ord_payments']  ? _("Prepayment Invoice") : _("Final Invoice"),
@@ -199,7 +192,7 @@ $show_dates = !in_array($_POST['order_view_mode'], array('OutstandingOnly', 'Inv
 //---------------------------------------------------------------------------------------------
 //	Order range form
 //
-if (get_post('_OrderNumber_changed') || get_post('_OrderReference_changed')) // enable/disable selection controls
+if (get_post('_OrderNumber_changed') || get_post('_OrderReference_changed')) 
 {
 	$disable = get_post('OrderNumber') !== '' || get_post('OrderReference') !== '';
 

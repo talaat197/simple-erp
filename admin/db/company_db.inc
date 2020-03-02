@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 /*
 	Update main or gl company setup.
@@ -19,7 +12,7 @@ function update_company_prefs($params)
 		if (!db_query($sql. db_escape($value). " WHERE name=".db_escape($name),
 			 "The company prefferences could not be updated "))
 			return false;
-		// update cached value
+		
 		$_SESSION['SysPrefs']->prefs[$name] = $value;
 	}
 	return true;
@@ -34,7 +27,7 @@ function get_company_pref($prefs = null)
 {
 	global $SysPrefs, $db_version;
 
-	if (!isset($SysPrefs->prefs))	 // just after first login or reset
+	if (!isset($SysPrefs->prefs))	 
 		$SysPrefs->refresh();
 
 	$all = $SysPrefs->prefs;
@@ -168,7 +161,7 @@ function key_in_foreign_table($id, $tables, $stdkey)
 
 //---------------------------------------------------------------------------------------------
 //
-// Resets $theme references in users records to 'default'.
+
 //
 function clean_user_themes($theme)
 {
@@ -176,7 +169,7 @@ function clean_user_themes($theme)
 
 	$comp = user_company();
 
-	$connections = $db_connections;	// do not use db_connections directly here, or script will hang due to db_connections usage inside the loop
+	$connections = $db_connections;	
 	foreach ($connections as $n => $conn) {
 		$db = $_SESSION["wa_current_user"]->set_db_connection($n);
 		$sql = "UPDATE {$conn['tbpref']}users SET theme='default' WHERE theme='$theme'";

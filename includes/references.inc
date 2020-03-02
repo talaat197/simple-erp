@@ -1,24 +1,17 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root . "/includes/db/class.reflines_db.inc");
 include_once($path_to_root . "/admin/db/fiscalyears_db.inc");
 include_once($path_to_root . "/includes/types.inc");
 //---------------------------------------------------------------------------------------------
-// 2.4 - further changes toward removing refs table introduced:
+
 //	. all transactions now have references stored in trans table.
-//  . all reference related moved to class (is_new_reference yet preserved)
+
 //	. template based reflines implemented
 //
-// FIXME:
+
 //		- implement refline field in all transaction tables (obsoletes not always accurate find_refline_id)
 //		- remove save() and restore_last() - for now preserved for reflines without placeholder
 //		- see fixmes below
@@ -58,7 +51,7 @@ $refline_placeholders = array(
 	'MM' => 'date',
 	'YY' => 'date',
 	'YYYY' => 'date',
-	'FF' => 'date', // fiscal year
+	'FF' => 'date', 
 	'FFFF' => 'date',
 	'UU' => 'user',
  	'P' => 'pos',
@@ -88,7 +81,7 @@ class references
 	{
 		global $refline_options, $refline_placeholders;
 
-		// date based placeholders are always allowed, so default for non-array context is date
+		
 		if (!isset($context))
 			$context = new_doc_date();
 
@@ -105,7 +98,7 @@ class references
 			$stop = strpos($template, '}');
 			if ($stop === false) {
 				display_warning(_("Invalid refline template."));
-				$out .= $template; // debug
+				$out .= $template; 
 				break;
 			}
 			$ph = substr($template, $start+1, $stop-$start-1);
@@ -115,7 +108,7 @@ class references
 				if (!isset($context[$refline_placeholders[$ph]]))
 				{
 					display_warning(sprintf(_("Missing refline context data: '%s'"), $refline_placeholders[$ph]));
-					$out .= $ph; // debug
+					$out .= $ph; 
 				} else {
 					switch ($ph)
 					{
@@ -156,12 +149,12 @@ class references
 					}
 				}
 			} elseif (is_numeric($ph)) {
-				$out .= '{'.$ph.'}'; // index placeholder
+				$out .= '{'.$ph.'}'; 
 			}
 		}
 
-		$out .= $template;	// add postfix
-		if (!preg_match('/^([^\{]*)?\{([^\}]*)\}(.*)/', $out, $match)) {	// parse index
+		$out .= $template;	
+		if (!preg_match('/^([^\{]*)?\{([^\}]*)\}(.*)/', $out, $match)) {	
 			display_error(_("Missing numeric placeholder in refline definition."));
 			return $out;
 		}
@@ -176,7 +169,7 @@ class references
 		$ref_fld = $db_info[3];
 		$type = db_escape($type);
 
-		// retrieve last ref number in the refline from original transaction table
+		
 		$sql = "SELECT MAX(CAST(SUBSTR($ref_fld, ".(strlen($prefix)+1).",LENGTH($ref_fld)-".(strlen($postfix)+strlen($prefix)).") AS UNSIGNED))"
 				." FROM `$trans_table` tbl
 					LEFT JOIN ".TB_PREF."voided v ON tbl.`$tno_fld`=v.id AND v.type=$type"
@@ -186,14 +179,14 @@ class references
 		$result = db_query($sql, 'cannot retrieve last reference');
 		$result = db_fetch_row($result);
 
-			// fill with zeros to the length of original index placeholder
+			
 		return $prefix.sprintf('%0'.strlen($match[2]).'d', $result[0]+1).$postfix;
 	}
 
 	//
 	//	Get/check transaction reference.
-	// 	$ref!=null => check reference is not used (or unique for $trans_no!=0)
-	//  $trans!=0 $ref=null => retrieve reference for the $type/$trans_no (if any)
+	
+	
 	//
 	function _get($type, $trans_no=0, $ref=null)
 	{
@@ -234,7 +227,7 @@ class references
 	}
 
 	//
-	// Get default reference for new transaction.
+	
 	//
 	function get_next($type, $line=null, $context=null) 
 	{
@@ -259,7 +252,7 @@ class references
 	**/
 	function normalize($ref, $type, $context, $line=null)
 	{
-		if (!isset($type)) // inquiries
+		if (!isset($type)) 
 			return $ref;
 
 		if (!$line)
@@ -269,8 +262,8 @@ class references
 	}
 
 	//
-	// Check reference is valid before add/update transaction.
-	// FIXME: does not check leading zeros in number
+	
+	
 	//
  	function is_valid($reference, $type, $context=null, $line=null)
 	{
@@ -315,7 +308,7 @@ class references
 
 		$regex = preg_replace(
 			array(
-				'/\\\{/',	// unquote placeholders
+				'/\\\{/',	
 				'/\\\}/',
 				'/\{MM\}/',
 				'/\{YY\}/',
@@ -370,28 +363,28 @@ class references
 		}
 
 		$refline = $this->reflines->get($line);
-		 // legacy code used with simple templates
-		if ($this->_legacy_line($refline) && ($reference == $this->get_next($type, $line))) { // if reference was not changed from default
-			$next = $this->_increment($reference);	// increment default
+		 
+		if ($this->_legacy_line($refline) && ($reference == $this->get_next($type, $line))) { 
+			$next = $this->_increment($reference);	
 			$this->reflines->save_next($type, $next, $line);
 		}
 	}
 	//
-	// Restore previous reference (if possible) after voiding transaction.
+	
 	//
 	function restore_last($type, $id)
 	{
-		// get refline for removed document reference
+		
 		$reference = get_reference($type, $id);
 		$line = $this->reflines->find_refline_id($reference, $type);
 		$refline = $this->reflines->get($line);
 
-		if ($this->_legacy_line($refline)) // legacy code used with simple templates
+		if ($this->_legacy_line($refline)) 
 		{
-			$last = $this->_increment($this->get_next($type, $line), true); // find last reference used in this line
+			$last = $this->_increment($this->get_next($type, $line), true); 
 			if ($reference == $last)
 			{
-				// save last reference as next
+				
 			    $sql = "UPDATE ".TB_PREF."reflines SET pattern=SUBSTRING(" . db_escape(trim($last)) .", LENGTH(`prefix`)+1)"
 					. " WHERE trans_type = ".db_escape($type) . " AND `id`=".db_escape($line);
 
@@ -406,20 +399,20 @@ class references
 	//
 	function _increment($reference, $back=false) 
 	{
-		// Legacy code used when no palceholder is in use:
-		//  WA036 will increment to WA037 and so on.
-       	// If $reference contains at least one group of digits,
-        // extract first didgits group and add 1, then put all together.
-        // NB. preg_match returns 1 if the regex matches completely 
-        // also $result[0] holds entire string, 1 the first captured, 2 the 2nd etc.
+		
+		
+       	
+        
+        
+        
         //
         if (preg_match('/^(\D*?)(\d+)(.*)/', $reference, $result) == 1) 
         {
 			list($all, $prefix, $number, $postfix) = $result;
-			$dig_count = strlen($number); // How many digits? eg. 0003 = 4
-			$fmt = '%0' . $dig_count . 'd'; // Make a format string - leading zeroes
+			$dig_count = strlen($number); 
+			$fmt = '%0' . $dig_count . 'd'; 
 			$val = intval($number + ($back ? ($number<1 ? 0 : -1) : 1));
-			$nextval =  sprintf($fmt, $val); // Add one on, and put prefix back on
+			$nextval =  sprintf($fmt, $val); 
 
 			return $prefix.$nextval.$postfix;
         }

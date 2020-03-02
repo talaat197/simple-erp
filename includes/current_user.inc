@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 include_once($path_to_root . "/includes/prefs/userprefs.inc");
@@ -23,7 +16,7 @@ class current_user
 	var $username;
 	var $name;
 	var $email;
-	var $company; // user's company
+	var $company; 
 	var $pos;
 	var $access;
 	var $timeout;
@@ -34,7 +27,7 @@ class current_user
 	var $ui_mode = 0;
 	
 	var $prefs;
-	var $cur_con; // current db connection (can be different from $company for superuser)
+	var $cur_con; 
 
 	function __construct()
 	{
@@ -69,12 +62,12 @@ class current_user
 		$lang->set_language($_SESSION['language']->code);
 		db_set_encoding($_SESSION['language']->encoding);
 
-		// Use external authentication source if any.
-		// Keep in mind you need to have user data set for $loginname
-		// in FA users table anyway to successfully log in.
+		
+		
+		
 		$Auth_Result = hook_authenticate($loginname, $password);
 
-		if (!isset($Auth_Result))	// if not used: standard method
+		if (!isset($Auth_Result))	
 			$Auth_Result = get_user_auth($loginname, md5($password));
 
 		if ($SysPrefs->login_delay > 0)
@@ -84,7 +77,7 @@ class current_user
 		{
 			$myrow = get_user_by_login($loginname);
 			if ($myrow['language'] != $dflt_lang)
-			{	 // refresh language and user data
+			{	 
  				$lang->set_language($myrow['language']);
 				db_set_encoding($_SESSION['language']->encoding);
 				$myrow = get_user_by_login($loginname);
@@ -93,9 +86,9 @@ class current_user
 			$this->old_db = isset($myrow["full_access"]);
 			if (! @$myrow["inactive"]) {
 				if ($this->old_db) { 
-					// Transition code:
-					// db was not yet upgraded after source update to v.2.2
-					// give enough access for admin user to continue upgrade
+					
+					
+					
 					if (!isset($security_groups) || !isset($security_headings)) {
 						echo "<center><br><br><font size='5' color='red'><b>";
 						echo _('Before software upgrade you have to include old $security_groups and $security_headings arrays from old config.php file to the new one.');
@@ -105,7 +98,7 @@ class current_user
 					}
 	        	    $this->access = $myrow["full_access"];
 	        	    if (in_array(20, $security_groups[$this->access]))
-						// temporary access for admin users
+						
 						$this->role_set[] = $security_areas['SA_SOFTWAREUPGRADE'][0];
 					else {
 						echo "<center><br><br><font size='5' color='red'><b>";
@@ -116,12 +109,12 @@ class current_user
 	        	} else {
 					$this->role_set = array();
 	        	    $this->access = $myrow["role_id"];
-					// store area codes available for current user role
+					
 					$role = get_security_role($this->access);
 					if (!$role) 
 						return false;
 					foreach( $role['areas'] as $code )
-						// filter only area codes for enabled security sections
+						
 						if (in_array($code&~0xff, $role['sections'])) 
 							$this->role_set[] = $code;
 	        	}
@@ -136,7 +129,7 @@ class current_user
 		    	$this->logged = true;
 				$this->last_act = time();
 				$this->timeout = session_timeout();
-				flush_dir(user_js_cache()); // refresh cache on login
+				flush_dir(user_js_cache()); 
 			}
 		}
 		return $this->logged;
@@ -176,7 +169,7 @@ class current_user
 	{
 		global $security_groups;
 		if ($this->old_db) {
-			// notification after upgrade from pre-2.2 version
+			
 			return isset($security_groups) && is_array(@$security_groups[$this->access]);
 		} else
 			return !isset($security_groups) && is_array($this->role_set);
@@ -197,7 +190,7 @@ class current_user
 
 		$code = $security_areas[$sec_area][0];
 
-		// only first registered company has site admin privileges
+		
 		return $code && in_array($code, $this->role_set)
 			&& ($this->company == 0 || (($code&~0xff) != SS_SADMIN));
 	}
@@ -364,7 +357,7 @@ function price_decimal_format($number, &$dec)
 	}
 	return number_format2($number, $dec);
 }
-// function money_format doesn't exist in OS Win.
+
 if (!function_exists('money_format'))
 {
 	function money_format($format, $number) 
@@ -373,14 +366,14 @@ if (!function_exists('money_format'))
 	} 
 }	
 
-// 2008-06-15. Added extra parameter $stock_id and reference for $dec
+
 //--------------------------------------------------------------------
 function qty_format($number, $stock_id=null, &$dec) {
 	$dec = get_qty_dec($stock_id);
     return number_format2($number, $dec);
 }
 
-// and get_qty_dec
+
 function get_qty_dec($stock_id=null)
 {
 	global $path_to_root;
@@ -622,7 +615,7 @@ function add_user_js_data() {
 	  . "var user = {\n"
 	  . "theme: '". $path_to_root . '/themes/'. user_theme().'/'."',\n"
 	  . "loadtxt: '"._('Requesting data...')."',\n"
-	  . "date: '".Today()."',\n"	// server date
+	  . "date: '".Today()."',\n"	
 	  . "datesys: ".$SysPrefs->date_system.",\n"
 	  . "datefmt: ".user_date_format().",\n"
 	  . "datesep: '".$SysPrefs->dateseps[user_date_sep()]."',\n"
@@ -641,7 +634,7 @@ function user_js_cache($id=null)
 		$id = @$_SESSION['wa_current_user']->user;
 
 	if (!$id)
-		$id = 0; // before login
+		$id = 0; 
 	return $path_to_root.'/company/'.user_company().'/js_cache/'.$id;
 }
 
@@ -649,7 +642,7 @@ function user_js_cache($id=null)
 
 function session_timeout()
 {
-	$tout = @get_company_pref('login_tout'); // mask warning for db ver. 2.2
+	$tout = @get_company_pref('login_tout'); 
 	return $tout ? $tout : ini_get('session.gc_maxlifetime');
 }
 
@@ -728,7 +721,7 @@ function array_search_key($needle, $haystack, $valuekey=null)
 	return @$keys[0];
 }
 
-// Recalculate report columns if orientation is landscape.
+
 function recalculate_cols(&$cols)
 {
 	$factor = (user_pagesize() == "A4" ? 1.4 : 1.3);
@@ -767,7 +760,7 @@ function company_path($comp=null)
 	if (!isset($comp))
 		$comp = user_company();
 
-	// if path is relative, set current path_to_root
+	
 	return ($comp_path[0]=='.' ? $path_to_root.'/'.basename($comp_path) : $comp_path)
 			. '/'.$comp;
 }

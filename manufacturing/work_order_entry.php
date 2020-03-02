@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_WORKORDERENTRY';
 $path_to_root = "..";
@@ -152,7 +145,7 @@ function can_process()
 		set_focus('date_');
 		return false;
 	}
-	// only check bom and quantites if quick assembly
+	
 	if (!($_POST['type'] == WO_ADVANCED))
 	{
         if (!has_bom($_POST['stock_id']))
@@ -183,7 +176,7 @@ function can_process()
         {
         	if ($_POST['type'] == WO_ASSEMBLY)
         	{
-        		// check bom if assembling
+        		
                 $result = get_bom($_POST['stock_id']);
 
             	while ($bom_item = db_fetch($result))
@@ -206,7 +199,7 @@ function can_process()
         	}
         	elseif ($_POST['type'] == WO_UNASSEMBLY)
         	{
-        		// if unassembling, check item to unassemble
+        		
                 if (check_negative_stock($_POST['stock_id'], -input_num('quantity'), $_POST['StockLocation'], $_POST['date_']))
         		{
         			display_error(_("The selected item cannot be unassembled because there is insufficient stock."));
@@ -272,7 +265,7 @@ if (isset($_POST['delete']))
 
 	$cancel_delete = false;
 
-	// can't delete it there are productions or issues
+	
 	if (work_order_has_productions($selected_id) ||
 		work_order_has_issues($selected_id)	||
 		work_order_has_payments($selected_id))
@@ -284,7 +277,7 @@ if (isset($_POST['delete']))
 	if ($cancel_delete == false)
 	{ //ie not cancelled the delete as a result of above tests
 
-		// delete the actual work order
+		
 		delete_work_order($selected_id, $_POST['stock_id'], $_POST['quantity'], $_POST['date_']);
 		meta_forward($_SERVER['PHP_SELF'], "DeletedID=$selected_id");
 	}
@@ -295,7 +288,7 @@ if (isset($_POST['delete']))
 if (isset($_POST['close']))
 {
 
-	// update the closed flag in the work order
+	
 	close_work_order($selected_id);
 	meta_forward($_SERVER['PHP_SELF'], "ClosedID=$selected_id");
 }
@@ -324,7 +317,7 @@ if (isset($selected_id))
 		safe_exit();
 	}
 
-	// if it's a closed work order can't edit it
+	
 	if ($myrow["closed"] == 1)
 	{
 		echo "<center>";

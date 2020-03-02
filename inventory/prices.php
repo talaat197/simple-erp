@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_SALESPRICE';
 
@@ -134,9 +127,9 @@ if (list_updated('stock_id')) {
 	$Ajax->activate('price_details');
 }
 if (list_updated('stock_id') || isset($_POST['_curr_abrev_update']) || isset($_POST['_sales_type_id_update'])) {
-	// after change of stock, currency or salestype selector
-	// display default calculated price for new settings. 
-	// If we have this price already in db it is overwritten later.
+	
+	
+	
 	unset($_POST['price']);
 	$Ajax->activate('price_details');
 }

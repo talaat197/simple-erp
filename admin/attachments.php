@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $path_to_root="..";
 $page_security = 'SA_ATTACHDOCUMENT';
@@ -72,7 +65,7 @@ page(_($help_context = "Attach Documents"), false, false, "", $js);
 
 simple_page_mode(true);
 //----------------------------------------------------------------------------------------
-if (isset($_GET['filterType'])) // catch up external links
+if (isset($_GET['filterType'])) 
 	$_POST['filterType'] = $_GET['filterType'];
 if (isset($_GET['trans_no']))
 	$_POST['trans_no'] = $_GET['trans_no'];
@@ -108,8 +101,8 @@ if ($Mode == 'ADD_ITEM' || $Mode == 'UPDATE_ITEM')
 		$filesize = $_FILES['filename']['size'];
 		$filetype = $_FILES['filename']['type'];
 
-		// file name compatible with POSIX
-		// protect against directory traversal
+		
+		
 		if ($Mode == 'UPDATE_ITEM')
 		{
 		    $row = get_attachment($selected_id);

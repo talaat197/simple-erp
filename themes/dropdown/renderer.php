@@ -1,15 +1,8 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
-// Author: Joe Hunt, 17/11/2015. Upgraded to release 2.4. 10/11/2015.
+
 
 	class renderer
 	{
@@ -94,7 +87,7 @@
 				echo "</ul>\n";
 				$indicator = "$path_to_root/themes/".user_theme(). "/images/ajax-loader.gif";
 				echo "<h1>$SysPrefs->power_by $version<span style='padding-left:300px;'><img id='ajaxmark' src='$indicator' align='center' style='visibility:hidden;'></span></h1>\n";
-				echo "</div>\n"; // header
+				echo "</div>\n"; 
 								
 				echo "<div id='cssmenu'>\n";
 				echo "<ul>\n";
@@ -166,13 +159,13 @@
 								echo "        </ul>\n";	
 							echo "      </li>\n";
 						}
-						echo "    </ul>\n"; // menu
+						echo "    </ul>\n"; 
 					}
 					echo"  </li>\n";
 					$i++;
 				}	
 				echo "</ul>\n"; 
-				echo "</div>\n"; // menu
+				echo "</div>\n"; 
 			}
 			echo "<div class='fa-body'>\n";
 			if ($no_menu)
@@ -194,8 +187,8 @@
 			include_once($path_to_root . "/includes/date_functions.inc");
 
 			if (!$no_menu && !$is_index)
-				echo "</div>\n"; // fa-content
-			echo "</div>\n"; // fa-body
+				echo "</div>\n"; 
+			echo "</div>\n"; 
 			if (!$no_menu)
 			{
    				echo "<script type='text/javascript'>if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
@@ -211,9 +204,9 @@
 					echo "<span class='date'>" . _("Theme:") . " " . user_theme() . "</span>\n";
 					echo "<span class='date'>".show_users_online()."</span>\n";
 				}
-				echo "</div>\n"; // footer
+				echo "</div>\n"; 
 			}
-			echo "</div>\n"; // fa-main
+			echo "</div>\n"; 
 		}
 
 		function display_applications(&$waapp)

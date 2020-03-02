@@ -1,16 +1,9 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
-// array contains optional/required params for all supported validator types
+
 // 
 $validator_types = array(
 	'required' => array(),
@@ -21,16 +14,16 @@ $validator_types = array(
 	Generic record set object
 */
 abstract class record_set {
-	var $key;			// unique key fields
-	var $fields;		// other fields
-	var $name;			// table name (without prefix)
-	var $checks = array();		// checks on data before insert/update/delete
+	var $key;			
+	var $fields;		
+	var $name;			
+	var $checks = array();		
 
-	var $selected_id;	// current key
-	var $data;			// current record data
+	var $selected_id;	
+	var $data;			
 	var $errors = array();
 	var $debug = array();
-	var $subset;		// optional where clause for record subset
+	var $subset;		
 
 	function __wakeup()
 	{
@@ -48,19 +41,19 @@ abstract class record_set {
 	function error($msg, $field=null) {
 		global $db;
 
-		// save error message
+		
 		if (!isset($field))
 			$field = count($this->errors);
 		$this->errors[$field] = $msg;
 
-		// save db errors for debugging purposes
+		
 		if ($db && db_error_no()) $this->debug[] = db_error_msg($db);
 
 		return false;
 	}
 	//==============================================================================================
 	// 
-	// Data valiation
+	
 
 	/**
 	*	Set validator for insert/update/delete
@@ -108,7 +101,7 @@ abstract class record_set {
 				$fld = $check['fld'];
 				$opts = @$check['opts'];
 
-				// precheck for existing 
+				
 				if ($mode == 'i' && $fld && !isset($data[$fld])) {
 					$msg = sprintf(_("Input parameter '%s' have to be set."), $check['fld']);
 					return $this->error($msg, $check['fld']);
@@ -132,7 +125,7 @@ abstract class record_set {
 
 					case 'range':
 						if (!$msg) $msg = sprintf(_("Parameter '%s' has invalid value.", $check['fld']));
-						// TODO: check at least one named parameter is passed
+						
 						if (isset($opts['lt']) && !($data[$fld] < $opts['lt']) ||
 							(isset($opts['gt']) && !($data[$fld] > $opts['gt'])) ||
 							(isset($opts['min']) && !($data[$fld] < $opts['min'])) ||
@@ -142,7 +135,7 @@ abstract class record_set {
 //					case 'match':
 						break;
 
-					// user defined checks
+					
 					default:
 						$func = $check['type'];
 						if (method_exists($this, $func)) {
@@ -169,7 +162,7 @@ abstract class record_set {
 	{
 		$editables = array();
 
-		// default: all but key fields editable 
+		
 		foreach ($this->fields as $fld=>$val)
 			$editables[$fld] = !in_array($fld, (array)$this->key);
 
@@ -189,7 +182,7 @@ abstract class record_set {
 
 	function update_check($key, $data)
 	{
-		// Note: this does not allow change of key
+		
 		return $this->_validate( $key, $data);
 	}
 
@@ -202,7 +195,7 @@ abstract class record_set {
 	function get($key=null)
 	{
 		$defaults = array();
-		// return all defined default values
+		
 		foreach ($this->fields as $name => $def)
 		{
 			if(!is_numeric($name)) {
@@ -315,13 +308,13 @@ class data_set extends record_set {
 	//
 	function update($key, $data)
 	{
-		if (!parent::update($key, $data))	// validate data
+		if (!parent::update($key, $data))	
 			return false;
 
 		$sql = "UPDATE ".TB_PREF.$this->name." SET ";
 		$updates = array();
 
-		foreach($data as $fld => $value) {	// select only data relevant for this model
+		foreach($data as $fld => $value) {	
 			if (in_array($fld, $this->fields))
 				$updates[$fld] = "`$fld`=".db_escape($value);
 		}
@@ -331,7 +324,7 @@ class data_set extends record_set {
 		$sql .= implode(',', $updates)." WHERE ";
 		$where = $this->subset ? (array)$this->subset : array();
 
-		if(is_array($this->key)) {			// construct key phrase
+		if(is_array($this->key)) {			
 			foreach($this->key as $fld)
 				if (isset($key[$fld]))
 					$where[$fld] = "`$fld`=".db_escape($key[$fld]);
@@ -415,7 +408,7 @@ class array_set extends record_set {
 
 	var $array = array();
 
-	var $object_class;	// name of record object class or null for arrays
+	var $object_class;	
 
 	function __construct($name, $fields, $key=null, &$arr=array(), $class = null)
 	{

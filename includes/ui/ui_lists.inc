@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root . "/includes/banking.inc");
 include_once($path_to_root . "/includes/types.inc");
@@ -29,49 +22,49 @@ function combo_input($name, $selected_id, $sql, $valfield, $namefield,
 {
 global $Ajax, $path_to_root, $SysPrefs ;
 
-$opts = array(		// default options
-	'where'=> array(),		// additional constraints
-	'order' => $namefield,	// list sort order
-		// special option parameters
-	'spec_option'=>false, 	// option text or false
-	'spec_id' => 0,		// option id
-		// submit on select parameters
-	'default' => '', // default value when $_POST is not set
-	'multi' => false,	// multiple select
+$opts = array(		
+	'where'=> array(),		
+	'order' => $namefield,	
+		
+	'spec_option'=>false, 	
+	'spec_id' => 0,		
+		
+	'default' => '', 
+	'multi' => false,	
 	'select_submit' => false, //submit on select: true/false
-	'async' => true,	// select update via ajax (true) vs _page_body reload
-		// search box parameters
+	'async' => true,	
+		
 	'sel_hint' => null,
-	'search_box' => false, 	// name or true/false
-	'type' => 0,	// type of extended selector:
-		// 0 - with (optional) visible search box, search by fragment inside id
-		// 1 - with hidden search box, search by option text
-		// 2 - with (optional) visible search box, search by fragment at the start of id
-		// 3 - TODO reverse: box with hidden selector available via enter; this
-		// would be convenient for optional ad hoc adding of new item
+	'search_box' => false, 	
+	'type' => 0,	
+		
+		
+		
+		
+		
 	'search_submit' => true, //search submit button: true/false
-	'size' => 8,	// size and max of box tag
+	'size' => 8,	
 	'max' => 50,
-	'height' => false,	// number of lines in select box
-	'cells' => false,	// combo displayed as 2 <td></td> cells
-	'search' => array(), // sql field names to search
-	'format' => null, 	 // format functions for regular options
+	'height' => false,	
+	'cells' => false,	
+	'search' => array(), 
+	'format' => null, 	 
 	'disabled' => false,
-	'box_hint' => null, // box/selectors hints; null = std see below
-	'category' => false, // category column name or false
-	'show_inactive' => false, // show inactive records. 
-	'editable' => false, // false, or length of editable entry field
-	'editlink' => false	// link to entity entry/edit page (optional)
+	'box_hint' => null, 
+	'category' => false, 
+	'show_inactive' => false, 
+	'editable' => false, 
+	'editlink' => false	
 );
-// ------ merge options with defaults ----------
+
 	if($options != null)
 		$opts = array_merge($opts, $options);
 	if (!is_array($opts['where']))  $opts['where'] = array($opts['where']);
 
 	$search_box = $opts['search_box']===true ? '_'.$name.'_edit' : $opts['search_box'];
-	// select content filtered by search field:
+	
 	$search_submit = $opts['search_submit']===true ? '_'.$name.'_button' : $opts['search_submit'];
-	// select set by select content field
+	
 	$search_button = $opts['editable'] ? '_'.$name.'_button' : ($search_box ? $search_submit : false);
 
 	$select_submit =  $opts['select_submit'];
@@ -107,12 +100,12 @@ $opts = array(		// default options
 		$selected_id = get_post($name, (string)$opts['default']);
 	}
 	if(!is_array($selected_id))
-		$selected_id = array((string)$selected_id); // code is generalized for multiple selection support
+		$selected_id = array((string)$selected_id); 
 
 	$txt = get_post($search_box);
 	$rel = '';
 	$limit = '';
-	if (isset($_POST['_'.$name.'_update'])) { // select list or search box change
+	if (isset($_POST['_'.$name.'_update'])) { 
 		if ($by_id) $txt = $_POST[$name];
 
 		if (!$opts['async'])
@@ -127,12 +120,12 @@ $opts = array(		// default options
 			$Ajax->activate($name);
 	}
 	if ($search_box) {
-		// search related sql modifications
+		
 
-		$rel = "rel='$search_box'"; // set relation to list
+		$rel = "rel='$search_box'"; 
 		if ($opts['search_submit']) {
 			if (isset($_POST[$search_button])) {
-				$selected_id = array(); // ignore selected_id while search
+				$selected_id = array(); 
 				if (!$opts['async'])
 					$Ajax->activate('_page_body');
 				else
@@ -155,7 +148,7 @@ $opts = array(		// default options
 		}
 	}
 
-	// sql completion
+	
 	if (count($opts['where'])) {
 		$where = strpos($sql, 'WHERE')==false ? ' WHERE ':' AND ';
 		$where .= '('. implode($opts['where'], ' AND ') . ')';
@@ -174,7 +167,7 @@ $opts = array(		// default options
 	}
 
 	$sql .= $limit;
-	// ------ make selector ----------
+	
 	$selector = $first_opt = '';
 	$first_id = false;
 	$found = false;
@@ -198,11 +191,11 @@ $opts = array(		// default options
 				$found = $value;
 				$edit = $opts['editable'] && $contact_row['editable'] 
 					&& (@$_POST[$search_box] == $value)
-					? $contact_row[1] : false; // get non-formatted description
+					? $contact_row[1] : false; 
 				if ($edit)
-					break;	// selected field is editable - abandon list construction
+					break;	
 			}
-			// show selected option even if inactive 
+			
 			if (!$opts['show_inactive'] && @$contact_row['inactive'] && $sel==='') {
 				continue;
 			} else 
@@ -226,8 +219,8 @@ $opts = array(		// default options
 		db_free_result($result);
 	}
 
-	// Prepend special option.
-	if ($spec_option !== false) { // if special option used - add it
+	
+	if ($spec_option !== false) { 
 		$first_id = $spec_id;
 		$first_opt = $spec_option;
 		$sel = $found===false ? 'selected' : '';
@@ -253,14 +246,14 @@ $opts = array(		// default options
 		. "$disabled name='$name".($multi ? '[]':'')."' class='$class' title='"
 		. $opts['sel_hint']."' $rel>".$selector."</select>\n";
 	if ($by_id && ($search_box != false || $opts['editable']) ) {
-		// on first display show selector list
+		
 		if (isset($_POST[$search_box]) && $opts['editable'] && $edit) {
 			$selector = "<input type='hidden' name='$name' value='".$_POST[$name]."'>"
 			."<input type='text' $disabled name='{$name}_text' id='{$name}_text' size='".
 				$opts['editable']."' maxlength='".$opts['max']."' $rel value='$edit'>\n";
-				set_focus($name.'_text'); // prevent lost focus
+				set_focus($name.'_text'); 
 		} else if (get_post($search_submit ? $search_submit : "_{$name}_button"))
-			set_focus($name); // prevent lost focus
+			set_focus($name); 
 		if (!$opts['editable'])
 	 		$txt = $found;
 		$Ajax->addUpdate($name, $search_box, $txt ? $txt : '');
@@ -268,17 +261,17 @@ $opts = array(		// default options
 
 	$Ajax->addUpdate($name, "_{$name}_sel", $selector);
 
-	// span for select list/input field update
+	
 	$selector = "<span id='_{$name}_sel'>".$selector."</span>\n";
 
-	 // if selectable or editable list is used - add select button
+	 
 	if ($select_submit != false || $search_button) {
-	// button class selects form reload/ajax selector update
+	
 		$selector .= sprintf(SELECT_BUTTON, $disabled, user_theme(),
 			(fallback_mode() ? '' : 'display:none;'),
 			 '_'.$name.'_update')."\n";
 	}
-// ------ make combo ----------
+
 	$edit_entry = '';
 	if ($search_box != false) {
 		$edit_entry = "<input $disabled type='text' name='$search_box' id='$search_box' size='".
@@ -388,19 +381,19 @@ function array_selector($name, $selected_id, $items, $options=null)
 {
 	global $Ajax;
 
-$opts = array(		// default options
-	'spec_option'=>false, 	// option text or false
-	'spec_id' => 0,		// option id
+$opts = array(		
+	'spec_option'=>false, 	
+	'spec_id' => 0,		
 	'select_submit' => false, //submit on select: true/false
-	'async' => true,	// select update via ajax (true) vs _page_body reload
-	'default' => '', // default value when $_POST is not set
-	'multi'=>false,	// multiple select
-		// search box parameters
-	'height' => false,	// number of lines in select box
+	'async' => true,	
+	'default' => '', 
+	'multi'=>false,	
+		
+	'height' => false,	
 	'sel_hint' => null,
 	'disabled' => false
 );
-// ------ merge options with defaults ----------
+
 	if($options != null)
 		$opts = array_merge($opts, $options);
 	$select_submit =  $opts['select_submit'];
@@ -413,7 +406,7 @@ $opts = array(		// default options
 		$selected_id = get_post($name, $opts['default']);
 	}
 	if(!is_array($selected_id))
-		$selected_id = array((string)$selected_id); // code is generalized for multiple selection support
+		$selected_id = array((string)$selected_id); 
 
 	if (isset($_POST[ '_'.$name.'_update'])) {
 		if (!$opts['async'])
@@ -422,7 +415,7 @@ $opts = array(		// default options
 			$Ajax->activate($name);
 	}
 
-	// ------ make selector ----------
+	
 	$selector = $first_opt = '';
 	$first_id = false;
 	$found = false;
@@ -442,8 +435,8 @@ $opts = array(		// default options
 	if ($first_id!==false) {
 		$sel = ($found===$first_id) || ($found===false && ($spec_option===false)) ? "selected='selected'" : '';
 	}
-	// Prepend special option.
-	if ($spec_option !== false) { // if special option used - add it
+	
+	if ($spec_option !== false) { 
 		$first_id = $spec_id;
 		$first_opt = $spec_option;
 		$sel = $found===false ? 'selected' : '';
@@ -465,7 +458,7 @@ $opts = array(		// default options
 
 	$selector = "<span id='_{$name}_sel'>".$selector."</span>\n";
 
-	if ($select_submit != false) { // if submit on change is used - add select button
+	if ($select_submit != false) { 
 		$selector .= sprintf(SELECT_BUTTON, $disabled, user_theme(),
 			(fallback_mode() ? '' : 'display:none;'),
 			 '_'.$name.'_update')."\n";
@@ -507,7 +500,7 @@ function add_edit_combo($type)
 
 	if (!isset($SysPrefs->use_icon_for_editkey) || $SysPrefs->use_icon_for_editkey==0)
 		return "";
-	// Derive theme path
+	
 	$theme_path = $path_to_root . '/themes/' . user_theme();
 
 	$key = $popup_editors[$type][1];
@@ -711,7 +704,7 @@ function currencies_list($name, $selected_id=null, $submit_on_change=false, $exc
 	if ($exclude_home_curr)
 		$sql .= " WHERE curr_abrev!='".get_company_currency()."'";
 
-	// default to the company currency
+	
 	return combo_input($name, $selected_id, $sql, 'curr_abrev', 'currency',
 		array(
 			'select_submit'=> $submit_on_change,
@@ -743,7 +736,7 @@ function fiscalyears_list($name, $selected_id=null, $submit_on_change=false)
 
 	$sql = "SELECT * FROM ".TB_PREF."fiscal_year";
 
-	// default to the company current fiscal year
+	
 
 	return combo_input($name, $selected_id, $sql, 'id', '',
 		array(
@@ -867,14 +860,14 @@ function stock_items_list_cells($label, $name, $selected_id=null, $all_option=fa
 	else
 		$editor_item = 'item';
 
-// 	if ($editkey) ??
+
 //		set_editor($editor_item, $name, $editkey);
 
 	if ($label != null)
 		echo "<td>$label</td>\n";
 
-// ??
-//  $opts = array_merge($options, array('cells'=>true, 'show_inactive'=>$all, 'new_icon' => $editkey ? 'item' : false));
+
+
 //
 //	echo stock_items_list($name, $selected_id, $all_option, $submit_on_change, $opts);
 
@@ -892,12 +885,12 @@ function stock_items_list_row($label, $name, $selected_id=null, $all_option=fals
 */
 //---------------------------------------------------------------------------------------------------
 //
-// Select item via foreign code.
+
 //
 function sales_items_list($name, $selected_id=null, $all_option=false, 
 	$submit_on_change=false, $type='', $opts=array())
 {
-	// all sales codes
+	
 	$sql = "SELECT i.item_code, i.description, c.description, count(*)>1 as kit,
 			 i.inactive, if(count(*)>1, '0', s.editable) as editable
 			FROM
@@ -910,9 +903,9 @@ function sales_items_list($name, $selected_id=null, $all_option=false,
       AND mb_flag != 'F'";
 
 	
-	if ($type == 'local')	{ // exclude foreign codes
+	if ($type == 'local')	{ 
 		$sql .=	" AND !i.is_foreign"; 
-	} elseif ($type == 'kits') { // sales kits
+	} elseif ($type == 'kits') { 
 		$sql .=	" AND !i.is_foreign AND i.item_code!=i.stock_id";
 	}
 	$sql .= " AND !i.inactive AND !s.inactive AND !s.no_sale";
@@ -944,7 +937,7 @@ function sales_items_list_cells($label, $name, $selected_id=null, $all_option=fa
 	if ($label != null)
 		echo "<td>$label</td>\n";
 	echo sales_items_list($name, $selected_id, $all_option, $submit_on_change,
-		'', array('cells'=>true, 'max'=>50)); // maximum is set to 50 and not default 255.
+		'', array('cells'=>true, 'max'=>50)); 
 }
 
 function sales_kits_list($name, $selected_id=null, $all_option=false, $submit_on_change=false)
@@ -1088,11 +1081,11 @@ function stock_units_list_row($label, $name, $value=null, $enabled=true)
 function stock_purchasable_fa_list_cells($label, $name, $selected_id=null, $all_option=false,
 	$submit_on_change=false, $all=false, $editkey = false, $exclude_items = array())
 {
-	// Check if a fixed asset has been bought.
+	
 	$where_opts[] = "stock_id NOT IN
     	( SELECT stock_id FROM ".TB_PREF."stock_moves WHERE type=".ST_SUPPRECEIVE." AND qty!=0 )";
 
-	// exclude items currently on the order.
+	
   	foreach($exclude_items as $item) {
     	$where_opts[] = "stock_id != ".db_escape($item->stock_id);
   	}
@@ -1105,10 +1098,10 @@ function stock_purchasable_fa_list_cells($label, $name, $selected_id=null, $all_
 function stock_disposable_fa_list($name, $selected_id=null,
 	$all_option=false, $submit_on_change=false)
 {
-	// Check if a fixed asset has been bought....
+	
 	$where_opts[] = "stock_id IN
     	( SELECT stock_id FROM ".TB_PREF."stock_moves WHERE type=".ST_SUPPRECEIVE." AND qty!=0 )";
-	// ...but has not been disposed or sold already.
+	
   	$where_opts[] = "stock_id NOT IN
 		( SELECT stock_id FROM ".TB_PREF."stock_moves WHERE (type=".ST_CUSTDELIVERY." OR type=".ST_INVADJUST.") AND qty!=0 )";
 
@@ -1121,10 +1114,10 @@ function stock_disposable_fa_list($name, $selected_id=null,
 function stock_disposable_fa_list_cells($label, $name, $selected_id=null,
 	$all_option=false, $submit_on_change=false, $exclude_items = array())
 {
-	// Check if a fixed asset has been bought....
+	
 	$where_opts[] = "stock_id IN
     	( SELECT stock_id FROM ".TB_PREF."stock_moves WHERE type=".ST_SUPPRECEIVE." AND qty!=0 )";
-	// ...but has not been disposed or sold already.
+	
 	$where_opts[] = "stock_id NOT IN
     	( SELECT stock_id FROM ".TB_PREF."stock_moves WHERE (type=".ST_CUSTDELIVERY." OR type=".ST_INVADJUST.") AND qty!=0 )";
 
@@ -1144,10 +1137,10 @@ function stock_depreciable_fa_list_cells($label, $name, $selected_id=null,
 	$all_option=false, $submit_on_change=false)
 {
 
-	// Check if a fixed asset has been bought....
+	
 	$where_opts[] = "stock_id IN
     	( SELECT stock_id FROM ".TB_PREF."stock_moves WHERE type=".ST_SUPPRECEIVE." AND qty!=0 )";
-	// ...but has not been disposed or sold already.
+	
 	$where_opts[] = "stock_id NOT IN
     	( SELECT stock_id FROM ".TB_PREF."stock_moves WHERE (type=".ST_CUSTDELIVERY." OR type=".ST_INVADJUST.") AND qty!=0 )";
 
@@ -1155,7 +1148,7 @@ function stock_depreciable_fa_list_cells($label, $name, $selected_id=null,
 	$begin = date2sql(add_months(sql2date($year['begin']), -1));
 	$end = date2sql(add_months(sql2date($year['end']), -1));
 
-	// check if current fiscal year
+	
 	$where_opts[] = "depreciation_date <= '".$end."'";
 	$where_opts[] = "depreciation_date >= '".$begin."'";
 
@@ -1649,15 +1642,15 @@ function pos_list_row($label, $name, $selected_id=null, $spec_option=false, $sub
 
 }
 //-----------------------------------------------------------------------------------------------
-// Payment type selector for current user.
+
 //
 function sale_payment_list($name, $category, $selected_id=null, $submit_on_change=true, $prepayments=true)
 {
 	$sql = "SELECT terms_indicator, terms, inactive FROM ".TB_PREF."payment_terms";
 
-	if ($category == PM_CASH) // only cash
+	if ($category == PM_CASH) 
 			$sql .= " WHERE days_before_due=0 AND day_in_following_month=0";
-	elseif ($category == PM_CREDIT) // only delayed payments
+	elseif ($category == PM_CREDIT) 
 			$sql .= " WHERE days_before_due".($prepayments ? '!=': '>')."0 OR day_in_following_month!=0";
 	elseif (!$prepayments)
 			$sql .= " WHERE days_before_due>=0";
@@ -1880,7 +1873,7 @@ function yesno_list($name, $selected_id=null, $name_yes="", $name_no="", $submit
 	return array_selector($name, $selected_id, $items, 
 		array( 
 			'select_submit'=> $submit_on_change,
-			'async' => false ) ); // FIX?
+			'async' => false ) ); 
 }
 
 function yesno_list_cells($label, $name, $selected_id=null, $name_yes="", $name_no="", $submit_on_change=false)
@@ -2078,7 +2071,7 @@ function systypes_list($name, $value=null, $spec_opt=false, $submit_on_change=fa
 {
 	global $systypes_array;
 
-	// emove non-voidable transactions if needed
+	
 	$systypes = array_diff_key($systypes_array, array_flip($exclude));
 	return array_selector($name, $value, $systypes, 
 		array( 
@@ -2116,7 +2109,7 @@ function journal_types_list_cells($label, $name, $value=null, $submit_on_change=
 
 	$items = $systypes_array;
 
-	// exclude quotes, orders and dimensions
+	
 	foreach (array(ST_PURCHORDER, ST_SALESORDER, ST_DIMENSION, ST_SALESQUOTE, ST_LOCTRANSFER) as $excl)
 			unset($items[$excl]);
 	
@@ -2274,7 +2267,7 @@ function print_profiles_list_row($label, $name, $selected_id=null, $spec_opt=fal
 
 function printers_list($name, $selected_id=null, $spec_opt=false, $submit_on_change=false)
 {
-	static $printers; // query only once for page display
+	static $printers; 
 
 	if (!$printers) {
 		$sql = "SELECT id, name, description FROM ".TB_PREF."printers";	
@@ -2420,7 +2413,7 @@ function tab_list_row($label, $name, $selected_id=null)
 
 function tag_list($name, $height, $type, $multi=false, $all=false, $spec_opt = false)
 {
-	// Get tags
+	
 	global $path_to_root;
 	include_once($path_to_root . "/admin/db/tags_db.inc");
 	$results = get_tags($type, $all);
@@ -2491,7 +2484,7 @@ function crm_category_types_list($name, $selected_id=null, $filter=array(), $sub
 		$groups = 'type';
 	if (@$filter['subclass']) $where[] = 'action='.db_escape($filter['subclass']);
 	if (@$filter['entity']) $where[] = 'entity_id='.db_escape($filter['entity']);
-	if (@$filter['multi']) { // contact category selector for person
+	if (@$filter['multi']) { 
 		$multi = true;
 	}
 
@@ -2539,7 +2532,7 @@ function coa_list_row($label, $name, $value=null)
 			$ext = array_search_value($fname, $installed_extensions, 'sql');
 			if ($ext!=null) {
 				$descr = $ext['name'];
-			} elseif ($fname == 'en_US-new.sql') { // two standard COAs
+			} elseif ($fname == 'en_US-new.sql') { 
 				$descr = _("Standard new company American COA (4 digit)");
 			} elseif ($fname == 'en_US-demo.sql') {
 				$descr = _("Standard American COA (4 digit) with demo data");

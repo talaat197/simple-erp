@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 /*
 	Retrieve value of POST variable(s).
@@ -36,7 +29,7 @@ $form_nested = -1;
 
 function start_form($multi=false, $dummy=false, $action="", $name="")
 {
-	// $dummy - leaved for compatibility with 2.0 API
+	
 	global $form_nested;
 
 	if (++$form_nested) return;
@@ -77,7 +70,7 @@ function end_form($breaks=0)
 		br($breaks);
 	hidden('_focus');
 	hidden('_modified', get_post('_modified', 0));
-	hidden('_confirmed'); // helper for final form confirmation
+	hidden('_confirmed'); 
 	hidden('_token', $_SESSION['csrf_token']);
 
 	output_hidden();
@@ -124,7 +117,7 @@ function start_outer_table($class=false, $extra="", $padding='2', $spacing='0', 
 	if ($br)
 		br();
 	start_table($class, $extra, $padding, $spacing);
-	echo "<tr valign=top><td>\n"; // outer table
+	echo "<tr valign=top><td>\n"; 
 }
 
 function table_section($number=1, $width=false)
@@ -134,7 +127,7 @@ function table_section($number=1, $width=false)
 		echo "</table>\n";
 		output_hidden();
 		$width = ($width ? "width='$width'" : "");
-		echo "</td><td style='border-left:1px solid #cccccc;' $width>\n"; // outer table
+		echo "</td><td style='border-left:1px solid #cccccc;' $width>\n"; 
 	}
 	echo "<table class='tablestyle_inner'>\n";
 }	
@@ -150,7 +143,7 @@ function end_outer_table($breaks=0, $close_table=true)
 	end_table($breaks);
 }
 //
-//  outer table spacer
+
 //
 function vertical_space($params='')
 {
@@ -169,10 +162,10 @@ function meta_forward($forward_to, $params="", $timeout=0, $return=false)
 }
 
 //-----------------------------------------------------------------------------------
-// Find and replace hotkey marker.
-// if $clean == true marker is removed and clean label is returned 
-// (for use in wiki help system), otherwise result is array of label 
-// with underlined hotkey letter and access property string.
+
+
+
+
 //
 function access_string($label, $clean=false)
 {
@@ -391,10 +384,10 @@ function div_start($id='', $trigger=null, $non_ajax=false)
 {
     global $ajax_divs;
 
-	if ($non_ajax) { // div for non-ajax elements
+	if ($non_ajax) { 
    		array_push($ajax_divs, array($id, null));
    		echo "<div style='display:none' class='js_only' ".($id !='' ? "id='$id'" : '').">";
-	} else { // ajax ready div
+	} else { 
    		array_push($ajax_divs, array($id, $trigger===null ? $id : $trigger));
    		echo "<div ". ($id !='' ? "id='$id'" : '').">";
    		ob_start();
@@ -417,11 +410,11 @@ function div_end()
 
 //-----------------------------------------------------------------------------
 //	Tabbed area:
-// 	$name - prefix for widget internal elements:
+
 //		Nth tab submit name:  {$name}_N
 //		div id:	_{$name}_div
 //		sel (hidden) name: _{$name}_sel
-// $tabs - array of tabs; string: tab title or array(tab_title, enabled_status)
+
 
 function tabbed_content_start($name, $tabs, $dft='') {
     global $Ajax;
@@ -461,8 +454,8 @@ function tabbed_content_start($name, $tabs, $dft='') {
 
 function tabbed_content_end() {
 	output_hidden();
-	echo "</div>"; // content box (don't change to div_end() unless div_start() is used above)
-	div_end(); // tabs widget
+	echo "</div>"; 
+	div_end(); 
 }
 
 function tab_changed($name)
@@ -534,7 +527,7 @@ function set_editor($type, $input, $caller=true)
 	$Pagehelp[] = $help;
 }
 //------------------------------------------------------------------------------
-// Procedures below are now obsolete. Preserved for eventual future use.
+
 
 /*
 	External page call with saving current context.

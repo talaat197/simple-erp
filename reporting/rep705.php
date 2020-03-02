@@ -1,21 +1,14 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_GLANALYTIC';
-// ----------------------------------------------------------------
-// $ Revision:	2.0 $
-// Creator:	Joe Hunt, Chaitanya for the recursive version 2009-02-05.
-// date_:	2005-05-19
-// Title:	Annual expense breakdown
-// ----------------------------------------------------------------
+
+
+
+
+
+
 $path_to_root="..";
 
 include_once($path_to_root . "/includes/session.inc");
@@ -206,7 +199,7 @@ function print_annual_expense_breakdown()
 	$cols = array(0, 40, 150, 180, 210, 240, 270, 300, 330, 360, 390, 420, 450, 480, 510);
 	//------------0--1---2----3----4----5----6----7----8----10---11---12---13---14---15-
 
-	// from now
+	
 	$sql = "SELECT begin, end, YEAR(end) AS yr, MONTH(end) AS mo FROM ".TB_PREF."fiscal_year WHERE id=".db_escape($year);
 	$result = db_query($sql, "could not get fiscal year");
 	$row = db_fetch($result);

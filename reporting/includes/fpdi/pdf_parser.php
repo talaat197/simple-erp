@@ -1,20 +1,20 @@
 <?php
 //
-//  FPDI - Version 1.2.1
+
 //
-//    Copyright 2004-2008 Setasign - Jan Slabon
+
 //
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
+
+
+
 //
-//      http://www.apache.org/licenses/LICENSE-2.0
+
 //
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
+
+
+
+
+
 //
 
 if (!defined ('PDF_TYPE_NULL'))
@@ -101,13 +101,13 @@ class pdf_parser {
         $this->getPDFVersion();
 
         $this->c = new pdf_context($this->f);
-        // Read xref-Data
+        
         $this->pdf_read_xref($this->xref, $this->pdf_find_xref());
 
-        // Check for Encryption
+        
         $this->getEncryption();
 
-        // Read root
+        
         $this->pdf_read_root();
     }
     
@@ -155,7 +155,7 @@ class pdf_parser {
      * Read the /Root
      */
     function pdf_read_root() {
-        // read root
+        
         $this->root = $this->pdf_resolve_object($this->c, $this->pdf_find_root());
     }
     
@@ -201,7 +201,7 @@ class pdf_parser {
      * @param integer $offset of xref-table
      */
     function pdf_read_xref(&$result, $offset) {
-        fseek($this->f, $o_pos = $offset-20); // set some bytes backwards to fetch errorious docs
+        fseek($this->f, $o_pos = $offset-20); 
             
         $data = fread($this->f, 100);
         
@@ -219,7 +219,7 @@ class pdf_parser {
     	$cylces = -1;
         $bytesPerCycle = 100;
         
-    	fseek($this->f, $o_pos = $o_pos+$xrefPos+4); // set the handle directly after the "xref"-keyword
+    	fseek($this->f, $o_pos = $o_pos+$xrefPos+4); 
         $data = fread($this->f, $bytesPerCycle);
         
         while (($trailerPos = strpos($data, 'trailer', max($bytesPerCycle*$cylces++, 0))) === false && !feof($this->f)) {
@@ -232,8 +232,8 @@ class pdf_parser {
         
         $data = substr($data, 0, $trailerPos);
         
-        // get Line-Ending
-        preg_match_all("/(\r\n|\n|\r)/", substr($data, 0, 100), $m); // check the first 100 bytes for linebreaks
+        
+        preg_match_all("/(\r\n|\n|\r)/", substr($data, 0, 100), $m); 
 
         $differentLineEndings = count(array_unique($m[0]));
         if ($differentLineEndings > 1) {
@@ -319,8 +319,8 @@ class pdf_parser {
 
        	switch ($token) {
             case	'<':
-    			// This is a hex string.
-    			// Read the value, then the terminator
+    			
+    			
 
                 $pos = $c->offset;
 
@@ -328,8 +328,8 @@ class pdf_parser {
 
                     $match = strpos ($c->buffer, '>', $pos);
 				
-    				// If you can't find it, try
-    				// reading more data from the stream
+    				
+    				
 
     				if ($match === false) {
     					if (!$c->increase_length()) {
@@ -347,12 +347,12 @@ class pdf_parser {
                 
                 break;
     		case	'<<':
-    			// This is a dictionary.
+    			
 
     			$result = array();
 
-    			// Recurse into this function until we reach
-    			// the end of the dictionary.
+    			
+    			
     			while (($key = $this->pdf_read_token($c)) !== '>>') {
     				if ($key === false) {
     					return false;
@@ -367,12 +367,12 @@ class pdf_parser {
     			return array (PDF_TYPE_DICTIONARY, $result);
 
     		case	'[':
-    			// This is an array.
+    			
 
     			$result = array();
 
-    			// Recurse into this function until we reach
-    			// the end of the array.
+    			
+    			
     			while (($token = $this->pdf_read_token($c)) !== ']') {
                     if ($token === false) {
     					return false;
@@ -388,20 +388,20 @@ class pdf_parser {
                 return array (PDF_TYPE_ARRAY, $result);
 
     		case	'('		:
-                // This is a string
+                
                 $pos = $c->offset;
                 
                 $openBrackets = 1;
     			do {
                     for (; $openBrackets != 0 && $pos < $c->length; $pos++) {
                         switch (ord($c->buffer[$pos])) {
-                            case 0x28: // '('
+                            case 0x28: 
                                 $openBrackets++;
                                 break;
-                            case 0x29: // ')'
+                            case 0x29: 
                                 $openBrackets--;
                                 break;
-                            case 0x5C: // backslash
+                            case 0x5C: 
                                 $pos++;
                         }
                     }
@@ -419,7 +419,7 @@ class pdf_parser {
 		        
 		        $c->reset($startpos = $o_pos + $o_offset);
 		        
-		        $e = 0; // ensure line breaks in front of the stream
+		        $e = 0; 
 		        if ($c->buffer[0] == chr(10) || $c->buffer[0] == chr(13))
 		        	$e++;
 		        if ($c->buffer[1] == chr(10) && $c->buffer[0] != chr(10))
@@ -439,17 +439,17 @@ class pdf_parser {
 		        } else {
 		            $v = '';   
 		        }
-		        $c->reset($startpos+$e+$length+9); // 9 = strlen("endstream")
+		        $c->reset($startpos+$e+$length+9); 
 		        
 		        return array(PDF_TYPE_STREAM, $v);
 		        
 	        case '%':
-	            // this is a comment - just jump over it
+	            
                 $pos = $c->offset;
     			while(1) {
-    			    // PHP 4.3.3 required
+    			    
                     #$match = preg_match("/(\r\n|\r|\n)/", $c->buffer, $m, PREG_OFFSET_CAPTURE, $pos);
-                    // alternative
+                    
                     $match = preg_match("/(\r\n|\r|\n)/", substr($c->buffer, $pos), $m);
 					if ($match === false) {
     					if (!$c->increase_length()) {
@@ -459,9 +459,9 @@ class pdf_parser {
                     	}
     				}
 
-    				// PHP 4.3.3 required
+    				
                     #$c->offset = $m[0][1]+strlen($m[0][0]);
-    				// alternative
+    				
                     $c->offset = strpos($c->buffer, $m[0], $pos)+strlen($m[0]);
     				
     				return $this->pdf_read_value($c);
@@ -469,16 +469,16 @@ class pdf_parser {
                 
     		default	:
             	if (is_numeric ($token)) {
-                    // A numeric token. Make sure that
-    				// it is not part of something else.
+                    
+    				
     				if (($tok2 = $this->pdf_read_token ($c)) !== false) {
                         if (is_numeric ($tok2)) {
 
-    						// Two numeric tokens in a row.
-    						// In this case, we're probably in
-    						// front of either an object reference
-    						// or an object specification.
-    						// Determine the case and return the data
+    						
+    						
+    						
+    						
+    						
     						if (($tok3 = $this->pdf_read_token ($c)) !== false) {
                                 switch ($tok3) {
     								case	'obj'	:
@@ -486,9 +486,9 @@ class pdf_parser {
     								case	'R'		:
     									return array (PDF_TYPE_OBJREF, (int) $token, (int) $tok2);
     							}
-    							// If we get to this point, that numeric value up
-    							// there was just a numeric value. Push the extra
-    							// tokens back into the stack and return the value.
+    							
+    							
+    							
     							array_push ($c->stack, $tok3);
     						}
     					}
@@ -504,7 +504,7 @@ class pdf_parser {
                     return array (PDF_TYPE_BOOLEAN, $token == 'true');
     			} else {
 
-                    // Just a token. Return it.
+                    
     				return array (PDF_TYPE_TOKEN, $token);
     			}
 
@@ -519,26 +519,26 @@ class pdf_parser {
      * @param boolean $encapsulate Must set to true, cause the parsing and fpdi use this method only without this para
      */
     function pdf_resolve_object(&$c, $obj_spec, $encapsulate = true) {
-        // Exit if we get invalid data
+        
     	if (!is_array($obj_spec)) {
             return false;
     	}
 
     	if ($obj_spec[0] == PDF_TYPE_OBJREF) {
 
-    		// This is a reference, resolve it
+    		
     		if (isset($this->xref['xref'][$obj_spec[1]][$obj_spec[2]])) {
 
-    			// Save current file position
-    			// This is needed if you want to resolve
-    			// references while you're reading another object
-    			// (e.g.: if you need to determine the length
-    			// of a stream)
+    			
+    			
+    			
+    			
+    			
 
     			$old_pos = ftell($c->file);
 
-    			// Reposition the file pointer and
-    			// load the object header.
+    			
+    			
 				
     			$c->reset($this->xref['xref'][$obj_spec[1]][$obj_spec[2]]);
 
@@ -548,9 +548,9 @@ class pdf_parser {
     				$this->error("Unable to find object ({$obj_spec[1]}, {$obj_spec[2]}) at expected location");
     			}
 
-    			// If we're being asked to store all the information
-    			// about the object, we add the object ID and generation
-    			// number for later use
+    			
+    			
+    			
 				$this->actual_obj =& $result;
     			if ($encapsulate) {
     				$result = array (
@@ -562,12 +562,12 @@ class pdf_parser {
     				$result = array();
     			}
 
-    			// Now simply read the object data until
-    			// we encounter an end-of-object marker
+    			
+    			
     			while(1) {
                     $value = $this->pdf_read_value($c);
 					if ($value === false || count($result) > 4) {
-						// in this case the parser coudn't find an endobj so we break here
+						
 						break;
     				}
 
@@ -601,15 +601,15 @@ class pdf_parser {
      */
     function pdf_read_token(&$c)
     {
-    	// If there is a token available
-    	// on the stack, pop it out and
-    	// return it.
+    	
+    	
+    	
 
     	if (count($c->stack)) {
     		return array_pop($c->stack);
     	}
 
-    	// Strip away any whitespace
+    	
 
     	do {
     		if (!$c->ensure_content()) {
@@ -618,7 +618,7 @@ class pdf_parser {
     		$c->offset += _strspn($c->buffer, " \n\r\t", $c->offset);
     	} while ($c->offset >= $c->length - 1);
 
-    	// Get the first character in the stream
+    	
 
     	$char = $c->buffer[$c->offset++];
 
@@ -629,17 +629,17 @@ class pdf_parser {
     		case '('	:
     		case ')'	:
 
-    			// This is either an array or literal string
-    			// delimiter, Return it
+    			
+    			
 
     			return $char;
 
     		case '<'	:
     		case '>'	:
 
-    			// This could either be a hex string or
-    			// dictionary delimiter. Determine the
-    			// appropriate case and return the token
+    			
+    			
+    			
 
     			if ($c->buffer[$c->offset] == $char) {
     				if (!$c->ensure_content()) {
@@ -653,9 +653,9 @@ class pdf_parser {
 
     		default		:
 
-    			// This is "another" type of token (probably
-    			// a dictionary entry or a numeric value)
-    			// Find the end and return it.
+    			
+    			
+    			
 
     			if (!$c->ensure_content()) {
     				return false;
@@ -663,17 +663,17 @@ class pdf_parser {
 
     			while(1) {
 
-    				// Determine the length of the token
+    				
 
     				$pos = _strcspn($c->buffer, " []<>()\r\n\t/", $c->offset);
     				if ($c->offset + $pos <= $c->length - 1) {
     					break;
     				} else {
-    					// If the script reaches this point,
-    					// the token may span beyond the end
-    					// of the current buffer. Therefore,
-    					// we increase the size of the buffer
-    					// and try again--just to be safe.
+    					
+    					
+    					
+    					
+    					
 
     					$c->increase_length();
     				}

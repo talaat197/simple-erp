@@ -1,22 +1,15 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 class fa2_4 extends fa_patch {
-	var $previous = '2.3rc';		// applicable database version
-	var $version = '2.4.1';	// version installed
+	var $previous = '2.3rc';		
+	var $version = '2.4.1';	
 	var $description;
 	var $sql = 'alter2.4.sql';
 	var $preconf = true;
-	var	$max_upgrade_time = 900;	// table recoding is really long process
+	var	$max_upgrade_time = 900;	
 	
 	function __construct() {
 		parent::__construct();
@@ -56,34 +49,34 @@ class fa2_4 extends fa_patch {
 
 		$pref = $db_connections[$company]['tbpref'];
 
-		if (get_company_pref('grn_clearing_act') === null) { // available form 2.3.1, can be not defined on pre-2.4 installations
+		if (get_company_pref('grn_clearing_act') === null) { 
 			set_company_pref('grn_clearing_act', 'glsetup.purchase', 'varchar', 15, 0);
 		}
-		if (get_company_pref('default_quote_valid_days') === null) { // new in 2.3.23 installations
+		if (get_company_pref('default_quote_valid_days') === null) { 
 			set_company_pref('default_quote_valid_days', 'glsetup.sales', 'smallint', 6, 30);
 		}
-		if (get_company_pref('bcc_email') === null) { // available from 2.3.14, can be not defined on pre-2.4 installations
+		if (get_company_pref('bcc_email') === null) { 
 			set_company_pref('bcc_email', 'setup.company', 'varchar', 100, '');
 		}
-		if (get_company_pref('alternative_tax_include_on_docs') === null) { // available from 2.3.14, can be not defined on pre-2.4 installations
+		if (get_company_pref('alternative_tax_include_on_docs') === null) { 
 			set_company_pref('alternative_tax_include_on_docs', 'setup.company', 'tinyint', 1, '0');
 		}
-		if (get_company_pref('suppress_tax_rates') === null) { // available from 2.3.14, can be not defined on pre-2.4 installations
+		if (get_company_pref('suppress_tax_rates') === null) { 
 			set_company_pref('suppress_tax_rates', 'setup.company', 'tinyint', 1, '0');
 		}
-		if (get_company_pref('company_logo_report') === null) { // available from 2.4.2, during updates
+		if (get_company_pref('company_logo_report') === null) { 
 			set_company_pref('company_logo_report', 'setup.company', 'tinyint', 1, '0');
 		}
-		if (get_company_pref('print_dialog_direct') === null) { // available from 2.4.5, during updates
+		if (get_company_pref('print_dialog_direct') === null) { 
 			set_company_pref('print_dialog_direct', 'setup.company', 'tinyint', 1, '0');
 		}
-		if (get_company_pref('barcodes_on_stock') === null) { // available from 2.4.3, during updates
+		if (get_company_pref('barcodes_on_stock') === null) { 
 			set_company_pref('barcodes_on_stock', 'setup.company', 'tinyint', 1, '0');
 		}
-		if (get_company_pref('ref_no_auto_increase') === null) { // available from 2.4.4, during updates
+		if (get_company_pref('ref_no_auto_increase') === null) { 
 			set_company_pref('ref_no_auto_increase', 'setup.company', 'tinyint', 1, '0');
 		}
-		if (get_company_pref('shortname_name_in_list') === null) { // available from 2.4.2, during updates
+		if (get_company_pref('shortname_name_in_list') === null) { 
 			set_company_pref('shortname_name_in_list', 'setup.company', 'tinyint', 1, '0');
 		}
 
@@ -110,7 +103,7 @@ class fa2_4 extends fa_patch {
 	}
 
 	//
-	// optional procedure done after upgrade fail, before backup is restored
+	
 	//
 	function post_fail($company)
 	{
@@ -171,12 +164,12 @@ class fa2_4 extends fa_patch {
 
 		global $installed_languages, $dflt_lang;
 
-		$old_encoding = 'latin1'; // default client encoding
+		$old_encoding = 'latin1'; 
 
-		// uncomment in case of 1071 errors (requires SUPER privileges)
-		// db_query("SET @@global.innodb_large_prefix=1", "Cannot set large prefix");
+		
+		
 
-		 // site default encoding is presumed as encoding for all databases!
+		 
 		$lang = array_search_value($dflt_lang, $installed_languages, 'code');
 		$new_encoding = get_mysql_encoding_name(strtoupper($lang['encoding']));
 
@@ -187,9 +180,9 @@ class fa2_4 extends fa_patch {
 		while($tbl = db_fetch($tresult)) {
 			$table = $tbl[0];
 
-			db_query("ALTER TABLE `$table` CONVERT TO CHARACTER SET $old_encoding"); // convert encoding on utf-8 tables
+			db_query("ALTER TABLE `$table` CONVERT TO CHARACTER SET $old_encoding"); 
 
-			// set proper default table encoding for current user language (used on binary->text conversion)
+			
 			db_query("ALTER TABLE `$table` CHARSET $new_encoding");
 			$csql = "SHOW COLUMNS FROM $table";
 			$cresult = db_query($csql, "Cannot select column names for table '$table'");
@@ -201,14 +194,14 @@ class fa2_4 extends fa_patch {
 				$bintype = strtr($col['Type'], array('varchar' => 'varbinary', 'char'=>'varbinary', 'text'=>'blob', 'tinytext'=>'tinyblob'));
 
 				if ($bintype != $col['Type'])
-				{ // this is char/text column, so change encoding to proper encoding
+				{ 
 			 	 	if ($dbg)
  	 					$this->log_error(sprintf('%s switched to uft8.', $table.'.'.$col['Field']), 'Debug');
 
 					$null = $col['Null'] === 'YES' ? ' NULL ' : ' NOT NULL ';
 					$default = $col['Null'] !== 'YES' && isset($col['Default']) ? ' DEFAULT '.db_escape($col['Default']) : '';
 
-					// to avoid column width multiplication x3 we old->binary->ui->utf column type change instead of column CONVERT
+					
 
 					$to_binary[] = "CHANGE `".$col['Field']."` `".$col['Field']."` ".$bintype;
 					$to_default[] = "CHANGE `".$col['Field']."` `".$col['Field']."` ".$col['Type'].$null.$default;
@@ -255,7 +248,7 @@ class fa2_4 extends fa_patch {
 		global $db;
 
 		//remove obsolete and temporary columns.
-		// this have to be done here as db_import rearranges alter query order
+		
 		$dropcol = array(
 				'tax_groups' => array('tax_shipping'),
 				'tax_group_items' => array('rate'),

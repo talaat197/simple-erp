@@ -24,8 +24,8 @@
 
 	Behaviour.register(myrules);
 
-	// Call Behaviour.apply() to re-apply the rules (if you
-	// update the dom, etc).
+	
+	
 
    License:
 
@@ -108,43 +108,43 @@ Behaviour.start();
 */
 
 function getAllChildren(e) {
-  // Returns all children of element. Workaround required for IE5/Windows. Ugh.
+  
   return e.all ? e.all : e.getElementsByTagName('*');
 }
 
 document.getElementsBySelector = function(selector) {
-  // Attempt to fail gracefully in lesser browsers
+  
   if (!document.getElementsByTagName) {
     return new Array();
   }
-  // Split selector in to tokens
+  
   var tokens = selector.split(' ');
   var currentContext = new Array(document);
   for (var i = 0; i < tokens.length; i++) {
     token = tokens[i].replace(/^\s+/,'').replace(/\s+$/,'');
     if (token.indexOf('#') > -1) {
-      // Token is an ID selector
+      
       var bits = token.split('#');
       var tagName = bits[0];
       var id = bits[1];
       var element = document.getElementById(id);
       if (tagName && element.nodeName.toLowerCase() != tagName) {
-        // tag with that ID not found, return false
+        
         return new Array();
       }
-      // Set currentContext to contain just this element
+      
       currentContext = new Array(element);
-      continue; // Skip to next token
+      continue; 
     }
     if (token.indexOf('.') > -1) {
-      // Token contains a class selector
+      
       var bits = token.split('.');
       var tagName = bits[0];
       var className = bits[1];
       if (!tagName) {
         tagName = '*';
       }
-      // Get elements matching tag, filter them for class selector
+      
       var found = new Array;
       var foundCount = 0;
       for (var h = 0; h < currentContext.length; h++) {
@@ -165,9 +165,9 @@ document.getElementsBySelector = function(selector) {
           currentContext[currentContextIndex++] = found[k];
         }
       }
-      continue; // Skip to next token
+      continue; 
     }
-    // Code to deal with attribute selectors
+    
 /* Original reg expression  /^(\w*)\[(\w+)([=~\|\^\$\*]?)=?"?([^\]"]*)"?\]$/
     was replaced by new RegExp() cuz compressor fault */
     if (token.match(new RegExp('^(\\w*)\\[(\\w+)([=~\\|\\^\\$\\*]?)=?"?([^\\]"]*)"?\\]$'))) {
@@ -178,7 +178,7 @@ document.getElementsBySelector = function(selector) {
       if (!tagName) {
         tagName = '*';
       }
-      // Grab all of the tagName elements within current context
+      
       var found = new Array;
       var foundCount = 0;
       for (var h = 0; h < currentContext.length; h++) {
@@ -194,28 +194,28 @@ document.getElementsBySelector = function(selector) {
       }
       currentContext = new Array;
       var currentContextIndex = 0;
-      var checkFunction; // This function will be used to filter the elements
+      var checkFunction; 
       switch (attrOperator) {
-        case '=': // Equality
+        case '=': 
           checkFunction = function(e) { return (e.getAttribute(attrName) == attrValue); };
           break;
-        case '~': // Match one of space seperated words
+        case '~': 
           checkFunction = function(e) { var a=e.getAttribute(attrName); return (a && a.match(new RegExp('\\b'+attrValue+'\\b'))); };
           break;
-        case '|': // Match start with value followed by optional hyphen
+        case '|': 
           checkFunction = function(e) { var a=e.getAttribute(attrName); return (a && a.match(new RegExp('^'+attrValue+'-?'))); };
           break;
-        case '^': // Match starts with value
+        case '^': 
           checkFunction = function(e) { var a=e.getAttribute(attrName); return (a && a.indexOf(attrValue) == 0); };
           break;
-        case '$': // Match ends with value - fails with "Warning" in Opera 7
+        case '$': 
           checkFunction = function(e) { var a=e.getAttribute(attrName); return (a && a.lastIndexOf(attrValue) == e.getAttribute(attrName).length - attrValue.length); };
           break;
-        case '*': // Match contains value
+        case '*': 
           checkFunction = function(e) { var a=e.getAttribute(attrName); return (a && a.indexOf(attrValue) > -1); };
           break;
         default :
-          // Just test for existence of attribute
+          
           checkFunction = function(e) { return e.getAttribute(attrName); };
       }
       currentContext = new Array;
@@ -225,15 +225,15 @@ document.getElementsBySelector = function(selector) {
           currentContext[currentContextIndex++] = found[k];
         }
       }
-      // alert('Attribute Selector: '+tagName+' '+attrName+' '+attrOperator+' '+attrValue);
-      continue; // Skip to next token
+      
+      continue; 
     }
 
     if (!currentContext[0]){
     	return;
     }
 
-    // If we get here, token is JUST an element (not a class or ID selector)
+    
     tagName = token;
     var found = new Array;
     var foundCount = 0;

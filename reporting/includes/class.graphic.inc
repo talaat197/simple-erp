@@ -33,7 +33,7 @@
 
    NOTE: make sure that your PHP is compiled to work with GD Lib.
 
-///// START OF EXAMPLE.PHP /////
+///
 
 <?php
 
@@ -58,7 +58,7 @@ You can supply extra parameters to display(). Ex. $pg->display("test.png") will 
 Ex. $pg->display("", true) will paint a border around the image. It might be suitable if you choose to save to
 file for later presentation.
 
-///// END OF EXAMPLE.PHP /////
+///
 
 
 
@@ -144,7 +144,7 @@ class graph
     var $available_types;
     var $dec1 = 0;
     var $dec2 = 0;
-    var $h3d = 15; // 3D height
+    var $h3d = 15; 
 	var $built_in = false;
 	var $fontfile = "";
 	var $encoding;
@@ -155,9 +155,9 @@ class graph
 		$this->encoding = strtoupper($_SESSION['language']->encoding);
 		$path = dirname(__FILE__).'/../fonts/';
 
-		// If you use UTF-8 encoding you have to download and install FreeSans.ttf font.
-		// It is not bundled with application due to its size.
-		// You can also use another UTF-8 font and put it in config.php with the name in $UTF8_fontfile 
+		
+		
+		
 		$this->fontfile = $this->encoding == 'UTF-8' ? (isset($SysPrefs->UTF8_fontfile) && $SysPrefs->UTF8_fontfile != "" ?
 			$path.$SysPrefs->UTF8_fontfile : $path.'FreeSans.ttf') : $path.'LiberationSans-Regular.ttf';
         
@@ -231,10 +231,10 @@ class graph
 
         $this->load_color_palette();
 
-        // Fill background
+        
         imagefill($this->img, 0, 0, $this->color['background']);
 
-        // Draw title
+        
         if (!empty($this->title))
         {
             $center = ($this->width / 2) - ($this->string_width($this->title, $this->tsize) / 2);
@@ -242,7 +242,7 @@ class graph
         }
 
 
-        // Draw axis and background lines for "vertical bars", "dots" and "lines"
+        
         if (preg_match("/^(1|3|4)$/", $this->type))
         {
             if ($this->legend_exists == true)
@@ -279,16 +279,16 @@ class graph
                 }
             }
 
-            // Axis X
+            
             $this->_imagestring($this->img, $this->size, $this->graphic_area_x2+40, $this->graphic_area_y2+3, $this->axis_x, $this->color['title']);
             imageline($this->img, $this->graphic_area_x1, $this->graphic_area_y2, $this->graphic_area_x2, $this->graphic_area_y2, $this->color['axis_line']);
-            // Axis Y
+            
             $this->_imagestring($this->img, $this->size, 20, $this->graphic_area_y1-20, $this->axis_y, $this->color['title']);
             imageline($this->img, $this->graphic_area_x1, $this->graphic_area_y1, $this->graphic_area_x1, $this->graphic_area_y2, $this->color['axis_line']);
         }
 
 
-        // Draw axis and background lines for "horizontal bars"
+        
         else if ($this->type == 2)
         {
             if ($this->legend_exists == true)
@@ -315,16 +315,16 @@ class graph
                 }
             }
 
-            // Axis X
+            
             $this->_imagestring($this->img, $this->size, ($this->graphic_area_x2+10), ($this->graphic_area_y2+3), $this->axis_y, $this->color['title']);
             imageline($this->img, $this->graphic_area_x1, $this->graphic_area_y2, $this->graphic_area_x2, $this->graphic_area_y2, $this->color['axis_line']);
-            // Axis Y
+            
             $this->_imagestring($this->img, $this->size, 20, ($this->graphic_area_y1-20), $this->axis_x, $this->color['title']);
             imageline($this->img, $this->graphic_area_x1, $this->graphic_area_y1, $this->graphic_area_x1, $this->graphic_area_y2, $this->color['axis_line']);
         }
 
 
-        // Draw legend box for "pie" or "donut"
+        
         else if (preg_match("/^(5|6)$/", $this->type))
         {
             $this->draw_legend();
@@ -449,7 +449,7 @@ class graph
                 {
                     if (isset($z[$i+1])) 
                     {
-                        // Draw lines
+                        
                         if ($this->type == 4)
                         {
                             imageline($this->img, $x[$i], $z[$i], $x[$i+1], $z[$i+1], $this->color['line_2']);
@@ -458,7 +458,7 @@ class graph
                         imagefilledrectangle($this->img, $x[$i]-1, $z[$i]-1, $x[$i]+2, $z[$i]+2, $this->color['line_2']);
                     }
                     else 
-                    { // Draw last dot
+                    { 
                         imagefilledrectangle($this->img, $x[$i-1]-1, $z[$i-1]-1, $x[$i-1]+2, $z[$i-1]+2, $this->color['line_2']);
                     }
                 }
@@ -467,7 +467,7 @@ class graph
                 {
                     if (isset($y[$i+1])) 
                     {
-                        // Draw lines
+                        
                         if ($this->type == 4)
                         {
                             imageline($this->img, $x[$i], $y[$i], $x[$i+1], $y[$i+1], $this->color['line']);
@@ -476,7 +476,7 @@ class graph
                         imagefilledrectangle($this->img, $x[$i]-1, $y[$i]-1, $x[$i]+2, $y[$i]+2, $this->color['line']);
                     }
                     else 
-                    { // Draw last dot
+                    { 
                         imagefilledrectangle($this->img, $x[$i-1]-1, $y[$i-1]-1, $x[$i-1]+2, $y[$i-1]+2, $this->color['line']);
                     }
                 }
@@ -506,10 +506,10 @@ class graph
             }
             $start = 270;
 
-            // Draw PIE
+            
             if ($this->type == 5)
             {
-                // Draw shadow
+                
                 foreach ($sizes as $i => $size)
                 {
                     $num_color = $i + 1;
@@ -529,7 +529,7 @@ class graph
 
                 $start = 270;
 
-                // Draw pieces
+                
                 foreach ($sizes as $i => $size)
                 {
                     $num_color = $i + 1;
@@ -544,7 +544,7 @@ class graph
                 }
             }
 
-            // Draw DONUT
+            
             else if ($this->type == 6)
             {
                 foreach ($sizes as $i => $size)
@@ -585,7 +585,7 @@ class graph
     {
         switch ($this->type)
         {
-            // Vertical bars
+            
             case 1:
                 $this->legend_box_width   = ($this->legend_exists == true) ? ($this->string_width($this->biggest_graphic_name, $this->tsize) + 25) : 0;
                 $this->graphic_area_width = ($this->space_between_bars * $this->total_parameters) + 30;
@@ -594,7 +594,7 @@ class graph
                 $this->width += ($this->legend_exists == true) ? 50 : ((7 * strlen($this->axis_x)) + 10);
                 break;
 
-            // Horizontal bars
+            
             case 2:
                 $this->legend_box_width   = ($this->legend_exists == true) ? ($this->string_width($this->biggest_graphic_name, $this->size) + 25) : 0;
                 $this->graphic_area_width = ($this->string_width($this->higher_value_str, $this->size) > 50) ? (5 * ($this->string_width($this->higher_value_str, $this->size)) * 0.85) : 200;
@@ -603,7 +603,7 @@ class graph
                 $this->width += $this->graphic_area_x1;
                 break;
 
-            // Dots
+            
             case 3:
                 $this->legend_box_width   = ($this->legend_exists == true) ? ($this->string_width($this->biggest_graphic_name, $this->size) + 25) : 0;
                 $this->graphic_area_width = ($this->space_between_dots * $this->total_parameters) - 10;
@@ -612,7 +612,7 @@ class graph
                 $this->width += ($this->legend_exists == true) ? 40 : ((7 * strlen($this->axis_x)) + 30);
                 break;
 
-            // Lines
+            
             case 4:
                 $this->legend_box_width   = ($this->legend_exists == true) ? ($this->string_width($this->biggest_graphic_name, $this->size) + 25) : 0;
                 $this->graphic_area_width = ($this->space_between_dots * $this->total_parameters) - 10;
@@ -621,14 +621,14 @@ class graph
                 $this->width += ($this->legend_exists == true) ? 40 : ((7 * strlen($this->axis_x)) + 30);
                 break;
 
-            // Pie
+            
             case 5:
                 $this->legend_box_width   = $this->string_width($this->biggest_x, $this->size) + 85;
                 $this->graphic_area_width = 200;
                 $this->width += 90;
                 break;
 
-            // Donut
+            
             case 6:
                 $this->legend_box_width   = $this->string_width($this->biggest_x, $this->size) + 85;
                 $this->graphic_area_width = 180;
@@ -650,35 +650,35 @@ class graph
     {
         switch ($this->type)
         {
-            // Vertical bars
+            
             case 1:
                 $this->legend_box_height   = ($this->graphic_2_exists == true) ? 40 : 0;
                 $this->graphic_area_height = 150;
                 $this->height += 65;
                 break;
 
-            // Horizontal bars
+            
             case 2:
                 $this->legend_box_height   = ($this->graphic_2_exists == true) ? 40 : 0;
                 $this->graphic_area_height = ($this->space_between_bars * $this->total_parameters) + 10;
                 $this->height += 65;
                 break;
 
-            // Dots
+            
             case 3:
                 $this->legend_box_height   = ($this->graphic_2_exists == true) ? 40 : 0;
                 $this->graphic_area_height = 150;
                 $this->height += 65;
                 break;
 
-            // Lines
+            
             case 4:
                 $this->legend_box_height   = ($this->graphic_2_exists == true) ? 40 : 0;
                 $this->graphic_area_height = 150;
                 $this->height += 65;
                 break;
 
-            // Pie
+            
             case 5:
                 $this->legend_box_height   = (!empty($this->axis_x)) ? 30 : 5;
                 $this->legend_box_height  += (14 * $this->total_parameters);
@@ -686,7 +686,7 @@ class graph
                 $this->height += 50;
                 break;
 
-            // Donut
+            
             case 6:
                 $this->legend_box_height   = (!empty($this->axis_x)) ? 30 : 5;
                 $this->legend_box_height  += (14 * $this->total_parameters);
@@ -717,7 +717,7 @@ class graph
         $y = $y1 + 5;
 
 
-        // Draw legend values for VERTICAL BARS, HORIZONTAL BARS, DOTS and LINES
+        
         if (preg_match("/^(1|2|3|4)$/", $this->type))
         {
             $color_1 = (preg_match("/^(1|2)$/", $this->type)) ? $this->color['bars']   : $this->color['line'];
@@ -732,7 +732,7 @@ class graph
             $this->_imagestring($this->img, $this->size, ($x+15), ($y-2), $this->graphic_2, $this->color['axis_values']);
         }
 
-        // Draw legend values for PIE or DONUT
+        
         else if (preg_match("/^(5|6)$/", $this->type))
         {
             if (!empty($this->axis_x))
@@ -830,7 +830,7 @@ class graph
     {
         switch ($this->skin)
         {
-            // Office
+            
             case 1:
                 $this->color['title']       = imagecolorallocate($this->img,  40,  70,  130);
                 $this->color['background']  = imagecolorallocate($this->img, 255, 255, 255);
@@ -870,7 +870,7 @@ class graph
                 }
                 break;
 
-            // Matrix
+            
             case 2:
                 $this->color['title']       = imagecolorallocate($this->img, 255, 255, 255);
                 $this->color['background']  = imagecolorallocate($this->img,   0,   0,   0);
@@ -911,7 +911,7 @@ class graph
                 break;
 
 
-            // Spring
+            
             case 3:
                 $this->color['title']       = imagecolorallocate($this->img, 250,  50,  50);
                 $this->color['background']  = imagecolorallocate($this->img, 255, 255, 255);
@@ -964,7 +964,7 @@ class graph
 				$string = mb_convert_encoding($string, 'UTF-8', $this->encoding);
 		}
 		
-		// Handling ev. RTL languages
+		
 		if ($alt)
 		{
 			if ($this->encoding == 'UTF-8' && is_arabic($string))
@@ -1012,10 +1012,10 @@ class graph
     }	
 }
 
-// The following is for handling RTL texts. GD does not handle RTL at all.
-// The function, arabic, has been taken from Milad Rastian and
-// modified by Bagram Siadat.
-// The function has been further modified and several bugs are fixed.
+
+
+
+
 
 function is_arabic($text)
 {
@@ -1038,22 +1038,22 @@ function utf8_chr($uni)
     # ASCII range (including control chars)
     if ( ($uni >= 0) && ($uni <= 0x007f) ) 
             $r .= chr($uni);
-	elseif ($uni <= 0x07ff) // 2 byte sequence
+	elseif ($uni <= 0x07ff) 
  	{
 		$r .= chr(0xc0 | ($uni >> 6));
 		$r .= chr(0x80 | ($uni & 0x003f));
 	} 
-	elseif($uni == 0xFEFF) // Byte order mark (skip)
-		return chr(0); // nop -- zap the BOM
-	elseif ($uni >= 0xD800 && $uni <= 0xDFFF) // Test for illegal surrogates 
-		return chr(0); // found a surrogate
-	elseif ($uni <= 0xffff) // 3 byte sequence 
+	elseif($uni == 0xFEFF) 
+		return chr(0); 
+	elseif ($uni >= 0xD800 && $uni <= 0xDFFF) 
+		return chr(0); 
+	elseif ($uni <= 0xffff) 
 	{
 		$r .= chr(0xe0 | ($uni >> 12));
 		$r .= chr(0x80 | (($uni >> 6) & 0x003f));
 		$r .= chr(0x80 | ($uni & 0x003f));
 	} 
-	elseif ($uni <= 0x10ffff) // 4 byte sequence 
+	elseif ($uni <= 0x10ffff) 
 	{
 		$r .= chr(0xf0 | ($uni >> 18));
 		$r .= chr(0x80 | (($uni >> 12) & 0x3f));

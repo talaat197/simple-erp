@@ -1,18 +1,11 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //
 //	Controler part of database table pager with column sort.
 //	To display actual html object call display_db_pager($name) inside
-//  any form.
+
 //
 //	View definition you will find in the following file:
 include_once($path_to_root."/includes/ui/db_pager_view.inc");
@@ -20,16 +13,16 @@ include_once($path_to_root."/includes/ui/db_pager_view.inc");
 class db_pager {
 	var $sql;
 	var $name;
-	var $columns;		// column definitions (head, type, order)
+	var $columns;		
 
-	var $marker;		// marker check function
+	var $marker;		
 	var $marker_txt;	
 	var $marker_class;
 	var $notice_class;
-	var $width;			// table width (default '95%')
-	var $header_fun;	// additional row between title and body
+	var $width;			
+	var $header_fun;	
 	var $header_class;
-    var $row_fun;       // Function for row preprocessing
+    var $row_fun;       
 	var $footer_fun;
 	var $footer_class;
 	var $data = array();
@@ -51,18 +44,18 @@ class db_pager {
 		$order;
 	var	$extra_where = array();
 	
-	var $ready = false; // this var is false after change in sql before first
-						// and before first query.
+	var $ready = false; 
+						
 	var $inactive_ctrl = false;
-	var $main_tbl;		// table and key field name for inactive ctrl and edit/delete links
-	var $key;	// key field name
+	var $main_tbl;		
+	var $key;	
 	
-	//  db_pager constructor
-	//  accepts $sql query either as:
-	//  a. string in form 'SELECT field_list FROM table_joins [WHERE conditions [GROUP group_list [ORDER order_list]]]'
+	
+	
+	
 	//		- if WHERE keyword is used in table_joins, WHERE conditions is obligatory
-	//  b. associative array using select, where, group and order keys ex :
-	//  	array('select' => 'SUM(quantity)', 'from' => TB_PREF."stock_moves", 'group' => 'location')
+	
+	
 	//
 	//	$name is base name for pager controls
 	function __construct($sql, $name, $table = null, $page_len=0) 
@@ -91,7 +84,7 @@ class db_pager {
 					$this->select = "SELECT ".$this->select;
 				}
 				else {
-					// parse the query
+					
 					$parts = preg_split('/\sFROM\s/si', $sql, 2);
 					if (count($parts) == 2) {
 						$this->select = $parts[0];
@@ -101,7 +94,7 @@ class db_pager {
 							display_error("Invalid sql input for db_pager");
 					}
 
-					$parts = preg_split('/\sWHERE(?!.*WHERE.*)\s/si', $sql, 2); // last occurence
+					$parts = preg_split('/\sWHERE(?!.*WHERE.*)\s/si', $sql, 2); 
 					if(count($parts) == 2) {
 						$this->from = $parts[0];
 						$sql = $parts[1];
@@ -161,7 +154,7 @@ class db_pager {
 
 
 	    $ord = $this->columns[$col]['ord'];
-  		$this->columns[$col]['ord_priority']  = $max_priority+1; // set priority , higher than anything else
+  		$this->columns[$col]['ord_priority']  = $max_priority+1; 
 	    $ord = ($ord == '') ? 'asc' : (($ord == 'asc') ? 'desc' : '');
 	    $this->columns[$col]['ord'] = $ord;
 	    $this->set_page(1);
@@ -169,7 +162,7 @@ class db_pager {
 	    return true;
 	}
 	//
-	// Query database
+	
 	//
 	function query() 
 	{
@@ -187,10 +180,10 @@ class db_pager {
 	    $result = db_query($sql, 'Error browsing database: '.$sql );
 
 	    if ($result) {
-		// setting field names for subsequent queries
+		
 			$c = 0;
-		  	// add result field names to column defs for 
-		  	// col value retrieve and sort purposes 
+		  	
+		  	
 		   	$cnt = min(db_num_fields($result), count($this->columns));
 			for ($c = $i = 0; $c < $cnt; $c++) {
 				if (!(isset($this->columns[$c]['insert']) && $this->columns[$c]['insert'])) {
@@ -239,7 +232,7 @@ class db_pager {
 	}
 	//
 	//	Set column definitions
-	//  $flds: array( fldname1, fldname2=>type,...)
+	
 	function set_columns($flds)
 	{
 		$this->columns = array();
@@ -247,10 +240,10 @@ class db_pager {
 			$flds = array($flds);
 		}
 		foreach ($flds as $colnum=>$coldef) {
-			if (is_string($colnum)) {	// 'colname'=>params
+			if (is_string($colnum)) {	
 			  	$h = $colnum;
 			  	$c = $coldef;
-			} else {			//  n=>params
+			} else {			
 				if (is_array($coldef)) {
 					$h = '';
 					$c = $coldef;
@@ -259,7 +252,7 @@ class db_pager {
 					$c = 'text';
 				}
 			}
-			if (is_string($c)) 			// params is simple column type
+			if (is_string($c)) 			
 			  	$c = array('type'=>$c);
 
 			if (!isset($c['type']))
@@ -271,16 +264,16 @@ class db_pager {
 				case 'insert':
 				default:
 					$c['head'] = $h; break;
-				case 'skip':		// skip the column (no header)
+				case 'skip':		
 					unset($c['head']); break;
 	  		}
 			$this->columns[] = $c;	
 		}
 	}
 	//
-	// Generate db query from base sql
-	// $count==false - for current page data retrieval 
-	// $count==true  - for total records count
+	
+	
+	
 	//
 	function _sql_gen($count=false) 
 	{
@@ -303,7 +296,7 @@ class db_pager {
 		if ($group) $sql.= " GROUP BY $group";
 	    $ord = array();
 
-		// sort order column by priority instead of table order.
+		
 		$columns = array();
 	    foreach ($this->columns as $col) {
 			if(isset($col['ord_priority'])) {
@@ -325,7 +318,7 @@ class db_pager {
 			$sql .= " ORDER BY " . implode(',', $ord);
 		} else {
 			if($order)
-				$sql .= " ORDER BY $order"; // original base query order
+				$sql .= " ORDER BY $order"; 
 		}
 
 	    $page_len = $this->page_len;
@@ -353,9 +346,9 @@ class db_pager {
 	  		$this->max_page = $this->page_len ?
 				ceil($this->rec_count/$this->page_len) : 0;
 		
-			if ($SysPrefs->go_debug) { // FIX - need column name parsing, but for now:
-				// check if field names are set explicite in col def
-				// for all initially ordered columns
+			if ($SysPrefs->go_debug) { 
+				
+				
 			    foreach ($this->columns as $col) {
 		    	   	if (isset($col['ord']) && $col['ord'] != '' 
 						&&  !isset($col['name'])) {
@@ -435,7 +428,7 @@ class db_pager {
 			global	$Ajax;
 
 			$key = $this->key ?
-				$this->key : $this->columns[0]['name'];		// TODO - support for complex keys
+				$this->key : $this->columns[0]['name'];		
 			$id = $row[$key];
 			$table = $this->main_tbl;
 			$name = "Inactive". $id;
@@ -457,10 +450,10 @@ class db_pager {
 };
 //-----------------------------------------------------------------------------
 //	Creates new db_pager $_SESSION object on first page call.
-//  Retrieves from $_SESSION var on subsequent $_POST calls
+
 //
-//  $name - base name for pager controls and $_SESSION object name
-//  $sql  - base sql for data inquiry. Order of fields implies
+
+
 //		pager columns order.
 //	$coldef - array of column definitions. Example definitions
 //		Column with title 'User name' and default text format:
@@ -469,23 +462,23 @@ class db_pager {
 //				'dummy' => 'skip'
 //		Column without title, data retrieved form row data with function func():
 //	 			array('fun'=>'func')
-// 		Inserted column with title 'Some', formated with function rowfun().
-//  	formated as date:
+
+
 //				'Some' => array('type'=>'date, 'insert'=>true, 'fun'=>'rowfun')
-// 		Column with name 'Another', formatted as date, 
-// sortable with ascending start order (available orders: asc,desc, '').
+
+
 //				'Another' => array('type'=>'date', 'ord'=>'asc')
 //
 //	All available column format types you will find in db_pager_view.inc file.
 //		If query result has more fields than count($coldef), rest of data is ignored
-//  during display, but can be used in format handlers for 'spec' and 'insert' 
+
 //	type columns.
 
 function &new_db_pager($name, $sql, $coldef, $table = null, $key = null, $page_len = 0)  {
 
     if (isset($_SESSION[$name]) &&
 		 ($_SERVER['REQUEST_METHOD'] == 'GET' || $_SESSION[$name]->sql != $sql)) {
-		unset($_SESSION[$name]); // kill pager if sql has changed
+		unset($_SESSION[$name]); 
 	}
 	if (!isset($_SESSION[$name])) {
 	    $_SESSION[$name] = new db_pager($sql, $name, $table, $page_len);

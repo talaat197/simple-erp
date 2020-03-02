@@ -1,21 +1,14 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_GLANALYTIC';
-// ----------------------------------------------------------------
-// $ Revision:	2.0 $
-// Creator:	Joe Hunt, Chaitanya for the recursive version 2009-02-05.
-// date_:	2005-05-19
-// Title:	Profit and Loss Statement
-// ----------------------------------------------------------------
+
+
+
+
+
+
 $path_to_root="..";
 
 include_once($path_to_root . "/includes/session.inc");
@@ -252,8 +245,8 @@ function print_profit_and_loss_statement()
 	{
 		$begin = add_months($from, -12);
 		$end = add_months($to, -12);
-		if (date_comp($to, end_month($to)) == 0) // compensate for leap years. If to-date equal end month 
-			$end = end_month($end);				 // then the year-1 should also be end month	
+		if (date_comp($to, end_month($to)) == 0) 
+			$end = end_month($end);				 
 		$headers[3] = _('Period Y-1');
 	}
 
@@ -309,7 +302,7 @@ function print_profit_and_loss_statement()
 	
 	$rep->Font('bold');	
 	$rep->TextCol(0, 2,	_('Calculated Return'));
-	$rep->AmountCol(2, 3, $salesper *-1, $dec); // always convert
+	$rep->AmountCol(2, 3, $salesper *-1, $dec); 
 	$rep->AmountCol(3, 4, $salesacc * -1, $dec);
 	$rep->AmountCol(4, 5, Achieve($salesper, $salesacc), $pdec);
 	if ($graphics)

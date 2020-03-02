@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_DIMENSION';
 $path_to_root = "..";
@@ -174,7 +167,7 @@ if (isset($_POST['delete']))
 
 	$cancel_delete = false;
 
-	// can't delete it there are productions or issues
+	
 	if (dimension_has_payments($selected_id) || dimension_has_deposits($selected_id))
 	{
 		display_error(_("This dimension cannot be deleted because it has already been processed."));
@@ -185,7 +178,7 @@ if (isset($_POST['delete']))
 	if ($cancel_delete == false) 
 	{ //ie not cancelled the delete as a result of above tests
 
-		// delete
+		
 		delete_dimension($selected_id);
 		delete_tag_associations(TAG_DIMENSION,$selected_id, true);
 		meta_forward($_SERVER['PHP_SELF'], "DeletedID=$selected_id");
@@ -197,7 +190,7 @@ if (isset($_POST['delete']))
 if (isset($_POST['close'])) 
 {
 
-	// update the closed flag
+	
 	close_dimension($selected_id);
 	meta_forward($_SERVER['PHP_SELF'], "ClosedID=$selected_id");
 }
@@ -205,7 +198,7 @@ if (isset($_POST['close']))
 if (isset($_POST['reopen'])) 
 {
 
-	// update the closed flag
+	
 	reopen_dimension($selected_id);
 	meta_forward($_SERVER['PHP_SELF'], "ReopenedID=$selected_id");
 }
@@ -225,7 +218,7 @@ if ($selected_id != -1)
 		display_footer_exit();
 	}
 
-	// if it's a closed dimension can't edit it
+	
 	//if ($myrow["closed"] == 1) 
 	//{
 	//	display_error(_("This dimension is closed and cannot be edited."));

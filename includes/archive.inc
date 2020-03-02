@@ -315,7 +315,7 @@ class tar_file extends archive
 		if ($fp = $this->open_archive())
 		{
 			$pwd = getcwd();
-			// display_error($pwd.':'.$this->options['basedir']);
+			
 			chdir($this->options['basedir']);
 			if ($this->options['inmemory'] == 1)
 				$this->files = array();
@@ -364,7 +364,7 @@ class tar_file extends archive
 								if ( $tst < 0 && $this->options['overwrite'] == 0)
 									$this->error[] = "{$file['name']} already exists.";
 							}
-							fseek($fp, ($file['stat'][7] + 511) & ~511, SEEK_CUR); // skip data
+							fseek($fp, ($file['stat'][7] + 511) & ~511, SEEK_CUR); 
 						} else {
 							$dat = fread($fp, $file['stat'][7]);
 							$tail = $file['stat'][7] % 512;

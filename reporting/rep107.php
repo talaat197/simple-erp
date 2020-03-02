@@ -1,22 +1,15 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = $_POST['PARAM_0'] == $_POST['PARAM_1'] ?
 	'SA_SALESTRANSVIEW' : 'SA_SALESBULKREP';
-// ----------------------------------------------------------------
-// $ Revision:	2.0 $
-// Creator:	Joe Hunt
-// date_:	2005-05-19
-// Title:	Print Invoices
-// ----------------------------------------------------------------
+
+
+
+
+
+
 $path_to_root="..";
 
 include_once($path_to_root . "/includes/session.inc");
@@ -50,7 +43,7 @@ function print_invoices()
 {
 	global $path_to_root, $SysPrefs;
 	
-	$show_this_payment = true; // include payments invoiced here in summary
+	$show_this_payment = true; 
 
 	include_once($path_to_root . "/reporting/includes/pdf_report.inc");
 
@@ -76,7 +69,7 @@ function print_invoices()
 	//-------------code-Descr-Qty--uom--tax--prc--Disc-Tot--//
 	$cols = array(4, 60, 225, 300, 325, 385, 450, 515);
 
-	// $headers in doctext.inc
+	
 	$aligns = array('left',	'left',	'right', 'center', 'right', 'right', 'right');
 
 	$params = array('comments' => $comments);
@@ -122,7 +115,7 @@ function print_invoices()
 			$rep->SetCommonData($myrow, $branch, $sales_order, $baccount, ST_SALESINVOICE, $contacts);
 			$rep->SetHeaderType('Header2');
 			$rep->NewPage();
-			// calculate summary start row for later use
+			
 			$summary_start_row = $rep->bottomMargin + (15 * $rep->lineHeight);
 
 			if ($rep->formData['prepaid'])
@@ -188,11 +181,11 @@ function print_invoices()
 
    			$DisplaySubTot = number_format2($SubTotal,$dec);
 
-			// set to start of summary line:
+			
     		$rep->row = $summary_start_row;
 			if (isset($prepayments))
 			{
-				// Partial invoices table
+				
 				$rep->TextCol(0, 3,_("Prepayments invoiced to this order up to day:"));
 				$rep->TextCol(0, 3,	str_pad('', 150, '_'));
 				$rep->cols[2] -= 20;

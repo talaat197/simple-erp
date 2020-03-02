@@ -92,7 +92,7 @@ if (isset($_GET['PayslipNo'])) {
 		$payslip = get_payslip(false, $_GET['PayslipNo']);
 		$_POST['PaySlipNo'] = $payslip['payslip_no'];
 	}
-	// $_POST['PaySlipNo'] = $_GET['PayslipNo'];
+	
 
 	create_cart(0, 0, $payslip);
 } 
@@ -184,12 +184,12 @@ if (isset($_POST['Process'])) {
 if (isset($_POST['Process'])) {
 	$cart = &$_SESSION['journal_items'];
 	$new = $cart->order_id == 0;
-//  ------------- Giấu thông báo lỗi---
+
     $cart->to_date = 
     $cart->from_date = 
     $cart->leaves = 
     $cart->deductable_leaves = '';
-//  -----------------------------------
+
 	$cart->person_id = $_POST['emp_id'];
 	$cart->paytype = $_POST['PayType'];
 

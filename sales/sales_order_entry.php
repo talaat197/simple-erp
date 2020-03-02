@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //-----------------------------------------------------------------------------
 //
@@ -114,7 +107,7 @@ elseif (isset($_GET['ModifyQuotationNumber']))
 //-----------------------------------------------------------------------------
 
 if (list_updated('branch_id')) {
-	// when branch is selected via external editor also customer can change
+	
 	$br = get_branch(get_post('branch_id'));
 	$_POST['customer_id'] = $br['debtor_no'];
 	$Ajax->activate('customer_id');
@@ -299,7 +292,7 @@ function copy_to_cart()
 	$cart->Branch = $_POST['branch_id'];
 	$cart->sales_type = $_POST['sales_type'];
 
-	if ($cart->trans_type!=ST_SALESORDER && $cart->trans_type!=ST_SALESQUOTE) { // 2008-11-12 Joe Hunt
+	if ($cart->trans_type!=ST_SALESORDER && $cart->trans_type!=ST_SALESQUOTE) { 
 		$cart->dimension_id = $_POST['dimension_id'];
 		$cart->dimension2_id = $_POST['dimension2_id'];
 	}
@@ -330,9 +323,9 @@ function copy_from_cart()
 	$_POST['branch_id'] = $cart->Branch;
 	$_POST['sales_type'] = $cart->sales_type;
 	$_POST['prep_amount'] = price_format($cart->prep_amount);
-	// POS 
+	
 	$_POST['payment'] = $cart->payment;
-	if ($cart->trans_type!=ST_SALESORDER && $cart->trans_type!=ST_SALESQUOTE) { // 2008-11-12 Joe Hunt
+	if ($cart->trans_type!=ST_SALESORDER && $cart->trans_type!=ST_SALESQUOTE) { 
 		$_POST['dimension_id'] = $cart->dimension_id;
 		$_POST['dimension2_id'] = $cart->dimension2_id;
 	}
@@ -479,14 +472,14 @@ if (isset($_POST['ProcessOrder']) && can_process()) {
 		$ref = $Refs->get_next($_SESSION['Items']->trans_type, null, array('date' => Today()));
 		if ($ref != $_SESSION['Items']->reference)
 		{
-			unset($_POST['ref']); // force refresh reference
+			unset($_POST['ref']); 
 			display_error(_("The reference number field has been increased. Please save the document again."));
 		}
 		set_focus('ref');
 	}
 	else
 	{
-		if (count($messages)) { // abort on failure or error messages are lost
+		if (count($messages)) { 
 			$Ajax->activate('_page_body');
 			display_footer_exit();
 		}
@@ -539,7 +532,7 @@ function check_item_data()
 		return false;
 	}
 
-	$cost_home = get_unit_cost(get_post('stock_id')); // Added 2011-03-27 Joe Hunt
+	$cost_home = get_unit_cost(get_post('stock_id')); 
 	$cost = $cost_home / get_exchange_rate_from_home_currency($_SESSION['Items']->customer_currency, $_SESSION['Items']->document_date);
 	if (input_num('price') < $cost)
 	{
@@ -618,7 +611,7 @@ function  handle_cancel_order()
 			delete_sales_order(key($_SESSION['Items']->trans_no), $_SESSION['Items']->trans_type);
 		display_notification(_("This sales quotation has been cancelled as requested."), 1);
 		submenu_option(_("Enter a New Sales Quotation"), "/sales/sales_order_entry.php?NewQuotation=Yes");
-	} else { // sales order
+	} else { 
 		if ($_SESSION['Items']->trans_no != 0) {
 			$order_no = key($_SESSION['Items']->trans_no);
 			if (sales_order_has_deliveries($order_no))
@@ -647,7 +640,7 @@ function create_cart($type, $trans_no)
 { 
 	global $Refs, $SysPrefs;
 
-	if (!$SysPrefs->db_ok) // create_cart is called before page() where the check is done
+	if (!$SysPrefs->db_ok) 
 		return;
 
 	processing_start();
@@ -659,7 +652,7 @@ function create_cart($type, $trans_no)
 		$doc->Comments = _("Sales Quotation") . " # " . $trans_no;
 		$_SESSION['Items'] = $doc;
 	}	
-	elseif($type != ST_SALESORDER && $type != ST_SALESQUOTE && $trans_no != 0) { // this is template
+	elseif($type != ST_SALESORDER && $type != ST_SALESQUOTE && $trans_no != 0) { 
 
 		$doc = new Cart(ST_SALESORDER, array($trans_no));
 		$doc->trans_type = $type;

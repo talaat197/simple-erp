@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 /*****
 *
@@ -27,11 +20,11 @@
 			'address' => @$this->formData['delivery_address']
 	);
 
-	// default item column headers
+	
 	$this->headers = array(_("Item Code"), _("Item Description"), _("Quantity"),
 		_("Unit"), _("Price"), _("Discount %"), _("Total"));
 
-	// for links use 'text' => 'url'
+	
 	$Footer[0] = _("All amounts stated in") . " - " . @$this->formData['curr_code'];
 
 	if (!in_array($this->formData['doctype'], array(ST_STATEMENT, ST_WORKORDER)))
@@ -248,7 +241,7 @@
 				_("Credits"), _("Allocated"), _("Outstanding"));
 	}
 
-	// default values
+	
 	if (!isset($this->formData['document_date']))
 		$this->formData['document_date'] = $this->formData['tran_date'];
 
@@ -256,7 +249,7 @@
 		$this->formData['document_number'] = $SysPrefs->print_invoice_no() == 0 && isset($this->formData['reference'])
 			? $this->formData['reference'] : @$this->formData['trans_no'];
 
-	// footer generic content
+	
 	if (@$this->formData['bank_name'])
 		$Footer[] = _("Bank"). ": ".$this->formData['bank_name']. ", " . _("Bank Account") . ": " . $this->formData['bank_account_number'];
 

@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_SALESKIT';
 $path_to_root = "../..";
@@ -75,9 +68,9 @@ function update_kit($selected_kit, $component_id)
 		set_focus('description');
 		return 0;
    	}
-	elseif ($component_id == -1)	// adding new component to alias/kit with optional kit creation
+	elseif ($component_id == -1)	
 	{
-		if ($selected_kit == '') { // New kit/alias definition
+		if ($selected_kit == '') { 
 			if (get_post('kit_code') == '') {
 	    	  	display_error( _("Kit/alias code cannot be empty."));
 				set_focus('kit_code');
@@ -105,7 +98,7 @@ function update_kit($selected_kit, $component_id)
 		set_focus('component');
 		return 0;
 	}
-	if ($component_id == -1) { // new component in alias/kit 
+	if ($component_id == -1) { 
 		if ($selected_kit == '') {
 			$selected_kit = get_post('kit_code');
 			$msg = _("New alias code has been created.");
@@ -117,7 +110,7 @@ function update_kit($selected_kit, $component_id)
 			 get_post('category'), input_num('quantity'), 0);
 		display_notification($msg);
 
-	} else { // update component
+	} else { 
 		$props = get_kit_props($selected_kit);
 		update_item_code($component_id, $selected_kit, get_post('component'),
 			$props['description'], $props['category_id'], input_num('quantity'), 0);
@@ -145,8 +138,8 @@ if ($Mode=='ADD_ITEM' || $Mode=='UPDATE_ITEM')
 
 if ($Mode == 'Delete')
 {
-	// Before removing last component from selected kit check 
-	// if selected kit is not included in any other kit. 
+	
+	
 	// 
 	$other_kits = get_where_used($_POST['item_code']);
 	$num_kits = db_num_rows($other_kits);
@@ -194,12 +187,12 @@ if (list_updated('item_code')) {
 $selected_kit = $_POST['item_code'];
 //----------------------------------------------------------------------------------
 if (get_post('item_code') == '') {
-// New sales kit entry
+
 	start_table(TABLESTYLE2);
 	text_row(_("Alias/kit code:"), 'kit_code', null, 20, 21);
 } else
 {
-	 // Kit selected so display bom or edit component
+	 
 	$_POST['description'] = $props['description'];
 	$_POST['category'] = $props['category_id'];
 	start_table(TABLESTYLE2);
@@ -222,7 +215,7 @@ if (get_post('item_code') == '') {
 	
 	sales_local_items_list_row(_("Component:"),'component', null, false, true);
 
-	if (get_post('item_code') == '') { // new kit/alias
+	if (get_post('item_code') == '') { 
 		if ($Mode!='ADD_ITEM' && $Mode!='UPDATE_ITEM') {
 			$_POST['description'] = $props['description'];
 			$_POST['category'] = $props['category_id'];

@@ -1,17 +1,10 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 require_once($path_to_root. "/includes/ui/items_cart.inc");
 
-// fiscal year routines
+
 function add_fiscalyear($from_date, $to_date, $closed)
 {
 	$from = date2sql($from_date);
@@ -147,7 +140,7 @@ function close_year($year)
 
 	$myrow = get_fiscalyear($year);
 	$to = $myrow['end'];
-	// retrieve total balances from balance sheet accounts
+	
     $sql = "SELECT SUM(amount) FROM ".TB_PREF."gl_trans INNER JOIN ".TB_PREF."chart_master ON account=account_code
     	INNER JOIN ".TB_PREF."chart_types ON account_type=id INNER JOIN ".TB_PREF."chart_class ON class_id=cid 
 		WHERE ctype>=".CL_ASSETS." AND ctype <=".CL_EQUITY." AND tran_date <= '$to'";
@@ -220,7 +213,7 @@ function delete_this_fiscalyear($selected_id)
 	$ref = _("Open Balance");
 	$myrow = get_fiscalyear($selected_id);
 	$to = $myrow['end'];
-	$sql = "SELECT order_no, trans_type FROM ".TB_PREF."sales_orders WHERE ord_date <= '$to' AND type <> 1"; // don't take the templates
+	$sql = "SELECT order_no, trans_type FROM ".TB_PREF."sales_orders WHERE ord_date <= '$to' AND type <> 1"; 
 	$result = db_query($sql, "Could not retrieve sales orders");
 	while ($row = db_fetch($result))
 	{
@@ -354,7 +347,7 @@ function delete_this_fiscalyear($selected_id)
 	$total = 0.0;
 	while ($row = db_fetch($result))
 	{
-		if ($last_account != $row['account']) // deletes all subledgers postings, so do it once for account
+		if ($last_account != $row['account']) 
 		{
 			$sql = "DELETE FROM ".TB_PREF."gl_trans WHERE tran_date <= '$to' AND account = '{$row['account']}'";
 			db_query($sql, "Could not delete gl trans");
@@ -403,7 +396,7 @@ function delete_this_fiscalyear($selected_id)
 		$sql = "SELECT count(*) FROM ".TB_PREF."gl_trans WHERE type = {$row['type']} AND type_no = {$row['id']}";
 		$res = db_query($sql, "Could not retrieve gl_trans");
 		$row2 = db_fetch_row($res);
-		if ($row2[0] == 0) // if no link, then delete comments
+		if ($row2[0] == 0) 
 		{
 			$sql = "DELETE FROM ".TB_PREF."comments WHERE type = {$row['type']} AND id = {$row['id']}";
 			db_query($sql, "Could not delete comments");
@@ -416,7 +409,7 @@ function delete_this_fiscalyear($selected_id)
 		$sql = "SELECT count(*) FROM ".TB_PREF."gl_trans WHERE type = {$row['type']} AND type_no = {$row['id']}";
 		$res = db_query($sql, "Could not retrieve gl_trans");
 		$row2 = db_fetch_row($res);
-		if ($row2[0] == 0) // if no link, then delete refs
+		if ($row2[0] == 0) 
 		{
 			$sql = "DELETE FROM ".TB_PREF."refs WHERE type = {$row['type']} AND id = {$row['id']}";
 			db_query($sql, "Could not delete refs");

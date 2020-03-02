@@ -23,8 +23,8 @@ function add_audit_trail($trans_type, $trans_no, $trans_date, $descr='')
 			. "'$date',". db_escape($descr). ", CURRENT_TIMESTAMP)";
 
 	db_query($sql, "Cannot add audit info");
-	// all audit records beside just inserted one should have gl_seq set to NULL
-	// to avoid need for subqueries (not existing in MySQL 3) all over the code
+	
+	
 	$sql = "UPDATE ".TB_PREF."audit_trail audit LEFT JOIN ".TB_PREF."fiscal_year year ON year.begin<='$date' AND year.end>='$date'
 		SET audit.gl_seq = IF(audit.id=".db_insert_id().", 0, NULL),"
 		."audit.fiscal_year=year.id"
@@ -66,13 +66,13 @@ function close_transactions($todate) {
 	begin_transaction();
 
 	$errors = 0;
-	// select only those audit trail records which produce any GL postings
+	
 	$sql = "SELECT a.id, gl.tran_date, a.fiscal_year, a.gl_seq,
 		 gl.tran_date <= '". date2sql($todate) ."' as closed"
 		." FROM ".TB_PREF."gl_trans gl"
 		." LEFT JOIN ". TB_PREF."audit_trail a ON 
 			(gl.type=a.type AND gl.type_no=a.trans_no)"
-		. " WHERE NOT ISNULL(a.gl_seq) AND gl.amount!=0"	// skip old audit records and voided transactions
+		. " WHERE NOT ISNULL(a.gl_seq) AND gl.amount!=0"	
 		. " GROUP BY  a.id, gl.tran_date, a.fiscal_year, a.gl_seq ORDER BY a.fiscal_year, gl.tran_date, a.id";
 
 	$result = db_query($sql, "Cannot select transactions for closing");
@@ -86,11 +86,11 @@ function close_transactions($todate) {
 			}
 			if ($last_year != $row['fiscal_year']) {
 				$last_year = $row['fiscal_year'];
-				$counter = 0; // reset counter on fiscal year change
+				$counter = 0; 
 			}
 
 			$seq = $row['closed'] ? ++$counter : 0;
-			if ($row['gl_seq'] != $seq)	{ // update transaction status only when gl_seq has changed
+			if ($row['gl_seq'] != $seq)	{ 
 				$sql2 = "UPDATE ".TB_PREF."audit_trail SET"
 					. " gl_seq=$seq"
 					. " WHERE id=".$row['id'];
@@ -114,12 +114,12 @@ function get_journal_number($type, $trans_no) {
 	if (!$cdate)
 		return false;
 
-// FIXME: gl_date can be badly entered for some transactions due to bug in previous FA versions 
+
 	$sql = "SELECT	MAX(gl_seq) as gl_seq  FROM ".TB_PREF."audit_trail"
 		. " WHERE type=".db_escape($type)
 		." AND trans_no=".db_escape($trans_no)
-		." AND gl_date<='$cdate'"; // date is stored in sql format
-//		." AND (gl_date<='$cdate'" // some transaction can be not sequenced due to 0 amount, however after edition this could change
+		." AND gl_date<='$cdate'"; 
+//		." AND (gl_date<='$cdate'" 
 //		." OR gl_seq>0)";
 	$res = db_query($sql, "Cannot check transaction");
 	if (db_num_rows($res))

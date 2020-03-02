@@ -1,21 +1,14 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_BANKREP';
-// ----------------------------------------------------------------
-// $ Revision:	2.0 $
-// Creator:	Joe Hunt
-// date_:	2005-05-19
-// Title:	Bank Accounts Transactions
-// ----------------------------------------------------------------
+
+
+
+
+
+
 $path_to_root="..";
 
 include_once($path_to_root . "/includes/session.inc");
@@ -120,8 +113,8 @@ function print_bank_transactions()
 			$total_debit = $total_credit = 0;
 			if ($rows > 0)
 			{
-				// Keep a running total as we loop through
-				// the transactions.
+				
+				
 				
 				while ($myrow=db_fetch($trans))
 				{
@@ -155,7 +148,7 @@ function print_bank_transactions()
 				$rep->NewLine();
 			}
 			
-			// Print totals for the debit and credit columns.
+			
 			$rep->TextCol(3, 5, _("Total Debit / Credit"));
 			$rep->AmountCol(5, 6, $total_debit, $dec);
 			$rep->AmountCol(6, 7, $total_credit, $dec);
@@ -171,7 +164,7 @@ function print_bank_transactions()
 			$rep->Line($rep->row - $rep->lineHeight + 4);
 			$rep->NewLine(2, 1);
 			
-			// Print the difference between starting and ending balances.
+			
 			$net_change = ($total - $prev_balance); 
 			$rep->TextCol(3, 5, _("Net Change"));
 			if ($total > 0.0)

@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root . "/includes/prefs/sysprefs.inc");
 include_once($path_to_root . "/inventory/includes/inventory_db.inc");
@@ -36,7 +29,7 @@ class items_cart
 	var $source_ref;
 	var $vat_category;
 
-	var $tax_info;	// tax info for the GL transaction
+	var $tax_info;	
 
 	var $fixed_asset;
 
@@ -50,7 +43,7 @@ class items_cart
 		$this->rate = 1;
 	}
 
-	// --------------- line item functions
+	
 
 	function add_to_cart($line_no, $stock_id, $qty, $standard_cost, $description=null)
 	{
@@ -63,7 +56,7 @@ class items_cart
 		}
 		else
 		{
-			// shouldn't come here under normal circumstances
+			
 			display_error("unexpected - adding an invalid item or null quantity", "", true);
 		}
 
@@ -120,7 +113,7 @@ class items_cart
 		return $low_stock;
 	}
 
-	// ----------- GL item functions
+	
 
 	function add_gl_item($code_id, $dimension_id, $dimension2_id, $amount, $memo='', $act_descr=null, $person_id=null, $date=null)
 	{
@@ -132,7 +125,7 @@ class items_cart
 		}
 		else
 		{
-			// shouldn't come here under normal circumstances
+			
 			display_error("unexpected - invalid parameters in add_gl_item($code_id, $dimension_id, $dimension2_id, $amount,...)", "", true);
 		}
 
@@ -206,7 +199,7 @@ class items_cart
 		return $total;
 	}
 
-	// ------------ common functions
+	
 
 	function clear_items()
 	{
@@ -289,15 +282,15 @@ class items_cart
 					if (!isset($tax_info['tax_out'][$tax_id]))
 						$tax_info['tax_out'][$tax_id] = 0;
 					$tax_info['tax_out'][$tax_id] -= $gl->amount;
-					if (!isset($tax_info['tax_reg'])) // TR_INPUT has priority (EU are posted on both accounts)
+					if (!isset($tax_info['tax_reg'])) 
 						$tax_info['tax_reg'] = TR_OUTPUT;
 				}
 				if ($tax_type['rate'])
 				{
-					// assume transaction adjustment for negative tax in/out
+					
 					$sign = (@$tax_info['tax_in'][$tax_id] < 0 || @$tax_info['tax_out'][$tax_id] < 0) ? -1 : 1;
-					// we can have both input and output tax postings in some cases like intra-EU trade.
-					// so just calculate net_amount from the higher in/out tax
+					
+					
 					$tax_info['net_amount'][$tax_id]
 						= $sign*round2(max(abs(@$tax_info['tax_in'][$tax_id]), abs(@$tax_info['tax_out'][$tax_id]))/$tax_type['rate']*100, 2)/$factor;
 
@@ -305,11 +298,11 @@ class items_cart
 			} else
 				$net_sum += $gl->amount;
 		}
-		// if no tax amount posted guess register type from person_type used (e.g. export invoice)
+		
 		if (!isset($tax_info['tax_reg']) && isset($tax_info['person_type']))
 			$tax_info['tax_reg'] = $tax_info['person_type']==PT_CUSTOMER ? TR_OUTPUT : TR_INPUT;
 
-		if (count_array(@$tax_info['net_amount']))	// guess exempt sales/purchase if any tax has been found
+		if (count_array(@$tax_info['net_amount']))	
 		{
 			$ex_net = abs($net_sum) - @array_sum($tax_info['net_amount']);
 			if ($ex_net != 0)
@@ -335,9 +328,9 @@ class items_cart
 		foreach($this->gl_items as $n => $gl)
 		{
 			$prev = @$codes[$gl->code_id][$gl->person_id][$gl->dimension_id][$gl->dimension2_id][$gl->reference];
-			if (isset($prev)) { // add amount to previous line for the same gl_code dims and memo
+			if (isset($prev)) { 
 				$this->gl_items[$prev]->amount += $gl->amount;
-				if ($this->gl_items[$prev]->amount == 0) // discard if overall amount==0
+				if ($this->gl_items[$prev]->amount == 0) 
 				{
 					unset($this->gl_items[$prev], $codes[$gl->code_id][$gl->person_id][$gl->dimension_id][$gl->dimension2_id][$gl->reference]);
 				}
@@ -369,9 +362,9 @@ class items_cart
 			$total_gl += add_gl_trans($this->trans_type, $this->order_id, $gl->date, $gl->code_id, $gl->dimension_id, $gl->dimension2_id, 
 				$gl->reference,	$gl->amount, $this->currency, $gl->person_type_id, $gl->person_id, "", $this->rate);
 
-			// post to first found bank account using given gl acount code.
+			
 			$is_bank_to = is_bank_account($gl->code_id);
-	    	if ($is_bank_to && (get_bank_account_currency($is_bank_to) == $this->currency)) // do not register exchange variations in bank trans
+	    	if ($is_bank_to && (get_bank_account_currency($is_bank_to) == $this->currency)) 
     		{
     			if (!isset($bank_trans[$is_bank_to]))
     				$bank_trans[$is_bank_to] = 0;
@@ -380,8 +373,8 @@ class items_cart
     		} elseif ($gl->person_id)
     		{
     			$home_currency = get_company_currency();
-				// collect per counterparty amounts (in case more than one posting was done to the account),
-				// do not post exchange variations to AR/AP (journal in not customer/supplier currency)
+				
+				
 	    		if ($gl->person_type_id==PT_SUPPLIER && (get_supplier_currency($gl->person_id) == $this->currency || $this->currency != $home_currency))
 	   				$supp_trans[$gl->person_id] = @$supp_trans[$gl->person_id] + $gl->amount;
     			elseif ($gl->person_type_id==PT_CUSTOMER && (get_customer_currency(null, $gl->branch_id) == $this->currency || $this->currency != $home_currency))
@@ -389,33 +382,33 @@ class items_cart
     		}
 
 		}
-		// post currency roundings if any
+		
 		if ($check_balance && floatcmp($total_gl, 0))
 			add_gl_trans($this->trans_type, $this->order_id, $this->tran_date, 
 				get_company_pref($total_gl>0 ? 'rounding_db_act' : 'rounding_cr_act'), 0, 0, _('Exchange rate roundings'), -$total_gl);
 
-		// update bank ledger if used
+		
 		foreach($bank_trans as $bank_id => $amount)
    			add_bank_trans($this->trans_type, $this->order_id, $bank_id, $this->reference,
 				$this->tran_date, $amount, 0, "", $this->currency,
  				"Cannot insert a destination bank transaction");
 
-		// add AP/AR for journal transaction
+		
 		if ($this->trans_type == ST_JOURNAL)
 		{
-			// update AR
+			
 			foreach($cust_trans as $branch_id => $amount)
 				if (floatcmp($amount, 0))
 					write_cust_journal($this->trans_type, $this->order_id, $branch_id, $this->tran_date,
 						$this->reference, $amount, $this->rate);
-			// update AP
+			
 			foreach($supp_trans as $supp_id => $amount)
 				if (floatcmp($amount, 0))
 					write_supp_journal($this->trans_type, $this->order_id, $supp_id, $this->tran_date,
 						$this->reference, -$amount, $this->rate, $this->source_ref);
 		}
 
-		// generate tax records for journal transaction
+		
 		if ($this->trans_type == ST_JOURNAL && is_array($this->tax_info))
 		{
 			foreach($this->tax_info['net_amount'] as $tax_id => $net)
@@ -423,8 +416,8 @@ class items_cart
 				if (!$net)
 					continue;
 
-				// in EU VAT system intra-community goods aquisition is posted to both purchasing and sales tax accounts,
-				// but included only in purchase register. To avoid double registering ELSE is used below!
+				
+				
 				if (isset($this->tax_info['tax_in'][$tax_id]))
 				{
 					$tax = $this->tax_info['tax_in'][$tax_id];
@@ -435,7 +428,7 @@ class items_cart
 					$tax = $this->tax_info['tax_out'][$tax_id];
 					$reg = TR_OUTPUT;
 				}
-				elseif (isset($this->tax_info['tax_reg'])) // e.g. export
+				elseif (isset($this->tax_info['tax_reg'])) 
 				{
 					$tax = 0;
 					$reg = $this->tax_info['tax_reg'];

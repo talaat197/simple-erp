@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root . "/admin/db/voiding_db.inc");
 include_once($path_to_root . "/includes/types.inc");
@@ -266,9 +259,9 @@ function check_ui_refresh($name=null)
 }
 
 //--------------------------------------------------------------------------------------
-// Displays currency exchange rate for given date.
-// When there is no exrate for today, 
-// gets it form ECB and stores in local database.
+
+
+
 //
 function exchange_rate_display($from_currency=null, $to_currency=null, $date_, $force_edit=false)
 {
@@ -279,7 +272,7 @@ function exchange_rate_display($from_currency=null, $to_currency=null, $date_, $
 	if ($from_currency != $to_currency)
 	{
 	 	$rate = input_num('_ex_rate');
-	 	if (check_ui_refresh() || !$rate) { // readonly or ui context changed
+	 	if (check_ui_refresh() || !$rate) { 
 			$comp_currency = get_company_currency();
 
 	 		if (!isset($from_currency))
@@ -292,28 +285,28 @@ function exchange_rate_display($from_currency=null, $to_currency=null, $date_, $
 			else
 				$currency = $from_currency;
 
-			$rate = get_date_exchange_rate($currency, $date_); // try local
+			$rate = get_date_exchange_rate($currency, $date_); 
 
 			if ($rate)
-				$readonly = true; // if we have already local exrate keep it unchanged 
+				$readonly = true; 
 
-			if (!$rate) {	// retry from remote service
+			if (!$rate) {	
 				$row = get_currency($currency);
 
- 				if ($row['auto_update']) // autoupdate means use remote service & store exrate on first transaction.
+ 				if ($row['auto_update']) 
  				{
  					$rate = retrieve_exrate($currency, $date_);
 					if (!$rate)
 						display_warning(sprintf(_("Cannot retrieve exchange rate for currency %s. Please adjust approximate rate if needed."), $currency));
 					elseif ($SysPrefs->xr_provider_authoritative) {
-						// if the remote exrate is considered authoritative we can store the rate here,
-						// otherwise exrate will be stored during transaction write
+						
+						
 						$readonly = true;
 						add_new_exchange_rate($currency, $date_, $rate);
 					}
 				}
 			}
-			if (!$rate)	{	// get and edit latest available
+			if (!$rate)	{	
 				$rate = get_exchange_rate_from_home_currency($currency, $date_);
 			}
 			if ($from_currency != $comp_currency)
@@ -639,10 +632,10 @@ function display_quick_entries(&$cart, $id, $base, $type, $descr='')
 	{
 		if ($type == QE_DEPOSIT)
 			$base = -$base;
-		if ($type != QE_SUPPINV && $type != QE_JOURNAL)	// only one quick entry on journal/bank transaction
+		if ($type != QE_SUPPINV && $type != QE_JOURNAL)	
 			$cart->clear_items();
 
-		// as for now tax_group is passed only in QE_SUPPINV
+		
 		$qe_lines = quickentry_calculate($base, $id, @$cart->tax_group_id, $cart->tran_date);
 
 		if ($qe_lines === 0)
@@ -681,25 +674,25 @@ function quickentry_calculate($base, $id, $taxgroup=null, $date=null)
 		$qe = get_quick_entry($id);
 		$type = $qe['type'];
 		$total = $base;
-		// quick entry made on account balance is special case.
-		if ($qe['bal_type'] == 1) // if this is quick entry based on balance - calculate it
+		
+		if ($qe['bal_type'] == 1) 
 		{
-			// Note, that this is ugly hack overriding standard field usage 
-			// just to make the feature available between major FA releases!
+			
+			
 			$gl_code = $qe['base_desc'];
 			$monthly = $qe['base_amount'] == 1.0;
 
 			if (!isset($date))
 				$date = Today();
 
-			if ($monthly) // marked as monthly
+			if ($monthly) 
 				$begin = begin_month($date);
 			else
 			{
-				if (is_account_balancesheet($gl_code)) // total
+				if (is_account_balancesheet($gl_code)) 
 					$begin = "";
 				else
-					$begin = begin_fiscalyear(); // from fiscalyear begin
+					$begin = begin_fiscalyear(); 
 			}
 			$base = get_gl_trans_from_to($begin, $date, $gl_code);
 
@@ -711,16 +704,16 @@ function quickentry_calculate($base, $id, $taxgroup=null, $date=null)
 			return 0;
 		}
 
-		// first calculate total rate in case more than one tax is used
+		
 		$totrate = 0;
 		while ($row = db_fetch($result))
 		{
 			$qe_lines[] = $row;
 
 			switch (strtolower($row['action'])) {
-				case "t": // post taxes calculated on base amount
-				case "t+": // ditto & increase base amount
-				case "t-": // ditto & reduce base amount
+				case "t": 
+				case "t+": 
+				case "t-": 
 					if (substr($row['action'], 0, 1) != 'T') 
 						$totrate += get_tax_type_rate($row['dest_id']);
 			}
@@ -731,32 +724,32 @@ function quickentry_calculate($base, $id, $taxgroup=null, $date=null)
 		{
 			$gl_code = $qe_line['dest_id'];
 			switch (strtolower($qe_line['action'])) {
-				case "=": // post current base amount to GL account
+				case "=": 
 					$part = $base;
 					break;
-				case "a": // post amount to GL account and reduce base
+				case "a": 
 					$part = $qe_line['amount'];
 					break;
-				case "a+": // post amount to GL account and increase base
+				case "a+": 
 					$part = $qe_line['amount']; $base += $part;
 					break;
-				case "a-": // post amount to GL account and reduce base
+				case "a-": 
 					$part = $qe_line['amount']; $base -= $part;
 					break;
-				case "%":	// store acc*amount% to GL account
+				case "%":	
 					$part = round2($base * $qe_line['amount'] / 100, user_price_dec());
 					break;
-				case "%+":	// ditto & increase base amount
+				case "%+":	
 					$part = round2($base * $qe_line['amount'] / 100, user_price_dec());
 					$base += $part;
 					break;
-				case "%-":	// ditto & reduce base amount
+				case "%-":	
 					$part = round2($base * $qe_line['amount'] / 100, user_price_dec());
 					$base -= $part;
 					break;
-				case "t": // post taxes calculated on base amount
-				case "t+": // ditto & increase base amount
-				case "t-": // ditto & reduce base amount
+				case "t": 
+				case "t+": 
+				case "t-": 
 					if ($first)
 					{
 						$taxbase = $base/($totrate+100);
@@ -784,7 +777,7 @@ function quickentry_calculate($base, $id, $taxgroup=null, $date=null)
 					$gl_code = ($type == QE_DEPOSIT || ($type == QE_JOURNAL && $base < 0)) 
 						? $item_tax['sales_gl_code'] : $item_tax['purchasing_gl_code'];
 					if (!is_tax_gl_unique($gl_code)) {
-						return -1; // more than one taxtype used with this GL account
+						return -1; 
 					}
 
 					$part = $tax;
@@ -862,12 +855,12 @@ function _number_to_words($number)
 
 function price_in_words($amount, $document=0)
 {
-	// use local price_in_words() if the hook is defined
+	
 	$price = hook_price_in_words($amount, $document);
 	if ($price) 
 		return $price;
 
-	// Only usefor Remittance and Receipts as default
+	
 	if (!($document == ST_SUPPAYMENT || $document == ST_CUSTPAYMENT || $document == ST_CHEQUE))
 		return "";
 	if ($amount < 0 || $amount > 999999999999)
@@ -1002,12 +995,12 @@ function get_js_date_picker()
 
 	$date_system = $SysPrefs->date_system;
 	$dateseps = $SysPrefs->dateseps;
-	$how = user_date_format();				// 0 = us/ca, 1 = eu, au, nz, 2 = jp, sw
-	$sep = $dateseps[user_date_sep()];		// date separator
-	$wstart = (($date_system == 1 || $date_system == 2 || $date_system == 3) ? 6 : ($how == 0 || $how == 3 ? 0 : 1));	// weekstart (sun = 0, mon = 1)
+	$how = user_date_format();				
+	$sep = $dateseps[user_date_sep()];		
+	$wstart = (($date_system == 1 || $date_system == 2 || $date_system == 3) ? 6 : ($how == 0 || $how == 3 ? 0 : 1));	
 	$months = array(_("January"),_("February"),_("March"),_("April"),_("May"),_("June"),_("July"),_("August"),_("September"),_("October"),_("November"),_("December"));
 	$wdays = array(_("Su"),_("Mo"),_("Tu"),_("We"),_("Th"),_("Fr"),_("Sa"));
-	$wno = _("W"); // week no
+	$wno = _("W"); 
 	$back = _("Back");
 	if ($date_system == 1)
 		list($cyear, $cmon, $cday) = gregorian_to_jalali(date("Y"), date("n"), date("j"));
@@ -1520,7 +1513,7 @@ function display_backtrace($cond=true, $msg='') {
 }
 
 //
-// FIXME: $payment_services array will be moved to bank_accounts in 2.4.x
+
 //
 if (!isset($payment_services))
 {
@@ -1557,23 +1550,23 @@ function trans_editor_link($type, $trans_no)
 		ST_BANKDEPOSIT => "/gl/gl_bank.php?ModifyDeposit=Yes&trans_no=%d&trans_type=%d",
 	    ST_BANKTRANSFER => "/gl/bank_transfer.php?ModifyTransfer=Yes&trans_no=%d&trans_type=%d",
     	ST_SALESINVOICE => "/sales/customer_invoice.php?ModifyInvoice=%d",
-		ST_CUSTCREDIT => "/sales/credit_note_entry.php?ModifyCredit=%d", // only for free hand credit notes (debtors_trans.order_==0)
+		ST_CUSTCREDIT => "/sales/credit_note_entry.php?ModifyCredit=%d", 
 		ST_CUSTPAYMENT => "/sales/customer_payments.php?trans_no=%d",
 		ST_CUSTDELIVERY => "/sales/customer_delivery.php?ModifyDelivery=%d",
-//   16=> Location Transfer,
-//   17=> Inventory Adjustment,
+
+
 		ST_SUPPINVOICE => "/purchasing/supplier_invoice.php?ModifyInvoice=%d",
 		ST_SUPPCREDIT =>  "/purchasing/supplier_credit.php?ModifyCredit=%d",
-//   21=> Supplier Credit Note,
-//   22=> Supplier Payment,
-//   25=> Purchase Order Delivery,
+
+
+
 		ST_PURCHORDER => "/purchasing/po_entry_items.php?ModifyOrderNumber=%d",
-//   28=> Work Order Issue,
-//   29=> Work Order Production",
+
+
 		ST_WORKORDER => "/manufacturing/work_order_entry.php?trans_no=%d",
 		ST_SALESORDER => "/sales/sales_order_entry.php?ModifyOrderNumber=%d",
 		ST_SALESQUOTE => "/sales/sales_order_entry.php?ModifyQuotationNumber=%d",
-	//   35=> Cost Update,
+	
 	);
 
 	return !isset($editor_url[$type]) ? '--' :

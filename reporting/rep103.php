@@ -10,12 +10,12 @@
     See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
 ***********************************************************************/
 $page_security = 'SA_CUSTBULKREP';
-// ----------------------------------------------------------------
-// $ Revision:	2.0 $
-// Creator:	Joe Hunt
-// date_:	2005-05-19
-// Title:	Customer Details Listing
-// ----------------------------------------------------------------
+
+
+
+
+
+
 $path_to_root="..";
 
 include_once($path_to_root . "/includes/session.inc");
@@ -209,7 +209,7 @@ function print_customer_details_listing()
 				$rep->NewLine();
 			}
 			$rep->NewLine();
-			// Here starts the new report lines
+			
 			$contacts = get_contacts_for_branch($myrow['branch_code']);
 			$rep->TextCol(0, 1,	$myrow['name']);
 			$rep->TextCol(1, 2,	_('Price List') . ": " . $myrow['sales_type']);

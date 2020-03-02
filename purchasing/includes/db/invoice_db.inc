@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 include_once($path_to_root . "/purchasing/includes/db/invoice_items_db.inc");
 include_once($path_to_root . "/admin/db/attachments_db.inc");
@@ -62,8 +55,8 @@ function read_supplier_details_to_trans(&$supp_trans, $supplier_id)
 
 //-------------------------------------------------------------------------------------------------
 //	Updates invoiced quantity in PO and GRN line, and act_price in PO
-//  Returns:
-// if chg_price is set:	 previous act_price, delivery date and unit_price from PO
+
+
 //
 function update_supp_received_items_for_invoice($id, $po_detail_item, $qty_invoiced, $chg_price=null)
 {
@@ -90,7 +83,7 @@ function update_supp_received_items_for_invoice($id, $po_detail_item, $qty_invoi
 	{
 		$ret = 0;
 		$date = "";
-		$unit_price = 0; // Added by Rasmus
+		$unit_price = 0; 
 	}
     $sql = "UPDATE ".TB_PREF."purch_order_details
 		SET qty_invoiced = qty_invoiced + ".db_escape($qty_invoiced);
@@ -137,7 +130,7 @@ function add_supp_invoice(&$supp_trans)
 	$tax_total = 0;
     $taxes = $supp_trans->get_taxes($supp_trans->tax_group_id);
 	if ($trans_no) {
-		$allocs = get_payments_for($trans_no, $trans_type, $supp_trans->supplier_id); // save allocations
+		$allocs = get_payments_for($trans_no, $trans_type, $supp_trans->supplier_id); 
 		void_transaction($trans_type, $trans_no, Today(), _("Document reentered."));
 		$Refs->restore_last($trans_type, $trans_no);
 	} else
@@ -163,10 +156,10 @@ function add_supp_invoice(&$supp_trans)
 
 	if ($trans_type == ST_SUPPCREDIT)
 	{
-		// let's negate everything because it's a credit note
+		
 		$invoice_items_total = -$invoice_items_total;
 		$tax_total = -$tax_total;
-		$supp_trans->ov_discount = -$supp_trans->ov_discount; // this isn't used at all...
+		$supp_trans->ov_discount = -$supp_trans->ov_discount; 
 		$item_added_tax = -$item_added_tax;
 	}
 
@@ -194,7 +187,7 @@ function add_supp_invoice(&$supp_trans)
 		if ($taxitem['Net'] != 0)
 		{
 			if (isset($taxitem['Override'])) {
-				if ($supp_trans->tax_included) { // if tax included, fix net amount to preserve overall line price
+				if ($supp_trans->tax_included) { 
 					$net_diff += $taxitem['Override'] - $taxitem['Value'];
 					$taxitem['Net'] += $taxitem['Override'] - $taxitem['Value'];
 				}
@@ -241,7 +234,7 @@ function add_supp_invoice(&$supp_trans)
 		add_supp_invoice_gl_item($trans_type, $invoice_id, $entered_gl_code->gl_code, $entered_gl_code->amount, $memo_,
 			$entered_gl_code->gl_dim, $entered_gl_code->gl_dim2);
 
-		// store tax details if the gl account is a tax account
+		
 		if ($trans_type == ST_SUPPCREDIT)
 			$entered_gl_code->amount = -$entered_gl_code->amount;
 		add_gl_tax_details($entered_gl_code->gl_code, 
@@ -259,12 +252,12 @@ function add_supp_invoice(&$supp_trans)
 			set_grn_item_credited($entered_grn, $supp_trans->supplier_id, $invoice_id, $date_);
     	}
 
-		// For tax included pricelist the net price is calculated down from tax_included price.
-		// To avoid rounding errors we have to operate on line value instead of price
-		// Additionally we have to take into account differences in net value
-		// due to variations in tax calculations on supplier side. More over there is no direct relation between
-		// taxes and sales accounts, so we add net_diff just to first posted net value. This is _ugly_hack_
-		// which save us from rewriting whole routine, and works right only for small tax differences.
+		
+		
+		
+		
+		
+		
 
 		$taxfree_line = get_tax_free_price_for_item($entered_grn->item_code, $entered_grn->this_quantity_inv * $entered_grn->chg_price, 
 			  $supp_trans->tax_group_id, $supp_trans->tax_included) - $net_diff; $net_diff = 0;
@@ -287,15 +280,15 @@ function add_supp_invoice(&$supp_trans)
 		}
     	else
     	{
-    		// -------------- if price changed since po received.
+    		
 			$iv_act = is_inventory_item($entered_grn->item_code) ? ($clearing_act ? $clearing_act : $stock_gl_code["inventory_account"]) : 
 				($supplier["purchase_account"] ? $supplier["purchase_account"] : $stock_gl_code["cogs_account"]);
     		$old = update_supp_received_items_for_invoice($entered_grn->id, $entered_grn->po_detail_item,
     			$entered_grn->this_quantity_inv, $entered_grn->chg_price);
 
-			// Since the standard cost is always calculated on basis of the po unit_price,
-			// this is also the price that should be the base of calculating the price diff.
-			// In cases where there is two different po invoices on the same delivery with different unit prices this will not work either
+			
+			
+			
 
 			$old_price = $old[2];
 
@@ -363,7 +356,7 @@ function add_supp_invoice(&$supp_trans)
     } /* end of GRN postings */
 
 	/*Post a balance post if $total != 0 */
-	add_gl_balance($trans_type, $invoice_id, $date_, -$total, PT_SUPPLIER, $supp_trans->supplier_id); // ??
+	add_gl_balance($trans_type, $invoice_id, $date_, -$total, PT_SUPPLIER, $supp_trans->supplier_id); 
 
 	add_comments($trans_type, $invoice_id, $date_, $supp_trans->Comments);
 
@@ -405,7 +398,7 @@ function add_supp_invoice(&$supp_trans)
 
 //----------------------------------------------------------------------------------------
 
-// get all the invoices/credits for a given PO - quite long route to get there !
+
 
 function get_po_invoices_credits($po_number)
 {
@@ -427,7 +420,7 @@ function get_po_invoices_credits($po_number)
 
 //----------------------------------------------------------------------------------------
 //
-// Retrieve tax ovverides from tax register.
+
 //
 function get_tax_overrides($trans_type, $trans_no)
 {
@@ -435,7 +428,7 @@ function get_tax_overrides($trans_type, $trans_no)
 	$sql = "SELECT amount, tax_type_id as id, rate
 		FROM ".TB_PREF."trans_tax_details details
 		WHERE trans_type=".db_escape($trans_type)." AND trans_no=".db_escape($trans_no)
-		." AND amount>0"; // skip reposting of nondeductible VAT
+		." AND amount>0"; 
 
 	$result = db_query($sql, 'Cannot retrieve tax overrides');
 	while($row = db_fetch($result))
@@ -547,15 +540,15 @@ function void_supp_invoice($type, $type_no)
 
 	$result = get_supp_invoice_items($type, $type_no);
 
-	// now remove this invoice/credit from any GRNs/POs that it's related to
+	
 	if (db_num_rows($result) > 0)
 	{
 		$date_ = Today();
         while ($details_row = db_fetch($result))
         {
-         	if ((int)$details_row["grn_item_id"] > 0) // it can be empty for GL items
+         	if ((int)$details_row["grn_item_id"] > 0) 
          	{
-         		// Changed 2008-10-17 by Joe Hunt to get the avg. material cost updated
+         		
 				$old = update_supp_received_items_for_invoice($details_row["grn_item_id"],
 					$details_row["po_detail_item_id"], -$details_row["quantity"], $details_row["FullUnitPrice"]); 
 				
@@ -564,11 +557,11 @@ function void_supp_invoice($type, $type_no)
 				
 				$batch = get_grn_batch_from_item($details_row["grn_item_id"]);	
 				$grn = get_grn_batch($batch);
-         		if ($type == ST_SUPPCREDIT) // credit note 2009-06-14 Joe Hunt Must restore the po and grn
-         		{	// We must get the corresponding invoice item to check for price chg.
+         		if ($type == ST_SUPPCREDIT) 
+         		{	
 					$match = get_matching_invoice_item($details_row["stock_id"], $details_row["po_detail_item_id"]);
 					//Chaitanya : Skipped costing block & handle in void_stock_move
-					// We must get the corresponding invoice item to check for price chg.
+					
 					/*if ($match !== false)
 						$mat_cost = update_average_material_cost($grn["supplier_id"], $details_row["stock_id"],  
 							$match["unit_price"], -$details_row["quantity"], sql2date($match['tran_date']), $match['tran_date'] !== $trans['tran_date']);
@@ -591,7 +584,7 @@ function void_supp_invoice($type, $type_no)
     			{
 					$diff = get_diff_in_home_currency($grn["supplier_id"], $old_date, sql2date($trans['tran_date']), $old[2], 
 						$details_row["FullUnitPrice"]);
-					// Only adjust the avg for the diff
+					
 					$mat_cost = update_average_material_cost(null, $details_row["stock_id"],
 						$diff, -$details_row["quantity"], $old_date, true);
 						
@@ -629,7 +622,7 @@ function void_supp_invoice($type, $type_no)
         }
 	}
 
-	if ($type == ST_SUPPCREDIT) // void the credits in stock moves
+	if ($type == ST_SUPPCREDIT) 
 		void_stock_move($type, $type_no); 
 	void_supp_invoice_items($type, $type_no);
 	void_trans_tax_details($type, $type_no);
@@ -649,7 +642,7 @@ function is_reference_already_there($supplier_id, $supp_reference, $trans_no=0)
 	$sql = "SELECT COUNT(*) FROM ".TB_PREF."supp_trans WHERE supplier_id="
 		.db_escape($supplier_id) . " AND supp_reference=" 
 		.db_escape($supp_reference) 
-		. " AND ov_amount!=0"; // ignore voided invoice references
+		. " AND ov_amount!=0"; 
 	if ($trans_no)
 		$sql .= " AND trans_no!=$trans_no";
 	$result=db_query($sql,"The sql to check for the previous entry of the same invoice failed");
@@ -687,7 +680,7 @@ function remove_not_invoice_item($id)
         -$myrow["QtyOstdg"], $myrow['std_cost_unit'], $price);
 
     $clearing_act = get_company_pref('grn_clearing_act');
-    if ($clearing_act) {    // otherwise GRN clearing account is not used
+    if ($clearing_act) {    
         if (is_inventory_item($myrow['item_code']))
         {
             $total = 0;
@@ -708,7 +701,7 @@ function find_src_invoices($cart)
 {
 	$invoices = $po_ids = array();
 	foreach($cart->grn_items as $item)
-		$po_ids[] = "'$item->po_detail_item'";	// credit item lines
+		$po_ids[] = "'$item->po_detail_item'";	
 
 	if (count($po_ids)) {
 		$sql = "SELECT DISTINCT trans.trans_no, trans.reference, trans.supp_reference
@@ -718,7 +711,7 @@ function find_src_invoices($cart)
 		$result = db_query($sql, "cannot find source invoice details");
 		while ($rec = db_fetch($result))
 		{
-			$invoices[$rec['trans_no']] = $rec['supp_reference']; // array($rec['reference'], $rec['supp_reference']);
+			$invoices[$rec['trans_no']] = $rec['supp_reference']; 
 		}
 	}
 	return $invoices;

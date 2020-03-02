@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_BOM';
 $path_to_root = "../..";
@@ -203,7 +196,7 @@ start_form();
 			$myrow = get_component_from_bom($selected_id);
 
 			$_POST['loc_code'] = $myrow["loc_code"];
-			$_POST['component'] = $myrow["component"]; // by Tom Moulton
+			$_POST['component'] = $myrow["component"]; 
 			$_POST['workcentre_added']  = $myrow["workcentre_added"];
 			$_POST['quantity'] = number_format2($myrow["quantity"], get_qty_dec($myrow["component"]));
 			label_row(_("Component:"), $myrow["component"] . " - " . $myrow["description"]);
@@ -236,7 +229,7 @@ start_form();
 	submit_add_or_update_center($selected_id == -1, '', 'both');
 	end_form();
 }
-// ----------------------------------------------------------------------------------
+
 
 end_page();
 

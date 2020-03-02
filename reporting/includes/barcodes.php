@@ -1,42 +1,42 @@
 <?php
 //============================================================+
-// File name   : barcodes.php
-// Begin       : 2008-06-09
-// Last Update : 2008-07-16
-// Version     : 1.0.002
-// License     : GNU LGPL (http://www.gnu.org/copyleft/lesser.html)
-// 	----------------------------------------------------------------------------
-//  Copyright (C) 2008  Nicola Asuni - Tecnick.com S.r.l.
-// 	
-// 	This program is free software: you can redistribute it and/or modify
-// 	it under the terms of the GNU Lesser General Public License as published by
-// 	the Free Software Foundation, either version 2.1 of the License, or
-// 	(at your option) any later version.
-// 	
-// 	This program is distributed in the hope that it will be useful,
-// 	but WITHOUT ANY WARRANTY; without even the implied warranty of
-// 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// 	GNU Lesser General Public License for more details.
-// 	
-// 	You should have received a copy of the GNU Lesser General Public License
-// 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-// 	
-// 	See LICENSE.TXT file for more information.
-//  ----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //
-// Description : PHP class to creates array representations for 
-//               common 1D barcodes to be used with TCPDF.
+
+
 //
-// Author: Nicola Asuni
+
 //
-// (c) Copyright:
-//               Nicola Asuni
-//               Tecnick.com S.r.l.
-//               Via della Pace, 11
-//               09044 Quartucciu (CA)
-//               ITALY
-//               www.tecnick.com
-//               info@tecnick.com
+
+
+
+
+
+
+
+
 //============================================================+
 
 /**
@@ -101,67 +101,67 @@ class TCPDFBarcode {
 	 */
 	function setBarcode($code, $type) {
 		switch (strtoupper($type)) {
-			case "C39": { // CODE 39
+			case "C39": { 
 				$arrcode = $this->barcode_code39($code, false, false);
 				break;
 			}
-			case "C39+": { // CODE 39 with checksum
+			case "C39+": { 
 				$arrcode = $this->barcode_code39($code, false, true);
 				break;
 			}
-			case "C39E": { // CODE 39 EXTENDED
+			case "C39E": { 
 				$arrcode = $this->barcode_code39($code, true, false);
 				break;
 			}
-			case "C39E+": { // CODE 39 EXTENDED with checksum
+			case "C39E+": { 
 				$arrcode = $this->barcode_code39($code, true, true);
 				break;
 			}
-			case "I25": { // Interleaved 2 of 5
+			case "I25": { 
 				$arrcode = $this->barcode_i25($code);
 				break;
 			}
-			case "C128A": { // CODE 128 A
+			case "C128A": { 
 				$arrcode = $this->barcode_c128($code, "A");
 				break;
 			}
-			case "C128B": { // CODE 128 B
+			case "C128B": { 
 				$arrcode = $this->barcode_c128($code, "B");
 				break;
 			}
-			case "C128C": { // CODE 128 C
+			case "C128C": { 
 				$arrcode = $this->barcode_c128($code, "C");
 				break;
 			}
-			case 'EAN2': { // 2-Digits UPC-Based Extension
+			case 'EAN2': { 
 				$arrcode = $this->barcode_eanext($code, 2);
 				break;
 			}
-			case 'EAN5': { // 5-Digits UPC-Based Extension
+			case 'EAN5': { 
 				$arrcode = $this->barcode_eanext($code, 5);
 				break;
 			}
-			case 'EAN8': { // EAN 8
+			case 'EAN8': { 
 				$arrcode = $this->barcode_eanupc($code, 8);
 				break;
 			}
-			case 'EAN13': { // EAN 13
+			case 'EAN13': { 
 				$arrcode = $this->barcode_eanupc($code, 13);
 				break;
 			}
-			case 'UPCA': { // UPC-A
+			case 'UPCA': { 
 				$arrcode = $this->barcode_eanupc($code, 12);
 				break;
 			}
-			case 'UPCE': { // UPC-E
+			case 'UPCE': { 
 				$arrcode = $this->barcode_eanupc($code, 6);
 				break;
 			}
-			case "POSTNET": { // POSTNET
+			case "POSTNET": { 
 				$arrcode = $this->barcode_postnet($code);
 				break;
 			}
-			case "CODABAR": { // CODABAR
+			case "CODABAR": { 
 				$arrcode = $this->barcode_codabar($code);
 				break;
 			}
@@ -227,17 +227,17 @@ class TCPDFBarcode {
 		
 		$code = strtoupper($code);
 		if ($extended) {
-			// extended mode
+			
 			$code = $this->encode_code39_ext($code);
 		}
 		if ($code === false) {
 			return false;
 		}
 		if ($checksum) {
-			// checksum
+			
 			$code .= $this->checksum_code39($code);
 		}
-		// add start and stop codes
+		
 		$code = "*".$code."*";
 		
 		$bararray = array("code" => $code, "maxw" => 0, "maxh" => 1, "bcode" => array());
@@ -245,14 +245,14 @@ class TCPDFBarcode {
 		for($i=0; $i < strlen($code); $i++) {
 			$char = $code{$i};
 			if(!isset($chr[$char])) {
-				// invalid character
+				
 				return false;
 			}
 			for($j=0; $j < 9; $j++) {
 				if (($j % 2) == 0) {
-					$t = true; // bar
+					$t = true; 
 				} else {
-					$t = false; // space
+					$t = false; 
 				}
 				$w = $chr[$char]{$j};
 				$bararray["bcode"][$k] = array("t" => $t, "w" => $w, "h" => 1, "p" => 0);
@@ -276,7 +276,7 @@ class TCPDFBarcode {
 		$encode = array(
 			chr(0) => '%U', chr(1) => '$A', chr(2) => '$B', chr(3) => '$C',
 			chr(4) => '$D', chr(5) => '$E', chr(6) => '$F', chr(7) => '$G',
-			chr(8) => '$H', chr(9) => '$I', chr(10) => '$J', chr(11) => '£K',
+			chr(8) => '$H', chr(9) => '$I', chr(10) => '$J', chr(11) => 'ï¿½K',
 			chr(12) => '$L', chr(13) => '$M', chr(14) => '$N', chr(15) => '$O',
 			chr(16) => '$P', chr(17) => '$Q', chr(18) => '$R', chr(19) => '$S',
 			chr(20) => '$T', chr(21) => '$U', chr(22) => '$V', chr(23) => '$W',
@@ -360,10 +360,10 @@ class TCPDFBarcode {
 		$chr['Z'] = '21';
 		
 		if((strlen($code) % 2) != 0) {
-			// add leading zero if code-length is odd
+			
 			$code = '0'.$code;
 		}
-		// add start and stop codes
+		
 		$code = 'AA'.strtolower($code).'ZA';
 			
 		$bararray = array("code" => $code, "maxw" => 0, "maxh" => 1, "bcode" => array());
@@ -372,19 +372,19 @@ class TCPDFBarcode {
 			$char_bar = $code{$i};
 			$char_space = $code{$i+1};
 			if((!isset($chr[$char_bar])) OR (!isset($chr[$char_space]))) {
-				// invalid character
+				
 				return false;
 			}
-			// create a bar-space sequence
+			
 			$seq = "";
 			for($s=0; $s < strlen($chr[$char_bar]); $s++){
 				$seq .= $chr[$char_bar]{$s} . $chr[$char_space]{$s};
 			}
 			for($j=0; $j < strlen($seq); $j++) {
 				if (($j % 2) == 0) {
-					$t = true; // bar
+					$t = true; 
 				} else {
-					$t = false; // space
+					$t = false; 
 				}
 				$w = $seq{$j};
 				$bararray["bcode"][$k] = array("t" => $t, "w" => $w, "h" => 1, "p" => 0);
@@ -550,14 +550,14 @@ class TCPDFBarcode {
 				return false;
 			}
 		}
-		// calculate check character
+		
 		$sum = $startid;
 		for ($i=0; $i < strlen($code); $i++) {
 			$sum +=  (strpos($keys, $code{$i}) * ($i+1));
 		}
 		$check = ($sum % 103);
 		
-		// add start, check and stop codes
+		
 		$code = chr($startid).$code.chr($check).chr(106).chr(107);
 		$bararray = array("code" => $code, "maxw" => 0, "maxh" => 1, "bcode" => array());
 		$k = 0;
@@ -569,14 +569,14 @@ class TCPDFBarcode {
 			} elseif(($ck >= 0) AND isset($chr[$ck])) {
 					$seq = $chr[$ck];
 			} else {
-				// invalid character
+				
 				return false;
 			}
 			for($j=0; $j < 6; $j++) {
 				if (($j % 2) == 0) {
-					$t = true; // bar
+					$t = true; 
 				} else {
-					$t = false; // space
+					$t = false; 
 				}
 				$w = $seq{$j};
 				$bararray["bcode"][$k] = array("t" => $t, "w" => $w, "h" => 1, "p" => 0);
@@ -600,14 +600,14 @@ class TCPDFBarcode {
 	protected function barcode_eanupc($code, $len=13) {
 		$upce = false;
 		if ($len == 6) {
-			$len = 12; // UPC-A
-			$upce = true; // UPC-E mode
+			$len = 12; 
+			$upce = true; 
 		}
 		$data_len = $len - 1;
 		//Padding
 		$code = str_pad($code, $data_len, '0', STR_PAD_LEFT);
 		$code_len = strlen($code);
-		// calculate check digit
+		
 		$sum_a = 0;
 		for ($i = 1; $i < $data_len; $i+=2) {
 			$sum_a += $code{$i};
@@ -627,35 +627,35 @@ class TCPDFBarcode {
 			$r = (10 - $r);
 		}
 		if ($code_len == $data_len) {
-			// add check digit
+			
 			$code .= $r;
 		} elseif ($r !== intval($code{$data_len})) {
-			// wrong checkdigit
+			
 			return false;
 		}
 		if ($len == 12) {
-			// UPC-A
+			
 			$code = '0'.$code;
 			++$len;
 		}
 		if ($upce) {
-			// convert UPC-A to UPC-E
+			
 			$tmp = substr($code, 4, 3);
 			if (($tmp == '000') OR ($tmp == '100') OR ($tmp == '200')) {
-				// manufacturer code ends in 000, 100, or 200
+				
 				$upce_code = substr($code, 2, 2).substr($code, 9, 3).substr($code, 4, 1);
 			} else {
 				$tmp = substr($code, 5, 2);
 				if ($tmp == '00') {
-					// manufacturer code ends in 00
+					
 					$upce_code = substr($code, 2, 3).substr($code, 10, 2).'3';
 				} else {
 					$tmp = substr($code, 6, 1);
 					if ($tmp == '0') {
-						// manufacturer code ends in 0
+						
 						$upce_code = substr($code, 2, 4).substr($code, 11, 1).'4';
 					} else {
-						// manufacturer code does not end in zero
+						
 						$upce_code = substr($code, 2, 5).substr($code, 11, 1);
 					}
 				}
@@ -663,7 +663,7 @@ class TCPDFBarcode {
 		}
 		//Convert digits to bars
 		$codes = array(
-			'A'=>array( // left odd parity
+			'A'=>array( 
 				'0'=>'0001101',
 				'1'=>'0011001',
 				'2'=>'0010011',
@@ -674,7 +674,7 @@ class TCPDFBarcode {
 				'7'=>'0111011',
 				'8'=>'0110111',
 				'9'=>'0001011'),
-			'B'=>array( // left even parity
+			'B'=>array( 
 				'0'=>'0100111',
 				'1'=>'0110011',
 				'2'=>'0011011',
@@ -685,7 +685,7 @@ class TCPDFBarcode {
 				'7'=>'0010001',
 				'8'=>'0001001',
 				'9'=>'0010111'),
-			'C'=>array( // right
+			'C'=>array( 
 				'0'=>'1110010',
 				'1'=>'1100110',
 				'2'=>'1101100',
@@ -735,14 +735,14 @@ class TCPDFBarcode {
 			'9'=>array('A','B','B','A','B','A')
 		);
 		$k = 0;
-		$seq = '101'; // left guard bar
+		$seq = '101'; 
 		if ($upce) {
 			$bararray = array('code' => $upce_code, 'maxw' => 0, 'maxh' => 1, 'bcode' => array());
 			$p = $upce_parities[$code[1]][$r];
 			for ($i = 0; $i < 6; ++$i) {
 				$seq .= $codes[$p[$i]][$upce_code{$i}];
 			}
-			$seq .= '010101'; // right guard bar
+			$seq .= '010101'; 
 		} else {
 			$bararray = array('code' => $code, 'maxw' => 0, 'maxh' => 1, 'bcode' => array());
 			$half_len = intval(ceil($len / 2));
@@ -756,11 +756,11 @@ class TCPDFBarcode {
 					$seq .= $codes[$p[$i-1]][$code{$i}];
 				}
 			}
-			$seq .= '01010'; // center guard bar
+			$seq .= '01010'; 
 			for ($i = $half_len; $i < $len; ++$i) {
 				$seq .= $codes['C'][$code{$i}];
 			}
-			$seq .= '101'; // right guard bar
+			$seq .= '101'; 
 		}
 		$clen = strlen($seq);
 		$w = 0;
@@ -768,9 +768,9 @@ class TCPDFBarcode {
 			$w += 1;
 			if (($i == ($clen - 1)) OR (($i < ($clen - 1)) AND ($seq{$i} != $seq{($i+1)}))) {
 				if ($seq{$i} == '1') {
-					$t = true; // bar
+					$t = true; 
 				} else {
-					$t = false; // space
+					$t = false; 
 				}
 				$bararray['bcode'][$k] = array('t' => $t, 'w' => $w, 'h' => 1, 'p' => 0);
 				$bararray['maxw'] += $w;
@@ -788,7 +788,7 @@ class TCPDFBarcode {
 	 * @access protected
 	 */
 	function barcode_postnet($code) {
-		// bar lenght
+		
 		$barlen = Array(
 			0 => Array(2,2,1,1,1),
 			1 => Array(1,1,1,2,2),
@@ -806,7 +806,7 @@ class TCPDFBarcode {
 		$code = str_replace("-", "", $code);
 		$code = str_replace(" ", "", $code);
 		$len = strlen($code);
-		// calculate checksum
+		
 		$sum = 0;
 		for($i=0; $i < $len; $i++) {
 			$sum += intval($code{$i});
@@ -816,7 +816,7 @@ class TCPDFBarcode {
 		}
 		$code .= "".(10 - ($sum % 10))."";
 		$len = strlen($code);
-		// start bar
+		
 		$bararray["bcode"][$k++] = array("t" => 1, "w" => 1, "h" => 2, "p" => 0);
 		$bararray["bcode"][$k++] = array("t" => 0, "w" => 1, "h" => 2, "p" => 0);
 		$bararray["maxw"] += 2;
@@ -829,7 +829,7 @@ class TCPDFBarcode {
 				$bararray["maxw"] += 2;
 			}
 		}
-		// end bar
+		
 		$bararray["bcode"][$k++] = array("t" => 1, "w" => 1, "h" => 2, "p" => 0);
 		$bararray["maxw"] += 1;
 		return $bararray;
@@ -878,9 +878,9 @@ class TCPDFBarcode {
 			$seq = $chr[$code{$i}];
 			for($j=0; $j < 8; $j++) {
 				if (($j % 2) == 0) {
-					$t = true; // bar
+					$t = true; 
 				} else {
-					$t = false; // space
+					$t = false; 
 				}
 				$w = $seq{$j};
 				$bararray["bcode"][$k] = array("t" => $t, "w" => $w, "h" => 1, "p" => 0);
@@ -891,8 +891,8 @@ class TCPDFBarcode {
 		return $bararray;
 	}
 	
-} // end of class
+} 
 
 //============================================================+
-// END OF FILE                                                 
+
 //============================================================+

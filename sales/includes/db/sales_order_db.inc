@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 //----------------------------------------------------------------------------------------
 function add_sales_order(&$order)
@@ -18,7 +11,7 @@ function add_sales_order(&$order)
 	hook_db_prewrite($order, $order->trans_type);
 	$order_no = get_next_trans_no($order->trans_type);
 	$del_date = date2sql($order->due_date);
-	$order_type = 0; // this is default on new order
+	$order_type = 0; 
 	$total = $order->get_trans_total();
 	$sql = "INSERT INTO ".TB_PREF."sales_orders (order_no, type, debtor_no, trans_type, branch_code, customer_ref, reference, comments, ord_date,
 		order_type, ship_via, deliver_to, delivery_address, contact_phone,
@@ -66,9 +59,9 @@ function add_sales_order(&$order)
 				$line->discount_percent)";
 		db_query($sql, "order Details Cannot be Added");
 
-	// Now mark quotation line as processed
+	
 		if ($order->trans_type == ST_SALESORDER && $line->src_id)
-			update_parent_line(ST_SALESORDER, $line->src_id, $line->qty_dispatched); // clear all the quote despite all or the part was ordered
+			update_parent_line(ST_SALESORDER, $line->src_id, $line->qty_dispatched); 
 	} /* inserted line items into sales order details */
 
 	add_audit_trail($order->trans_type, $order_no, $order->document_date);
@@ -103,7 +96,7 @@ function delete_sales_order($order_no, $trans_type)
 }
 
 //----------------------------------------------------------------------------------------
-// Mark changes in sales_order_details
+
 //
 function update_sales_order_version($order)
 {
@@ -312,7 +305,7 @@ function read_sales_order($order_no, &$order, $trans_type)
 	  $myrow["tax_group_name"], $myrow["contact_phone"]);
 
 	$order->set_sales_type($myrow["sales_type_id"], $myrow["sales_type"], 
-	    $myrow["tax_included"], $myrow["factor"]); // no default price calculations on edit
+	    $myrow["tax_included"], $myrow["factor"]); 
 
 	$order->set_location($myrow["from_stk_loc"], $myrow["location_name"]);
 
@@ -328,7 +321,7 @@ function read_sales_order($order_no, &$order, $trans_type)
 
 	$order->prepaid = $myrow["prepaid"];
 	$order->alloc = $myrow['alloc'];
-	$order->sum_paid = $myrow["sum_paid"]; // sum of all prepayments to so (also invoiced)
+	$order->sum_paid = $myrow["sum_paid"]; 
 	$order->prep_amount = $myrow["prep_amount"];
 	$order->prepayments = get_payments_for($order_no, $myrow['trans_type'], $myrow['debtor_no']);
 
@@ -361,7 +354,7 @@ function sales_order_has_deliveries($order_no)
 	$row = db_fetch_row($result);
 
 	if ($row[0] > 0)
-		return true;  // 2010-04-21 added check for eventually voided deliveries, Joe Hunt
+		return true;  
 	$sql = "SELECT order_ FROM ".TB_PREF."debtor_trans WHERE type=".ST_CUSTDELIVERY." AND order_=".db_escape($order_no);
 	$result = db_query($sql,"The related delivery notes could not be retreived");
 	return (db_num_rows($result) > 0);	
@@ -371,7 +364,7 @@ function sales_order_has_deliveries($order_no)
 
 function close_sales_order($order_no)
 {
-	// set the quantity of each item to the already sent quantity. this will mark item as closed.
+	
 	$sql = "UPDATE ".TB_PREF."sales_order_details
 		SET quantity = qty_sent WHERE order_no = ".db_escape($order_no)
 		." AND trans_type=".ST_SALESORDER;
@@ -404,7 +397,7 @@ function get_invoice_duedate($terms, $invdate)
 
 function get_customer_to_order($customer_id) {
 
-	// Now check to ensure this account is not on hold */
+	
 	$sql = "SELECT cust.name, 
 		  cust.address,
 		  credit_status.dissallow_invoices, 
@@ -435,7 +428,7 @@ function get_customer_to_order($customer_id) {
 
 function get_branch_to_order($customer_id, $branch_id) {
 
-    	// the branch was also selected from the customer selection so default the delivery details from the customer branches table cust_branch. The order process will ask for branch details later anyway
+    	
 	 	$sql = "SELECT branch.br_name,
 					branch.br_address,
 					branch.br_post_address,
@@ -505,18 +498,18 @@ function get_sql_for_sales_orders_view($trans_type, $trans_no, $filter,
 
 	if (isset($trans_no) && $trans_no != "")
 	{
-		// search orders with number like 
+		
 		$number_like = "%".$trans_no;
 		$sql .= " AND sorder.order_no LIKE ".db_escape($number_like);
 //				." GROUP BY sorder.order_no";
 	}
 	elseif ($ref != "")
 	{
-		// search orders with reference like 
+		
 		$sql .= " AND sorder.reference LIKE ".db_escape('%' . $ref . '%');
 //				." GROUP BY sorder.order_no";
 	}
-	else	// ... or select inquiry constraints
+	else	
 	{
 		if ($filter!='DeliveryTemplates' && $filter!='InvoiceTemplates' && $filter!='OutstandingOnly')
 		{
@@ -528,7 +521,7 @@ function get_sql_for_sales_orders_view($trans_type, $trans_no, $filter,
 		}
 	}
 		if ($trans_type == ST_SALESQUOTE && !check_value('show_all'))
-			$sql .= " AND sorder.delivery_date >= '".date2sql(Today())."' AND line.qty_sent=0"; // show only outstanding, not realized quotes
+			$sql .= " AND sorder.delivery_date >= '".date2sql(Today())."' AND line.qty_sent=0"; 
 
 		//if ($selected_customer != -1)
 		//	$sql .= " AND sorder.debtor_no=".db_escape($selected_customer);
@@ -597,7 +590,7 @@ function is_sales_order_started($order_no)
 
 //---------------------------------------------------------------------------------------------
 //
-// Mark/unmark sales order as template.
+
 //
 function sales_order_set_template($id, $status)
 {

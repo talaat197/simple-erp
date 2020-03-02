@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 /* Definition of the purch_order class to hold all the information for a purchase order and delivery
 */
@@ -15,7 +8,7 @@
 class purch_order 
 {
 
-	var $trans_type; // order/grn/invoice (direct)
+	var $trans_type; 
 	var $line_items;
 	var $curr_code;
 	var $supp_ref;
@@ -30,8 +23,8 @@ class purch_order
 	var $lines_on_order = 0;
 	var $credit;
 	var $tax_group_id;
-	var $tax_group_array = null; // saves db queries
-	var $tax_included; // type of prices
+	var $tax_group_array = null; 
+	var $tax_included; 
 	var $terms;
 	var $ex_rate;
 	var $cash_account;
@@ -39,10 +32,10 @@ class purch_order
 		$dimension2;
 
 	var $reference;
-	var $tax_overrides = array();		// array of taxes manually inserted during sales invoice entry (direct invoice)
+	var $tax_overrides = array();		
 	
-	var $prep_amount = 0; // prepayment required
-	var $alloc; // sum of payments allocated
+	var $prep_amount = 0; 
+	var $alloc; 
 	var $prepayments = array();
 
 	var $fixed_asset = false;
@@ -154,13 +147,13 @@ class purch_order
 		$taxes = get_tax_for_items($items, $prices, $shipping_cost,
 		  $this->tax_group_id, $this->tax_included,  $this->tax_group_array);
 
-    	// Adjustment for swiss franken, we always have 5 rappen = 1/20 franken
+    	
 	    if ($this->curr_code == 'CHF') {
 			$val = $taxes['1']['Value'];
 			$val1 = (floatval((intval(round(($val*20),0)))/20));
 			$taxes['1']['Value'] = $val1;
 		}
-		foreach($this->tax_overrides as $id => $value) // add values entered manually
+		foreach($this->tax_overrides as $id => $value) 
 		{
 			$taxes[$id]['Override'] = $value;
 		}
@@ -208,10 +201,10 @@ class po_line_details
 	var $tax_type;
 	var $tax_type_name;
 
-	var $quantity;		// current/entry quantity of PO line
-	var $qty_inv;	// quantity already invoiced against this line
-	var $receive_qty;	// current/entry GRN quantity
-	var $qty_received;	// quantity already received against this line
+	var $quantity;		
+	var $qty_inv;	
+	var $receive_qty;	
+	var $qty_received;	
 
 	var $standard_cost;
 	var $descr_editable;
@@ -246,7 +239,7 @@ class po_line_details
 		$this->grn_item_id = $grn_item_id;
 	}
 	
-	// Deprecated, use with care. If you need line value as it is calculated in invoice, use taxfree_charge_value below.
+	
  	function taxfree_charge_price($po)
 	{
 		return get_tax_free_price_for_item($this->stock_id, $this->price, 
@@ -254,7 +247,7 @@ class po_line_details
 	}
 
 	//
-	// GRN line tax free value.
+	
 	//
 	function taxfree_charge_value($po)
 	{

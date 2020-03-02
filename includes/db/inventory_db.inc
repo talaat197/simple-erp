@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 function get_qoh_on_date($stock_id, $location=null, $date_=null)
 {
@@ -46,14 +39,14 @@ function check_negative_stock($stock_id, $delta_qty, $location=null, $date=null)
 {
 
 	if ($delta_qty >= 0)
-		 return null;	// qty increese is always safe
+		 return null;	
 
 	if (!isset($date))
 		$date = Today();
 
 	$date = date2sql($date);
 
-	// check stock status on date
+	
     $sql = "SELECT SUM(qty) qty, '$date' tran_date FROM ".TB_PREF."stock_moves
             WHERE stock_id=".db_escape($stock_id)."
             AND tran_date <= '$date'"; 
@@ -64,7 +57,7 @@ function check_negative_stock($stock_id, $delta_qty, $location=null, $date=null)
     $result = db_query($sql, "QOH calculation failed");
     $qos = db_fetch_assoc($result);
 
-	// check also all stock changes after the date to avoid negative stock in future
+	
 	$sql = TB_PREF."stock_moves WHERE stock_id=".db_escape($stock_id) . " AND tran_date > '$date'";
 
 	if ($location)
@@ -222,7 +215,7 @@ function get_deliveries_between($stock_id, $from, $to)
 */
 function get_deliveries_from_trans($stock_id, $move_id)
 {
-	// -ve qty is delivery either by ST_CUSTDELIVERY or inventory adjustment
+	
     //Price for GRN and SUPPCREDIT and std_cost for other trans_types
     $sql = "SELECT SUM(-qty), SUM(-qty*IF(type=".ST_SUPPRECEIVE." OR type=".ST_SUPPCREDIT.", price, standard_cost))
         FROM ".TB_PREF."stock_moves
@@ -238,7 +231,7 @@ function get_deliveries_from_trans($stock_id, $move_id)
     $result = db_query($sql, "The deliveries could not be updated");
     $cost = db_fetch_row($result);
 
-	// Adjusting QOH valuation 
+	
 	$sql = "SELECT SUM(qty)
 		FROM ".TB_PREF."stock_moves
 		WHERE stock_id=".db_escape($stock_id)." AND
@@ -257,7 +250,7 @@ function get_deliveries_from_trans($stock_id, $move_id)
 */
 function get_purchases_from_trans($stock_id, $move_id)
 {
-	// Calculate All inward stock moves i.e. qty > 0
+	
 	$sql = "SELECT SUM(qty), SUM(qty*standard_cost)
 		FROM ".TB_PREF."stock_moves
 		WHERE stock_id=".db_escape($stock_id)." AND qty > 0 AND 
@@ -400,9 +393,9 @@ function handle_negative_inventory($stock_id, $quantity, $standard_cost, $date_)
 
 //--------------------------------------------------------------------------------------
 
-// $date_ - display / non-sql date
-// $std_cost - in HOME currency
-// $price - in transaction currency
+
+
+
 
 function add_stock_move($type, $stock_id, $trans_no, $location,
     $date_, $reference, $quantity, $std_cost, $price=0)
@@ -464,8 +457,8 @@ function void_stock_move($type, $type_no)
 		//Skip cost averaging of service items
 		if (is_inventory_item($row["stock_id"]))
 		{
-			// The cost has to be adjusted.
-			// Transaction rates are stored either as price or standard_cost depending on types
+			
+			
 			$types = array(ST_SUPPCREDIT, ST_SUPPRECEIVE);
 			if (in_array($type, $types))
 				$unit_cost = $row["price"];

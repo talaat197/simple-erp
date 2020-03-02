@@ -1,21 +1,14 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 $page_security = 'SA_GLANALYTIC';
-// ----------------------------------------------------------------
-// $ Revision:	2.0 $
-// Creator:	Joe Hunt, Chaitanya for the recursive version 2009-02-05.
-// date_:	2005-05-19
-// Title:	Balance Sheet
-// ----------------------------------------------------------------
+
+
+
+
+
+
 $path_to_root="..";
 
 include_once($path_to_root . "/includes/session.inc");
@@ -281,7 +274,7 @@ function print_balance_sheet()
 		$calc_open *= -1;
 		$calc_period *= -1;
 	}	
-	$rep->AmountCol(2, 3, $calc_open, $dec); // never convert
+	$rep->AmountCol(2, 3, $calc_open, $dec); 
 	$rep->AmountCol(3, 4, $calc_period, $dec);
 	$rep->AmountCol(4, 5, $calc_open + $calc_period, $dec);
 	$rep->NewLine(2);

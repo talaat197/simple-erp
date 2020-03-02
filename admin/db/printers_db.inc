@@ -1,13 +1,6 @@
 <?php
 /**********************************************************************
-    Copyright (C) AgroPhos, LLC.
-	Released under the terms of the GNU General Public License, GPL, 
-	as published by the Free Software Foundation, either version 3 
-	of the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-    See the License here <http://www.gnu.org/licenses/gpl-3.0.html>.
+    
 ***********************************************************************/
 
 function write_printer_def($id, $name, $descr, $queue, $host, $port, $timeout)
@@ -47,7 +40,7 @@ function delete_printer($id)
 	db_query($sql,"could not delete printer definition");
 }
 //============================================================================
-// printer profiles functions
+
 //
 function update_printer_profile($name, $dest)
 {
@@ -98,7 +91,7 @@ function delete_printer_profile($name)
 	return db_query($sql,"could not delete printing profile");
 }
 //
-// Get all report destinations for given profile.
+
 //
 function get_print_profile($name)
 {
