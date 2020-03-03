@@ -93,6 +93,7 @@
 				$account = $this->wa_get_apps($title, $applications, $sel_app);
 				foreach($applications as $app)
 				{
+					if($app->id == "assets" || $app->id == "GL") continue;
                     if ($_SESSION["wa_current_user"]->check_application_access($app) || $app->id == "FrontHrm")
                     {
 						if ($account[3]  == $app->id)
@@ -114,15 +115,26 @@
 						echo "    <ul>\n";
 						foreach ($app->modules as $module)
 						{
-	    					if (!$_SESSION["wa_current_user"]->check_module_access($module) && !$app->id == "FrontHrm")
+	    					if ((!$_SESSION["wa_current_user"]->check_module_access($module) && !$app->id == "FrontHrm") || $app->id == "assets")
         						continue;
 							$apps2 = array();
+
  							foreach ($module->lappfunctions as $appfunction)
 								$apps2[] = $appfunction;
 							foreach ($module->rappfunctions as $appfunction)
 								$apps2[] = $appfunction;
 							$application = array();	
-       						$n = count($apps2);	
+							   $n = count($apps2);	
+							
+							if(($module->name == "Inquiries and Reports" && $app->id === "FrontHrm") 
+								|| ($module->name == "Transactions" && $app->id === "stock") 
+								|| ($module->name == "Inquiries and Reports" && $app->id === "stock")
+								
+							)
+							{
+								continue;
+							}
+							   
        						if ($n)
 								echo "      <li class = 'has-sub'><a href='#'>$module->name</a>\n"; 
 							else	
