@@ -43,21 +43,6 @@
 
 //============================================================+
 
-/**
- * This is a PHP4 function that redefine the standard 
- * html_entity_decode function to support UTF-8 encoding.
- * @package com.tecnick.tcpdf
- * @author Nicola Asuni
- * @copyright 2004-2008 Nicola Asuni - Tecnick.com S.r.l (www.tecnick.com) Via Della Pace, 11 - 09044 - Quartucciu (CA) - ITALY - www.tecnick.com - info@tecnick.com
- * @link http://www.tcpdf.org
- * @license http://www.gnu.org/copyleft/lesser.html LGPL
- */
-
-/**
- * Returns the UTF-8 string corresponding to unicode value.
- * @param $num unicode value to convert.
- * @return string converted
- */
 function code_to_utf8($num) {
 	if ($num <= 0x7F) {
 		return chr($num);

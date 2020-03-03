@@ -3,9 +3,7 @@
     
 ***********************************************************************/
 /**********************************************
-Author: Joe Hunt
-Name: Revenue / Cost Accruals v2.2
-Free software under GNU GPL
+
 ***********************************************/
 $page_security = 'SA_ACCRUALS';
 $path_to_root="..";
