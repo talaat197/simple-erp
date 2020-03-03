@@ -95,6 +95,8 @@ class db_pager {
 					}
 
 					$parts = preg_split('/\sWHERE(?!.*WHERE.*)\s/si', $sql, 2); 
+					// display_error(json_encode($parts)); die;
+
 					if(count($parts) == 2) {
 						$this->from = $parts[0];
 						$sql = $parts[1];
@@ -110,6 +112,10 @@ class db_pager {
 							$this->group = $parts[1];
 						}
 						$this->where = $sql;
+					}
+					else if(count($parts) == 1)
+					{
+						$this->from = $parts[0];
 					}
 			}
 		}

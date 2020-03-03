@@ -17,9 +17,22 @@ function db_has_employee() {
 
 function write_employee($id=false, $first_name, $last_name, $gender, $adrs, $mobile, $mail, $birth, $notes, $hire_date, $department, $salary, $release, $active)
 {
+	$inserting_columns = "(`emp_first_name`, `emp_last_name`, `gender`, `emp_address`, `emp_mobile`, `emp_email`, `emp_birthdate`, `emp_notes`, `department_id`, `salary_scale_id`)";
+
+	$active = $active ?? 0;
+	if(!$active)
+	{
+		$active = 0;
+	}
+	$hire_date = date2sql($hire_date);
+	
 	if(!$id) {
-		$sql = "INSERT INTO ".TB_PREF."employee VALUES ("
-		.db_escape($id).", "
+		if($hire_date)
+	{
+		$inserting_columns = "(`emp_first_name`, `emp_last_name`, `gender`, `emp_address`, `emp_mobile`, `emp_email`, `emp_birthdate`, `emp_notes`, `emp_hiredate`, `department_id`, `salary_scale_id`)";
+		$hire_date = ",'".($hire_date)."'";
+	}
+		$sql = "INSERT INTO ".TB_PREF."employee $inserting_columns VALUES ("
 		.db_escape($first_name).", "
 		.db_escape($last_name).", "
 		.db_escape($gender).", "
@@ -27,15 +40,24 @@ function write_employee($id=false, $first_name, $last_name, $gender, $adrs, $mob
 		.db_escape($mobile).", "
 		.db_escape($mail).", '"
 		.date2sql($birth)."', "
-		.db_escape($notes).", '"
-		.date2sql($hire_date)."', "
+		.db_escape($notes)."
+		 $hire_date , "
 		.db_escape($department).", "
-		.db_escape($salary).", '"
-		.date2sql($release)."', "
-		.db_escape($active)
+		.db_escape($salary)
 		.")";
 	}
 	else {
+		if($hire_date)
+		{
+			$hire_date = "emp_hiredate = '".($hire_date)."',";
+		}
+		$release = date2sql($release);
+		if($release)
+		{
+			$release = "emp_releasedate = '".($release)."',";
+		}
+		// display_error($active . " -- "); die;
+
 		$sql = "UPDATE ".TB_PREF."employee SET 
 		emp_first_name = ".db_escape($first_name).", 
 		emp_last_name = ".db_escape($last_name).", 
@@ -45,10 +67,10 @@ function write_employee($id=false, $first_name, $last_name, $gender, $adrs, $mob
 		emp_email = ".db_escape($mail).", 
 		emp_birthdate = '".date2sql($birth)."', 
 		emp_notes = ".db_escape($notes).", 
-		emp_hiredate = '".date2sql($hire_date)."', 
+		$hire_date 
 		department_id = ".db_escape($department).", 
 		salary_scale_id = ".db_escape($salary).", 
-		emp_releasedate = '".date2sql($release)."', 
+		$release 
 		inactive = ".db_escape($active)." 
 		WHERE emp_id = ".db_escape($id);
 	}
@@ -70,7 +92,6 @@ function get_employees_sql($all = false, $department = false) {
 
 	if(count($where))
 		$sql .= ' WHERE '.implode(' AND ', $where);
-
 	return $sql;
 }
 
