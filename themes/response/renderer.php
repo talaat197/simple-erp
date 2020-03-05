@@ -129,6 +129,8 @@
 							if(($module->name == "Inquiries and Reports" && $app->id === "FrontHrm") 
 								|| ($module->name == "Transactions" && $app->id === "stock") 
 								|| ($module->name == "Inquiries and Reports" && $app->id === "stock")
+								|| ($module->name == "Inquiries and Reports" && $app->id === "orders")
+								|| ($module->name == "Inquiries and Reports" && $app->id === "AP")
 								
 							)
 							{
@@ -148,6 +150,22 @@
 							}	
 							foreach ($apps2 as $application)	
 							{
+								if($application->access == "SA_SALESQUOTE" 
+								|| $application->access == "SA_SALESORDER"
+								|| $application->access == "SA_SALESDELIVERY"
+								|| $application->access == "SA_SALESPAYMNT"
+								|| $application->access == "SA_SALESCREDIT"
+								|| $application->access == "SA_SALESALLOC"
+								|| $application->label  == "Invoice &Prepaid Orders"
+								|| $application->label  == "&Template Delivery"
+								|| $application->label  == "&Template Invoice"
+								|| $application->label  == "&Create and Print Recurrent Invoices"
+								|| ($app->id == "AP" && $application->label == "Direct Supplier &Invoice")
+								)
+								{
+									continue;
+								}
+								
 								$lnk = access_string($application->label);
 								if ($_SESSION["wa_current_user"]->can_access_page($application->access) || $app->id =="FrontHrm")
 								{

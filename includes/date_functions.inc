@@ -533,9 +533,6 @@ function div($a, $b)
 {
     return (int) ($a / $b);
 }
-/* Based on convertor to and from Gregorian and Jalali calendars.
-   Copyright (C) 2000  Roozbeh Pournader and Mohammad Toossi 
-   Released under GNU General Public License */
 
 function gregorian_to_jalali ($g_y, $g_m, $g_d)
 {
@@ -629,8 +626,7 @@ function jalali_to_gregorian($j_y, $j_m, $j_d)
 
    	return array($gy, $gm, $gd);
 }
-/* Based on Hidri Date Script 
-   Released under GNU General Public License */
+
 function gregorian_to_islamic($g_y, $g_m, $g_d)
 {
 	$y = $g_y;   

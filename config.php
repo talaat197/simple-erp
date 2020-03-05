@@ -12,7 +12,7 @@ if (!isset($path_to_root) || isset($_GET['path_to_root']) || isset($_POST['path_
 	
 	//$error_logfile = '';
 	$error_logfile = VARLOG_PATH.'/errors.log';
-	$debug 			= 0;	
+	$debug 			= 1;	
 
 	$show_sql 		= 0;	
 	$go_debug 		= 0;	
